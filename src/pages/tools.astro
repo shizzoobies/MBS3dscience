@@ -1,0 +1,166 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Patient Tools"
+  description="MBS Medical patient tools and resources. Book appointments, access your patient portal, and learn about our telehealth services."
+>
+
+  <!-- Hero -->
+  <section class="section bg-peach" style="padding-top: 7rem;">
+    <div class="container">
+      <span class="hero-eyebrow">patient resources</span>
+      <h1 class="hero-title">tools and resources</h1>
+      <p class="hero-sub">Everything you need to book, connect, and manage your care. All in one place.</p>
+    </div>
+  </section>
+
+
+  <!-- Tools grid -->
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="tools-grid">
+
+        <div class="reveal tool-card tool-card--featured">
+          <span class="accent-chip chip-terracotta">primary</span>
+          <h2>book an appointment</h2>
+          <p>Same-week availability. Evening slots included. Secure online booking takes less than two minutes.</p>
+          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 1.5rem;">
+            open booking portal
+          </a>
+        </div>
+
+        <div class="reveal reveal-delay-1 tool-card">
+          <span class="accent-chip chip-sage">portal</span>
+          <h2>patient portal</h2>
+          <p>Access your visit records, lab results, and care plan. Message your provider securely.</p>
+          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="margin-top: 1.5rem;">
+            log in to portal
+          </a>
+        </div>
+
+        <div class="reveal reveal-delay-2 tool-card">
+          <span class="accent-chip chip-sky">telehealth</span>
+          <h2>join a video visit</h2>
+          <p>Ready for your appointment? Join your secure telehealth session. You'll need the link from your confirmation email.</p>
+          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="margin-top: 1.5rem;">
+            join visit
+          </a>
+        </div>
+
+        <div class="reveal tool-card">
+          <span class="accent-chip chip-coral">contact</span>
+          <h2>message us</h2>
+          <p>Non-urgent questions, refill requests, or general inquiries. We respond within one business day.</p>
+          <a href="/contact/" class="btn btn-secondary" style="margin-top: 1.5rem;">
+            send a message
+          </a>
+        </div>
+
+        <div class="reveal reveal-delay-1 tool-card">
+          <span class="accent-chip chip-butter">learn</span>
+          <h2>our services</h2>
+          <p>Browse all 11 specialties we offer. Not sure what you need? Read through and see what fits, or just ask us.</p>
+          <a href="/services/" class="btn btn-secondary" style="margin-top: 1.5rem;">
+            browse services
+          </a>
+        </div>
+
+        <div class="reveal reveal-delay-2 tool-card">
+          <span class="accent-chip chip-terracotta">team</span>
+          <h2>meet your providers</h2>
+          <p>Learn about the team behind your care: backgrounds, specialties, and the values that drive how we practice.</p>
+          <a href="/about/" class="btn btn-secondary" style="margin-top: 1.5rem;">
+            meet the team
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Quick info -->
+  <section class="section bg-sand">
+    <div class="container">
+      <div class="reveal quick-info-grid">
+        <div class="quick-info-item">
+          <h3>hours</h3>
+          <p>Monday through Friday, 9am to 6pm. Evening appointments available. We will do our best to accommodate outside standard hours when possible.</p>
+        </div>
+        <div class="quick-info-item">
+          <h3>payment</h3>
+          <p>We are a cash-pay practice. No insurance accepted. We accept credit cards, debit cards, HSA, and FSA. A superbill can be provided for potential reimbursement.</p>
+        </div>
+        <div class="quick-info-item">
+          <h3>prescriptions</h3>
+          <p>Prescriptions are sent electronically to your preferred pharmacy. Most can be fulfilled within 24 hours of your visit.</p>
+        </div>
+        <div class="quick-info-item">
+          <h3>labs</h3>
+          <p>We order labs through major national labs. Most patients can complete their draw at a location within a few miles. Results are reviewed with you at your follow-up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+
+<style>
+  .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .tools-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .tool-card {
+    background-color: var(--surface-shell);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+  }
+  .tool-card h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: 0.75rem;
+    margin-top: 0.25rem;
+  }
+  .tool-card p {
+    font-size: var(--text-sm);
+    color: var(--ink-secondary);
+    flex: 1;
+  }
+  .tool-card--featured {
+    background-color: var(--surface-peach);
+    border-color: rgba(232,116,97,0.2);
+  }
+
+  .quick-info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media (min-width: 640px) {
+    .quick-info-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .quick-info-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .quick-info-item h3 {
+    font-size: var(--text-lg);
+    margin-bottom: 0.75rem;
+  }
+  .quick-info-item p {
+    font-size: var(--text-sm);
+    color: var(--ink-secondary);
+  }
+</style>

@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBS Doc: Pre-Launch Page Review</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2e44;
+    --teal: #2a7d8c;
+    --teal-light: #3a9aad;
+    --green: #2e7d52;
+    --green-bg: #edf7f1;
+    --green-border: #a8d9bc;
+    --orange: #c2410c;
+    --orange-light: #f97316;
+    --orange-bg: #fff7ed;
+    --orange-border: #fed7aa;
+    --gray-50:  #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --white: #ffffff;
+    --radius: 6px;
+    --header-h: 52px;
+    --sidebar-w: 230px;
+    --panel-w: 300px;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 13px;
+    color: var(--gray-700);
+    background: var(--gray-100);
+  }
+
+  /* ── Header ── */
+  .header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--header-h);
+    background: var(--navy);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .header-title { font-size: 14px; font-weight: 600; }
+  .header-sub { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 1px; }
+
+  .header-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 16px;
+    flex: 1;
+    max-width: 280px;
+  }
+  .header-progress-bar {
+    flex: 1;
+    height: 5px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .header-progress-fill {
+    height: 100%;
+    background: #4ade80;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .header-progress-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    white-space: nowrap;
+  }
+
+  .header-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+
+  .conn-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.6);
+  }
+  .conn-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gray-400); }
+  .conn-badge.online .conn-dot { background: #4ade80; }
+  .conn-badge.online { color: rgba(255,255,255,0.8); }
+  .conn-badge.offline .conn-dot { background: #f87171; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .btn-ghost {
+    background: rgba(255,255,255,0.08);
+    color: var(--white);
+    border-color: rgba(255,255,255,0.18);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.16); }
+  .btn-teal { background: var(--teal); color: var(--white); }
+  .btn-teal:hover { background: var(--teal-light); }
+  .btn-sm { padding: 4px 10px; font-size: 11px; }
+
+  /* ── Layout body ── */
+  .layout {
+    position: fixed;
+    top: var(--header-h);
+    left: 0; right: 0; bottom: 0;
+    display: flex;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    background: var(--white);
+    border-right: 1px solid var(--gray-200);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .sidebar-inner {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+  .sidebar-inner::-webkit-scrollbar { width: 4px; }
+  .sidebar-inner::-webkit-scrollbar-track { background: transparent; }
+  .sidebar-inner::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 2px; }
+
+  .group-label {
+    padding: 10px 12px 4px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--gray-400);
+  }
+  .group-label:first-child { padding-top: 6px; }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background 0.1s, border-color 0.1s;
+    user-select: none;
+  }
+  .sidebar-item:hover { background: var(--gray-50); }
+  .sidebar-item.active {
+    background: #eff8ff;
+    border-left-color: var(--teal);
+  }
+  .sidebar-item.approved-item { opacity: 0.7; }
+  .sidebar-item.approved-item .item-name { color: var(--green); }
+  .item-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gray-300);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .sidebar-item.ready-item { opacity: 1; background: #fffbf5; border-left-color: var(--orange-light) !important; }
+  .sidebar-item.ready-item .item-name { color: var(--orange); font-weight: 600; }
+  .sidebar-item.ready-item .item-dot {
+    background: var(--orange-light);
+    border-color: var(--orange-light);
+    box-shadow: 0 0 0 3px rgba(249,115,22,0.15);
+  }
+  .sidebar-item.approved-item .item-dot {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .item-name { font-size: 12px; color: var(--gray-700); line-height: 1.2; }
+
+  /* ── Center iframe pane ── */
+  .iframe-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--gray-100);
+    overflow: hidden;
+  }
+  .iframe-toolbar {
+    height: 38px;
+    flex-shrink: 0;
+    background: var(--gray-200);
+    border-bottom: 1px solid var(--gray-300);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 8px;
+  }
+  .iframe-url-bar {
+    flex: 1;
+    height: 26px;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    padding: 0 10px;
+    font-size: 11px;
+    color: var(--gray-700);
+    background: var(--white);
+    font-family: inherit;
+    outline: none;
+  }
+  .iframe-url-bar:focus { border-color: var(--teal); }
+
+  .iframe-wrap {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+  .iframe-blocked {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: var(--gray-100);
+    text-align: center;
+    padding: 24px;
+  }
+  .iframe-blocked.visible { display: flex; }
+  .iframe-blocked-icon { font-size: 36px; opacity: 0.4; }
+  .iframe-blocked h3 { font-size: 14px; color: var(--gray-700); }
+  .iframe-blocked p { font-size: 12px; color: var(--gray-500); max-width: 320px; line-height: 1.6; }
+
+  .placeholder-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--gray-400);
+  }
+  .placeholder-pane svg { opacity: 0.3; }
+  .placeholder-pane p { font-size: 13px; }
+
+  /* ── Right panel ── */
+  .right-panel {
+    width: var(--panel-w);
+    flex-shrink: 0;
+    background: var(--white);
+    border-left: 1px solid var(--gray-200);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .panel-inner {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .panel-inner::-webkit-scrollbar { width: 4px; }
+  .panel-inner::-webkit-scrollbar-track { background: transparent; }
+  .panel-inner::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 2px; }
+
+  .panel-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--gray-400);
+    padding: 24px;
+    text-align: center;
+  }
+
+  .panel-page-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-900);
+    line-height: 1.2;
+  }
+  .panel-page-url {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--teal);
+    font-size: 11px;
+    text-decoration: none;
+    word-break: break-all;
+    margin-top: 3px;
+  }
+  .panel-page-url:hover { text-decoration: underline; }
+
+  .panel-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--gray-400);
+    margin-bottom: 6px;
+  }
+
+  /* Reference URL */
+  .ref-url-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .ref-url-input {
+    flex: 1;
+    height: 30px;
+    border: 1px solid var(--gray-200);
+    border-radius: 4px;
+    padding: 0 8px;
+    font-size: 11px;
+    font-family: inherit;
+    color: var(--gray-700);
+    background: var(--gray-100);
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .ref-url-input:focus { border-color: var(--teal); background: var(--white); }
+  .ref-url-input::placeholder { color: var(--gray-300); }
+  .open-ref-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    cursor: pointer;
+    color: var(--gray-500);
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .open-ref-btn:hover { background: var(--teal); color: var(--white); border-color: var(--teal); }
+  .open-ref-btn:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
+
+  /* Notes */
+  .notes-textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    border: 1px solid var(--gray-200);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--gray-700);
+    background: var(--gray-100);
+    line-height: 1.6;
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .notes-textarea:focus { border-color: var(--teal); background: var(--white); }
+  .notes-textarea::placeholder { color: var(--gray-300); }
+
+  /* Approve */
+  .approve-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .approve-row.is-approved {
+    background: var(--green-bg);
+    border-color: var(--green-border);
+  }
+  .approve-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--green);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .approve-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    line-height: 1.2;
+  }
+  .approve-row.is-approved .approve-text { color: var(--green); }
+  .approve-sub {
+    font-size: 10px;
+    color: var(--gray-400);
+    margin-top: 1px;
+    font-weight: 400;
+  }
+
+  /* Ready for changes */
+  .ready-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .ready-row.is-ready {
+    background: var(--orange-bg);
+    border-color: var(--orange-border);
+  }
+  .ready-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--orange-light);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .ready-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    line-height: 1.2;
+  }
+  .ready-row.is-ready .ready-text { color: var(--orange); }
+  .ready-sub {
+    font-size: 10px;
+    color: var(--gray-400);
+    margin-top: 1px;
+    font-weight: 400;
+  }
+
+  .save-indicator {
+    font-size: 10px;
+    color: var(--green);
+    text-align: right;
+    opacity: 0;
+    transition: opacity 0.3s;
+    height: 14px;
+    margin-top: -10px;
+  }
+  .save-indicator.visible { opacity: 1; }
+
+  /* Nav buttons */
+  .panel-nav {
+    display: flex;
+    gap: 6px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    flex-shrink: 0;
+  }
+  .nav-btn {
+    flex: 1;
+    padding: 7px 0;
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .nav-btn:hover { background: var(--gray-100); border-color: var(--gray-300); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  .nav-btn.next-btn { background: var(--teal); color: var(--white); border-color: var(--teal); }
+  .nav-btn.next-btn:hover { background: var(--teal-light); }
+
+  /* Loading overlay */
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--gray-100);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    z-index: 200;
+    transition: opacity 0.3s;
+  }
+  .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 3px solid var(--gray-200);
+    border-top-color: var(--teal);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── General ref slots ── */
+  .general-ref-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+  }
+  .general-ref-slot-top { display: flex; gap: 6px; align-items: center; }
+  .general-ref-label-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--gray-200);
+    background: transparent;
+    font-size: 11px;
+    color: var(--gray-500);
+    padding: 2px 0;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  .general-ref-label-input:focus { border-bottom-color: var(--teal); color: var(--gray-700); }
+  .general-ref-label-input::placeholder { color: var(--gray-300); }
+
+  /* ── General sidebar button ── */
+  .sidebar-general {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-top: 1px solid var(--gray-200);
+    border-left: 3px solid transparent;
+    background: var(--gray-50);
+    transition: background 0.1s, border-color 0.1s;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .sidebar-general:hover { background: var(--gray-100); }
+  .sidebar-general.active {
+    background: #eff8ff;
+    border-left-color: var(--teal);
+  }
+  .general-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gray-300);
+    flex-shrink: 0;
+  }
+
+  /* ── General panel ── */
+  .general-panel-inner {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .general-panel-inner::-webkit-scrollbar { width: 4px; }
+  .general-panel-inner::-webkit-scrollbar-track { background: transparent; }
+  .general-panel-inner::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 2px; }
+
+  /* ── Reference URL slots ── */
+  .ref-slots { display: flex; flex-direction: column; gap: 6px; }
+  .ref-slot-row { display: flex; gap: 6px; align-items: center; }
+  .ref-slot-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--gray-400);
+    width: 14px;
+    flex-shrink: 0;
+    text-align: center;
+  }
+
+  /* ── Drop zone ── */
+  .drop-zone {
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius);
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    background: var(--gray-50);
+  }
+  .drop-zone:hover, .drop-zone.drag-over {
+    border-color: var(--teal);
+    background: #f0f9fb;
+  }
+  .drop-zone-icon { font-size: 22px; opacity: 0.45; margin-bottom: 4px; }
+  .drop-zone-text { font-size: 11px; color: var(--gray-500); line-height: 1.5; }
+  .drop-zone-text strong { color: var(--teal); cursor: pointer; }
+  .drop-zone input[type="file"] { display: none; }
+
+  /* ── Attachments list ── */
+  .attachments-list { display: flex; flex-direction: column; gap: 5px; margin-top: 8px; }
+  .attachment-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 8px;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 4px;
+  }
+  .attachment-icon { font-size: 14px; flex-shrink: 0; }
+  .attachment-name {
+    flex: 1;
+    font-size: 11px;
+    color: var(--teal);
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .attachment-name:hover { text-decoration: underline; }
+  .attachment-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gray-400);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0 2px;
+    flex-shrink: 0;
+    transition: color 0.15s;
+  }
+  .attachment-delete:hover { color: #dc2626; }
+  .upload-progress {
+    font-size: 10px;
+    color: var(--gray-500);
+    text-align: center;
+    padding: 4px 0;
+    display: none;
+  }
+  .upload-progress.visible { display: block; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--gray-900);
+    color: var(--white);
+    padding: 9px 16px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loading-overlay">
+  <div class="spinner"></div>
+  <div style="font-size:12px;color:var(--gray-500)">Loading review data…</div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div>
+    <div class="header-sub">mbsdoc.com</div>
+    <div class="header-title">Pre-Launch Page Review</div>
+  </div>
+  <div class="header-progress">
+    <div class="header-progress-bar">
+      <div class="header-progress-fill" id="progress-fill"></div>
+    </div>
+    <div class="header-progress-label" id="progress-label">0 / 0</div>
+  </div>
+  <div class="header-actions">
+    <div class="conn-badge" id="conn-badge">
+      <div class="conn-dot"></div>
+      <span id="conn-label">Connecting…</span>
+    </div>
+    <button class="btn btn-ghost" onclick="exportFeedback()">&#8615; Export</button>
+    <button class="btn btn-ghost" onclick="clearAll()">Clear All</button>
+  </div>
+</header>
+
+<!-- Main layout -->
+<div class="layout">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-inner" id="sidebar"></div>
+    <div class="sidebar-general" id="sidebar-general" onclick="selectGeneral()">
+      <div class="item-dot general-dot"></div>
+      <div class="item-name">📋 General Notes</div>
+    </div>
+  </nav>
+
+  <!-- Iframe pane -->
+  <div class="iframe-pane" id="iframe-pane">
+    <div class="placeholder-pane" id="placeholder-pane">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <path d="M3 9h18M9 21V9"/>
+      </svg>
+      <p>Select a page from the sidebar to begin reviewing</p>
+    </div>
+    <div style="display:none;flex-direction:column;flex:1;overflow:hidden;" id="iframe-container">
+      <div class="iframe-toolbar">
+        <button class="btn btn-ghost btn-sm" onclick="reloadFrame()" title="Reload">&#8635;</button>
+        <input class="iframe-url-bar" id="iframe-url-bar" readonly>
+        <a class="btn btn-outline btn-sm" id="open-in-tab-btn" href="#" target="_blank" rel="noopener">&#8599; Open tab</a>
+        <button class="btn btn-outline btn-sm" id="print-btn" onclick="printPage()" disabled>&#128438; Print PDF</button>
+      </div>
+      <div class="iframe-wrap">
+        <iframe class="page-iframe" id="page-iframe" sandbox="allow-scripts allow-same-origin allow-forms" title="Page preview"></iframe>
+        <div class="iframe-blocked" id="iframe-blocked">
+          <div class="iframe-blocked-icon">&#128683;</div>
+          <h3>Page can't be embedded</h3>
+          <p>This page's server prevents iframe embedding. Use <strong>Open tab</strong> above to review it in a new browser tab.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right review panel -->
+  <aside class="right-panel">
+    <div class="panel-empty" id="panel-empty">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.35">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+      <p style="font-size:12px;">Select a page to add notes</p>
+    </div>
+
+    <div class="panel-inner" id="panel-inner" style="display:none;">
+      <!-- Page info -->
+      <div>
+        <div class="panel-page-name" id="panel-page-name"></div>
+        <a class="panel-page-url" id="panel-page-url" href="#" target="_blank" rel="noopener">
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+            <path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M7.5 1h3.5m0 0v3.5m0-3.5L5.5 6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span id="panel-url-text"></span>
+        </a>
+      </div>
+
+      <!-- Reference URLs (4 slots) -->
+      <div>
+        <div class="panel-section-label">Reference / Comparison Sites</div>
+        <div class="ref-slots" id="ref-slots">
+          <!-- built by JS -->
+        </div>
+      </div>
+
+      <!-- Attachments -->
+      <div>
+        <div class="panel-section-label">Attachments</div>
+        <div class="drop-zone" id="drop-zone"
+          ondragover="handleDragOver(event)"
+          ondragleave="handleDragLeave(event)"
+          ondrop="handleDrop(event)"
+          onclick="document.getElementById('file-input').click()"
+        >
+          <div class="drop-zone-icon">📎</div>
+          <div class="drop-zone-text">
+            Drop files here or <strong>browse</strong><br>
+            PDFs, images, Word docs, etc.
+          </div>
+          <input type="file" id="file-input" multiple onchange="handleFileSelect(event)">
+        </div>
+        <div class="upload-progress" id="upload-progress">Uploading…</div>
+        <div class="attachments-list" id="attachments-list"></div>
+      </div>
+
+      <!-- Notes -->
+      <div>
+        <div class="panel-section-label">Review Notes</div>
+        <textarea
+          class="notes-textarea"
+          id="notes-textarea"
+          placeholder="Add notes, corrections, or questions about this page…"
+        ></textarea>
+        <div class="save-indicator" id="save-indicator">Saved ✓</div>
+      </div>
+
+      <!-- Approve -->
+      <label class="approve-row" id="approve-row">
+        <input type="checkbox" id="approve-checkbox">
+        <div>
+          <div class="approve-text" id="approve-text">Good to Launch?</div>
+          <div class="approve-sub">Check to mark this page approved</div>
+        </div>
+      </label>
+
+      <!-- Ready for changes -->
+      <label class="ready-row" id="ready-row">
+        <input type="checkbox" id="ready-checkbox">
+        <div>
+          <div class="ready-text" id="ready-text">Ready for Changes?</div>
+          <div class="ready-sub">Flag this page: highlights it orange in the sidebar</div>
+        </div>
+      </label>
+    </div>
+
+    <div class="panel-nav" id="panel-nav" style="display:none;">
+      <button class="nav-btn" id="prev-btn" onclick="navigatePage(-1)" disabled>&#8592; Prev</button>
+      <button class="nav-btn next-btn" id="next-btn" onclick="navigatePage(1)">Next &#8594;</button>
+    </div>
+
+    <!-- General panel -->
+    <div class="general-panel-inner" id="general-panel" style="display:none;">
+      <div>
+        <div class="panel-page-name">General Notes</div>
+        <div style="font-size:11px;color:var(--gray-400);margin-top:3px;">Shared across all reviewers · not tied to a specific page</div>
+      </div>
+
+      <div>
+        <div class="panel-section-label">Reference Sites</div>
+        <div id="general-ref-slots" style="display:flex;flex-direction:column;gap:10px;"></div>
+      </div>
+
+      <div>
+        <div class="panel-section-label">Notes</div>
+        <textarea
+          class="notes-textarea"
+          id="general-notes-textarea"
+          placeholder="General feedback, questions, overall impressions…"
+          style="min-height:160px;"
+        ></textarea>
+        <div class="save-indicator" id="general-save-indicator">Saved ✓</div>
+      </div>
+
+      <div>
+        <div class="panel-section-label">Attachments</div>
+        <div class="drop-zone" id="general-drop-zone"
+          ondragover="handleDragOver(event,'general-drop-zone')"
+          ondragleave="handleDragLeave(event,'general-drop-zone')"
+          ondrop="handleDropGeneral(event)"
+          onclick="document.getElementById('general-file-input').click()"
+        >
+          <div class="drop-zone-icon">📎</div>
+          <div class="drop-zone-text">
+            Drop files here or <strong>browse</strong><br>
+            PDFs, images, Word docs, etc.
+          </div>
+          <input type="file" id="general-file-input" multiple onchange="handleFileSelectGeneral(event)">
+        </div>
+        <div class="upload-progress" id="general-upload-progress">Uploading…</div>
+        <div class="attachments-list" id="general-attachments-list"></div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+<script>
+// ── Firebase ───────────────────────────────────────────────────────────────
+firebase.initializeApp({
+  apiKey: "AIzaSyCfRW6xs1oPFOAGopiMtEYcoPXJb3-ba98",
+  authDomain: "mbs-review.firebaseapp.com",
+  databaseURL: "https://mbs-review-default-rtdb.firebaseio.com",
+  projectId: "mbs-review",
+  storageBucket: "mbs-review.firebasestorage.app",
+  messagingSenderId: "891418924809",
+  appId: "1:891418924809:web:3c9dadee7a72eb4d4665d8"
+});
+const db = firebase.database();
+const storage = firebase.storage();
+const PAGES_REF = db.ref('review/pages');
+const GENERAL_REF = db.ref('review/general');
+
+// ── Page data ──────────────────────────────────────────────────────────────
+const BASE = 'https://mbsdoc.com';
+
+const GROUPS = [
+  { label: 'Main Pages', pages: [
+    { name: 'Home',     path: '/' },
+    { name: 'About',    path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Contact',  path: '/contact' },
+    { name: 'Tools',    path: '/tools' },
+  ]},
+  { label: 'Service Pages', pages: [
+    { name: 'Medical Weight Loss',            path: '/weight-loss' },
+    { name: 'Mental & Behavioral Health',     path: '/mental-health' },
+    { name: 'Primary & Urgent Care',          path: '/primary-care' },
+    { name: 'Longevity & Performance',        path: '/longevity' },
+    { name: 'Sexual Health',                  path: '/sexual-health' },
+    { name: 'Hair Loss & Dermatology',        path: '/hair-dermatology' },
+    { name: "Women's Health",                 path: '/womens-health' },
+    { name: "Men's Health",                   path: '/mens-health' },
+    { name: 'Lab Testing & Diagnostics',      path: '/labs' },
+    { name: 'Preventive & Lifestyle Medicine', path: '/lifestyle-medicine' },
+    { name: 'Concierge Medicine',             path: '/concierge-medicine' },
+  ]},
+];
+
+// Flat list for prev/next navigation
+const ALL_PAGES = GROUPS.flatMap(g => g.pages);
+
+function pageKey(path) {
+  return path === '/' ? 'home' : path.replace(/^\//, '').replace(/\//g, '-');
+}
+
+// ── State ──────────────────────────────────────────────────────────────────
+let dbData = {};
+let activePath = null;
+let rendered = false;
+let notesSaveTimer = null;
+let refSaveTimers = [null, null, null, null];
+
+// ── Connection ─────────────────────────────────────────────────────────────
+db.ref('.info/connected').on('value', snap => {
+  const online = snap.val() === true;
+  const badge = document.getElementById('conn-badge');
+  document.getElementById('conn-label').textContent = online ? 'Live sync' : 'Offline';
+  badge.className = 'conn-badge ' + (online ? 'online' : 'offline');
+});
+
+// ── Firebase listener ──────────────────────────────────────────────────────
+PAGES_REF.on('value', snap => {
+  dbData = snap.val() || {};
+  if (!rendered) {
+    rendered = true;
+    buildSidebar();
+    document.getElementById('loading-overlay').classList.add('hidden');
+  } else {
+    updateSidebar();
+    updateProgress();
+    if (activePath) syncPanel();
+  }
+});
+
+// ── Sidebar ────────────────────────────────────────────────────────────────
+function buildSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.innerHTML = '';
+  GROUPS.forEach(group => {
+    const label = document.createElement('div');
+    label.className = 'group-label';
+    label.textContent = group.label;
+    sidebar.appendChild(label);
+
+    group.pages.forEach(page => {
+      const item = document.createElement('div');
+      item.className = 'sidebar-item';
+      item.dataset.path = page.path;
+      const saved = dbData[pageKey(page.path)] || {};
+      if (saved.approved) item.classList.add('approved-item');
+      if (saved.ready) item.classList.add('ready-item');
+      item.innerHTML = `<div class="item-dot"></div><div class="item-name">${page.name}</div>`;
+      item.addEventListener('click', () => selectPage(page.path));
+      sidebar.appendChild(item);
+    });
+  });
+  updateProgress();
+}
+
+function updateSidebar() {
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    const saved = dbData[pageKey(item.dataset.path)] || {};
+    item.classList.toggle('approved-item', !!saved.approved);
+    item.classList.toggle('ready-item', !!saved.ready);
+  });
+  updateProgress();
+}
+
+// ── Progress ───────────────────────────────────────────────────────────────
+function updateProgress() {
+  const total = ALL_PAGES.length;
+  const approved = ALL_PAGES.filter(p => (dbData[pageKey(p.path)] || {}).approved).length;
+  const pct = total ? Math.round((approved / total) * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = approved + ' / ' + total + ' approved';
+}
+
+// ── Select page ────────────────────────────────────────────────────────────
+function selectPage(path) {
+  activePath = path;
+
+  // Sidebar active state
+  document.querySelectorAll('.sidebar-item').forEach(i => {
+    i.classList.toggle('active', i.dataset.path === path);
+  });
+  document.getElementById('sidebar-general').classList.remove('active');
+  document.getElementById('general-panel').style.display = 'none';
+
+  const page = ALL_PAGES.find(p => p.path === path);
+  const url = BASE + path;
+  const saved = dbData[pageKey(path)] || {};
+
+  // Show iframe container
+  document.getElementById('placeholder-pane').style.display = 'none';
+  const iframeContainer = document.getElementById('iframe-container');
+  iframeContainer.style.display = 'flex';
+  iframeContainer.style.flexDirection = 'column';
+  iframeContainer.style.flex = '1';
+  iframeContainer.style.overflow = 'hidden';
+
+  // Load iframe
+  const iframe = document.getElementById('page-iframe');
+  document.getElementById('iframe-blocked').classList.remove('visible');
+  document.getElementById('iframe-url-bar').value = url;
+  document.getElementById('open-in-tab-btn').href = url;
+  document.getElementById('print-btn').disabled = false;
+  iframe.src = url;
+
+  // Detect if iframe is blocked
+  iframe.onerror = () => document.getElementById('iframe-blocked').classList.add('visible');
+  iframe.onload = () => {
+    try {
+      // If we can access contentDocument it loaded fine; if blocked, it throws
+      const _ = iframe.contentDocument;
+    } catch(e) {
+      // Cross-origin but loaded, that's fine, just means it embedded
+    }
+  };
+
+  // Show panel
+  document.getElementById('panel-empty').style.display = 'none';
+  document.getElementById('panel-inner').style.display = 'flex';
+  document.getElementById('panel-nav').style.display = 'flex';
+
+  // Fill panel
+  document.getElementById('panel-page-name').textContent = page.name;
+  const urlEl = document.getElementById('panel-page-url');
+  urlEl.href = url;
+  document.getElementById('panel-url-text').textContent = url;
+
+  buildRefSlots(saved.refs || []);
+  renderAttachments(saved.attachments || {});
+
+  document.getElementById('notes-textarea').value = saved.notes || '';
+  document.getElementById('save-indicator').classList.remove('visible');
+
+  const approved = saved.approved || false;
+  document.getElementById('approve-checkbox').checked = approved;
+  document.getElementById('approve-row').classList.toggle('is-approved', approved);
+  document.getElementById('approve-text').textContent = approved ? 'Approved ✓' : 'Good to Launch?';
+
+  const ready = saved.ready || false;
+  document.getElementById('ready-checkbox').checked = ready;
+  document.getElementById('ready-row').classList.toggle('is-ready', ready);
+  document.getElementById('ready-text').textContent = ready ? 'Ready for Changes ✓' : 'Ready for Changes?';
+
+  // Prev / Next
+  const idx = ALL_PAGES.findIndex(p => p.path === path);
+  document.getElementById('prev-btn').disabled = idx === 0;
+  document.getElementById('next-btn').disabled = idx === ALL_PAGES.length - 1;
+  document.getElementById('next-btn').textContent = idx === ALL_PAGES.length - 1 ? 'Done' : 'Next →';
+
+  attachPanelEvents();
+}
+
+function syncPanel() {
+  if (!activePath) return;
+  const saved = dbData[pageKey(activePath)] || {};
+
+  const notes = document.getElementById('notes-textarea');
+  if (document.activeElement !== notes) notes.value = saved.notes || '';
+
+  // sync ref slots only if none are focused
+  const slots = document.querySelectorAll('.ref-slot-input');
+  const anyFocused = [...slots].some(s => document.activeElement === s);
+  if (!anyFocused) buildRefSlots(saved.refs || []);
+
+  renderAttachments(saved.attachments || {});
+
+  const approved = saved.approved || false;
+  document.getElementById('approve-checkbox').checked = approved;
+  document.getElementById('approve-row').classList.toggle('is-approved', approved);
+  document.getElementById('approve-text').textContent = approved ? 'Approved ✓' : 'Good to Launch?';
+
+  const ready = saved.ready || false;
+  document.getElementById('ready-checkbox').checked = ready;
+  document.getElementById('ready-row').classList.toggle('is-ready', ready);
+  document.getElementById('ready-text').textContent = ready ? 'Ready for Changes ✓' : 'Ready for Changes?';
+
+  updateSidebar();
+}
+
+// ── Panel events ───────────────────────────────────────────────────────────
+function attachPanelEvents() {
+  // Notes
+  const notesEl = document.getElementById('notes-textarea');
+  const newNotes = notesEl.cloneNode(true);
+  notesEl.parentNode.replaceChild(newNotes, notesEl);
+  newNotes.addEventListener('input', () => {
+    clearTimeout(notesSaveTimer);
+    notesSaveTimer = setTimeout(() => {
+      PAGES_REF.child(pageKey(activePath)).update({ notes: newNotes.value });
+      flashSaved();
+    }, 600);
+  });
+
+  // Approve checkbox
+  const cbEl = document.getElementById('approve-checkbox');
+  const newCb = cbEl.cloneNode(true);
+  cbEl.parentNode.replaceChild(newCb, cbEl);
+  newCb.addEventListener('change', () => {
+    document.getElementById('approve-row').classList.toggle('is-approved', newCb.checked);
+    document.getElementById('approve-text').textContent = newCb.checked ? 'Approved ✓' : 'Good to Launch?';
+    PAGES_REF.child(pageKey(activePath)).update({ approved: newCb.checked });
+    flashSaved();
+  });
+
+  // Ready for changes checkbox
+  const readyCbEl = document.getElementById('ready-checkbox');
+  const newReadyCb = readyCbEl.cloneNode(true);
+  readyCbEl.parentNode.replaceChild(newReadyCb, readyCbEl);
+  newReadyCb.addEventListener('change', () => {
+    document.getElementById('ready-row').classList.toggle('is-ready', newReadyCb.checked);
+    document.getElementById('ready-text').textContent = newReadyCb.checked ? 'Ready for Changes ✓' : 'Ready for Changes?';
+    PAGES_REF.child(pageKey(activePath)).update({ ready: newReadyCb.checked });
+    flashSaved();
+  });
+}
+
+// ── Reference URL slots (4) ────────────────────────────────────────────────
+function buildRefSlots(refs) {
+  const container = document.getElementById('ref-slots');
+  container.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const val = refs[i] || '';
+    const row = document.createElement('div');
+    row.className = 'ref-slot-row';
+    row.innerHTML = `
+      <span class="ref-slot-num">${i + 1}</span>
+      <input class="ref-url-input ref-slot-input" type="url" placeholder="Paste a reference URL…" value="${escapeAttr(val)}" data-idx="${i}">
+      <button class="open-ref-btn" title="Open in new tab" ${val ? '' : 'disabled'} onclick="openRefSlot(${i})">
+        <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
+          <path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M7.5 1h3.5m0 0v3.5m0-3.5L5.5 6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    `;
+    const input = row.querySelector('input');
+    input.addEventListener('input', () => {
+      const btn = row.querySelector('button');
+      btn.disabled = !input.value.trim();
+      clearTimeout(refSaveTimers[i]);
+      refSaveTimers[i] = setTimeout(() => saveRefSlot(i, input.value), 800);
+    });
+    container.appendChild(row);
+  }
+}
+
+function saveRefSlot(idx, val) {
+  const saved = dbData[pageKey(activePath)] || {};
+  const refs = saved.refs ? [...saved.refs] : ['', '', '', ''];
+  while (refs.length < 4) refs.push('');
+  refs[idx] = val;
+  PAGES_REF.child(pageKey(activePath)).update({ refs });
+}
+
+function openRefSlot(idx) {
+  const inputs = document.querySelectorAll('.ref-slot-input');
+  const val = inputs[idx] ? inputs[idx].value.trim() : '';
+  if (val) window.open(val, '_blank', 'noopener');
+}
+
+function escapeAttr(str) {
+  return (str || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+// ── General section ────────────────────────────────────────────────────────
+let generalNotesSaveTimer = null;
+let generalData = {};
+
+GENERAL_REF.on('value', snap => {
+  generalData = snap.val() || {};
+  // If general panel is visible, sync it
+  if (document.getElementById('general-panel').style.display !== 'none') {
+    const ta = document.getElementById('general-notes-textarea');
+    if (document.activeElement !== ta) ta.value = generalData.notes || '';
+    const anyRefFocused = [...document.querySelectorAll('.general-ref-url,.general-ref-label')].some(el => document.activeElement === el);
+    if (!anyRefFocused) buildGeneralRefSlots(generalData.refs || []);
+    renderGeneralAttachments(generalData.attachments || {});
+  }
+});
+
+function selectGeneral() {
+  activePath = null;
+
+  // Sidebar state
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  document.getElementById('sidebar-general').classList.add('active');
+
+  // Show placeholder iframe
+  document.getElementById('placeholder-pane').style.display = 'flex';
+  document.getElementById('iframe-container').style.display = 'none';
+
+  // Show general panel, hide others
+  document.getElementById('panel-empty').style.display = 'none';
+  document.getElementById('panel-inner').style.display = 'none';
+  document.getElementById('panel-nav').style.display = 'none';
+  document.getElementById('general-panel').style.display = 'flex';
+  document.getElementById('general-panel').style.flexDirection = 'column';
+
+  // Fill refs, notes, attachments
+  buildGeneralRefSlots(generalData.refs || []);
+  const ta = document.getElementById('general-notes-textarea');
+  ta.value = generalData.notes || '';
+  document.getElementById('general-save-indicator').classList.remove('visible');
+  renderGeneralAttachments(generalData.attachments || {});
+
+  // Attach notes event
+  const newTa = ta.cloneNode(true);
+  ta.parentNode.replaceChild(newTa, ta);
+  newTa.addEventListener('input', () => {
+    clearTimeout(generalNotesSaveTimer);
+    generalNotesSaveTimer = setTimeout(() => {
+      GENERAL_REF.update({ notes: newTa.value });
+      const ind = document.getElementById('general-save-indicator');
+      ind.classList.add('visible');
+      setTimeout(() => ind.classList.remove('visible'), 1800);
+    }, 600);
+  });
+}
+
+// ── General ref slots (6) ──────────────────────────────────────────────────
+let generalRefTimers = [null,null,null,null,null,null];
+
+function buildGeneralRefSlots(refs) {
+  const container = document.getElementById('general-ref-slots');
+  container.innerHTML = '';
+  for (let i = 0; i < 6; i++) {
+    const entry = refs[i] || {};
+    const url   = entry.url   || '';
+    const label = entry.label || '';
+    const slot = document.createElement('div');
+    slot.className = 'general-ref-slot';
+    slot.innerHTML = `
+      <div class="general-ref-slot-top">
+        <span class="ref-slot-num">${i + 1}</span>
+        <input class="ref-url-input general-ref-url" type="url" placeholder="Paste a reference URL…" value="${escapeAttr(url)}" data-idx="${i}">
+        <button class="open-ref-btn" title="Open in new tab" ${url ? '' : 'disabled'} onclick="openGeneralRef(${i})">
+          <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
+            <path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M7.5 1h3.5m0 0v3.5m0-3.5L5.5 6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <input class="general-ref-label-input general-ref-label" type="text" placeholder="What is this a reference for?" value="${escapeAttr(label)}" data-idx="${i}">
+    `;
+
+    const urlInput   = slot.querySelector('.general-ref-url');
+    const labelInput = slot.querySelector('.general-ref-label');
+    const openBtn    = slot.querySelector('.open-ref-btn');
+
+    urlInput.addEventListener('input', () => {
+      openBtn.disabled = !urlInput.value.trim();
+      clearTimeout(generalRefTimers[i]);
+      generalRefTimers[i] = setTimeout(() => saveGeneralRef(i, urlInput.value, labelInput.value), 800);
+    });
+    labelInput.addEventListener('input', () => {
+      clearTimeout(generalRefTimers[i]);
+      generalRefTimers[i] = setTimeout(() => saveGeneralRef(i, urlInput.value, labelInput.value), 800);
+    });
+
+    container.appendChild(slot);
+  }
+}
+
+function saveGeneralRef(idx, url, label) {
+  const refs = (generalData.refs ? [...generalData.refs] : []);
+  while (refs.length < 6) refs.push({});
+  refs[idx] = { url, label };
+  GENERAL_REF.update({ refs });
+}
+
+function openGeneralRef(idx) {
+  const inputs = document.querySelectorAll('.general-ref-url');
+  const val = inputs[idx] ? inputs[idx].value.trim() : '';
+  if (val) window.open(val, '_blank', 'noopener');
+}
+
+function renderGeneralAttachments(attachments) {
+  const list = document.getElementById('general-attachments-list');
+  if (!list) return;
+  list.innerHTML = '';
+  Object.entries(attachments).forEach(([key, att]) => {
+    const item = document.createElement('div');
+    item.className = 'attachment-item';
+    item.innerHTML = `
+      <span class="attachment-icon">${fileIcon(att.name)}</span>
+      <a class="attachment-name" href="${att.url}" target="_blank" rel="noopener" title="${escapeAttr(att.name)}">${att.name}</a>
+      <button class="attachment-delete" title="Remove" onclick="deleteGeneralAttachment('${key}','${escapeAttr(att.storageRef)}')">×</button>
+    `;
+    list.appendChild(item);
+  });
+}
+
+async function deleteGeneralAttachment(key, storageRef) {
+  if (!confirm('Remove this attachment?')) return;
+  try { await storage.ref(storageRef).delete(); } catch(e) {}
+  await GENERAL_REF.child('attachments').child(key).remove();
+}
+
+function handleDropGeneral(e) {
+  e.preventDefault();
+  document.getElementById('general-drop-zone').classList.remove('drag-over');
+  uploadFilesGeneral([...e.dataTransfer.files]);
+}
+
+function handleFileSelectGeneral(e) {
+  uploadFilesGeneral([...e.target.files]);
+  e.target.value = '';
+}
+
+async function uploadFilesGeneral(files) {
+  if (!files.length) return;
+  const prog = document.getElementById('general-upload-progress');
+  prog.textContent = `Uploading ${files.length} file${files.length > 1 ? 's' : ''}…`;
+  prog.classList.add('visible');
+  for (const file of files) {
+    const safeName = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const ref = storage.ref(`review/general/${safeName}`);
+    try {
+      await ref.put(file);
+      const url = await ref.getDownloadURL();
+      await GENERAL_REF.child('attachments').push({ name: file.name, url, storageRef: `review/general/${safeName}` });
+    } catch(err) { showToast('Upload failed: ' + file.name); }
+  }
+  prog.classList.remove('visible');
+  showToast('Upload complete.');
+}
+
+// ── Drag and drop / file upload ────────────────────────────────────────────
+function handleDragOver(e, zoneId) {
+  e.preventDefault();
+  document.getElementById(zoneId || 'drop-zone').classList.add('drag-over');
+}
+
+function handleDragLeave(e, zoneId) {
+  document.getElementById(zoneId || 'drop-zone').classList.remove('drag-over');
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag-over');
+  uploadFiles([...e.dataTransfer.files]);
+}
+
+function handleFileSelect(e) {
+  uploadFiles([...e.target.files]);
+  e.target.value = '';
+}
+
+function fileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  if (['jpg','jpeg','png','gif','webp','svg'].includes(ext)) return '🖼️';
+  if (ext === 'pdf') return '📄';
+  if (['doc','docx'].includes(ext)) return '📝';
+  if (['xls','xlsx'].includes(ext)) return '📊';
+  return '📎';
+}
+
+async function uploadFiles(files) {
+  if (!files.length || !activePath) return;
+  const prog = document.getElementById('upload-progress');
+  prog.textContent = `Uploading ${files.length} file${files.length > 1 ? 's' : ''}…`;
+  prog.classList.add('visible');
+
+  for (const file of files) {
+    const safeName = Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const ref = storage.ref(`review/${pageKey(activePath)}/${safeName}`);
+    try {
+      await ref.put(file);
+      const url = await ref.getDownloadURL();
+      const attachRef = PAGES_REF.child(pageKey(activePath)).child('attachments').push();
+      await attachRef.set({ name: file.name, url, storageRef: `review/${pageKey(activePath)}/${safeName}` });
+    } catch (err) {
+      showToast('Upload failed: ' + file.name);
+    }
+  }
+  prog.classList.remove('visible');
+  showToast('Upload complete.');
+}
+
+async function deleteAttachment(attachKey, storageRef) {
+  if (!confirm('Remove this attachment?')) return;
+  try {
+    await storage.ref(storageRef).delete();
+  } catch(e) { /* already deleted */ }
+  await PAGES_REF.child(pageKey(activePath)).child('attachments').child(attachKey).remove();
+}
+
+function renderAttachments(attachments) {
+  const list = document.getElementById('attachments-list');
+  if (!list) return;
+  list.innerHTML = '';
+  Object.entries(attachments).forEach(([key, att]) => {
+    const item = document.createElement('div');
+    item.className = 'attachment-item';
+    item.innerHTML = `
+      <span class="attachment-icon">${fileIcon(att.name)}</span>
+      <a class="attachment-name" href="${att.url}" target="_blank" rel="noopener" title="${escapeAttr(att.name)}">${att.name}</a>
+      <button class="attachment-delete" title="Remove" onclick="deleteAttachment('${key}', '${escapeAttr(att.storageRef)}')">×</button>
+    `;
+    list.appendChild(item);
+  });
+}
+
+function flashSaved() {
+  const el = document.getElementById('save-indicator');
+  el.classList.add('visible');
+  setTimeout(() => el.classList.remove('visible'), 1800);
+}
+
+// ── Iframe reload ──────────────────────────────────────────────────────────
+function reloadFrame() {
+  const iframe = document.getElementById('page-iframe');
+  document.getElementById('iframe-blocked').classList.remove('visible');
+  iframe.src = iframe.src;
+}
+
+// ── Print page as PDF ──────────────────────────────────────────────────────
+function printPage() {
+  const url = BASE + activePath;
+  const win = window.open(url, '_blank');
+  if (!win) { showToast('Allow pop-ups to use Print PDF.'); return; }
+  win.addEventListener('load', () => {
+    win.focus();
+    win.print();
+  });
+}
+
+// ── Navigation ─────────────────────────────────────────────────────────────
+function navigatePage(dir) {
+  const idx = ALL_PAGES.findIndex(p => p.path === activePath);
+  const next = ALL_PAGES[idx + dir];
+  if (next) selectPage(next.path);
+}
+
+// ── Export ─────────────────────────────────────────────────────────────────
+function exportFeedback() {
+  const lines = [];
+  lines.push('MBS Doc: Pre-Launch Page Review');
+  lines.push('Exported: ' + new Date().toLocaleString());
+  lines.push('');
+
+  GROUPS.forEach(group => {
+    lines.push('=== ' + group.label.toUpperCase() + ' ===');
+    group.pages.forEach(page => {
+      const saved = dbData[pageKey(page.path)] || {};
+      lines.push('');
+      lines.push('Page:      ' + page.name);
+      lines.push('URL:       ' + BASE + page.path);
+      lines.push('Status:    ' + (saved.approved ? 'APPROVED' : 'PENDING'));
+      if (saved.refs) saved.refs.filter(Boolean).forEach((r, i) => lines.push(`Reference ${i+1}: ${r}`));
+      if (saved.attachments) Object.values(saved.attachments).forEach(a => lines.push('Attachment: ' + a.name));
+      lines.push('Notes:     ' + ((saved.notes || '').trim() || '(none)'));
+    });
+    lines.push('');
+  });
+
+  const total = ALL_PAGES.length;
+  const approved = ALL_PAGES.filter(p => (dbData[pageKey(p.path)] || {}).approved).length;
+  lines.push('--- SUMMARY ---');
+  lines.push('Total:    ' + total);
+  lines.push('Approved: ' + approved);
+  lines.push('Pending:  ' + (total - approved));
+
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mbsdoc-review-' + new Date().toISOString().slice(0,10) + '.txt';
+  a.click();
+  showToast('Feedback exported.');
+}
+
+// ── Clear all ──────────────────────────────────────────────────────────────
+function clearAll() {
+  const pwd = prompt('Enter password to clear all data:');
+  if (pwd === null) return;
+  if (pwd !== 'moist') { showToast('Incorrect password.'); return; }
+  if (!confirm('Clear all feedback and approval statuses for everyone? This cannot be undone.')) return;
+  PAGES_REF.remove();
+  showToast('All data cleared.');
+}
+
+// ── Toast ──────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>

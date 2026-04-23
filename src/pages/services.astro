@@ -1,0 +1,222 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const services = [
+  {
+    title: 'Primary Care',
+    href: '/primary-care/',
+    chip: 'chip-sage',
+    chipLabel: 'ongoing care',
+    desc: 'A consistent primary care provider who knows your full history. Chronic conditions, preventive care, medication management, and more.',
+    tags: ['Chronic Conditions', 'Preventive Care', 'Medication Management'],
+  },
+  {
+    title: 'Medical Weight Loss',
+    href: '/weight-loss/',
+    chip: 'chip-coral',
+    chipLabel: 'GLP-1 available',
+    desc: 'Clinically supervised weight management including GLP-1 evaluation. Real labs, honest conversation, and a plan built around your life.',
+    tags: ['GLP-1 Evaluation', 'Semaglutide', 'Tirzepatide', 'Metabolic Health'],
+  },
+  {
+    title: "Men's Health",
+    href: '/mens-health/',
+    chip: 'chip-terracotta',
+    chipLabel: 'lab-driven',
+    desc: "Testosterone replacement therapy evaluation, ED treatment, and comprehensive men's health care. Honest assessments, no upselling.",
+    tags: ['TRT Evaluation', 'ED Treatment', 'Low Testosterone', 'Performance'],
+  },
+  {
+    title: "Women's Health",
+    href: '/womens-health/',
+    chip: 'chip-coral',
+    chipLabel: 'holistic care',
+    desc: 'Hormone health, PCOS, perimenopause and menopause management, and preventive gynecological care tailored to your life stage.',
+    tags: ['Hormone Health', 'PCOS', 'Menopause', 'Perimenopause'],
+  },
+  {
+    title: 'Mental Health',
+    href: '/mental-health/',
+    chip: 'chip-sky',
+    chipLabel: 'mind-body',
+    desc: 'Anxiety, depression, sleep disorders, and ADHD managed with care. Mental health as a real part of whole-person medicine.',
+    tags: ['Anxiety', 'Depression', 'Sleep Disorders', 'ADHD'],
+  },
+  {
+    title: 'Longevity & Performance',
+    href: '/longevity/',
+    chip: 'chip-butter',
+    chipLabel: 'proactive health',
+    desc: 'Optimizing health span, not just life span. Biomarker testing, peptide therapy, hormone optimization, and performance protocols.',
+    tags: ['Biomarkers', 'Hormone Optimization', 'Peptide Therapy', 'Performance'],
+  },
+  {
+    title: 'Sexual Health',
+    href: '/sexual-health/',
+    chip: 'chip-terracotta',
+    chipLabel: 'confidential',
+    desc: 'ED, low libido, and sexual wellness discussed openly and treated without judgment. For men and women.',
+    tags: ['ED Treatment', 'Low Libido', 'Sexual Wellness'],
+  },
+  {
+    title: 'Hair & Dermatology',
+    href: '/hair-dermatology/',
+    chip: 'chip-coral',
+    chipLabel: 'science-backed',
+    desc: 'Hair loss treatment including finasteride, minoxidil, and combination approaches. Skin conditions managed by your primary provider.',
+    tags: ['Hair Loss', 'Finasteride', 'Minoxidil', 'Skin Conditions'],
+  },
+  {
+    title: 'Lab Testing',
+    href: '/labs/',
+    chip: 'chip-sage',
+    chipLabel: 'data-driven',
+    desc: 'Comprehensive lab panels reviewed and explained by your provider. Hormones, metabolic markers, thyroid, and more.',
+    tags: ['Hormone Panels', 'Metabolic Labs', 'Thyroid', 'Complete Blood Count'],
+  },
+  {
+    title: 'Lifestyle Medicine',
+    href: '/lifestyle-medicine/',
+    chip: 'chip-sage',
+    chipLabel: 'preventive',
+    desc: 'Evidence-based lifestyle interventions for chronic disease prevention and reversal. Nutrition, sleep, stress, and movement.',
+    tags: ['Nutrition Guidance', 'Sleep Health', 'Stress Management', 'Chronic Disease'],
+  },
+  {
+    title: 'Concierge Medicine',
+    href: '/concierge-medicine/',
+    chip: 'chip-butter',
+    chipLabel: 'premium access',
+    desc: 'Extended availability, direct provider access, and a higher level of personalized attention for patients who want more.',
+    tags: ['Direct Access', 'Extended Visits', 'Priority Scheduling'],
+  },
+];
+---
+
+<Layout
+  title="Services"
+  description="MBS Medical offers 11 telehealth specialties across Florida including primary care, weight loss, TRT, mental health, and more. Cash pay, same-week appointments."
+>
+
+  <!-- Hero -->
+  <section class="section bg-peach" style="padding-top: 7rem; text-align: center;">
+    <div class="container" style="max-width: 720px;">
+      <span class="hero-eyebrow">what we treat</span>
+      <h1 class="hero-title" style="max-width: none;">all of our services</h1>
+      <p class="hero-sub" style="margin-inline: auto;">
+        Eleven specialties, one consistent provider. No insurance needed. Telehealth across Florida, same week.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- Services grid -->
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="services-grid">
+        {services.map((s, i) => (
+          <a
+            href={s.href}
+            class={`reveal service-card-link ${i % 3 === 1 ? 'reveal-delay-1' : i % 3 === 2 ? 'reveal-delay-2' : ''}`}
+          >
+            <span class={`accent-chip ${s.chip}`}>{s.chipLabel}</span>
+            <h2 class="sc-title">{s.title}</h2>
+            <p class="sc-desc">{s.desc}</p>
+            <div class="sc-tags">
+              {s.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+            <span class="sc-arrow">explore &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA -->
+  <section class="section bg-ink" style="text-align: center;">
+    <div class="container">
+      <div class="reveal" style="max-width: 600px; margin-inline: auto;">
+        <h2 style="color: var(--ink-inverse);">not sure where to start?</h2>
+        <p style="color: rgba(250,246,240,0.7); margin-top: 1rem;">Book a consultation and let's figure out the right path together. No commitment required.</p>
+        <div style="margin-top: 2rem;">
+          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-inverse">book a free consultation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+
+<style>
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .services-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .service-card-link {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface-shell);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    border: 1px solid var(--border-subtle);
+    text-decoration: none;
+    transition: box-shadow var(--dur-base), transform var(--dur-base), border-color var(--dur-base);
+  }
+  .service-card-link:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    border-color: var(--accent-terracotta);
+  }
+
+  .sc-title {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    margin-bottom: 0.75rem;
+    margin-top: 0.25rem;
+  }
+  .sc-desc {
+    font-size: var(--text-sm);
+    color: var(--ink-secondary);
+    line-height: var(--leading-relaxed);
+    flex: 1;
+  }
+  .sc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+  }
+  .tag {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    background-color: var(--surface-sand);
+    color: var(--ink-secondary);
+  }
+  .sc-arrow {
+    display: block;
+    margin-top: 1.25rem;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--accent-terracotta);
+    transition: letter-spacing 150ms ease;
+  }
+  .service-card-link:hover .sc-arrow {
+    letter-spacing: 0.12em;
+  }
+</style>

@@ -1,0 +1,171 @@
+---
+const services = [
+  { label: 'Primary Care', href: '/primary-care/' },
+  { label: 'Weight Loss', href: '/weight-loss/' },
+  { label: "Men's Health", href: '/mens-health/' },
+  { label: "Women's Health", href: '/womens-health/' },
+  { label: 'Mental Health', href: '/mental-health/' },
+  { label: 'Longevity', href: '/longevity/' },
+  { label: 'Sexual Health', href: '/sexual-health/' },
+  { label: 'Hair & Dermatology', href: '/hair-dermatology/' },
+  { label: 'Lab Testing', href: '/labs/' },
+  { label: 'Lifestyle Medicine', href: '/lifestyle-medicine/' },
+  { label: 'Concierge Medicine', href: '/concierge-medicine/' },
+];
+
+const company = [
+  { label: 'About Us', href: '/about/' },
+  { label: 'Services', href: '/services/' },
+  { label: 'Patient Tools', href: '/tools/' },
+  { label: 'Contact', href: '/contact/' },
+];
+---
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="container">
+
+    <!-- Main footer grid -->
+    <div class="footer-grid">
+
+      <!-- Brand column -->
+      <div class="footer-brand">
+        <a href="/" class="footer-wordmark">mbs medical</a>
+        <p class="footer-tagline">
+          Veteran-owned telehealth serving patients across Florida. Cash pay, same-week appointments, one consistent provider who knows you.
+        </p>
+        <a
+          href="https://mbsmedical.practicebetter.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-inverse"
+          style="margin-top: 1.5rem; font-size: 0.8125rem; padding: 12px 28px;"
+        >
+          book a visit
+        </a>
+      </div>
+
+      <!-- Services column -->
+      <div>
+        <h3 class="footer-col-heading">SERVICES</h3>
+        <ul class="footer-links">
+          {services.map(link => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Company column -->
+      <div>
+        <h3 class="footer-col-heading">COMPANY</h3>
+        <ul class="footer-links">
+          {company.map(link => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+
+        <h3 class="footer-col-heading" style="margin-top: 2rem;">CONTACT</h3>
+        <ul class="footer-links">
+          <li><a href="tel:+19413157246">(941) 315-7246</a></li>
+          <li><a href="mailto:david@mbsdoc.com">david@mbsdoc.com</a></li>
+          <li><span style="opacity:0.55;">Telehealth across Florida</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <p class="footer-legal">
+        &copy; {new Date().getFullYear()} MBS Medical. All rights reserved. Telehealth services available to Florida residents only. Content is for informational purposes and does not constitute medical advice.
+      </p>
+      <p class="footer-legal" style="margin-top: 0.5rem; opacity: 0.4;">
+        Veteran-owned &amp; operated &middot; Mind, Body &amp; Spirit
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--surface-ink);
+    color: var(--ink-inverse);
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(250,246,240,0.1);
+  }
+  @media (min-width: 640px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 1024px) {
+    .footer-grid { grid-template-columns: 2fr 1.5fr 1.5fr; }
+  }
+
+  /* Brand */
+  .footer-wordmark {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 1.15rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    color: var(--ink-inverse);
+    text-decoration: none;
+    margin-bottom: 1rem;
+  }
+
+  .footer-tagline {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: rgba(250,246,240,0.6);
+    max-width: 32ch;
+  }
+
+  /* Columns */
+  .footer-col-heading {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: rgba(250,246,240,0.4);
+    margin-bottom: 1rem;
+    /* Override global h3 text-transform: lowercase */
+    text-transform: uppercase !important;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  .footer-links a {
+    font-size: var(--text-sm);
+    color: rgba(250,246,240,0.7);
+    text-decoration: none;
+    transition: color 150ms ease, opacity 150ms ease;
+    text-transform: lowercase;
+  }
+  .footer-links a:hover {
+    color: var(--ink-inverse);
+  }
+
+  /* Bottom */
+  .footer-bottom {
+    padding-top: 2rem;
+  }
+  .footer-legal {
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    color: rgba(250,246,240,0.45);
+    max-width: none;
+  }
+</style>

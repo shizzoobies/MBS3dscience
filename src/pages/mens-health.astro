@@ -1,0 +1,98 @@
+---
+import ServicePage from '../components/ServicePage.astro';
+---
+
+<ServicePage
+  title="Men's Health"
+  description="Men's health telehealth in Florida. Testosterone replacement therapy evaluation, ED treatment, and comprehensive men's health care. Lab-driven, no upselling."
+  eyebrow="men's health"
+  heroTitle="honest answers about your testosterone, energy, and drive"
+  heroSub="Most men notice the decline but push through it. Lower energy, harder recovery, less motivation. We start with labs and give you real answers, not a pitch."
+  chipLabel="lab-driven"
+  chipClass="chip-terracotta"
+  values={[
+    {
+      icon: "▲",
+      heading: "honest TRT evaluation",
+      body: "We evaluate whether testosterone replacement therapy is clinically appropriate for you. We prescribe when it is. We tell you when it isn't."
+    },
+    {
+      icon: "○",
+      heading: "ED treatment",
+      body: "Erectile dysfunction is common and treatable. We discuss it plainly, evaluate the cause, and build a treatment plan without making it awkward."
+    },
+    {
+      icon: "⬡",
+      heading: "whole-picture men's health",
+      body: "Hormones, cardiovascular risk, metabolic health, mental wellbeing. Your health as a man is more than one number on a lab panel."
+    }
+  ]}
+  features={[
+    {
+      heading: "testosterone: the honest conversation",
+      body: "Testosterone naturally declines starting in your 30s. Fatigue, reduced strength, lower sex drive, and mood changes are real symptoms with real causes. We run a full hormonal panel, review your symptoms, and give you a clear picture. If TRT is appropriate, we build a protocol. If your levels are normal, we tell you that and look for what's actually causing the problem.",
+      chipLabel: "TRT evaluation",
+      chipClass: "chip-terracotta",
+      imgAlt: "Active man in his prime"
+    },
+    {
+      heading: "ED is more common than you think. and treatable.",
+      body: "Erectile dysfunction affects tens of millions of men and increases with age. It's often connected to cardiovascular health, hormonal levels, or psychological factors. We evaluate all of it and offer treatment options including PDE-5 inhibitors, hormone optimization, and lifestyle interventions. No judgment. Just a provider who takes it seriously.",
+      chipLabel: "ED treatment",
+      chipClass: "chip-coral",
+      imgAlt: "Man living confidently",
+      imgSurface: "rgba(201,123,94,0.15)",
+      flip: true
+    }
+  ]}
+  testimonials={[
+    {
+      quote: "i spent a year feeling off and assuming it was just getting older. turns out my testosterone was clinically low. within 90 days of treatment i felt like myself again.",
+      attr: "Men's Health Patient — Tampa, FL"
+    },
+    {
+      quote: "appreciated that they ran the labs first and actually showed me the numbers. not just 'your T is a little low, here's a prescription.'",
+      attr: "Men's Health Patient — Sarasota, FL"
+    },
+    {
+      quote: "finally talked to someone about ED without feeling embarrassed. direct, no-nonsense, and actually helpful.",
+      attr: "Men's Health Patient — Fort Myers, FL"
+    }
+  ]}
+  steps={[
+    {
+      heading: "symptom review and history",
+      body: "A thorough review of your symptoms, timeline, medications, and health history. We want the full picture before running any tests."
+    },
+    {
+      heading: "lab panel",
+      body: "Comprehensive hormonal and metabolic panel including total and free testosterone, LH, FSH, estradiol, thyroid, metabolic markers, and CBC."
+    },
+    {
+      heading: "results review and plan",
+      body: "We review your results with you and explain what they mean. If treatment is appropriate, we build a protocol and schedule follow-ups to monitor and adjust."
+    }
+  ]}
+  faq={[
+    {
+      q: "what testosterone levels qualify for TRT?",
+      a: "There is no single cutoff. We evaluate total testosterone, free testosterone, symptoms, and clinical context together. Some men feel terrible at levels others feel fine with. We individualize the assessment."
+    },
+    {
+      q: "what forms of testosterone do you prescribe?",
+      a: "We prescribe injectable testosterone cypionate, topical gels, and other formulations depending on your preference and clinical picture. We'll discuss the options and tradeoffs at your visit."
+    },
+    {
+      q: "does TRT affect fertility?",
+      a: "Yes, exogenous testosterone can suppress sperm production. If fertility is a concern, we discuss this before starting and can explore alternative approaches to raising testosterone naturally or with minimal fertility impact."
+    },
+    {
+      q: "how quickly does TRT work?",
+      a: "Most patients begin to notice improvements in energy and mood within 4-6 weeks. Libido and sexual function typically improve by 3 months. Full effects can take 6-12 months of consistent therapy."
+    },
+    {
+      q: "do you treat ED without TRT?",
+      a: "Yes. Many men with ED have normal testosterone levels. We evaluate cardiovascular risk, vascular factors, and other contributors and can prescribe PDE-5 inhibitors (sildenafil, tadalafil) and other treatments independently of TRT."
+    }
+  ]}
+/>

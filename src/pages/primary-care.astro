@@ -1,0 +1,98 @@
+---
+import ServicePage from '../components/ServicePage.astro';
+---
+
+<ServicePage
+  title="Primary Care"
+  description="Telehealth primary care across Florida. One consistent provider who knows your history, manages your chronic conditions, and coordinates your care."
+  eyebrow="primary care"
+  heroTitle="a primary care provider who actually knows you"
+  heroSub="Ongoing care from a provider who remembers your last visit, knows your medications, and has time for real conversation. No waiting rooms. No insurance needed."
+  chipLabel="ongoing care"
+  chipClass="chip-sage"
+  values={[
+    {
+      icon: "○",
+      heading: "continuity of care",
+      body: "You see the same provider every time. Your history, goals, and medications are always in context, not re-explained from scratch."
+    },
+    {
+      icon: "▲",
+      heading: "chronic condition management",
+      body: "Diabetes, hypertension, thyroid conditions, and more. Ongoing oversight, medication management, and regular labs."
+    },
+    {
+      icon: "⬡",
+      heading: "preventive focus",
+      body: "We catch things early. Routine screenings, health maintenance, and proactive conversations about risk factors before they become problems."
+    }
+  ]}
+  features={[
+    {
+      heading: "primary care that goes beyond the appointment",
+      body: "Most primary care relationships are reactive: something hurts, you call, you wait weeks, you get 8 minutes. We built this practice to work differently. Same-week availability. A provider who knows your chart. Time to actually talk through what's going on.",
+      chipLabel: "whole-person care",
+      chipClass: "chip-sage",
+      imgAlt: "Person in a comfortable telehealth visit"
+    },
+    {
+      heading: "chronic conditions managed with intention",
+      body: "Managing hypertension, diabetes, hypothyroidism, or other long-term conditions takes consistency. We provide that: regular check-ins, medication titration, lab reviews, and adjustments when life changes. Not just a prescription renewed on autopilot.",
+      chipLabel: "chronic care",
+      chipClass: "chip-coral",
+      imgAlt: "Person reviewing health results with a provider",
+      imgSurface: "rgba(168,184,155,0.2)",
+      flip: true
+    }
+  ]}
+  testimonials={[
+    {
+      quote: "i've seen the same provider for two years now. they knew something was off from my labs before i even felt symptoms. that's what real primary care looks like.",
+      attr: "Primary Care Patient — Bradenton, FL"
+    },
+    {
+      quote: "my blood pressure has been controlled for the first time in years. consistent follow-up and a provider who actually adjusted my medication until we got it right.",
+      attr: "Primary Care Patient — St. Petersburg, FL"
+    },
+    {
+      quote: "no waiting room, no drive, no rushed 8-minute visit. telehealth actually made me more consistent about keeping my appointments.",
+      attr: "Primary Care Patient — Jacksonville, FL"
+    }
+  ]}
+  steps={[
+    {
+      heading: "new patient visit",
+      body: "A thorough first visit to review your full health history, current medications, and care goals. We establish a baseline and decide what to address first."
+    },
+    {
+      heading: "lab work and baseline",
+      body: "Depending on your history, we may order baseline labs to understand where things stand. Results reviewed with you at a follow-up."
+    },
+    {
+      heading: "ongoing care relationship",
+      body: "Regular follow-ups at intervals appropriate for your needs. Acute visits available same-week. Your provider knows you and your history each time."
+    }
+  ]}
+  faq={[
+    {
+      q: "can you be my regular primary care provider?",
+      a: "Yes. We provide ongoing primary care including chronic condition management, preventive care, acute visits, and medication management. Many of our patients see us as their primary care provider."
+    },
+    {
+      q: "can you order labs and imaging?",
+      a: "Yes. We order labs through major national labs. Imaging orders (X-rays, MRIs, etc.) can be placed at facilities near you. We review all results with you."
+    },
+    {
+      q: "what conditions do you manage?",
+      a: "Common conditions include hypertension, type 2 diabetes, hypothyroidism, high cholesterol, GERD, and many others. If you are unsure whether we can help, contact us and we will be honest with you."
+    },
+    {
+      q: "do you provide referrals to specialists?",
+      a: "Yes. When specialist care is needed, we can provide referrals and coordinate care. We stay involved in your overall health picture even when specialists are engaged."
+    },
+    {
+      q: "what if i need emergency care?",
+      a: "Telehealth is not appropriate for emergencies. If you are experiencing a medical emergency, call 911 or go to your nearest emergency room. We handle non-emergency and chronic care."
+    }
+  ]}
+/>

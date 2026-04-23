@@ -1,0 +1,269 @@
+---
+/**
+ * Shared service page template.
+ * Follows design-system.md page anatomy:
+ * hero → value props → zigzag features → testimonials → how it works → faq → cta
+ */
+
+import Layout from '../layouts/Layout.astro';
+
+interface Feature {
+  heading: string;
+  body: string;
+  flip?: boolean;
+  chipLabel?: string;
+  chipClass?: string;
+  imgAlt?: string;
+  imgSurface?: string;
+}
+
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  heroTitle: string;
+  heroSub: string;
+  chipLabel: string;
+  chipClass: string;           // e.g. 'chip-coral'
+  heroSurface?: string;        // default 'var(--surface-peach)'
+  values: { icon: string; heading: string; body: string }[];
+  features: Feature[];
+  testimonials: { quote: string; attr: string }[];
+  steps: { heading: string; body: string }[];
+  faq: FaqItem[];
+}
+
+const {
+  title, description, eyebrow, heroTitle, heroSub,
+  chipLabel, chipClass,
+  heroSurface = 'var(--surface-peach)',
+  values, features, testimonials, steps, faq
+} = Astro.props;
+---
+
+<Layout title={title} description={description}>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="section service-hero" style={`background-color: ${heroSurface}; padding-top: 7rem;`}>
+    <div class="container">
+      <div class="hero-split">
+        <div>
+          <span class="hero-eyebrow">{eyebrow}</span>
+          <h1 class="hero-title">{heroTitle}</h1>
+          <p class="hero-sub">{heroSub}</p>
+          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top: 0.5rem;">
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              book a visit
+            </a>
+            <a href="/contact/" class="btn btn-secondary">ask a question</a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <div class="img-placeholder img-placeholder--tall" role="img" aria-label={`${title} service`}>
+            <span>{title.toLowerCase()} photo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       VALUE PROPS — cream surface
+       ============================================================ -->
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="reveal sp-values">
+        {values.map((v, i) => (
+          <div class={`reveal card sp-value-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
+            <div class="sp-value-icon" aria-hidden="true">{v.icon}</div>
+            <h3>{v.heading}</h3>
+            <p>{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FEATURES — zigzag, alternating shell/sand
+       ============================================================ -->
+  {features.map((f, i) => (
+    <section class={`section ${i % 2 === 0 ? 'bg-shell' : 'bg-sand'}`}>
+      <div class="container">
+        <div class={`feature-row reveal ${f.flip ? 'feature-row--flip' : ''}`}>
+          <div class="feature-row__media">
+            <div
+              class="img-placeholder"
+              style={f.imgSurface ? `background-color: ${f.imgSurface}` : ''}
+              role="img"
+              aria-label={f.imgAlt ?? f.heading}
+            >
+              <span>{(f.imgAlt ?? f.heading).toLowerCase()}</span>
+            </div>
+          </div>
+          <div class="feature-row__text">
+            {(f.chipLabel || f.chipClass) && (
+              <span class={`accent-chip ${f.chipClass ?? chipClass}`}>
+                {f.chipLabel ?? chipLabel}
+              </span>
+            )}
+            <h2>{f.heading}</h2>
+            <p>{f.body}</p>
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer"
+               class="btn btn-primary" style="margin-top: 2rem;">
+              get started
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+
+  <!-- ============================================================
+       TESTIMONIALS — ink surface
+       ============================================================ -->
+  <section class="section bg-ink">
+    <div class="container">
+      <div class="reveal" style="margin-bottom: 3rem;">
+        <span class="label" style="color: rgba(250,246,240,0.45);">patient stories</span>
+        <h2 style="color: var(--ink-inverse); margin-top: 0.75rem;">what patients say</h2>
+      </div>
+      <div class="sp-testimonials">
+        {testimonials.map((t, i) => (
+          <div class={`reveal testimonial-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
+            <p class="testimonial-quote">{t.quote}</p>
+            <p class="testimonial-attr">{t.attr}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       HOW IT WORKS — cream surface
+       ============================================================ -->
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="reveal" style="text-align:center; margin-bottom:3.5rem;">
+        <span class="label">how it works</span>
+        <h2 style="margin-top:0.75rem;">your path to better health</h2>
+      </div>
+      <div class="steps-grid">
+        {steps.map((s, i) => (
+          <div class={`reveal step-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
+            <span class="step-number">0{i + 1}</span>
+            <h3 style="margin-top:1rem; margin-bottom:0.75rem;">{s.heading}</h3>
+            <p style="color:var(--ink-secondary); font-size:var(--text-sm);">{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FAQ — shell surface
+       ============================================================ -->
+  <section class="section bg-shell">
+    <div class="container">
+      <div class="reveal faq-layout">
+        <div class="faq-heading">
+          <span class="label">questions</span>
+          <h2 style="margin-top:0.75rem;">common questions</h2>
+          <p style="color:var(--ink-secondary); margin-top:1rem; font-size:var(--text-sm);">
+            More questions? <a href="/contact/" style="text-decoration:underline; text-underline-offset:3px;">Contact us.</a>
+          </p>
+        </div>
+        <div class="faq-list">
+          {faq.map(item => (
+            <details class="faq-item">
+              <summary class="faq-summary">{item.q}</summary>
+              <p class="faq-body">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CTA — ink surface
+       ============================================================ -->
+  <section class="section bg-ink" style="text-align:center;">
+    <div class="container">
+      <div class="reveal" style="max-width:640px; margin-inline:auto;">
+        <span class={`accent-chip ${chipClass}`} style="margin-bottom:1.5rem;">{chipLabel}</span>
+        <h2 style="color:var(--ink-inverse);">ready to get started?</h2>
+        <p style="color:rgba(250,246,240,0.7); margin-top:1rem; font-size:var(--text-lg);">
+          Same-week telehealth across Florida. Cash pay, no insurance needed.
+        </p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:2.5rem;">
+          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-inverse">
+            book a visit
+          </a>
+          <a href="/contact/" class="btn btn-outline-inverse">ask a question</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+
+<style>
+  /* Hero */
+  .service-hero { min-height: 85vh; display: flex; align-items: center; }
+
+  /* Values */
+  .sp-values {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .sp-values { grid-template-columns: repeat(3, 1fr); }
+  }
+  .sp-value-card h3 { font-size: var(--text-xl); margin-bottom: 0.75rem; margin-top: 0.5rem; }
+  .sp-value-card p  { font-size: var(--text-sm); color: var(--ink-secondary); max-width: none; }
+  .sp-value-icon    { font-size: 1.75rem; color: var(--accent-terracotta); }
+
+  /* Features */
+  .feature-row__text h2 { margin-bottom: 1rem; }
+  .feature-row__text p  { color: var(--ink-secondary); font-size: var(--text-base); max-width: 52ch; }
+
+  /* Testimonials */
+  .sp-testimonials {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .sp-testimonials { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* FAQ */
+  .faq-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 768px) {
+    .faq-layout { grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start; }
+  }
+  .faq-heading { position: sticky; top: 6rem; }
+
+  /* Steps */
+  .step-card h3 { font-size: var(--text-xl); }
+</style>

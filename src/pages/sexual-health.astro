@@ -1,0 +1,94 @@
+---
+import ServicePage from '../components/ServicePage.astro';
+---
+
+<ServicePage
+  title="Sexual Health"
+  description="Telehealth sexual health care in Florida. ED treatment, low libido, and sexual wellness for men and women. Confidential, judgment-free care."
+  eyebrow="sexual health"
+  heroTitle="sexual health deserves real medical care"
+  heroSub="ED, low libido, and sexual dysfunction are medical conditions. We talk about them plainly, evaluate the underlying causes, and treat them. No awkwardness, no judgment."
+  chipLabel="confidential care"
+  chipClass="chip-terracotta"
+  values={[
+    {
+      icon: "○",
+      heading: "no judgment, ever",
+      body: "Sexual health concerns are medical concerns. We treat them that way: clinically, confidentially, and without making it weird."
+    },
+    {
+      icon: "▲",
+      heading: "cause-first approach",
+      body: "ED and low libido often have underlying causes: hormonal, cardiovascular, psychological, or medication-related. We find them."
+    },
+    {
+      icon: "⬡",
+      heading: "for men and women",
+      body: "Sexual wellness affects everyone. We provide care for both men and women experiencing concerns about sexual function and satisfaction."
+    }
+  ]}
+  features={[
+    {
+      heading: "erectile dysfunction: common, treatable, and not your fault",
+      body: "ED affects an estimated 30 million men in the United States. It becomes more common with age and is frequently connected to cardiovascular health, testosterone levels, blood sugar, and medications. We evaluate the full picture. Treatment options include sildenafil (Viagra), tadalafil (Cialis), testosterone optimization, and lifestyle interventions. We explain what works and what doesn't.",
+      chipLabel: "ED treatment",
+      chipClass: "chip-terracotta",
+      imgAlt: "Man living with confidence"
+    },
+    {
+      heading: "low libido in men and women: worth taking seriously",
+      body: "Low sex drive is one of the most common and most overlooked quality-of-life issues in adults over 35. Hormonal changes, chronic stress, poor sleep, and medication side effects all contribute. We look at what's driving it and build a plan. For women, this often means hormonal evaluation. For men, it frequently overlaps with testosterone and overall metabolic health.",
+      chipLabel: "sexual wellness",
+      chipClass: "chip-coral",
+      imgAlt: "Couple living confidently and connected",
+      imgSurface: "rgba(232,116,97,0.1)",
+      flip: true
+    }
+  ]}
+  testimonials={[
+    {
+      quote: "finally talked to someone about it without dreading the conversation. professional, direct, and actually helpful.",
+      attr: "Sexual Health Patient — Tampa, FL"
+    },
+    {
+      quote: "turns out my ED was an early sign of cardiovascular issues. i'm glad i finally said something instead of ignoring it.",
+      attr: "Sexual Health Patient — Sarasota, FL"
+    },
+    {
+      quote: "low libido for two years. hormonal workup found the problem in 20 minutes. treatment made a real difference.",
+      attr: "Sexual Health Patient — Bradenton, FL"
+    }
+  ]}
+  steps={[
+    {
+      heading: "confidential intake",
+      body: "A focused, private conversation about your concerns, timeline, relationship context, and overall health. Nothing is off limits and nothing is judged."
+    },
+    {
+      heading: "evaluation and labs",
+      body: "Hormonal panel, cardiovascular markers, and any other relevant testing based on your specific presentation."
+    },
+    {
+      heading: "treatment and follow-up",
+      body: "A clear treatment plan with realistic expectations. Follow-up visits to assess effectiveness and make adjustments."
+    }
+  ]}
+  faq={[
+    {
+      q: "is this conversation really confidential?",
+      a: "Yes. All medical information is protected under HIPAA. Your visit records are not shared without your consent. We take this seriously."
+    },
+    {
+      q: "do you prescribe sildenafil and tadalafil?",
+      a: "Yes, after appropriate evaluation. We do not prescribe these medications without understanding your cardiovascular health, as they can interact with certain conditions and medications."
+    },
+    {
+      q: "can you treat women with sexual health concerns?",
+      a: "Yes. Low libido, pain with intercourse, and other sexual wellness concerns in women are evaluated and managed, often in the context of our broader women's health services."
+    },
+    {
+      q: "could ED be a sign of something more serious?",
+      a: "Yes. ED can be an early marker of cardiovascular disease, diabetes, and other conditions. This is one reason we evaluate it clinically rather than just prescribing a pill."
+    }
+  ]}
+/>

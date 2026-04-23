@@ -1,0 +1,100 @@
+---
+import ServicePage from '../components/ServicePage.astro';
+---
+
+<ServicePage
+  title="Mental Health"
+  description="Telehealth mental health care in Florida. Anxiety, depression, sleep disorders, and ADHD treated as part of whole-person care. No referral required."
+  eyebrow="mental health"
+  heroTitle="your mind and body are not separate problems"
+  heroSub="Anxiety, depression, sleep disorders, and ADHD are treatable. We take mental health seriously as a real part of whole-person medicine, not a referral you never follow through on."
+  chipLabel="mind-body care"
+  chipClass="chip-sky"
+  heroSurface="rgba(168,196,212,0.2)"
+  values={[
+    {
+      icon: "○",
+      heading: "anxiety and depression",
+      body: "Evaluated and managed by a provider who understands how mental health intersects with physical health, sleep, and hormones."
+    },
+    {
+      icon: "▲",
+      heading: "sleep disorders",
+      body: "Insomnia, disrupted sleep, and sleep-related fatigue addressed with evidence-based approaches. Not just a sleep hygiene pamphlet."
+    },
+    {
+      icon: "⬡",
+      heading: "ADHD evaluation",
+      body: "Adult ADHD is frequently undiagnosed. If focus, organization, and impulsivity are affecting your life, we can evaluate and discuss options."
+    }
+  ]}
+  features={[
+    {
+      heading: "anxiety that runs your days is treatable",
+      body: "Generalized anxiety, social anxiety, panic attacks, and chronic stress are real clinical conditions. We evaluate your symptoms in the context of your full health picture, including hormones, sleep, and physical health. Treatment may include medication, lifestyle interventions, or referral to therapy. We stay in the loop regardless.",
+      chipLabel: "anxiety & depression",
+      chipClass: "chip-sky",
+      imgAlt: "Person finding calm and balance",
+      imgSurface: "rgba(168,196,212,0.2)"
+    },
+    {
+      heading: "sleep is not optional. let's fix yours.",
+      body: "Chronic sleep deprivation affects everything: mood, weight, cardiovascular risk, cognitive function, hormones. When restless nights start running your days, we look for what's actually causing it. Insomnia, anxiety, hormonal imbalance, and sleep apnea (we can help you get evaluated) all play a role. We build a plan that addresses the root cause.",
+      chipLabel: "sleep health",
+      chipClass: "chip-butter",
+      imgAlt: "Person sleeping peacefully",
+      imgSurface: "rgba(239,207,143,0.2)",
+      flip: true
+    }
+  ]}
+  testimonials={[
+    {
+      quote: "i had been anxious for years and kept getting told to 'reduce stress.' finally a provider who actually evaluated me, prescribed appropriately, and followed up.",
+      attr: "Mental Health Patient — Orlando, FL"
+    },
+    {
+      quote: "three years of bad sleep. two months into treatment and i'm sleeping through the night for the first time since my 30s.",
+      attr: "Mental Health Patient — Bradenton, FL"
+    },
+    {
+      quote: "adult ADHD diagnosis changed my life. i had no idea that what i thought was laziness was actually a treatable condition.",
+      attr: "Mental Health Patient — Tampa, FL"
+    }
+  ]}
+  steps={[
+    {
+      heading: "mental health intake",
+      body: "A focused intake covering your symptoms, timeline, sleep patterns, medications, and how mental health is affecting your daily life."
+    },
+    {
+      heading: "evaluation and labs if needed",
+      body: "We rule out underlying physical contributors like thyroid dysfunction, hormonal imbalances, or nutritional deficiencies that can present as mental health symptoms."
+    },
+    {
+      heading: "treatment plan and follow-up",
+      body: "Your plan may include medication, lifestyle adjustments, sleep protocols, and coordination with therapists or specialists. Follow-ups every 4-8 weeks."
+    }
+  ]}
+  faq={[
+    {
+      q: "do you prescribe antidepressants and anti-anxiety medications?",
+      a: "Yes. We can prescribe SSRIs, SNRIs, buspirone, and other non-controlled mental health medications. We evaluate carefully and follow up regularly."
+    },
+    {
+      q: "do you prescribe controlled substances for ADHD?",
+      a: "ADHD evaluation and treatment, including stimulant medications where clinically appropriate, is available. We follow DEA telehealth prescribing guidelines carefully."
+    },
+    {
+      q: "do you provide therapy?",
+      a: "We do not provide psychotherapy directly. We manage psychiatric medication and can coordinate with your therapist or help connect you with one."
+    },
+    {
+      q: "can mental health symptoms be caused by physical issues?",
+      a: "Absolutely. Thyroid disorders, low testosterone, nutritional deficiencies, and sleep apnea can all present as anxiety, depression, or cognitive symptoms. We always check for physical contributors."
+    },
+    {
+      q: "what if my situation is a crisis?",
+      a: "If you are in immediate crisis, please call 988 (Suicide and Crisis Lifeline) or go to your nearest emergency room. We are not equipped for acute psychiatric emergencies but can support ongoing mental health care."
+    }
+  ]}
+/>
