@@ -19,7 +19,7 @@ const founders: TeamMember[] = [
     name: 'David Hervig, PA-C',
     role: 'Owner & Founder',
     credentials: 'PA-C · 12 Years U.S. Army',
-    image: '/images/david.png',
+    image: '/images/david.jpg',
     chipLabel: 'founder',
     chipClass: 'chip-terracotta',
     shortBio: 'PA-C, U.S. Army veteran, national diving champion, and founder of MBS Medical. Emergency medicine trained with experience across every stage of life.',
@@ -84,7 +84,7 @@ const team: TeamMember[] = [
     name: 'Dr. Mark Dawson, MD',
     role: 'Physician & Consultant',
     credentials: 'Gastroenterology · 30+ Years',
-    image: '/images/dawson.png',
+    image: '/images/dawson.jpg',
     chipLabel: 'physician & consultant',
     chipClass: 'chip-sky',
     shortBio: 'Gastroenterologist specializing in colon cancer prevention, biliary and pancreatic disease. Cook County Hospital trained.',
@@ -116,7 +116,16 @@ const team: TeamMember[] = [
           <a href="/contact/" class="btn btn-primary" style="margin-top: 0.5rem;">get in touch</a>
         </div>
         <div class="hero-media">
-          <img src="/images/about-hero.png" alt="MBS Medical team" class="about-hero-img" />
+          <img
+            src="/images/about-hero.jpg"
+            alt="MBS Medical team"
+            class="about-hero-img"
+            width="800"
+            height="1000"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
         </div>
       </div>
     </div>
@@ -171,7 +180,7 @@ const team: TeamMember[] = [
             aria-label={`View bio for ${m.name}`}
           >
             <div class="team-card__photo team-card__photo--large">
-              <img src={m.image} alt={m.name} />
+              <img src={m.image} alt={m.name} loading="lazy" decoding="async" width="600" height="600" />
             </div>
             <div class="team-card__info">
               <span class={`accent-chip ${m.chipClass}`}>{m.chipLabel}</span>
@@ -194,7 +203,7 @@ const team: TeamMember[] = [
             aria-label={`View bio for ${m.name}`}
           >
             <div class="team-card__photo">
-              <img src={m.image} alt={m.name} />
+              <img src={m.image} alt={m.name} loading="lazy" decoding="async" width="600" height="600" />
             </div>
             <div class="team-card__info">
               <span class={`accent-chip ${m.chipClass}`}>{m.chipLabel}</span>

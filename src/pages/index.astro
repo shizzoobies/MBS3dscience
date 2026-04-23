@@ -41,7 +41,16 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Media side -->
         <div class="hero-media">
-          <img src="/images/home-hero.png" alt="Healthy patient on a telehealth visit" class="hero-img" />
+          <img
+            src="/images/home-hero.jpg"
+            alt="Healthy patient on a telehealth visit"
+            class="hero-img"
+            width="800"
+            height="1000"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
           <!-- Floating badge -->
           <div class="hero-badge">
             <span class="hero-badge__number serif">11</span>
@@ -95,8 +104,9 @@ import Layout from '../layouts/Layout.astro';
       muted
       loop
       playsinline
+      preload="metadata"
       aria-hidden="true"
-      poster="/images/home-hero.png"
+      poster="/images/home-hero.jpg"
     >
       <source src="/images/flag-intro.mp4" type="video/mp4" />
     </video>
