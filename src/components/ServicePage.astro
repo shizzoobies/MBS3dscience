@@ -15,6 +15,7 @@ interface Feature {
   chipClass?: string;
   imgAlt?: string;
   imgSurface?: string;
+  image?: string;  // optional real image path, falls back to placeholder
 }
 
 interface FaqItem {
@@ -31,6 +32,7 @@ interface Props {
   chipLabel: string;
   chipClass: string;           // e.g. 'chip-coral'
   heroSurface?: string;        // default 'var(--surface-peach)'
+  heroImage?: string;          // optional real hero image
   values: { icon: string; heading: string; body: string }[];
   features: Feature[];
   testimonials: { quote: string; attr: string }[];
@@ -42,6 +44,7 @@ const {
   title, description, eyebrow, heroTitle, heroSub,
   chipLabel, chipClass,
   heroSurface = 'var(--surface-peach)',
+  heroImage,
   values, features, testimonials, steps, faq
 } = Astro.props;
 ---
@@ -66,9 +69,13 @@ const {
           </div>
         </div>
         <div class="hero-media">
-          <div class="img-placeholder img-placeholder--tall" role="img" aria-label={`${title} service`}>
-            <span>{title.toLowerCase()} photo</span>
-          </div>
+          {heroImage ? (
+            <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero-img" />
+          ) : (
+            <div class="img-placeholder img-placeholder--tall" role="img" aria-label={`${title} service`}>
+              <span>{title.toLowerCase()} photo</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -101,14 +108,18 @@ const {
       <div class="container">
         <div class={`feature-row reveal ${f.flip ? 'feature-row--flip' : ''}`}>
           <div class="feature-row__media">
-            <div
-              class="img-placeholder"
-              style={f.imgSurface ? `background-color: ${f.imgSurface}` : ''}
-              role="img"
-              aria-label={f.imgAlt ?? f.heading}
-            >
-              <span>{(f.imgAlt ?? f.heading).toLowerCase()}</span>
-            </div>
+            {f.image ? (
+              <img src={f.image} alt={f.imgAlt ?? f.heading} class="sp-feature-img" />
+            ) : (
+              <div
+                class="img-placeholder"
+                style={f.imgSurface ? `background-color: ${f.imgSurface}` : ''}
+                role="img"
+                aria-label={f.imgAlt ?? f.heading}
+              >
+                <span>{(f.imgAlt ?? f.heading).toLowerCase()}</span>
+              </div>
+            )}
           </div>
           <div class="feature-row__text">
             {(f.chipLabel || f.chipClass) && (
@@ -225,6 +236,25 @@ const {
 <style>
   /* Hero */
   .service-hero { min-height: 85vh; display: flex; align-items: center; }
+
+  .sp-hero-img {
+    border-radius: var(--radius-xl);
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 767px) {
+    .sp-hero-img { aspect-ratio: 16/9; }
+  }
+
+  .sp-feature-img {
+    border-radius: var(--radius-xl);
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
 
   /* Values */
   .sp-values {

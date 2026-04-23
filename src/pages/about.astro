@@ -22,9 +22,7 @@ import Layout from '../layouts/Layout.astro';
           <a href="/contact/" class="btn btn-primary" style="margin-top: 0.5rem;">get in touch</a>
         </div>
         <div class="hero-media">
-          <div class="img-placeholder img-placeholder--tall" role="img" aria-label="MBS Medical team">
-            <span>team photo placeholder</span>
-          </div>
+          <img src="/images/about-hero.png" alt="MBS Medical team" class="about-hero-img" />
         </div>
       </div>
     </div>
@@ -203,6 +201,17 @@ import Layout from '../layouts/Layout.astro';
 
 
 <style>
+  .about-hero-img {
+    border-radius: var(--radius-xl);
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 767px) {
+    .about-hero-img { aspect-ratio: 16/9; }
+  }
+
   .philosophy-grid {
     display: grid;
     grid-template-columns: 1fr;

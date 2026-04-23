@@ -41,9 +41,7 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Media side -->
         <div class="hero-media">
-          <div class="img-placeholder img-placeholder--tall" role="img" aria-label="Happy patients living healthy lives">
-            <span>lifestyle photo placeholder</span>
-          </div>
+          <img src="/images/home-hero.png" alt="Healthy patient on a telehealth visit" class="hero-img" />
           <!-- Floating badge -->
           <div class="hero-badge">
             <span class="hero-badge__number serif">11</span>
@@ -88,6 +86,40 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
+       VETERAN-OWNED — ink surface with flag video background
+       ============================================================ -->
+  <section class="section veteran-section">
+    <video
+      class="veteran-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-hidden="true"
+      poster="/images/home-hero.png"
+    >
+      <source src="/images/flag-intro.mp4" type="video/mp4" />
+    </video>
+    <div class="veteran-overlay" aria-hidden="true"></div>
+
+    <div class="container veteran-content">
+      <div class="reveal">
+        <span class="label" style="color: rgba(250,246,240,0.65); margin-bottom: 1.25rem; display: block;">veteran-owned &amp; operated</span>
+        <h2 class="veteran-title">
+          founded on 12 years of service
+        </h2>
+        <p class="veteran-sub">
+          Our founder spent 12 years in the U.S. Army, starting as a combat medic and finishing as a Physician Associate. Discipline, integrity, and showing up for people are not values we wrote on a wall. They are how we practice medicine every day.
+        </p>
+        <div class="veteran-actions">
+          <a href="/about/" class="btn btn-inverse">meet the team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
        FEATURE 1 — weight loss, shell surface, coral accent
        image LEFT, text RIGHT
        ============================================================ -->
@@ -95,9 +127,7 @@ import Layout from '../layouts/Layout.astro';
     <div class="container">
       <div class="feature-row reveal">
         <div class="feature-row__media">
-          <div class="img-placeholder" role="img" aria-label="Person living an active healthy lifestyle">
-            <span>weight loss photo</span>
-          </div>
+          <img src="/images/weight-loss.png" alt="Medical weight loss program" class="feature-img" />
         </div>
         <div class="feature-row__text">
           <span class="accent-chip chip-coral">medical weight loss</span>
@@ -122,9 +152,7 @@ import Layout from '../layouts/Layout.astro';
     <div class="container">
       <div class="feature-row feature-row--flip reveal">
         <div class="feature-row__media">
-          <div class="img-placeholder img-placeholder--sand" role="img" aria-label="Active man in his prime">
-            <span>men's health photo</span>
-          </div>
+          <img src="/images/trt-photo.jpg" alt="TRT evaluation and men's health" class="feature-img" />
         </div>
         <div class="feature-row__text">
           <span class="accent-chip chip-terracotta">men's health</span>
@@ -149,9 +177,7 @@ import Layout from '../layouts/Layout.astro';
     <div class="container">
       <div class="feature-row reveal">
         <div class="feature-row__media">
-          <div class="img-placeholder" style="background-color: rgba(168,196,212,0.25);" role="img" aria-label="Person relaxing peacefully">
-            <span>mental health photo</span>
-          </div>
+          <img src="/images/mental-health-tired.jpg" alt="Mental health and sleep care" class="feature-img" />
         </div>
         <div class="feature-row__text">
           <span class="accent-chip chip-sky">mental health</span>
@@ -324,6 +350,87 @@ import Layout from '../layouts/Layout.astro';
 <style>
   /* Hero */
   .hero-text { max-width: 520px; }
+
+  .hero-img {
+    border-radius: var(--radius-xl);
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 767px) {
+    .hero-img { aspect-ratio: 16/9; }
+  }
+
+  /* Feature images */
+  .feature-img {
+    border-radius: var(--radius-xl);
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Veteran-owned flag video section */
+  .veteran-section {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--surface-ink);
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding-block: 8rem;
+  }
+  .veteran-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+  .veteran-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        110deg,
+        rgba(26,26,26,0.88) 0%,
+        rgba(26,26,26,0.75) 45%,
+        rgba(26,26,26,0.55) 100%
+      );
+    z-index: 1;
+  }
+  .veteran-content {
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+  }
+  .veteran-title {
+    font-size: var(--text-5xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    text-transform: lowercase;
+    color: var(--ink-inverse);
+    margin-bottom: 1.5rem;
+  }
+  .veteran-sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: rgba(250,246,240,0.78);
+    max-width: 58ch;
+    margin-bottom: 2rem;
+  }
+  .veteran-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .veteran-video { display: none; }
+  }
 
   .hero-actions {
     display: flex;
