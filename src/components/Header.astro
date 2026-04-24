@@ -44,9 +44,9 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header">
   <div class="header-inner container">
-    <!-- Wordmark -->
+    <!-- Wordmark / logo -->
     <a href="/" class="wordmark" aria-label="MBS Medical home">
-      mbs medical
+      <img src="/images/logo.png" alt="MBS Medical" width="464" height="240" class="wordmark-img" />
     </a>
 
     <!-- Desktop nav -->
@@ -181,19 +181,21 @@ const currentPath = Astro.url.pathname;
     height: 68px;
   }
 
-  /* ---- Wordmark ---- */
+  /* ---- Wordmark / logo image ---- */
   .wordmark {
-    font-family: var(--font-sans);
-    font-size: 1.15rem;
-    font-weight: var(--weight-bold);
-    letter-spacing: -0.01em;
-    color: var(--ink-inverse);
-    text-decoration: none;
-    text-transform: lowercase;
+    display: flex;
+    align-items: center;
     flex-shrink: 0;
-    transition: color 200ms ease;
+    text-decoration: none;
+    transition: opacity 200ms ease;
   }
-  .wordmark:hover { color: var(--accent-butter); }
+  .wordmark:hover { opacity: 0.85; }
+  .wordmark-img {
+    height: 42px;
+    width: auto;
+    display: block;
+    /* Logo already has transparent background so it sits cleanly on dark header */
+  }
 
   /* ---- Desktop nav ---- */
   .desktop-nav {
@@ -243,8 +245,9 @@ const currentPath = Astro.url.pathname;
 
   .nav-mega {
     position: absolute;
-    top: calc(100% + 20px);
+    top: 100%;
     left: 50%;
+    margin-top: 14px;   /* visual offset from trigger */
     transform: translateX(-50%) translateY(-6px);
     min-width: 720px;
     max-width: 860px;
@@ -256,6 +259,18 @@ const currentPath = Astro.url.pathname;
     opacity: 0;
     pointer-events: none;
     transition: opacity 180ms ease, transform 180ms ease;
+  }
+  /* Invisible hover bridge: fills the gap between trigger and menu so
+     moving the mouse down from "Services" into the menu never leaves
+     the hover area. Only active while open. */
+  .nav-mega::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: transparent;
   }
   .nav-dropdown.is-open .nav-mega {
     opacity: 1;
