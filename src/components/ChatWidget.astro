@@ -172,8 +172,9 @@
   .mbs-chat.is-open .mbs-chat__label { display: none; }
   @media (max-width: 480px) { .mbs-chat__label { display: none; } }
 
-  /* ---- Chat window ---- */
+  /* ---- Chat window (hidden by default, shown only when .is-open) ---- */
   .mbs-chat__window {
+    display: none;
     position: absolute;
     right: 0;
     bottom: calc(100% + 1rem);
@@ -182,9 +183,11 @@
     background-color: var(--surface-shell);
     border-radius: var(--radius-xl);
     overflow: hidden;
-    display: flex;
     flex-direction: column;
     box-shadow: 0 20px 50px rgba(26,26,26,0.18), 0 0 0 1px var(--border-subtle);
+  }
+  .mbs-chat.is-open .mbs-chat__window {
+    display: flex;
     animation: chatIn 250ms var(--ease-entrance);
   }
   @keyframes chatIn {

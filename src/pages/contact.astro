@@ -29,31 +29,24 @@ import Layout from '../layouts/Layout.astro';
         <!-- Info column -->
         <div class="contact-info">
           <div class="reveal contact-card">
-            <div class="contact-card__icon" aria-hidden="true">&#9742;</div>
-            <h3>call us</h3>
-            <a href="tel:+19413157246" class="contact-card__value">(941) 315-7246</a>
-            <p>Available during business hours. Leave a voicemail and we'll return your call promptly.</p>
+            <span class="accent-chip chip-coral">ready to book</span>
+            <h3>book a visit</h3>
+            <p>Same-week availability, evening appointments included. Book in minutes, no insurance needed.</p>
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 1.5rem;">
+              open booking portal
+            </a>
           </div>
 
           <div class="reveal reveal-delay-1 contact-card">
-            <div class="contact-card__icon" aria-hidden="true">&#9993;</div>
-            <h3>email us</h3>
-            <a href="mailto:david@mbsdoc.com" class="contact-card__value">david@mbsdoc.com</a>
-            <p>For general inquiries, questions about services, or anything else on your mind.</p>
+            <span class="accent-chip chip-sage">availability</span>
+            <h3>response time</h3>
+            <p>Use the form to send us a question, concern, or just say hello. We respond within one business day.</p>
           </div>
 
-          <div class="reveal reveal-delay-2 contact-card">
-            <div class="contact-card__icon" aria-hidden="true">&#9200;</div>
-            <h3>book online</h3>
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="contact-card__value">practicebetter.io</a>
-            <p>Same-week availability. Evening appointments included. Book in minutes, no insurance needed.</p>
-          </div>
-
-          <div class="reveal reveal-delay-3 contact-card" style="background-color: var(--surface-ink); color: var(--ink-inverse);">
-            <div class="contact-card__icon" aria-hidden="true" style="color: var(--accent-terracotta);">&#9679;</div>
-            <h3 style="color: var(--ink-inverse);">service area</h3>
-            <p class="contact-card__value" style="color: var(--ink-inverse);">All of Florida</p>
-            <p style="color: rgba(250,246,240,0.65);">We provide telehealth services to patients physically located anywhere in the state of Florida. You do not need to be near our primary location.</p>
+          <div class="reveal reveal-delay-2 contact-card contact-card--dark">
+            <span class="accent-chip chip-butter">service area</span>
+            <h3>all of florida</h3>
+            <p>We provide telehealth services to patients physically located anywhere in the state of Florida. You do not need to be near our primary location.</p>
           </div>
         </div>
 
@@ -145,33 +138,32 @@ import Layout from '../layouts/Layout.astro';
   .contact-card {
     background-color: var(--surface-shell);
     border-radius: var(--radius-lg);
-    padding: 1.75rem;
+    padding: 2rem;
     border: 1px solid var(--border-subtle);
+    box-shadow: 0 2px 8px rgba(26,26,26,0.04);
+    transition: transform var(--dur-base), box-shadow var(--dur-base);
   }
-  .contact-card__icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-    color: var(--accent-terracotta);
+  .contact-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(26,26,26,0.08);
   }
   .contact-card h3 {
     font-size: var(--text-xl);
-    margin-bottom: 0.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.625rem;
   }
-  .contact-card__value {
-    display: block;
-    font-size: var(--text-lg);
-    font-weight: var(--weight-semibold);
-    color: var(--ink-primary);
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-    transition: color 150ms ease;
-  }
-  a.contact-card__value:hover { color: var(--accent-terracotta); }
   .contact-card p {
     font-size: var(--text-sm);
     color: var(--ink-secondary);
     max-width: none;
+    line-height: var(--leading-relaxed);
   }
+  .contact-card--dark {
+    background-color: var(--surface-ink);
+    border-color: rgba(250,246,240,0.08);
+  }
+  .contact-card--dark h3 { color: var(--ink-inverse); }
+  .contact-card--dark p { color: rgba(250,246,240,0.72); }
 
   .contact-form-wrap {
     background-color: var(--surface-shell);

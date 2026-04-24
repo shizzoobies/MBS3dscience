@@ -33,7 +33,7 @@ interface Props {
   chipClass: string;           // e.g. 'chip-coral'
   heroSurface?: string;        // default 'var(--surface-peach)'
   heroImage?: string;          // optional real hero image
-  values: { icon: string; heading: string; body: string }[];
+  values: { icon?: string; heading: string; body: string }[];
   features: Feature[];
   testimonials: { quote: string; attr: string }[];
   steps: { heading: string; body: string }[];
@@ -90,7 +90,7 @@ const {
       <div class="reveal sp-values">
         {values.map((v, i) => (
           <div class={`reveal card sp-value-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
-            <div class="sp-value-icon" aria-hidden="true">{v.icon}</div>
+            <span class="sp-value-bar" aria-hidden="true"></span>
             <h3>{v.heading}</h3>
             <p>{v.body}</p>
           </div>
@@ -265,9 +265,25 @@ const {
   @media (min-width: 640px) {
     .sp-values { grid-template-columns: repeat(3, 1fr); }
   }
-  .sp-value-card h3 { font-size: var(--text-xl); margin-bottom: 0.75rem; margin-top: 0.5rem; }
+  .sp-value-card {
+    padding: 2.25rem 2rem;
+    box-shadow: 0 1px 3px rgba(26,26,26,0.04);
+    transition: transform var(--dur-base), box-shadow var(--dur-base);
+  }
+  .sp-value-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(26,26,26,0.1);
+  }
+  .sp-value-card h3 { font-size: var(--text-xl); margin-bottom: 0.75rem; }
   .sp-value-card p  { font-size: var(--text-sm); color: var(--ink-secondary); max-width: none; }
-  .sp-value-icon    { font-size: 1.75rem; color: var(--accent-terracotta); }
+  .sp-value-bar {
+    display: block;
+    width: 48px;
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background-color: var(--accent-terracotta);
+    margin-bottom: 1.25rem;
+  }
 
   /* Features */
   .feature-row__text h2 { margin-bottom: 1rem; }

@@ -8,42 +8,44 @@ import Layout from '../layouts/Layout.astro';
 >
 
   <!-- ============================================================
-       HERO — cinematic flag video, full-bleed
+       HERO — split layout: flag video left, cream text panel right
        ============================================================ -->
-  <section class="hero-video-section">
-    <video
-      class="hero-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      aria-hidden="true"
-    >
-      <source src="/images/flag-intro.mp4" type="video/mp4" />
-    </video>
-    <div class="hero-video-overlay" aria-hidden="true"></div>
+  <section class="hero-split-section">
+    <!-- Video panel (left) -->
+    <div class="hero-video-panel">
+      <video
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+      >
+        <source src="/images/flag-intro.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-video-panel__overlay" aria-hidden="true"></div>
+      <span class="hero-video-panel__badge">veteran-owned</span>
+    </div>
 
-    <div class="container hero-video-content">
-      <span class="hero-video-eyebrow">veteran-owned &middot; florida telehealth</span>
-      <h1 class="hero-video-title">
-        healthcare that treats the whole person
-      </h1>
-      <p class="hero-video-sub">
-        One consistent provider. No insurance required. Same-week appointments across Florida, from wherever you are.
-      </p>
-      <div class="hero-video-actions">
-        <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-inverse">
-          book a visit
-        </a>
-        <a href="/services/" class="btn btn-outline-inverse">
-          explore services
-        </a>
-      </div>
-      <div class="hero-video-trust">
-        <span>&#9733; veteran-owned</span>
-        <span>&#10003; cash pay</span>
-        <span>&#10003; same-week</span>
+    <!-- Text panel (right) -->
+    <div class="hero-text-panel">
+      <div class="hero-text-panel__inner">
+        <span class="hero-text-eyebrow">florida telehealth</span>
+        <h1 class="hero-text-title">
+          healthcare that treats the whole person
+        </h1>
+        <p class="hero-text-sub">
+          One consistent provider. No insurance required. Same-week appointments across Florida, from wherever you are.
+        </p>
+        <div class="hero-text-actions">
+          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            book a visit
+          </a>
+          <a href="/services/" class="btn btn-secondary">
+            explore services
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -61,17 +63,17 @@ import Layout from '../layouts/Layout.astro';
 
       <div class="value-grid">
         <div class="reveal value-card">
-          <div class="value-icon" aria-hidden="true">&#9825;</div>
+          <span class="value-accent value-accent--coral" aria-hidden="true"></span>
           <h3>whole-person care</h3>
           <p>We treat you, not a symptom list. Mental, physical, and preventive health addressed by one provider who knows your full history.</p>
         </div>
         <div class="reveal reveal-delay-1 value-card">
-          <div class="value-icon" aria-hidden="true">&#9651;</div>
+          <span class="value-accent value-accent--sage" aria-hidden="true"></span>
           <h3>no insurance needed</h3>
           <p>Cash pay keeps it simple. No referrals, no prior authorizations, no surprise bills. Transparent pricing, real care.</p>
         </div>
         <div class="reveal reveal-delay-2 value-card">
-          <div class="value-icon" aria-hidden="true">&#9679;</div>
+          <span class="value-accent value-accent--sky" aria-hidden="true"></span>
           <h3>telehealth, statewide</h3>
           <p>Secure video visits from your home, office, or anywhere in Florida. Evening appointments available. Same-week booking.</p>
         </div>
@@ -313,15 +315,31 @@ import Layout from '../layouts/Layout.astro';
 
 
 <style>
-  /* ---- Cinematic flag-video hero ---- */
-  .hero-video-section {
+  /* ---- Split hero: video left, text panel right ---- */
+  .hero-split-section {
     position: relative;
     min-height: 100vh;
-    display: flex;
-    align-items: flex-end;
+    padding-top: 68px; /* account for fixed header */
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: var(--surface-cream);
+  }
+  @media (min-width: 900px) {
+    .hero-split-section {
+      grid-template-columns: 1.05fr 1fr;
+      min-height: 92vh;
+    }
+  }
+
+  /* Video (left) */
+  .hero-video-panel {
+    position: relative;
+    min-height: 45vh;
     overflow: hidden;
     background-color: var(--surface-ink);
-    padding: 10rem 0 5rem;
+  }
+  @media (min-width: 900px) {
+    .hero-video-panel { min-height: auto; }
   }
   .hero-video {
     position: absolute;
@@ -332,72 +350,98 @@ import Layout from '../layouts/Layout.astro';
     object-position: center;
     z-index: 0;
   }
-  .hero-video-overlay {
+  .hero-video-panel__overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(26,26,26,0.35) 0%,
-        rgba(26,26,26,0.45) 45%,
-        rgba(26,26,26,0.85) 100%
-      );
+    background: linear-gradient(135deg, rgba(26,26,26,0.25) 0%, rgba(26,26,26,0) 55%, rgba(26,26,26,0.35) 100%);
+    pointer-events: none;
   }
-  .hero-video-content {
-    position: relative;
+  .hero-video-panel__badge {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
     z-index: 2;
-    max-width: 760px;
-    color: var(--ink-inverse);
-  }
-  .hero-video-eyebrow {
-    display: block;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    background-color: rgba(250,246,240,0.95);
+    backdrop-filter: blur(8px);
+    color: var(--ink-primary);
     font-size: var(--text-xs);
     font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--accent-butter);
+    box-shadow: 0 4px 12px rgba(26,26,26,0.12);
+  }
+
+  /* Text panel (right) */
+  .hero-text-panel {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 4rem 1.5rem 5rem;
+    background:
+      radial-gradient(ellipse at top right, rgba(245,214,198,0.55) 0%, rgba(245,214,198,0) 55%),
+      linear-gradient(180deg, var(--surface-cream) 0%, var(--surface-shell) 100%);
+  }
+  @media (min-width: 900px) {
+    .hero-text-panel { padding: 5rem 4rem 5rem 4.5rem; }
+  }
+  @media (min-width: 1280px) {
+    .hero-text-panel { padding-left: 6rem; padding-right: 6rem; }
+  }
+
+  .hero-text-panel__inner { max-width: 520px; }
+
+  .hero-text-eyebrow {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--accent-terracotta);
+    padding: 6px 14px;
+    background-color: rgba(201,123,94,0.1);
+    border-radius: var(--radius-pill);
     margin-bottom: 1.5rem;
   }
-  .hero-video-title {
+  .hero-text-title {
     font-size: var(--text-5xl);
     font-weight: var(--weight-bold);
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);
     text-transform: lowercase;
-    color: var(--ink-inverse);
+    color: var(--ink-primary);
     margin-bottom: 1.5rem;
-    max-width: 14ch;
   }
-  .hero-video-sub {
+  .hero-text-sub {
     font-size: var(--text-lg);
     line-height: var(--leading-relaxed);
-    color: rgba(250,246,240,0.82);
-    max-width: 52ch;
-    margin-bottom: 2rem;
+    color: var(--ink-secondary);
+    max-width: 48ch;
+    margin-bottom: 2.25rem;
   }
-  .hero-video-actions {
+  .hero-text-actions {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    margin-bottom: 2.25rem;
-  }
-  .hero-video-trust {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: rgba(250,246,240,0.65);
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-video { display: none; }
-    .hero-video-section { background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%); }
+    .hero-video-panel { background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%); }
   }
 
-  /* Placeholder feature images already handled by global .img-placeholder */
+  /* ---- Value cards: slim accent bar replaces emoji icons ---- */
+  .value-accent {
+    display: block;
+    width: 48px;
+    height: 4px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 1.25rem;
+  }
+  .value-accent--coral { background-color: var(--accent-coral); }
+  .value-accent--sage  { background-color: var(--accent-sage); }
+  .value-accent--sky   { background-color: var(--accent-sky); }
 
   .hero-actions {
     display: flex;
@@ -463,13 +507,17 @@ import Layout from '../layouts/Layout.astro';
   .value-card {
     background-color: var(--surface-shell);
     border-radius: var(--radius-lg);
-    padding: 2rem;
+    padding: 2.25rem 2rem;
     border: 1px solid var(--border-subtle);
+    box-shadow: 0 1px 3px rgba(26,26,26,0.04);
+    transition: transform var(--dur-base) var(--ease-standard),
+                box-shadow var(--dur-base) var(--ease-standard),
+                border-color var(--dur-base) var(--ease-standard);
   }
-  .value-icon {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    color: var(--accent-terracotta);
+  .value-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(26,26,26,0.1);
+    border-color: rgba(201,123,94,0.25);
   }
   .value-card h3 {
     font-size: var(--text-xl);
