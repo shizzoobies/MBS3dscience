@@ -1,0 +1,578 @@
+---
+/**
+ * Floating AI chat assistant.
+ * Calls /api/chat (Cloudflare Pages Function) which proxies Anthropic.
+ * Styled to match the design system (warm neutrals, pill buttons, lowercase).
+ */
+---
+
+<div id="mbs-chat" class="mbs-chat" aria-label="MBS Medical chat assistant">
+
+  <!-- Toggle button (bottom-right) -->
+  <button
+    id="mbs-chat-toggle"
+    class="mbs-chat__toggle"
+    aria-expanded="false"
+    aria-controls="mbs-chat-window"
+    aria-label="Open chat assistant"
+  >
+    <span class="mbs-chat__toggle-open" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+      </svg>
+    </span>
+    <span class="mbs-chat__toggle-close" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </span>
+  </button>
+
+  <!-- Optional text label next to the button -->
+  <button type="button" id="mbs-chat-label" class="mbs-chat__label" aria-label="Open chat assistant">
+    need help?
+  </button>
+
+  <!-- Chat panel -->
+  <div
+    id="mbs-chat-window"
+    class="mbs-chat__window"
+    role="dialog"
+    aria-label="MBS Medical chat assistant"
+    aria-modal="false"
+    hidden
+  >
+    <header class="mbs-chat__header">
+      <div class="mbs-chat__header-info">
+        <div class="mbs-chat__header-avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 3 7v6c0 5 4 9 9 9s9-4 9-9V7l-9-5z" />
+            <path d="M9 12l2 2 4-4" />
+          </svg>
+        </div>
+        <div>
+          <div class="mbs-chat__name">mbs assistant</div>
+          <div class="mbs-chat__status">
+            <span class="mbs-chat__status-dot" aria-hidden="true"></span>
+            ready to help
+          </div>
+        </div>
+      </div>
+      <button
+        id="mbs-chat-close"
+        class="mbs-chat__close"
+        aria-label="Close chat"
+        type="button"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </header>
+
+    <div
+      id="mbs-chat-messages"
+      class="mbs-chat__messages"
+      role="log"
+      aria-live="polite"
+      aria-relevant="additions text"
+      aria-label="Chat messages"
+    ></div>
+
+    <div id="mbs-chat-quick" class="mbs-chat__quick" aria-label="Suggested questions"></div>
+
+    <form id="mbs-chat-form" class="mbs-chat__form">
+      <label for="mbs-chat-input" class="sr-only">Type your question</label>
+      <input
+        type="text"
+        id="mbs-chat-input"
+        class="mbs-chat__input"
+        placeholder="ask a question..."
+        autocomplete="off"
+        maxlength="500"
+      />
+      <button
+        type="submit"
+        id="mbs-chat-send"
+        class="mbs-chat__send"
+        aria-label="Send message"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </form>
+
+    <p class="mbs-chat__disclaimer">No personal health information is collected in this chat.</p>
+  </div>
+</div>
+
+
+<style>
+  .mbs-chat {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 999;
+    font-family: var(--font-sans);
+  }
+  @media (max-width: 480px) {
+    .mbs-chat { right: 1rem; bottom: 1rem; }
+  }
+
+  /* ---- Toggle button ---- */
+  .mbs-chat__toggle {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-pill);
+    border: none;
+    background-color: var(--ink-primary);
+    color: var(--ink-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(26,26,26,0.18);
+    transition: transform var(--dur-base) var(--ease-standard),
+                background-color var(--dur-base) var(--ease-standard);
+  }
+  .mbs-chat__toggle:hover { transform: scale(1.05); background-color: var(--accent-terracotta); }
+  .mbs-chat__toggle svg { width: 24px; height: 24px; }
+
+  .mbs-chat__toggle-close { display: none; }
+  .mbs-chat.is-open .mbs-chat__toggle-open { display: none; }
+  .mbs-chat.is-open .mbs-chat__toggle-close { display: block; }
+  .mbs-chat.is-open .mbs-chat__toggle { background-color: var(--accent-terracotta); }
+
+  /* ---- "Need help?" label ---- */
+  .mbs-chat__label {
+    position: absolute;
+    right: calc(100% + 0.75rem);
+    bottom: 12px;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    background-color: var(--surface-cream);
+    border: 1px solid var(--border-subtle);
+    color: var(--ink-primary);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--dur-base);
+    font-family: var(--font-sans);
+  }
+  .mbs-chat__label:hover { transform: translateX(-2px); }
+  .mbs-chat.is-open .mbs-chat__label { display: none; }
+  @media (max-width: 480px) { .mbs-chat__label { display: none; } }
+
+  /* ---- Chat window ---- */
+  .mbs-chat__window {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 1rem);
+    width: min(380px, calc(100vw - 3rem));
+    height: min(560px, calc(100vh - 6rem));
+    background-color: var(--surface-shell);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(26,26,26,0.18), 0 0 0 1px var(--border-subtle);
+    animation: chatIn 250ms var(--ease-entrance);
+  }
+  @keyframes chatIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- Header ---- */
+  .mbs-chat__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background-color: var(--surface-peach);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .mbs-chat__header-info {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  .mbs-chat__header-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--ink-primary);
+    color: var(--ink-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mbs-chat__header-avatar svg { width: 20px; height: 20px; }
+  .mbs-chat__name {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--ink-primary);
+    text-transform: lowercase;
+  }
+  .mbs-chat__status {
+    font-size: var(--text-xs);
+    color: var(--ink-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    text-transform: lowercase;
+  }
+  .mbs-chat__status-dot {
+    display: block;
+    width: 7px;
+    height: 7px;
+    background-color: var(--color-success);
+    border-radius: 50%;
+  }
+  .mbs-chat__close {
+    background: transparent;
+    border: none;
+    padding: 6px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    color: var(--ink-primary);
+    transition: background-color var(--dur-fast);
+  }
+  .mbs-chat__close:hover { background-color: rgba(26,26,26,0.08); }
+  .mbs-chat__close svg { width: 18px; height: 18px; }
+
+  /* ---- Messages ---- */
+  .mbs-chat__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  .mbs-chat__messages::-webkit-scrollbar { width: 6px; }
+  .mbs-chat__messages::-webkit-scrollbar-thumb {
+    background: var(--border-subtle);
+    border-radius: var(--radius-pill);
+  }
+
+  .mbs-chat__msg {
+    max-width: 85%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+  }
+  .mbs-chat__msg--bot {
+    background-color: var(--surface-cream);
+    color: var(--ink-primary);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  .mbs-chat__msg--user {
+    background-color: var(--ink-primary);
+    color: var(--ink-inverse);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+
+  .mbs-chat__msg-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 0.625rem;
+  }
+  .mbs-chat__action-btn {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    background-color: var(--surface-peach);
+    color: var(--ink-primary);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    transition: background-color var(--dur-fast);
+    text-transform: lowercase;
+  }
+  .mbs-chat__action-btn:hover { background-color: var(--accent-terracotta); color: var(--ink-inverse); }
+
+  .mbs-chat__typing {
+    display: flex;
+    gap: 4px;
+    padding: 0.875rem 1rem;
+  }
+  .mbs-chat__typing span {
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--ink-muted);
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out;
+  }
+  .mbs-chat__typing span:nth-child(2) { animation-delay: 0.2s; }
+  .mbs-chat__typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingBounce {
+    0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-3px); }
+  }
+
+  /* ---- Quick reply chips ---- */
+  .mbs-chat__quick {
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-bottom: 0.5rem;
+  }
+  .mbs-chat__quick:empty { display: none; }
+  .mbs-chat__qr-btn {
+    appearance: none;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    background-color: var(--surface-cream);
+    border: 1px solid var(--border-subtle);
+    color: var(--ink-secondary);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    transition: background-color var(--dur-fast), color var(--dur-fast);
+    text-transform: lowercase;
+  }
+  .mbs-chat__qr-btn:hover {
+    background-color: var(--ink-primary);
+    color: var(--ink-inverse);
+    border-color: var(--ink-primary);
+  }
+
+  /* ---- Input form ---- */
+  .mbs-chat__form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--border-subtle);
+    background-color: var(--surface-cream);
+  }
+  .mbs-chat__input {
+    flex: 1;
+    min-height: 40px;
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-subtle);
+    background-color: var(--surface-shell);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--ink-primary);
+  }
+  .mbs-chat__input:focus {
+    outline: none;
+    border-color: var(--ink-primary);
+  }
+  .mbs-chat__input::placeholder { color: var(--ink-muted); }
+  .mbs-chat__input:disabled { opacity: 0.5; }
+
+  .mbs-chat__send {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--ink-primary);
+    color: var(--ink-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color var(--dur-fast);
+  }
+  .mbs-chat__send:hover:not(:disabled) { background-color: var(--accent-terracotta); }
+  .mbs-chat__send:disabled { opacity: 0.5; cursor: not-allowed; }
+  .mbs-chat__send svg { width: 16px; height: 16px; }
+
+  /* ---- Disclaimer ---- */
+  .mbs-chat__disclaimer {
+    padding: 0.5rem 1rem 0.875rem;
+    font-size: 10px;
+    color: var(--ink-muted);
+    text-align: center;
+    background-color: var(--surface-cream);
+    max-width: none;
+  }
+</style>
+
+
+<script>
+  const QUICK_REPLIES = [
+    { label: 'book a visit',   text: 'how do i book an appointment?' },
+    { label: 'services',       text: 'what services do you offer?' },
+    { label: 'pricing',        text: 'how much does a visit cost?' },
+    { label: 'insurance',      text: 'do you accept insurance?' }
+  ];
+
+  const root     = document.getElementById('mbs-chat') as HTMLElement;
+  const toggle   = document.getElementById('mbs-chat-toggle') as HTMLButtonElement;
+  const label    = document.getElementById('mbs-chat-label') as HTMLButtonElement;
+  const win      = document.getElementById('mbs-chat-window') as HTMLElement;
+  const closeBtn = document.getElementById('mbs-chat-close') as HTMLButtonElement;
+  const msgs     = document.getElementById('mbs-chat-messages') as HTMLElement;
+  const quick    = document.getElementById('mbs-chat-quick') as HTMLElement;
+  const form     = document.getElementById('mbs-chat-form') as HTMLFormElement;
+  const input    = document.getElementById('mbs-chat-input') as HTMLInputElement;
+  const sendBtn  = document.getElementById('mbs-chat-send') as HTMLButtonElement;
+
+  let isBusy = false;
+  let hasGreeted = false;
+
+  function addMessage(role: 'bot' | 'user', text: string, links?: Array<{ label: string; url: string; external?: boolean }>) {
+    const bubble = document.createElement('div');
+    bubble.className = `mbs-chat__msg mbs-chat__msg--${role}`;
+    bubble.textContent = text;
+
+    if (links && links.length) {
+      const actions = document.createElement('div');
+      actions.className = 'mbs-chat__msg-actions';
+      links.forEach(l => {
+        const a = document.createElement('a');
+        a.className = 'mbs-chat__action-btn';
+        a.href = l.url;
+        a.textContent = l.label;
+        if (l.external) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+        actions.appendChild(a);
+      });
+      bubble.appendChild(actions);
+    }
+
+    msgs.appendChild(bubble);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    const t = document.createElement('div');
+    t.className = 'mbs-chat__msg mbs-chat__msg--bot mbs-chat__typing';
+    t.id = 'mbs-chat-typing';
+    t.setAttribute('aria-label', 'assistant is typing');
+    t.innerHTML = '<span></span><span></span><span></span>';
+    msgs.appendChild(t);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function hideTyping() {
+    document.getElementById('mbs-chat-typing')?.remove();
+  }
+
+  function renderQuickReplies() {
+    quick.innerHTML = '';
+    QUICK_REPLIES.forEach(r => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'mbs-chat__qr-btn';
+      btn.textContent = r.label;
+      btn.setAttribute('aria-label', r.text);
+      btn.addEventListener('click', () => {
+        quick.innerHTML = '';
+        sendMessage(r.text);
+      });
+      quick.appendChild(btn);
+    });
+  }
+
+  async function sendMessage(text: string) {
+    const msg = text.trim();
+    if (!msg || isBusy) return;
+
+    quick.innerHTML = '';
+    addMessage('user', msg);
+
+    isBusy = true;
+    input.disabled = true;
+    sendBtn.disabled = true;
+    showTyping();
+
+    try {
+      const resp = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ message: msg })
+      });
+
+      hideTyping();
+
+      if (!resp.ok) {
+        addMessage('bot', "i'm having trouble connecting right now. please use our contact form and we'll get back to you.", [
+          { label: 'contact us', url: '/contact/' }
+        ]);
+      } else {
+        const data = await resp.json();
+        if (data && data.message) {
+          addMessage('bot', data.message, data.links);
+        } else {
+          addMessage('bot', "i didn't quite catch that. could you rephrase?");
+        }
+      }
+    } catch (err) {
+      hideTyping();
+      addMessage('bot', "i couldn't connect. please check your internet or use our contact form.", [
+        { label: 'contact us', url: '/contact/' }
+      ]);
+    } finally {
+      isBusy = false;
+      input.disabled = false;
+      sendBtn.disabled = false;
+      input.focus();
+    }
+  }
+
+  function openChat() {
+    root.classList.add('is-open');
+    win.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close chat assistant');
+    if (!hasGreeted) {
+      hasGreeted = true;
+      addMessage('bot', "hi! i'm the mbs medical assistant. i can answer questions about our services, pricing, and how to book. what's on your mind?");
+      renderQuickReplies();
+    }
+    setTimeout(() => input.focus(), 150);
+  }
+
+  function closeChat() {
+    root.classList.remove('is-open');
+    win.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open chat assistant');
+    toggle.focus();
+  }
+
+  toggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    root.classList.contains('is-open') ? closeChat() : openChat();
+  });
+  label?.addEventListener('click', (e) => { e.stopPropagation(); openChat(); });
+  closeBtn?.addEventListener('click', (e) => { e.stopPropagation(); closeChat(); });
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    sendMessage(input.value);
+    input.value = '';
+  });
+
+  // Esc closes
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && root.classList.contains('is-open')) closeChat();
+  });
+
+  // Click outside closes
+  document.addEventListener('click', (e) => {
+    if (root.classList.contains('is-open') && !root.contains(e.target as Node)) closeChat();
+  });
+  win?.addEventListener('click', (e) => e.stopPropagation());
+</script>
