@@ -29,7 +29,10 @@ const company = [
 
       <!-- Brand column -->
       <div class="footer-brand">
-        <a href="/" class="footer-wordmark">mbs medical</a>
+        <a href="/" class="footer-logo-link" aria-label="MBS Medical home">
+          <img src="/images/logo.png" alt="MBS Medical" width="464" height="240" class="footer-logo-img" />
+        </a>
+        <span class="footer-brand-accent" aria-hidden="true"></span>
         <p class="footer-tagline">
           Veteran-owned telehealth serving patients across Florida. Cash pay, same-week appointments, one consistent provider who knows you.
         </p>
@@ -106,16 +109,31 @@ const company = [
   }
 
   /* Brand */
-  .footer-wordmark {
+  .footer-logo-link {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    transition: opacity 200ms ease;
+    /* Subtle off-white pill behind the logo so the colored letters read
+       against the dark ink footer */
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    background-color: rgba(250,246,240,0.06);
+  }
+  .footer-logo-link:hover { opacity: 0.85; }
+  .footer-logo-img {
     display: block;
-    font-family: var(--font-sans);
-    font-size: 1.15rem;
-    font-weight: var(--weight-bold);
-    letter-spacing: -0.01em;
-    text-transform: lowercase;
-    color: var(--ink-inverse);
-    text-decoration: none;
-    margin-bottom: 1rem;
+    height: 44px;
+    width: auto;
+  }
+  /* Thin brand-gradient accent under the logo */
+  .footer-brand-accent {
+    display: block;
+    width: 60px;
+    height: 3px;
+    border-radius: var(--radius-pill);
+    background: var(--gradient-brand);
+    margin-bottom: 1.25rem;
+    opacity: 0.85;
   }
 
   .footer-tagline {

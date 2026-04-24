@@ -36,6 +36,15 @@
   --color-success:     #5A7A5F;
   --color-error:       #B84A3E;
 
+  /* Brand — pulled from the MBS logo for subtle accents site-wide */
+  --brand-teal:        #2E8E9D;
+  --brand-pink:        #E06389;
+  --brand-purple:      #9B79A7;
+  --gradient-brand:    linear-gradient(90deg,
+                         var(--brand-teal) 0%,
+                         var(--brand-pink) 50%,
+                         var(--brand-purple) 100%);
+
   /* Typography */
   --font-sans:   "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-serif:  "Fraunces", Georgia, serif;
@@ -119,6 +128,20 @@ body {
   background-color: var(--surface-cream);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Thin brand gradient strip — sits at the very top of every page, above
+   the header. Subtle brand signal pulled from the logo's three columns. */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-brand);
+  z-index: 1001;
+  pointer-events: none;
 }
 
 img, video {
