@@ -6,6 +6,7 @@ type TeamMember = {
   role: string;
   credentials?: string;
   image: string;
+  avatarPosition?: string;
   chipLabel: string;
   chipClass: string;
   shortBio: string;
@@ -54,6 +55,7 @@ const team: TeamMember[] = [
     role: 'Nurse Practitioner',
     credentials: 'MSN, APRN, FNP-C',
     image: '/images/Julie.jpg',
+    avatarPosition: 'center 35%',
     chipLabel: 'nurse practitioner',
     chipClass: 'chip-sage',
     shortBio: 'Board-certified Family Nurse Practitioner with 27+ years of healthcare experience, specializing in primary care and weight management.',
@@ -116,16 +118,9 @@ const team: TeamMember[] = [
           <a href="/contact/" class="btn btn-primary" style="margin-top: 0.5rem;">get in touch</a>
         </div>
         <div class="hero-media">
-          <img
-            src="/images/about-hero.jpg"
-            alt="MBS Medical team"
-            class="about-hero-img"
-            width="800"
-            height="1000"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          />
+          <div class="img-placeholder img-placeholder--tall" role="img" aria-label="MBS Medical team">
+            <span>team photo placeholder</span>
+          </div>
         </div>
       </div>
     </div>
@@ -180,7 +175,15 @@ const team: TeamMember[] = [
             aria-label={`View bio for ${m.name}`}
           >
             <span class="team-avatar team-avatar--lg">
-              <img src={m.image} alt={m.name} loading="lazy" decoding="async" width="320" height="320" />
+              <img
+                src={m.image}
+                alt={m.name}
+                loading="lazy"
+                decoding="async"
+                width="320"
+                height="320"
+                style={m.avatarPosition ? `object-position: ${m.avatarPosition}` : ''}
+              />
             </span>
             <h3>{m.name}</h3>
             <p class="team-avatar-card__role">{m.role}</p>
@@ -199,7 +202,15 @@ const team: TeamMember[] = [
             aria-label={`View bio for ${m.name}`}
           >
             <span class="team-avatar">
-              <img src={m.image} alt={m.name} loading="lazy" decoding="async" width="260" height="260" />
+              <img
+                src={m.image}
+                alt={m.name}
+                loading="lazy"
+                decoding="async"
+                width="260"
+                height="260"
+                style={m.avatarPosition ? `object-position: ${m.avatarPosition}` : ''}
+              />
             </span>
             <h3>{m.name}</h3>
             <p class="team-avatar-card__role">{m.role}</p>

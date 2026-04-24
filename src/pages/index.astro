@@ -8,56 +8,42 @@ import Layout from '../layouts/Layout.astro';
 >
 
   <!-- ============================================================
-       HERO — peach surface, split layout
+       HERO — cinematic flag video, full-bleed
        ============================================================ -->
-  <section class="hero section" style="background-color: var(--surface-peach); padding-top: 7rem;">
-    <div class="container">
-      <div class="hero-split">
+  <section class="hero-video-section">
+    <video
+      class="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-hidden="true"
+    >
+      <source src="/images/flag-intro.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-video-overlay" aria-hidden="true"></div>
 
-        <!-- Text side -->
-        <div class="hero-text">
-          <span class="hero-eyebrow">veteran-owned &middot; florida telehealth</span>
-          <h1 class="hero-title">
-            healthcare that treats the whole person
-          </h1>
-          <p class="hero-sub">
-            One consistent provider. No insurance required. Same-week appointments across Florida, from wherever you are.
-          </p>
-          <div class="hero-actions">
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-              book a visit
-            </a>
-            <a href="/services/" class="btn btn-secondary">
-              explore services
-            </a>
-          </div>
-          <!-- Trust badges -->
-          <div class="hero-trust">
-            <span>&#9733; veteran-owned</span>
-            <span>&#10003; cash pay</span>
-            <span>&#10003; same-week</span>
-          </div>
-        </div>
-
-        <!-- Media side -->
-        <div class="hero-media">
-          <img
-            src="/images/home-hero.jpg"
-            alt="Healthy patient on a telehealth visit"
-            class="hero-img"
-            width="800"
-            height="1000"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          />
-          <!-- Floating badge -->
-          <div class="hero-badge">
-            <span class="hero-badge__number serif">11</span>
-            <span class="hero-badge__label">specialties available</span>
-          </div>
-        </div>
-
+    <div class="container hero-video-content">
+      <span class="hero-video-eyebrow">veteran-owned &middot; florida telehealth</span>
+      <h1 class="hero-video-title">
+        healthcare that treats the whole person
+      </h1>
+      <p class="hero-video-sub">
+        One consistent provider. No insurance required. Same-week appointments across Florida, from wherever you are.
+      </p>
+      <div class="hero-video-actions">
+        <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-inverse">
+          book a visit
+        </a>
+        <a href="/services/" class="btn btn-outline-inverse">
+          explore services
+        </a>
+      </div>
+      <div class="hero-video-trust">
+        <span>&#9733; veteran-owned</span>
+        <span>&#10003; cash pay</span>
+        <span>&#10003; same-week</span>
       </div>
     </div>
   </section>
@@ -88,41 +74,6 @@ import Layout from '../layouts/Layout.astro';
           <div class="value-icon" aria-hidden="true">&#9679;</div>
           <h3>telehealth, statewide</h3>
           <p>Secure video visits from your home, office, or anywhere in Florida. Evening appointments available. Same-week booking.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       VETERAN-OWNED — ink surface with flag video background
-       ============================================================ -->
-  <section class="section veteran-section">
-    <video
-      class="veteran-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      aria-hidden="true"
-      poster="/images/home-hero.jpg"
-    >
-      <source src="/images/flag-intro.mp4" type="video/mp4" />
-    </video>
-    <div class="veteran-overlay" aria-hidden="true"></div>
-
-    <div class="container veteran-content">
-      <div class="reveal">
-        <span class="label" style="color: rgba(250,246,240,0.65); margin-bottom: 1.25rem; display: block;">veteran-owned &amp; operated</span>
-        <h2 class="veteran-title">
-          founded on 12 years of service
-        </h2>
-        <p class="veteran-sub">
-          Our founder spent 12 years in the U.S. Army, starting as a combat medic and finishing as a Physician Associate. Discipline, integrity, and showing up for people are not values we wrote on a wall. They are how we practice medicine every day.
-        </p>
-        <div class="veteran-actions">
-          <a href="/about/" class="btn btn-inverse">meet the team</a>
         </div>
       </div>
     </div>
@@ -362,40 +313,17 @@ import Layout from '../layouts/Layout.astro';
 
 
 <style>
-  /* Hero */
-  .hero-text { max-width: 520px; }
-
-  .hero-img {
-    border-radius: var(--radius-xl);
-    width: 100%;
-    aspect-ratio: 4/5;
-    object-fit: cover;
-    display: block;
-  }
-  @media (max-width: 767px) {
-    .hero-img { aspect-ratio: 16/9; }
-  }
-
-  /* Feature images */
-  .feature-img {
-    border-radius: var(--radius-xl);
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* Veteran-owned flag video section */
-  .veteran-section {
+  /* ---- Cinematic flag-video hero ---- */
+  .hero-video-section {
     position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
     overflow: hidden;
     background-color: var(--surface-ink);
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
-    padding-block: 8rem;
+    padding: 10rem 0 5rem;
   }
-  .veteran-video {
+  .hero-video {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -404,24 +332,34 @@ import Layout from '../layouts/Layout.astro';
     object-position: center;
     z-index: 0;
   }
-  .veteran-overlay {
+  .hero-video-overlay {
     position: absolute;
     inset: 0;
+    z-index: 1;
     background:
       linear-gradient(
-        110deg,
-        rgba(26,26,26,0.88) 0%,
-        rgba(26,26,26,0.75) 45%,
-        rgba(26,26,26,0.55) 100%
+        180deg,
+        rgba(26,26,26,0.35) 0%,
+        rgba(26,26,26,0.45) 45%,
+        rgba(26,26,26,0.85) 100%
       );
-    z-index: 1;
   }
-  .veteran-content {
+  .hero-video-content {
     position: relative;
     z-index: 2;
     max-width: 760px;
+    color: var(--ink-inverse);
   }
-  .veteran-title {
+  .hero-video-eyebrow {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--accent-butter);
+    margin-bottom: 1.5rem;
+  }
+  .hero-video-title {
     font-size: var(--text-5xl);
     font-weight: var(--weight-bold);
     line-height: var(--leading-tight);
@@ -429,22 +367,37 @@ import Layout from '../layouts/Layout.astro';
     text-transform: lowercase;
     color: var(--ink-inverse);
     margin-bottom: 1.5rem;
+    max-width: 14ch;
   }
-  .veteran-sub {
+  .hero-video-sub {
     font-size: var(--text-lg);
     line-height: var(--leading-relaxed);
-    color: rgba(250,246,240,0.78);
-    max-width: 58ch;
+    color: rgba(250,246,240,0.82);
+    max-width: 52ch;
     margin-bottom: 2rem;
   }
-  .veteran-actions {
+  .hero-video-actions {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    margin-bottom: 2.25rem;
+  }
+  .hero-video-trust {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: rgba(250,246,240,0.65);
   }
   @media (prefers-reduced-motion: reduce) {
-    .veteran-video { display: none; }
+    .hero-video { display: none; }
+    .hero-video-section { background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%); }
   }
+
+  /* Placeholder feature images already handled by global .img-placeholder */
 
   .hero-actions {
     display: flex;
