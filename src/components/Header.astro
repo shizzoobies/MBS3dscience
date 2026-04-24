@@ -34,8 +34,7 @@ const currentPath = Astro.url.pathname;
         href="https://mbsmedical.practicebetter.io"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn btn-primary"
-        style="padding: 10px 22px; font-size: 0.8125rem;"
+        class="btn btn-inverse header-cta-btn"
       >
         book a visit
       </a>
@@ -76,12 +75,20 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <style>
-  /* ---- Header shell ---- */
+  /* ---- Header shell (dark, always) ---- */
   .site-header {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
-    transition: background-color 250ms ease, box-shadow 250ms ease;
+    background-color: rgba(26,26,26,0.72);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border-bottom: 1px solid rgba(250,246,240,0.08);
+    transition: background-color 250ms ease, border-color 250ms ease;
+  }
+  .site-header.scrolled {
+    background-color: rgba(18,18,18,0.92);
+    border-bottom-color: rgba(250,246,240,0.1);
   }
 
   .header-inner {
@@ -98,16 +105,13 @@ const currentPath = Astro.url.pathname;
     font-size: 1.15rem;
     font-weight: var(--weight-bold);
     letter-spacing: -0.01em;
-    color: var(--ink-primary);
+    color: var(--ink-inverse);
     text-decoration: none;
     text-transform: lowercase;
     flex-shrink: 0;
     transition: color 200ms ease;
   }
-  .site-header.scrolled .wordmark { color: var(--ink-primary); }
-
-  /* On peach/cream hero pages, nav starts transparent — wordmark is dark */
-  /* (works because surfaces are light) */
+  .wordmark:hover { color: var(--accent-butter); }
 
   /* ---- Desktop nav ---- */
   .desktop-nav {
@@ -124,7 +128,7 @@ const currentPath = Astro.url.pathname;
     font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--ink-secondary);
+    color: rgba(250,246,240,0.72);
     text-decoration: none;
     padding-bottom: 2px;
     border-bottom: 1.5px solid transparent;
@@ -132,8 +136,8 @@ const currentPath = Astro.url.pathname;
   }
   .nav-link:hover,
   .nav-link.active {
-    color: var(--ink-primary);
-    border-bottom-color: var(--ink-primary);
+    color: var(--ink-inverse);
+    border-bottom-color: var(--accent-terracotta);
   }
 
   /* ---- CTA ---- */
@@ -152,11 +156,17 @@ const currentPath = Astro.url.pathname;
   }
   @media (min-width: 768px) { .hamburger { display: none; } }
 
+  /* Header CTA sizing */
+  .header-cta-btn {
+    padding: 10px 22px;
+    font-size: 0.8125rem;
+  }
+
   .hamburger span {
     display: block;
     width: 22px;
     height: 1.5px;
-    background-color: var(--ink-primary);
+    background-color: var(--ink-inverse);
     border-radius: 2px;
     transition: transform 250ms ease, opacity 150ms ease;
   }

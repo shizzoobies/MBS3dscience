@@ -8,37 +8,32 @@ import Layout from '../layouts/Layout.astro';
 >
 
   <!-- ============================================================
-       HERO — split layout: flag video left, cream text panel right
+       HERO — full-bleed flag video with glass text panel on the right
        ============================================================ -->
-  <section class="hero-split-section">
-    <!-- Video panel (left) -->
-    <div class="hero-video-panel">
-      <video
-        class="hero-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        aria-hidden="true"
-      >
-        <source src="/images/flag-intro.mp4" type="video/mp4" />
-      </video>
-      <div class="hero-video-panel__overlay" aria-hidden="true"></div>
-      <span class="hero-video-panel__badge">veteran-owned</span>
-    </div>
+  <section class="hero-fullbleed">
+    <video
+      class="hero-fullbleed__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-hidden="true"
+    >
+      <source src="/images/flag-intro.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-fullbleed__scrim" aria-hidden="true"></div>
 
-    <!-- Text panel (right) -->
-    <div class="hero-text-panel">
-      <div class="hero-text-panel__inner">
-        <span class="hero-text-eyebrow">florida telehealth</span>
-        <h1 class="hero-text-title">
+    <div class="hero-fullbleed__grid container">
+      <div class="hero-fullbleed__panel">
+        <span class="hero-fullbleed__eyebrow">veteran-owned · florida telehealth</span>
+        <h1 class="hero-fullbleed__title">
           healthcare that treats the whole person
         </h1>
-        <p class="hero-text-sub">
+        <p class="hero-fullbleed__sub">
           One consistent provider. No insurance required. Same-week appointments across Florida, from wherever you are.
         </p>
-        <div class="hero-text-actions">
+        <div class="hero-fullbleed__actions">
           <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
             book a visit
           </a>
@@ -315,33 +310,17 @@ import Layout from '../layouts/Layout.astro';
 
 
 <style>
-  /* ---- Split hero: video left, text panel right ---- */
-  .hero-split-section {
+  /* ---- Full-bleed flag hero with glass text panel on the right ---- */
+  .hero-fullbleed {
     position: relative;
     min-height: 100vh;
-    padding-top: 68px; /* account for fixed header */
-    display: grid;
-    grid-template-columns: 1fr;
-    background-color: var(--surface-cream);
-  }
-  @media (min-width: 900px) {
-    .hero-split-section {
-      grid-template-columns: 1.05fr 1fr;
-      min-height: 92vh;
-    }
-  }
-
-  /* Video (left) */
-  .hero-video-panel {
-    position: relative;
-    min-height: 45vh;
     overflow: hidden;
     background-color: var(--surface-ink);
+    display: flex;
+    align-items: center;
+    padding-top: 68px;
   }
-  @media (min-width: 900px) {
-    .hero-video-panel { min-height: auto; }
-  }
-  .hero-video {
+  .hero-fullbleed__video {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -350,85 +329,113 @@ import Layout from '../layouts/Layout.astro';
     object-position: center;
     z-index: 0;
   }
-  .hero-video-panel__overlay {
+  /* Darker scrim on the right so the glass panel reads cleanly */
+  .hero-fullbleed__scrim {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(135deg, rgba(26,26,26,0.25) 0%, rgba(26,26,26,0) 55%, rgba(26,26,26,0.35) 100%);
+    background:
+      linear-gradient(
+        90deg,
+        rgba(26,26,26,0.15) 0%,
+        rgba(26,26,26,0.25) 40%,
+        rgba(26,26,26,0.55) 70%,
+        rgba(26,26,26,0.75) 100%
+      );
     pointer-events: none;
   }
-  .hero-video-panel__badge {
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
-    z-index: 2;
-    padding: 8px 16px;
-    border-radius: var(--radius-pill);
-    background-color: rgba(250,246,240,0.95);
-    backdrop-filter: blur(8px);
-    color: var(--ink-primary);
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    box-shadow: 0 4px 12px rgba(26,26,26,0.12);
-  }
 
-  /* Text panel (right) */
-  .hero-text-panel {
-    display: flex;
+  .hero-fullbleed__grid {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
     align-items: center;
-    justify-content: flex-start;
-    padding: 4rem 1.5rem 5rem;
-    background:
-      radial-gradient(ellipse at top right, rgba(245,214,198,0.55) 0%, rgba(245,214,198,0) 55%),
-      linear-gradient(180deg, var(--surface-cream) 0%, var(--surface-shell) 100%);
+    padding-block: 4rem;
   }
   @media (min-width: 900px) {
-    .hero-text-panel { padding: 5rem 4rem 5rem 4.5rem; }
-  }
-  @media (min-width: 1280px) {
-    .hero-text-panel { padding-left: 6rem; padding-right: 6rem; }
+    .hero-fullbleed__grid {
+      grid-template-columns: 1fr minmax(420px, 520px);
+      gap: 3rem;
+    }
   }
 
-  .hero-text-panel__inner { max-width: 520px; }
+  /* Glass panel, right-aligned */
+  .hero-fullbleed__panel {
+    max-width: 560px;
+    padding: 2.5rem 2rem;
+    background-color: rgba(26,26,26,0.55);
+    backdrop-filter: blur(12px) saturate(1.1);
+    -webkit-backdrop-filter: blur(12px) saturate(1.1);
+    border: 1px solid rgba(250,246,240,0.12);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    color: var(--ink-inverse);
+    grid-column: 1;
+  }
+  @media (min-width: 900px) {
+    .hero-fullbleed__panel {
+      grid-column: 2;
+      justify-self: end;
+      padding: 3rem 2.75rem;
+    }
+  }
 
-  .hero-text-eyebrow {
+  .hero-fullbleed__eyebrow {
     display: inline-block;
     font-size: var(--text-xs);
     font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--accent-terracotta);
-    padding: 6px 14px;
-    background-color: rgba(201,123,94,0.1);
-    border-radius: var(--radius-pill);
-    margin-bottom: 1.5rem;
+    color: var(--accent-butter);
+    margin-bottom: 1.25rem;
   }
-  .hero-text-title {
-    font-size: var(--text-5xl);
+  .hero-fullbleed__title {
+    font-size: var(--text-4xl);
     font-weight: var(--weight-bold);
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);
     text-transform: lowercase;
-    color: var(--ink-primary);
-    margin-bottom: 1.5rem;
+    color: var(--ink-inverse);
+    margin-bottom: 1.25rem;
   }
-  .hero-text-sub {
-    font-size: var(--text-lg);
+  .hero-fullbleed__sub {
+    font-size: var(--text-base);
     line-height: var(--leading-relaxed);
-    color: var(--ink-secondary);
-    max-width: 48ch;
-    margin-bottom: 2.25rem;
+    color: rgba(250,246,240,0.82);
+    margin-bottom: 1.75rem;
+    max-width: 46ch;
   }
-  .hero-text-actions {
+  .hero-fullbleed__actions {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
   }
+  /* On the glass panel, the primary button stays dark but secondary needs inversion */
+  .hero-fullbleed__panel .btn-primary {
+    background-color: var(--accent-terracotta);
+    border-color: var(--accent-terracotta);
+    color: var(--ink-inverse);
+  }
+  .hero-fullbleed__panel .btn-primary:hover {
+    background-color: #b0634a;
+    border-color: #b0634a;
+  }
+  .hero-fullbleed__panel .btn-secondary {
+    background-color: transparent;
+    border-color: rgba(250,246,240,0.45);
+    color: var(--ink-inverse);
+  }
+  .hero-fullbleed__panel .btn-secondary:hover {
+    background-color: var(--ink-inverse);
+    border-color: var(--ink-inverse);
+    color: var(--ink-primary);
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .hero-video { display: none; }
-    .hero-video-panel { background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%); }
+    .hero-fullbleed__video { display: none; }
+    .hero-fullbleed { background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%); }
   }
 
   /* ---- Value cards: slim accent bar replaces emoji icons ---- */
