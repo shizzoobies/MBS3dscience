@@ -405,23 +405,38 @@ p {
   object-fit: cover;
 }
 
-/* Accent chip above section headlines */
+/* Eyebrow label — no pill, no background. Just colored uppercase text
+   with a small accent bar underneath. Class name kept for compatibility. */
 .accent-chip {
   display: inline-block;
+  position: relative;
   font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
+  padding: 0 0 10px 0;
   margin-bottom: var(--space-4);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
-.chip-coral      { background-color: rgba(232,116,97,0.15); color: #c45a46; }
-.chip-sage       { background-color: rgba(168,184,155,0.2); color: #6a7f5e; }
-.chip-sky        { background-color: rgba(168,196,212,0.2); color: #4a7a8e; }
-.chip-terracotta { background-color: rgba(201,123,94,0.15); color: #a0593a; }
-.chip-butter     { background-color: rgba(239,207,143,0.25); color: #9a7220; }
-.chip-ink        { background-color: rgba(26,26,26,0.08); color: var(--ink-secondary); }
+.accent-chip::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: currentColor;
+  opacity: 0.7;
+}
+.chip-coral      { color: #c45a46; }
+.chip-sage       { color: #6a7f5e; }
+.chip-sky        { color: #4a7a8e; }
+.chip-terracotta { color: #a0593a; }
+.chip-butter     { color: #9a7220; }
+.chip-ink        { color: var(--ink-secondary); }
 
 /* Stats row */
 .stats-row {
