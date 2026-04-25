@@ -4,48 +4,68 @@ import ServicePage from '../components/ServicePage.astro';
 
 <ServicePage
   title="Medical Weight Loss"
-  description="Clinically supervised medical weight loss in Florida. GLP-1 evaluation including semaglutide and tirzepatide. Real labs, no gimmicks, lasting results."
+  description="Clinically supervised medical weight loss in Florida. GLP-1 programs (semaglutide, tirzepatide, Wegovy and more), physician-guided plans, and metabolic optimization."
   eyebrow="medical weight loss"
-  heroTitle="weight loss that's actually built to last"
-  heroSub="GLP-1 medications have changed what's medically possible. We evaluate whether they're right for you with real labs, honest conversation, and a plan built around your life."
+  heroTitle="weight loss built on biology, not gimmicks"
+  heroSub="One in eight Americans is now using a GLP-1 in their weight loss journey. We evaluate whether one is right for you, build a physician-guided plan around it, and optimize the metabolic engine underneath."
   chipLabel="GLP-1 available"
   chipClass="chip-coral"
   heroSurface="var(--surface-peach)"
   values={[
     {
-      icon: "⬡",
-      heading: "lab-driven evaluation",
-      body: "We don't guess. Baseline labs tell us exactly what we're working with before recommending any treatment plan."
+      heading: "GLP-1 weight loss programs",
+      body: "Semaglutide, tirzepatide, Wegovy, naltrexone-bupropion, phentermine, topiramate, sermorelin, liraglutide, and non-branded options. Evaluated and prescribed when clinically appropriate."
     },
     {
-      icon: "▲",
-      heading: "GLP-1 eligible patients",
-      body: "Semaglutide and tirzepatide evaluation for appropriate candidates. Real clinical oversight, not a telehealth mill."
+      heading: "physician-guided plans",
+      body: "Real clinical oversight, not a one-size-fits-all program. Your provider builds the plan around your labs, history, and what you can actually sustain."
     },
     {
-      icon: "○",
-      heading: "ongoing accountability",
-      body: "Your provider stays with you through the process. Adjustments, questions, plateaus: we navigate them together."
+      heading: "metabolic optimization",
+      body: "Beyond the medication: muscle, metabolic flexibility, sleep, nutrition, and stress. The biology that decides whether weight loss lasts."
     }
   ]}
   features={[
     {
-      heading: "you've tried the diets. this is different.",
-      body: "Most weight loss programs ignore the biology. GLP-1 receptor agonists like semaglutide (Ozempic, Wegovy) and tirzepatide (Mounjaro, Zepbound) work on appetite regulation at the hormonal level. The results for the right patients are genuinely significant. We evaluate whether you're a good candidate based on your full clinical picture, not a checkbox questionnaire.",
+      heading: "GLP-1 therapy: the medication that changed the conversation",
+      body: "GLP-1 receptor agonists like semaglutide (Ozempic, Wegovy) and tirzepatide (Mounjaro, Zepbound) work on appetite regulation at the hormonal level. Clinical trials show 15-22% body weight reduction over 68-72 weeks for the right candidates. We evaluate whether you're one of them based on your full clinical picture, then prescribe with appropriate monitoring. Branded and non-branded options available.",
       chipLabel: "GLP-1 therapy",
       chipClass: "chip-coral",
       imgAlt: "Active person living a healthy lifestyle"
     },
     {
-      heading: "a plan that fits your actual life",
-      body: "Clinically supervised weight management isn't one-size-fits-all. We look at your labs, your history, your goals, and your lifestyle. Medication is one tool in a broader plan that includes nutrition guidance, activity targets, and regular follow-ups with a provider who knows you.",
-      chipLabel: "personalized care",
+      heading: "metabolic optimization: the work the medication can't do alone",
+      body: "Long-term weight loss is decided by your metabolic engine. We focus on the levers that actually move the needle: building muscle through resistance training, training metabolic flexibility (your body switching cleanly between burning carbs and fats), nutrient-dense eating with adequate protein, 7-9 hours of restorative sleep, and stress management to keep cortisol in check. Treatment plans address all of it.",
+      chipLabel: "metabolic health",
       chipClass: "chip-sage",
-      imgAlt: "Person cooking healthy food at home",
+      imgAlt: "Person preparing healthy food at home",
       imgSurface: "rgba(168,184,155,0.2)",
       flip: true
     }
   ]}
+  subServices={{
+    heading: "what we cover under weight loss",
+    intro: "Specific conditions and approaches your weight-loss visit can address. Most patients touch several of these as their plan evolves.",
+    items: [
+      "Insulin Resistance",
+      "Metabolic Syndrome",
+      "Prediabetes Support",
+      "Type 2 Diabetes Support",
+      "Appetite & Craving Control",
+      "Body Composition Optimization",
+      "Nutrition & Lifestyle Coaching",
+      "Weight Maintenance Programs",
+      "Semaglutide",
+      "Tirzepatide",
+      "Wegovy",
+      "Naltrexone-Bupropion",
+      "Phentermine",
+      "Topiramate",
+      "Sermorelin",
+      "Liraglutide",
+      "Non-Branded GLP-1 Options"
+    ]
+  }}
   testimonials={[
     {
       quote: "i lost 28 pounds in four months. the difference was having a real provider who adjusted my plan when things weren't working instead of just sending me a meal plan PDF.",
@@ -77,15 +97,19 @@ import ServicePage from '../components/ServicePage.astro';
   faq={[
     {
       q: "do you prescribe semaglutide and tirzepatide?",
-      a: "We evaluate patients for GLP-1 receptor agonists including semaglutide (generic and brand) and tirzepatide. Whether we prescribe depends on your clinical picture, contraindications, and goals. We will never prescribe something we don't think is right for you."
+      a: "Yes. We evaluate patients for GLP-1 receptor agonists including semaglutide (generic and brand), tirzepatide, liraglutide, and other agents. Whether we prescribe depends on your clinical picture, contraindications, and goals. We will never prescribe something we don't think is right for you."
     },
     {
-      q: "how much does GLP-1 therapy cost?",
-      a: "Consultation and follow-up visit fees are transparent and available at booking. Medication costs vary by pharmacy and whether you use brand-name or compounded versions. We will review cost options with you before prescribing."
+      q: "do you offer non-GLP-1 weight loss medications?",
+      a: "Yes. Phentermine, topiramate, naltrexone-bupropion (Contrave), and others are available when clinically appropriate. Some patients respond better to these, or use them in combination with lifestyle interventions instead of injectables."
     },
     {
       q: "how much weight can i expect to lose?",
-      a: "Clinical trials show 15-22% body weight reduction over 68-72 weeks for the right candidates. Individual results vary. We focus on sustainable, meaningful progress rather than setting unrealistic expectations."
+      a: "Clinical trials show 15-22% body weight reduction over 68-72 weeks for the right GLP-1 candidates. Individual results vary. We focus on sustainable, meaningful progress rather than setting unrealistic expectations."
+    },
+    {
+      q: "what is metabolic optimization?",
+      a: "It's the set of evidence-based interventions that improve how efficiently your body produces energy, burns fat, and regulates hormones. Resistance training to build metabolically active muscle, eating for metabolic flexibility, prioritizing sleep, and managing stress. These aren't extras. They're what make medication work and weight loss stick."
     },
     {
       q: "do i need to come in person?",

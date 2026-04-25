@@ -38,6 +38,13 @@ interface Props {
   testimonials: { quote: string; attr: string }[];
   steps: { heading: string; body: string }[];
   faq: FaqItem[];
+  // Optional: render a "what's covered" chip grid (sub-services / conditions treated)
+  subServices?: {
+    heading?: string;
+    intro?: string;
+    surface?: string;          // section bg, defaults to bg-shell
+    items: string[];
+  };
 }
 
 const {
@@ -45,7 +52,8 @@ const {
   chipLabel, chipClass,
   heroSurface = 'var(--surface-peach)',
   heroImage,
-  values, features, testimonials, steps, faq
+  values, features, testimonials, steps, faq,
+  subServices,
 } = Astro.props;
 ---
 
@@ -138,6 +146,28 @@ const {
       </div>
     </section>
   ))}
+
+
+  <!-- ============================================================
+       SUB-SERVICES — chip grid of conditions / treatments covered
+       (Optional, only renders when subServices is provided)
+       ============================================================ -->
+  {subServices && (
+    <section class={`section ${subServices.surface ?? 'bg-shell'}`}>
+      <div class="container">
+        <div class="reveal sp-sub-header">
+          <span class={`accent-chip ${chipClass}`}>{chipLabel}</span>
+          <h2>{subServices.heading ?? 'what we cover'}</h2>
+          {subServices.intro && <p>{subServices.intro}</p>}
+        </div>
+        <ul class="reveal sp-sub-grid" role="list">
+          {subServices.items.map(item => (
+            <li class="sp-sub-chip">{item}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
 
   <!-- ============================================================
@@ -254,6 +284,42 @@ const {
     aspect-ratio: 4/3;
     object-fit: cover;
     display: block;
+  }
+
+  /* ---- Sub-services chip grid ---- */
+  .sp-sub-header { margin-bottom: 2.5rem; max-width: 720px; }
+  .sp-sub-header h2 { margin-top: 0.75rem; margin-bottom: 1rem; }
+  .sp-sub-header p {
+    color: var(--ink-secondary);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+  }
+  .sp-sub-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+  .sp-sub-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 18px;
+    background-color: var(--surface-cream);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--ink-primary);
+    line-height: 1.2;
+    transition: background-color var(--dur-base), border-color var(--dur-base), transform var(--dur-base);
+  }
+  .section.bg-cream .sp-sub-chip { background-color: var(--surface-shell); }
+  .sp-sub-chip:hover {
+    background-color: var(--surface-sand);
+    border-color: var(--accent-terracotta);
+    transform: translateY(-1px);
   }
 
   /* Values */

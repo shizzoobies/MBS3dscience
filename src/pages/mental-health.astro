@@ -3,51 +3,78 @@ import ServicePage from '../components/ServicePage.astro';
 ---
 
 <ServicePage
-  title="Mental Health"
-  description="Telehealth mental health care in Florida. Anxiety, depression, sleep disorders, and ADHD treated as part of whole-person care. No referral required."
-  eyebrow="mental health"
+  title="Mental & Behavioral Health"
+  description="Telehealth mental and behavioral health care in Florida. Anxiety, depression, sleep, addiction management with buprenorphine telehealth refills, and pain management consulting."
+  eyebrow="mental & behavioral health"
   heroTitle="your mind and body are not separate problems"
-  heroSub="Anxiety, depression, sleep disorders, and ADHD are treatable. We take mental health seriously as a real part of whole-person medicine, not a referral you never follow through on."
+  heroSub="Mood, anxiety, depression, sleep, addiction, and pain are all treatable. We take mental and behavioral health seriously as part of whole-person care, not a referral you never follow through on."
   chipLabel="mind-body care"
   chipClass="chip-sky"
   heroSurface="rgba(168,196,212,0.2)"
   heroImage="/images/mental-health-tired.jpg"
   values={[
     {
-      icon: "○",
-      heading: "anxiety and depression",
-      body: "Evaluated and managed by a provider who understands how mental health intersects with physical health, sleep, and hormones."
+      heading: "mood, anxiety & depression",
+      body: "Evaluation and treatment for mood disorders, generalized and social anxiety, depression, and stress-related conditions. Medication management when appropriate, lifestyle and referrals when not."
     },
     {
-      icon: "▲",
-      heading: "sleep disorders",
-      body: "Insomnia, disrupted sleep, and sleep-related fatigue addressed with evidence-based approaches. Not just a sleep hygiene pamphlet."
+      heading: "sleep optimization",
+      body: "Insomnia, disrupted sleep, and sleep-related fatigue addressed with evidence-based protocols. Not a sleep hygiene pamphlet, an actual plan."
     },
     {
-      icon: "⬡",
-      heading: "ADHD evaluation",
-      body: "Adult ADHD is frequently undiagnosed. If focus, organization, and impulsivity are affecting your life, we can evaluate and discuss options."
+      heading: "addiction & buprenorphine care",
+      body: "Telehealth refills and ongoing buprenorphine treatment for opioid use disorder. Induction is handled in-office. GLP-1 protocols available for alcohol use management."
     }
   ]}
   features={[
     {
-      heading: "anxiety that runs your days is treatable",
-      body: "Generalized anxiety, social anxiety, panic attacks, and chronic stress are real clinical conditions. We evaluate your symptoms in the context of your full health picture, including hormones, sleep, and physical health. Treatment may include medication, lifestyle interventions, or referral to therapy. We stay in the loop regardless.",
-      chipLabel: "anxiety & depression",
+      heading: "anxiety, depression, and the symptoms running your day",
+      body: "Generalized anxiety, social anxiety, panic, chronic stress, and depression are real clinical conditions with effective treatments. We evaluate your symptoms in the context of your full health picture, including hormones, sleep, and physical health. Treatment may include SSRIs, SNRIs, buspirone, lifestyle interventions, or coordination with therapy. We stay in the loop regardless.",
+      chipLabel: "mood & anxiety",
       chipClass: "chip-sky",
       imgAlt: "Person finding calm and balance",
       imgSurface: "rgba(168,196,212,0.2)"
     },
     {
-      heading: "sleep is not optional. let's fix yours.",
-      body: "Chronic sleep deprivation affects everything: mood, weight, cardiovascular risk, cognitive function, hormones. When restless nights start running your days, we look for what's actually causing it. Insomnia, anxiety, hormonal imbalance, and sleep apnea (we can help you get evaluated) all play a role. We build a plan that addresses the root cause.",
+      heading: "sleep, fixed at the cause",
+      body: "Chronic sleep deprivation drives inflammation, weight gain, mood disorders, and cognitive decline. We look for what's actually causing your insomnia: anxiety, hormonal imbalance, sleep apnea (we can help you get evaluated), or environmental factors. Then we build a real plan that addresses the root cause, not just the symptom.",
       chipLabel: "sleep health",
       chipClass: "chip-butter",
       imgAlt: "Person sleeping peacefully",
       imgSurface: "rgba(239,207,143,0.2)",
       flip: true
+    },
+    {
+      heading: "addiction & pain management, handled with care",
+      body: "We provide telehealth refills and ongoing management for buprenorphine treatment of opioid use disorder. New patient inductions are handled in-office for safety. We also offer pain management consulting and emerging GLP-1-based protocols for alcohol use disorder. All approached without judgment.",
+      chipLabel: "behavioral care",
+      chipClass: "chip-sage",
+      imgAlt: "Person engaged in recovery and wellness",
+      imgSurface: "rgba(168,184,155,0.2)"
     }
   ]}
+  subServices={{
+    heading: "what we cover under mental & behavioral health",
+    intro: "We focus on mild-to-moderate cases for safety and continuity of care. Acute psychiatric crises are referred to emergency services or specialized inpatient care. Buprenorphine inductions require an office visit; refills can be handled by telehealth.",
+    items: [
+      "Mood Disorders",
+      "Anxiety Treatment",
+      "Depression Treatment",
+      "Stress & Burnout Management",
+      "Sleep Optimization",
+      "Insomnia Treatment",
+      "Performance Anxiety",
+      "Stage Fright",
+      "Emotional Resilience Coaching",
+      "SSRI / SNRI Management",
+      "Buspirone & Other Non-Controlled Medications",
+      "Buprenorphine Telehealth Refills",
+      "Buprenorphine Office Induction",
+      "Addiction Management",
+      "Alcohol Use Disorder (GLP-1 Protocols)",
+      "Pain Management Consulting"
+    ]
+  }}
   testimonials={[
     {
       quote: "i had been anxious for years and kept getting told to 'reduce stress.' finally a provider who actually evaluated me, prescribed appropriately, and followed up.",
@@ -58,7 +85,7 @@ import ServicePage from '../components/ServicePage.astro';
       attr: "Mental Health Patient — Bradenton, FL"
     },
     {
-      quote: "adult ADHD diagnosis changed my life. i had no idea that what i thought was laziness was actually a treatable condition.",
+      quote: "the buprenorphine refills via telehealth made staying in recovery so much easier. consistent provider, no judgment, no hassle.",
       attr: "Mental Health Patient — Tampa, FL"
     }
   ]}
@@ -73,7 +100,7 @@ import ServicePage from '../components/ServicePage.astro';
     },
     {
       heading: "treatment plan and follow-up",
-      body: "Your plan may include medication, lifestyle adjustments, sleep protocols, and coordination with therapists or specialists. Follow-ups every 4-8 weeks."
+      body: "Your plan may include medication, lifestyle adjustments, sleep protocols, addiction support, and coordination with therapists. Follow-ups every 4-8 weeks."
     }
   ]}
   faq={[
@@ -82,20 +109,20 @@ import ServicePage from '../components/ServicePage.astro';
       a: "Yes. We can prescribe SSRIs, SNRIs, buspirone, and other non-controlled mental health medications. We evaluate carefully and follow up regularly."
     },
     {
-      q: "do you prescribe controlled substances for ADHD?",
-      a: "ADHD evaluation and treatment, including stimulant medications where clinically appropriate, is available. We follow DEA telehealth prescribing guidelines carefully."
+      q: "do you prescribe buprenorphine for opioid use disorder?",
+      a: "Yes. We provide telehealth refills and ongoing management for patients already established on buprenorphine. New patient inductions are handled in-office to allow appropriate clinical observation."
+    },
+    {
+      q: "do you handle ADHD?",
+      a: "Adult ADHD evaluation and treatment, including stimulant medications where clinically appropriate, is available. We follow current DEA telehealth prescribing guidelines."
     },
     {
       q: "do you provide therapy?",
-      a: "We do not provide psychotherapy directly. We manage psychiatric medication and can coordinate with your therapist or help connect you with one."
+      a: "We do not provide psychotherapy directly. We manage psychiatric medication, addiction care, and sleep/pain consulting, and can coordinate with your therapist or help connect you with one."
     },
     {
-      q: "can mental health symptoms be caused by physical issues?",
-      a: "Absolutely. Thyroid disorders, low testosterone, nutritional deficiencies, and sleep apnea can all present as anxiety, depression, or cognitive symptoms. We always check for physical contributors."
-    },
-    {
-      q: "what if my situation is a crisis?",
-      a: "If you are in immediate crisis, please call 988 (Suicide and Crisis Lifeline) or go to your nearest emergency room. We are not equipped for acute psychiatric emergencies but can support ongoing mental health care."
+      q: "what conditions are out of scope?",
+      a: "We focus on mild-to-moderate conditions for safety and continuity. Acute psychiatric emergencies, severe psychosis, active suicidal ideation, or conditions requiring inpatient care should go to a hospital or specialized service. If you are in crisis, call 988 or go to your nearest emergency room."
     }
   ]}
 />
