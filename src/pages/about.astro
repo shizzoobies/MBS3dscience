@@ -242,8 +242,8 @@ const team: TeamMember[] = [
 
       <div id="member-modal-bio" class="member-modal__bio"></div>
 
-      <p id="member-modal-link-wrap" class="member-modal__link-wrap" hidden>
-        <a id="member-modal-link" class="member-modal__link" href="#" target="_blank" rel="noopener noreferrer">
+      <p id="member-modal-link-wrap" class="member-modal__link-wrap">
+        <a id="member-modal-link" class="member-modal__link" href="" target="_blank" rel="noopener noreferrer">
           <span class="member-modal__link-label"></span>
           <svg class="member-modal__link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="7" y1="17" x2="17" y2="7"></line>
@@ -533,12 +533,16 @@ const team: TeamMember[] = [
     color: var(--ink-secondary);
   }
 
-  /* Clean inline link — no box, no subtitle. Styled as refined text link. */
+  /* Clean inline link — opt-in display so it never leaks across members.
+     Default: hidden. Only `.is-shown` reveals it. */
   .member-modal__link-wrap {
+    display: none !important;
     margin-top: 1.75rem;
     max-width: none;
   }
-  .member-modal__link-wrap[hidden] { display: none !important; }
+  .member-modal__link-wrap.is-shown {
+    display: block !important;
+  }
 
   .member-modal__link {
     display: inline-flex;
@@ -614,12 +618,16 @@ const team: TeamMember[] = [
       bioEl.appendChild(p);
     });
 
-    if (data.link) {
+    // Reset link state every open so a previously-shown link can never
+    // bleed into a member that doesn't have one.
+    linkWrapEl.classList.remove('is-shown');
+    linkEl.removeAttribute('href');
+    linkLabelEl.textContent = '';
+
+    if (data.link && data.link.href && data.link.label) {
       linkEl.href = data.link.href;
       linkLabelEl.textContent = data.link.label;
-      linkWrapEl.hidden = false;
-    } else {
-      linkWrapEl.hidden = true;
+      linkWrapEl.classList.add('is-shown');
     }
 
     tagsEl.innerHTML = '';
