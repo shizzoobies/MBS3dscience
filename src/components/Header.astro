@@ -28,15 +28,17 @@ const serviceCategories = [
     label: 'specialty & premium',
     items: [
       { label: 'Mental Health',      href: '/mental-health/' },
-      { label: 'Concierge Medicine', href: '/concierge-medicine/' },
-      { label: 'Supplements',        href: '/supplements/' }
+      { label: 'Concierge Medicine', href: '/concierge-medicine/' }
     ]
   }
 ];
 
-const simpleNavLinks = [
+const FULLSCRIPT_URL = 'https://us.fullscript.com/welcome/dhervig?utm_medium=webreferral&utm_source=other&utm_campaign=abmwebbuttons_light_500x500.svg&signup_source=website_buttons';
+
+const simpleNavLinks: Array<{ label: string; href: string; external?: boolean }> = [
   { label: 'About', href: '/about/' },
   { label: 'Tools', href: '/tools/' },
+  { label: 'Supplements', href: FULLSCRIPT_URL, external: true },
   { label: 'Contact', href: '/contact/' },
 ];
 
@@ -88,12 +90,27 @@ const currentPath = Astro.url.pathname;
       </div>
 
       {simpleNavLinks.map(link => (
-        <a
-          href={link.href}
-          class:list={['nav-link', { active: currentPath.startsWith(link.href) }]}
-        >
-          {link.label}
-        </a>
+        link.external ? (
+          <a
+            href={link.href}
+            class="nav-link nav-link--external"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {link.label}
+            <svg class="nav-link__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+        ) : (
+          <a
+            href={link.href}
+            class:list={['nav-link', { active: currentPath.startsWith(link.href) }]}
+          >
+            {link.label}
+          </a>
+        )
       ))}
     </nav>
 
@@ -141,9 +158,15 @@ const currentPath = Astro.url.pathname;
         ))}
       </div>
       {simpleNavLinks.map(link => (
-        <a href={link.href} class="mobile-nav-link">
-          {link.label}
-        </a>
+        link.external ? (
+          <a href={link.href} class="mobile-nav-link" target="_blank" rel="noopener noreferrer">
+            {link.label} ↗
+          </a>
+        ) : (
+          <a href={link.href} class="mobile-nav-link">
+            {link.label}
+          </a>
+        )
       ))}
       <a
         href="https://mbsmedical.practicebetter.io"
@@ -223,6 +246,19 @@ const currentPath = Astro.url.pathname;
   .nav-link.active {
     color: var(--ink-inverse);
     border-bottom-color: var(--accent-terracotta);
+  }
+  .nav-link--external {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .nav-link__arrow {
+    width: 10px;
+    height: 10px;
+    transition: transform 200ms ease;
+  }
+  .nav-link--external:hover .nav-link__arrow {
+    transform: translate(1.5px, -1.5px);
   }
 
   /* ---- Mega-menu dropdown ---- */
