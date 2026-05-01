@@ -1,0 +1,358 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+/* =====================================================================
+   FULLSCRIPT CONFIGURATION
+   Replace these two values once your Fullscript practitioner account
+   is set up. Everything else on this page reads from them.
+   ---------------------------------------------------------------------
+   FULLSCRIPT_SLUG:
+     Your practitioner storefront slug. Find it in Fullscript under
+     Settings → Storefront → Public store URL. It's the part after
+     /welcome/ or /c/ in your store URL.
+       Example URL: https://us.fullscript.com/welcome/mbs-medical
+       Slug:        mbs-medical
+
+   FULLSCRIPT_REGION:
+     'us' or 'ca'. Most US-based practices use 'us'.
+   ===================================================================== */
+const FULLSCRIPT_SLUG = 'mbs-medical';        // TODO: replace with real slug
+const FULLSCRIPT_REGION = 'us';
+
+const fullscriptStoreUrl    = `https://${FULLSCRIPT_REGION}.fullscript.com/welcome/${FULLSCRIPT_SLUG}`;
+const fullscriptCatalogUrl  = `https://${FULLSCRIPT_REGION}.fullscript.com/welcome/${FULLSCRIPT_SLUG}/store`;
+const fullscriptIsConfigured = FULLSCRIPT_SLUG && FULLSCRIPT_SLUG !== 'mbs-medical';
+---
+
+<Layout
+  title="Supplements"
+  description="Provider-curated supplements through Fullscript. Pharmaceutical-grade products selected and reviewed by your MBS Medical provider, shipped direct."
+>
+
+  <!-- Hero -->
+  <section class="section bg-shell" style="padding-top: 7rem; background: radial-gradient(ellipse at top right, rgba(168,184,155,0.28) 0%, rgba(168,184,155,0) 60%), var(--surface-shell);">
+    <div class="container">
+      <div class="supp-hero">
+        <span class="hero-eyebrow">supplements · powered by Fullscript</span>
+        <h1 class="hero-title">Provider-curated supplements</h1>
+        <p class="hero-sub">
+          Pharmaceutical-grade products selected with your care plan in mind. Browse our full Fullscript catalog, get provider recommendations, and have orders shipped direct.
+        </p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;">
+          <a
+            href={fullscriptCatalogUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            browse our catalog
+          </a>
+          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            book a consult
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Embedded Fullscript catalog -->
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="reveal supp-embed-wrap">
+        <div class="supp-embed-meta">
+          <span class="accent-chip chip-sage">storefront</span>
+          <h2>Browse the catalog</h2>
+          <p>
+            Our full Fullscript dispensary is below. Search by product, brand, or category. Add items to your cart, create an account at checkout, and choose one-time or subscription delivery.
+          </p>
+          <p style="margin-top: 1rem; font-size: var(--text-sm); color: var(--ink-muted);">
+            Already have a Fullscript account? Log in directly during checkout to apply any provider-recommended treatment plans.
+          </p>
+          <a
+            href={fullscriptCatalogUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="supp-open-link"
+          >
+            Open the full storefront in a new tab
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+        </div>
+
+        <!-- =====================================================================
+             FULLSCRIPT EMBED SLOT
+             Below is the iframe attempt. Fullscript supports iframe embedding
+             for practitioner storefronts on most plans. If your practice's
+             account does not allow iframe embedding (X-Frame-Options will
+             block it in the browser), the box renders empty - in that case,
+             swap to the redirect-only experience by removing the <iframe>
+             and leaving the .supp-embed-fallback visible.
+             ===================================================================== -->
+        <div id="fullscript-storefront-embed" class="supp-embed" role="region" aria-label="Fullscript supplement catalog">
+          {fullscriptIsConfigured ? (
+            <iframe
+              src={fullscriptCatalogUrl}
+              title="MBS Medical Fullscript catalog"
+              loading="lazy"
+              allow="payment *; clipboard-write"
+              referrerpolicy="origin"
+            ></iframe>
+          ) : (
+            <div class="supp-embed-placeholder">
+              <span class="supp-embed-placeholder__label">Fullscript embed</span>
+              <p>Update the <code>FULLSCRIPT_SLUG</code> at the top of <code>src/pages/supplements.astro</code> with your practitioner storefront slug to activate the embed.</p>
+              <p style="margin-top: 0.75rem; font-size: var(--text-xs);">Find the slug in Fullscript under Settings → Storefront → Public store URL.</p>
+              <a href={fullscriptStoreUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="margin-top: 1.75rem;">
+                preview Fullscript
+              </a>
+            </div>
+          )}
+
+          <!-- Fallback: shown by CSS when the iframe fails to load (e.g. blocked
+               by X-Frame-Options). Browsers don't fire onerror for X-FRAME
+               denials, so this is a CSS-driven safety net behind the iframe. -->
+          <div class="supp-embed-fallback" aria-hidden="true">
+            <p>The catalog can't be embedded for this storefront. Use the button below to open it.</p>
+            <a href={fullscriptCatalogUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 1rem;">
+              open the catalog
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- How it works -->
+  <section class="section bg-sand">
+    <div class="container">
+      <div class="reveal" style="text-align: center; margin-bottom: 3.5rem;">
+        <span class="label">how it works</span>
+        <h2 style="margin-top: 0.75rem;">Three steps from consult to doorstep</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="reveal step-card">
+          <span class="step-number">01</span>
+          <h3 style="margin-top: 1rem; margin-bottom: 0.75rem;">Talk with your provider</h3>
+          <p style="color: var(--ink-secondary); font-size: var(--text-sm);">Recommendations are tied to your visit. We choose what's evidence-supported for your goals, not whatever's trending.</p>
+        </div>
+        <div class="reveal reveal-delay-1 step-card">
+          <span class="step-number">02</span>
+          <h3 style="margin-top: 1rem; margin-bottom: 0.75rem;">Order through Fullscript</h3>
+          <p style="color: var(--ink-secondary); font-size: var(--text-sm);">Use the embedded catalog above. Provider-recommended products appear first; thousands of others are searchable in the full catalog.</p>
+        </div>
+        <div class="reveal reveal-delay-2 step-card">
+          <span class="step-number">03</span>
+          <h3 style="margin-top: 1rem; margin-bottom: 0.75rem;">Shipped to your door</h3>
+          <p style="color: var(--ink-secondary); font-size: var(--text-sm);">Direct from Fullscript with optional subscription delivery for the products you keep on hand. Your provider gets notified of new orders so they can support your plan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ -->
+  <section class="section bg-shell">
+    <div class="container">
+      <div class="reveal faq-layout">
+        <div class="faq-heading">
+          <span class="label">questions</span>
+          <h2 style="margin-top: 0.75rem;">Common questions</h2>
+          <p style="color: var(--ink-secondary); margin-top: 1rem; font-size: var(--text-sm);">
+            More to ask? <a href="/contact/" style="text-decoration: underline; text-underline-offset: 3px;">Contact us.</a>
+          </p>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary class="faq-summary">Do I need a visit before ordering?</summary>
+            <p class="faq-body">Anyone can browse and order from our Fullscript catalog. Recommendations specific to your health goals are tied to a visit, where your provider can build a personalized treatment plan you'll see at checkout.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">What is Fullscript?</summary>
+            <p class="faq-body">Fullscript is a practitioner-only dispensary that connects MBS Medical with the supplement brands we trust. It handles ordering, shipping, refills, and patient accounts so we can focus on the clinical recommendations.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">Are these products different from what I'd buy at a store?</summary>
+            <p class="faq-body">Most professional-line products on Fullscript are pharmaceutical-grade and only sold through licensed providers. They use higher-quality raw ingredients, third-party testing, and tighter manufacturing standards than typical retail supplements.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">Does insurance cover supplements?</summary>
+            <p class="faq-body">No. Supplements are not covered by insurance. Some patients use HSA or FSA funds where eligible. Fullscript provides itemized receipts at checkout.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">Can I cancel a Fullscript subscription?</summary>
+            <p class="faq-body">Yes. Fullscript's account portal lets you pause, change, or cancel any subscription order at any time. There's no minimum commitment.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">Does my provider see what I order?</summary>
+            <p class="faq-body">Yes, that's part of the point. Visibility into your supplement plan helps us coordinate with your medications and labs, especially for protocols where dosing matters.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA -->
+  <section class="section bg-ink" style="text-align: center;">
+    <div class="container">
+      <div class="reveal" style="max-width: 600px; margin-inline: auto;">
+        <h2 style="color: var(--ink-inverse);">Get personalized recommendations</h2>
+        <p style="color: rgba(250,246,240,0.7); margin-top: 1rem; font-size: var(--text-lg);">
+          Book a visit to get supplement guidance tied to your labs, medications, and goals.
+        </p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2.5rem;">
+          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-inverse">book a visit</a>
+          <a href="/contact/" class="btn btn-outline-inverse">ask a question</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+
+<style>
+  .supp-hero { max-width: 720px; }
+
+  /* Embed area */
+  .supp-embed-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 1024px) {
+    .supp-embed-wrap {
+      grid-template-columns: 1fr 2.4fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+  }
+  .supp-embed-meta { position: sticky; top: 6rem; }
+  .supp-embed-meta h2 { margin-top: 0.75rem; margin-bottom: 1rem; }
+  .supp-embed-meta p {
+    font-size: var(--text-sm);
+    color: var(--ink-secondary);
+    line-height: var(--leading-relaxed);
+  }
+  .supp-open-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 1.5rem;
+    color: var(--accent-terracotta);
+    text-decoration: none;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-base);
+    border-bottom: 1px solid rgba(201,123,94,0.35);
+    padding-bottom: 2px;
+    transition: color 150ms ease, border-color 150ms ease;
+    width: fit-content;
+  }
+  .supp-open-link:hover {
+    color: #a0593a;
+    border-bottom-color: #a0593a;
+  }
+  .supp-open-link svg { transition: transform 200ms ease; }
+  .supp-open-link:hover svg { transform: translate(2px, -2px); }
+
+  /* The embed slot is a positioned container so the iframe sits on top of
+     the fallback. If the iframe loads, it covers the fallback completely.
+     If the browser blocks it (X-Frame-Options), the fallback shows. */
+  .supp-embed {
+    position: relative;
+    width: 100%;
+    min-height: 820px;
+    background-color: var(--surface-shell);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(26,26,26,0.05);
+  }
+  .supp-embed iframe {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    min-height: 820px;
+    border: 0;
+    background-color: transparent;
+  }
+  .supp-embed-fallback {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--ink-secondary);
+    background-color: var(--surface-shell);
+  }
+  .supp-embed-fallback p { font-size: var(--text-sm); max-width: 36ch; }
+
+  .supp-embed-placeholder {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    min-height: 820px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--ink-secondary);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        var(--surface-shell) 0,
+        var(--surface-shell) 10px,
+        var(--surface-cream) 10px,
+        var(--surface-cream) 20px
+      );
+  }
+  .supp-embed-placeholder__label {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--accent-terracotta);
+    margin-bottom: 1rem;
+  }
+  .supp-embed-placeholder p { font-size: var(--text-sm); max-width: 42ch; }
+  .supp-embed-placeholder code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background-color: var(--surface-sand);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+
+  .faq-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 768px) {
+    .faq-layout { grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start; }
+  }
+  .faq-heading { position: sticky; top: 6rem; }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .steps-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
