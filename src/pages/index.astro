@@ -343,7 +343,8 @@ import Layout from '../layouts/Layout.astro';
     object-position: center;
     z-index: 0;
   }
-  /* Right-side scrim: gradient darkens right half so text stays readable */
+  /* Left-side scrim: editorial asymmetric — text sits left over the
+     flag, scrim darkens the left half so the copy reads cleanly. */
   .hero-fullbleed__scrim {
     position: absolute;
     inset: 0;
@@ -351,10 +352,10 @@ import Layout from '../layouts/Layout.astro';
     background:
       linear-gradient(
         90deg,
-        rgba(26,26,26,0.10) 0%,
-        rgba(26,26,26,0.20) 35%,
-        rgba(26,26,26,0.60) 70%,
-        rgba(26,26,26,0.80) 100%
+        rgba(26,26,24,0.80) 0%,
+        rgba(26,26,24,0.60) 30%,
+        rgba(26,26,24,0.20) 65%,
+        rgba(26,26,24,0.10) 100%
       );
     pointer-events: none;
     transition: background 1200ms ease;
@@ -364,10 +365,10 @@ import Layout from '../layouts/Layout.astro';
     background:
       linear-gradient(
         90deg,
-        rgba(26,26,26,0.20) 0%,
-        rgba(26,26,26,0.35) 35%,
-        rgba(26,26,26,0.70) 70%,
-        rgba(26,26,26,0.86) 100%
+        rgba(26,26,24,0.86) 0%,
+        rgba(26,26,24,0.70) 30%,
+        rgba(26,26,24,0.35) 65%,
+        rgba(26,26,24,0.20) 100%
       );
   }
 
@@ -382,22 +383,21 @@ import Layout from '../layouts/Layout.astro';
   }
   @media (min-width: 900px) {
     .hero-fullbleed__grid {
-      grid-template-columns: 1fr minmax(440px, 560px);
+      grid-template-columns: minmax(440px, 580px) 1fr;
       gap: 3rem;
     }
   }
 
-  /* Frame-less text block, right-aligned on desktop */
+  /* Frame-less text block, anchored left on desktop (editorial asymmetric) */
   .hero-fullbleed__text {
-    max-width: 560px;
-    color: var(--ink-inverse);
+    max-width: 580px;
+    color: var(--color-neutral);
     grid-column: 1;
     text-shadow: 0 2px 10px rgba(0,0,0,0.35);
   }
   @media (min-width: 900px) {
     .hero-fullbleed__text {
-      grid-column: 2;
-      justify-self: end;
+      justify-self: start;
     }
   }
 
