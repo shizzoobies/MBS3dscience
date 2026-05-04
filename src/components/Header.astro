@@ -181,20 +181,22 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <style>
-  /* ---- Header shell (cream, MBS-Test natural style) ---- */
+  /* ---- Header shell (cream, MBS-Test natural style) ----
+     Solid cream so dark video on the home hero never bleeds through and
+     darkens the dark text. Subtle blur retained for modern feel. */
   .site-header {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
-    background-color: rgba(249,247,242,0.82);
-    backdrop-filter: blur(14px) saturate(1.1);
-    -webkit-backdrop-filter: blur(14px) saturate(1.1);
-    border-bottom: 1px solid rgba(60,56,54,0.08);
+    background-color: rgba(249,247,242,0.96);
+    backdrop-filter: blur(10px) saturate(1.05);
+    -webkit-backdrop-filter: blur(10px) saturate(1.05);
+    border-bottom: 1px solid rgba(60,56,54,0.10);
     transition: background-color 250ms ease, border-color 250ms ease;
   }
   .site-header.scrolled {
-    background-color: rgba(249,247,242,0.94);
-    border-bottom-color: rgba(60,56,54,0.12);
+    background-color: var(--color-neutral);
+    border-bottom-color: rgba(60,56,54,0.14);
   }
 
   .header-inner {

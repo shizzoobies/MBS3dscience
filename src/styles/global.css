@@ -774,12 +774,13 @@ label {
 }
 
 /* ============================================================
-   13. FOOTER
+   13. FOOTER (legacy fallback only)
+   The Footer.astro scoped style block sets the actual look — white
+   surface with dark text in MBS-Test natural style. This rule is only
+   here so any consumer rendering `.site-footer` outside the component
+   (none currently) gets a sensible default.
    ============================================================ */
-.site-footer {
-  background-color: var(--surface-ink);
-  color: var(--ink-inverse);
-}
+/* removed: was forcing dark surface + cream text and leaking through */
 
 /* ============================================================
    14. UTILITIES

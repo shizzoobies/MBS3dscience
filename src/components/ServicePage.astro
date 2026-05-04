@@ -60,28 +60,36 @@ const {
 <Layout title={title} description={description}>
 
   <!-- ============================================================
-       HERO
+       HERO — MBS-Test editorial split: rust eyebrow, big serif lowercase
+       title on the left; rounded-2xl image card with badge on the right.
        ============================================================ -->
-  <section class="section service-hero" style={`background-color: ${heroSurface}; padding-top: 7rem;`}>
+  <section class="section sp-hero">
     <div class="container">
-      <div class="hero-split">
-        <div>
-          <span class="hero-eyebrow">{eyebrow}</span>
-          <h1 class="hero-title">{heroTitle}</h1>
-          <p class="hero-sub">{heroSub}</p>
-          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top: 0.5rem;">
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-              book a visit
+      <div class="sp-hero__grid">
+        <div class="sp-hero__text">
+          <span class="editorial-eyebrow">{eyebrow}</span>
+          <h1 class="sp-hero__title">{heroTitle}</h1>
+          <p class="sp-hero__sub">{heroSub}</p>
+          <div class="sp-hero__actions">
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-hero__cta">
+              <span class="sp-hero__cta-rule" aria-hidden="true"></span>
+              Begin consultation
             </a>
-            <a href="/contact/" class="btn btn-secondary">ask a question</a>
+            <a href="/contact/" class="sp-hero__cta sp-hero__cta--ghost">
+              Ask a question
+            </a>
           </div>
         </div>
-        <div class="hero-media">
+        <div class="sp-hero__media">
           {heroImage ? (
-            <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero-img" />
+            <div class="sp-hero__frame">
+              <img src={heroImage} alt={`${title} at MBS Medical`} />
+              <span class="sp-hero__badge">{chipLabel}</span>
+            </div>
           ) : (
-            <div class="img-placeholder img-placeholder--tall" role="img" aria-label={`${title} service`}>
+            <div class="sp-hero__frame sp-hero__frame--placeholder" role="img" aria-label={`${title} service`}>
               <span>{title.toLowerCase()} photo</span>
+              <span class="sp-hero__badge">{chipLabel}</span>
             </div>
           )}
         </div>
@@ -271,18 +279,152 @@ const {
 
 
 <style>
-  /* Hero */
-  .service-hero { min-height: 85vh; display: flex; align-items: center; }
+  /* ---- Service hero (MBS-Test editorial split) ---- */
+  .sp-hero {
+    background-color: var(--color-neutral);
+    padding-top: 9rem;
+    padding-bottom: 6rem;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .sp-hero::before,
+  .sp-hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(60,56,54,0.06);
+    pointer-events: none;
+  }
+  .sp-hero::before {
+    width: 360px; height: 360px;
+    top: 50%; left: -120px;
+    transform: translateY(-50%);
+    border-style: dashed;
+  }
+  .sp-hero::after {
+    width: 480px; height: 480px;
+    bottom: -240px; right: -120px;
+  }
+  .sp-hero__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .sp-hero__grid { grid-template-columns: 6fr 6fr; gap: 4rem; }
+  }
+  .sp-hero__text { display: flex; flex-direction: column; gap: 1.75rem; }
+  .sp-hero__title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.75rem, 6.5vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+    text-transform: lowercase;
+    margin: 0;
+  }
+  .sp-hero__sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-secondary);
+    max-width: 48ch;
+    margin: 0;
+  }
+  .sp-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .sp-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 200ms ease;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .sp-hero__cta:hover { color: var(--color-rust); }
+  .sp-hero__cta-rule {
+    display: inline-block;
+    width: 48px;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 250ms ease;
+  }
+  .sp-hero__cta:hover .sp-hero__cta-rule { width: 80px; }
+  .sp-hero__cta--ghost { color: var(--color-tertiary); }
 
-  .sp-hero-img {
-    border-radius: var(--radius-xl);
+  /* Image card with rounded-2xl + small uppercase badge bottom-left */
+  .sp-hero__media { position: relative; }
+  .sp-hero__frame {
+    position: relative;
     width: 100%;
     aspect-ratio: 4/5;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    background-color: var(--color-surface-warm);
+    border: 1px solid var(--color-border);
+  }
+  .sp-hero__frame img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    display: block;
+    transition: transform 700ms ease;
+  }
+  .sp-hero__frame:hover img { transform: scale(1.04); }
+  .sp-hero__frame--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-tertiary);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+  .sp-hero__badge {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background-color: rgba(255,255,255,0.92);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 8px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
   }
   @media (max-width: 767px) {
-    .sp-hero-img { aspect-ratio: 16/9; }
+    .sp-hero { min-height: auto; padding-top: 7rem; }
+    .sp-hero__frame { aspect-ratio: 16/10; }
+    .sp-hero__badge { bottom: 1rem; left: 1rem; }
+  }
+
+  .sp-feature-img {
+    border-radius: var(--radius-2xl);
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
   }
 
   .sp-feature-img {
@@ -420,8 +562,83 @@ const {
   }
   .faq-heading { position: sticky; top: 6rem; }
 
-  /* Steps */
-  .step-card h3 { font-size: var(--text-xl); }
+  /* ---- Steps (MBS-Test bento variant) ---- */
+  .step-card {
+    position: relative;
+    padding: 2.5rem 2rem 2.25rem;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform var(--dur-base) var(--ease-standard);
+  }
+  .step-card:hover { transform: translateY(-3px); }
+  .step-card h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.875rem;
+    line-height: 1.2;
+    color: inherit;
+  }
+  .step-card .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.1em;
+    color: var(--color-rust);
+    margin-bottom: 1.5rem;
+    opacity: 0.85;
+  }
+
+  /* nth-child variants: alternate cream → sage → primary → cream-bordered */
+  .step-card:nth-child(2) {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #FFFFFF;
+  }
+  .step-card:nth-child(2) .step-number { color: rgba(255,255,255,0.85); }
+  .step-card:nth-child(2) p { color: rgba(255,255,255,0.78) !important; }
+  .step-card:nth-child(3) {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #FFFFFF;
+  }
+  .step-card:nth-child(3) .step-number { color: var(--color-rust); }
+  .step-card:nth-child(3) p { color: rgba(255,255,255,0.72) !important; }
+  .step-card:nth-child(4) {
+    background-color: var(--color-surface-warm);
+  }
+
+  /* ---- Sub-services list: arrow-out chips MBS-Test style ----
+     Adds a circle arrow on each item when present */
+  .sp-sub-list li {
+    position: relative;
+    padding-right: 2.5rem;
+  }
+  .sp-sub-list li::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888377' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><line x1='7' y1='17' x2='17' y2='7'/><polyline points='7 7 17 7 17 17'/></svg>");
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.55;
+  }
 
   /* ---- Closing CTA: rounded dark card ---- */
   .sp-cta-section {
