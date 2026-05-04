@@ -197,13 +197,13 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
-       TESTIMONIALS — ink surface, serif quotes
+       TESTIMONIALS — cream surface so dark serif quote cards stand out
        ============================================================ -->
-  <section class="section bg-ink">
+  <section class="section bg-cream">
     <div class="container">
-      <div class="reveal" style="margin-bottom: 3rem;">
-        <span class="label" style="color: rgba(250,246,240,0.45);">patient stories</span>
-        <h2 style="color: var(--ink-inverse); margin-top: 0.75rem;">What our patients are saying</h2>
+      <div class="reveal" style="margin-bottom: 3rem; text-align: center;">
+        <span class="editorial-eyebrow">Patient stories</span>
+        <h2 style="margin-top: 0.75rem; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem);">What our patients are saying.</h2>
       </div>
 
       <div class="testimonials-grid">
@@ -498,14 +498,20 @@ import Layout from '../layouts/Layout.astro';
   .value-accent--sage  { background-color: #FFFFFF; }
   .value-accent--sky   { background-color: var(--color-accent); }
 
-  /* MBS-Test signature: middle value card filled sage with white text */
-  .value-card--filled {
+  /* MBS-Test signature: middle value card filled sage with white text.
+     Chain .value-card.value-card--filled to outrank the generic
+     .value-card { background-color: ... } rule defined later in the file. */
+  .value-card.value-card--filled {
     background-color: var(--color-accent);
     border-color: var(--color-accent);
     color: #FFFFFF;
   }
-  .value-card--filled h3 { color: #FFFFFF; }
-  .value-card--filled p  { color: rgba(255,255,255,0.82); }
+  .value-card.value-card--filled h3 { color: #FFFFFF; }
+  .value-card.value-card--filled p  { color: rgba(255,255,255,0.85); }
+  .value-card.value-card--filled:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-hover);
+  }
 
   .hero-actions {
     display: flex;
