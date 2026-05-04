@@ -1,0 +1,306 @@
+[
+  {
+    "slot": "home-weight-loss",
+    "query": "glp1 injection pen medication",
+    "out": "home-weight-loss.jpg",
+    "pageURL": "https://pixabay.com/photos/vaccination-syringe-injection-arm-6392484/",
+    "user": "AVAKAphoto",
+    "tags": "vaccination, syringe, injection, arm, vaccine, disease, medicine, medication, treatment, healthcare, health, medical, vaccination, vaccine, vaccine, vaccine, vaccine, vaccine"
+  },
+  {
+    "slot": "home-mens-health",
+    "query": "man morning sunshine confident",
+    "out": "home-mens-health.jpg",
+    "pageURL": "https://pixabay.com/photos/man-forest-sunlight-woods-trees-3151723/",
+    "user": "jplenio",
+    "tags": "man, forest, sunlight, woods, trees, dark, sunshine, nature, landscape, man, man, man, man, man, forest, forest, forest, dark, dark, sunshine, sunshine"
+  },
+  {
+    "slot": "home-mental-health",
+    "query": "peaceful bedroom morning sunlight",
+    "out": "home-mental-health.jpg",
+    "pageURL": "https://pixabay.com/photos/bed-sleeping-woman-resting-relax-1836316/",
+    "user": "Pexels",
+    "tags": "bed, sleeping, woman, resting, relax, bedroom, cozy, bed sheets, asleep, sleep, rest, indoors, black and white, monochrome, bed, sleeping, sleeping, sleep, sleep, sleep, sleep, sleep"
+  },
+  {
+    "slot": "hero-weight-loss",
+    "query": "glp1 pen prescription medication",
+    "out": "hero-weight-loss.jpg",
+    "pageURL": "https://pixabay.com/photos/medications-tablets-medicine-cure-257336/",
+    "user": "jarmoluk",
+    "tags": "medications, tablets, medicine, cure, pharmaceutical, pharmacy, pharmacology, medical, medical drugs, pills, prescription, prescription drugs"
+  },
+  {
+    "slot": "hero-mental-health",
+    "query": "window sunrise peaceful calm",
+    "out": "hero-mental-health.jpg",
+    "pageURL": "https://pixabay.com/photos/arch-window-lake-view-lake-view-5826002/",
+    "user": "Franz26",
+    "tags": "arch, window, nature, lake, view, lake view, mountain view, perspective, sunset, mountains, outlook, lake wolfgang"
+  },
+  {
+    "slot": "hero-primary-care",
+    "query": "laptop video call home cozy",
+    "out": "hero-primary-care.jpg",
+    "pageURL": "https://pixabay.com/photos/bed-woman-work-laptop-computer-1979270/",
+    "user": "089photoshootings",
+    "tags": "bed, woman, work, laptop, computer, young woman, work from home, blonde woman, bedroom, woman, work, work, work, work, laptop, laptop, laptop, laptop, computer, computer, computer, computer, computer, bedroom"
+  },
+  {
+    "slot": "hero-mens-health",
+    "query": "man jogging sunrise outdoors",
+    "out": "hero-mens-health.jpg",
+    "pageURL": "https://pixabay.com/photos/landscape-mountains-sky-clouds-man-78058/",
+    "user": "12019",
+    "tags": "landscape, mountains, sky, clouds, man, running, exercise, silhouette, nature, outside, jogging, running, running, running, running, running, exercise, exercise"
+  },
+  {
+    "slot": "hero-womens-health",
+    "query": "woman bright kitchen morning natural",
+    "out": "hero-womens-health.jpg",
+    "pageURL": "https://pixabay.com/photos/forest-fog-sunlight-sunbeam-bright-3392077/",
+    "user": "jplenio",
+    "tags": "forest, fog, sunlight, sunbeam, bright, autumn, trees, nature, mood, landscape, morgenstimmung, autumn morning, shadow, light, nature wallpaper, brown nature, brown forest, brown landscape, brown tree, brown light, brown wallpaper, brown natural, brown morning, brown lights, forest, forest, forest, forest, forest, autumn, autumn, autumn"
+  },
+  {
+    "slot": "hero-longevity",
+    "query": "hiking trail mature couple outdoor",
+    "out": "hero-longevity.jpg",
+    "pageURL": "https://pixabay.com/photos/road-forest-fall-path-trail-trees-1072821/",
+    "user": "Valiphotos",
+    "tags": "road, forest, fall, path, trail, trees, woods, foliage, leaves, autumn, season, seasonal, natural, landscape, scenic, nature, nature wallpaper, forest, fall, autumn, nature, nature, nature, nature, nature"
+  },
+  {
+    "slot": "hero-sexual-health",
+    "query": "couple holding hands sunset",
+    "out": "hero-sexual-health.jpg",
+    "pageURL": "https://pixabay.com/photos/beach-couple-love-sunset-sea-6174684/",
+    "user": "KairosProducciones",
+    "tags": "beach, couple, love, sunset, sea, coast, seashore, marriage, together, romance, romantic, relationship, man, woman, nature, happy, vacation, holiday, leisure, ocean, dusk"
+  },
+  {
+    "slot": "hero-hair-dermatology",
+    "query": "skincare bottle minimal clean",
+    "out": "hero-hair-dermatology.jpg",
+    "pageURL": "https://pixabay.com/photos/razor-shaving-cream-aftershave-414909/",
+    "user": "stevepb",
+    "tags": "razor, shaving cream, aftershave, shaving, shave, hygiene, bathroom, skincare, balm, clean, skin balm, shaving cream, shaving cream, shaving cream, shaving cream, shaving cream, aftershave, shaving, skincare, skincare"
+  },
+  {
+    "slot": "hero-labs",
+    "query": "blood test tubes vials laboratory",
+    "out": "hero-labs.jpg",
+    "pageURL": "https://pixabay.com/photos/pharmacy-isolated-health-medicine-1729445/",
+    "user": "garten-gg",
+    "tags": "pharmacy, isolated, health, medicine, bottle, chemistry, science, laboratory, mix, vial"
+  },
+  {
+    "slot": "hero-lifestyle-medicine",
+    "query": "colorful vegetables kitchen healthy",
+    "out": "hero-lifestyle-medicine.jpg",
+    "pageURL": "https://pixabay.com/photos/carrots-orange-vegetables-food-382686/",
+    "user": "cocoparisienne",
+    "tags": "carrots, orange, vegetables, food, orange vegetable, harvest, produce, healthy, vitamins, nutrition, fresh produce, organic, carrots, carrots, carrots, carrots, carrots, vegetables, vegetables"
+  },
+  {
+    "slot": "hero-concierge-medicine",
+    "query": "modern home phone call elegant",
+    "out": "hero-concierge-medicine.jpg",
+    "pageURL": "https://pixabay.com/photos/make-a-phone-call-mobile-phone-5190643/",
+    "user": "VinzentWeinbeer",
+    "tags": "make a phone call, mobile, phone, smartphone, communication, contact, iphone, community, accessible, at home, home, friendship, woman, female, home office, web, reception, talk, talking, chat, phone, communication, communication, communication, community, home office, talk, talk, talk, talking, talking, talking, talking, talking, chat"
+  },
+  {
+    "slot": "feat-weight-loss-1",
+    "query": "person walking nature morning",
+    "out": "feat-weight-loss-1.jpg",
+    "pageURL": "https://pixabay.com/photos/winter-snow-person-walk-walking-1936638/",
+    "user": "12019",
+    "tags": "winter, snow, person, walk, walking, trees, forest, woods, woodlands, trunks, tree trunks, undergrowth, snowy, snow covered, sunrise, dawn, hiking, landscape, scenic, road, path, nature, outdoors, countryside, rural, wilderness, sunlight, winter, snow, walk, walk, walk, walking, walking, walking, walking, walking, hiking, hiking, hiking"
+  },
+  {
+    "slot": "feat-weight-loss-2",
+    "query": "meal prep vegetables protein bowl",
+    "out": "feat-weight-loss-2.jpg",
+    "pageURL": "https://pixabay.com/photos/salad-fruit-berry-healthy-vitamins-2756467/",
+    "user": "silviarita",
+    "tags": "salad, fruit, berry, healthy, vitamins, fresh, food, vegetarian, meal, bio, raw food, vegan, diet, buffet, salad bowl, bowls, vegetables"
+  },
+  {
+    "slot": "feat-mental-health-1",
+    "query": "meditation calm peaceful breathing",
+    "out": "feat-mental-health-1.jpg",
+    "pageURL": "https://pixabay.com/photos/woman-yoga-meditation-well-being-9421746/",
+    "user": "Anilsharma26",
+    "tags": "woman, yoga, meditation, well being, exercise"
+  },
+  {
+    "slot": "feat-mental-health-2",
+    "query": "sleeping bedroom peaceful dawn",
+    "out": "feat-mental-health-2.jpg",
+    "pageURL": "https://pixabay.com/photos/woman-asleep-girl-sleep-bed-cozy-2197947/",
+    "user": "Claudio_Scott",
+    "tags": "woman, asleep, girl, sleep, bed, cozy, tired, rest, resting, sleeping, sleeping woman, dreams, young woman, pillow, blanket, bedroom, sleeping beauty, morning, relax, sleep, sleep, sleep, sleep, sleep, sleeping, sleeping"
+  },
+  {
+    "slot": "feat-mental-health-3",
+    "query": "forest path walking sunrise solitude",
+    "out": "feat-mental-health-3.jpg",
+    "pageURL": "https://pixabay.com/photos/sad-man-person-atmosphere-mood-4209944/",
+    "user": "johnNaturePhotos",
+    "tags": "sad, man, person, atmosphere, mood, park, nature, trees, fog, walking"
+  },
+  {
+    "slot": "feat-primary-care-1",
+    "query": "tablet relaxed home telehealth",
+    "out": "feat-primary-care-1.jpg",
+    "pageURL": "https://pixabay.com/photos/christmas-wallpaper-relaxing-1979674/",
+    "user": "JillWellington",
+    "tags": "christmas wallpaper, relaxing, lounging, saturday, cozy, fireplace, winter, lounge, relaxation, relax, comfortable, home, ipad, iphone, coffee, weekend, homey, resting, december"
+  },
+  {
+    "slot": "feat-primary-care-2",
+    "query": "tea couch sick home rest",
+    "out": "feat-primary-care-2.jpg",
+    "pageURL": "https://pixabay.com/photos/coffee-roses-bed-drink-caffeine-2676642/",
+    "user": "monileoni",
+    "tags": "coffee, roses, bed, drink, caffeine, porcelain, morning, rest, ceramics, layout, romantic, coffee, coffee, coffee, coffee, coffee, bed, bed, bed, rest"
+  },
+  {
+    "slot": "feat-primary-care-3",
+    "query": "pill bottle medication routine",
+    "out": "feat-primary-care-3.jpg",
+    "pageURL": "https://pixabay.com/photos/capsules-pills-health-medicine-1079838/",
+    "user": "stevepb",
+    "tags": "capsules, pills, health, medicine, medication, vitamins, pharmaceutical, healthcare, supplements, omega oils, omega acids, nutrition, fish oil, omega-3, omega-6, translucent, wellness, remedy, medical, pills, health, health, health, medicine, medicine, medicine, medicine, medicine, medication, vitamins, vitamins, vitamins, vitamins, supplements, supplements, supplements, fish oil, fish oil, medical"
+  },
+  {
+    "slot": "feat-mens-health-1",
+    "query": "man portrait window light confident",
+    "out": "feat-mens-health-1.jpg",
+    "pageURL": "https://pixabay.com/photos/beanie-guy-man-beard-jacket-grey-2562646/",
+    "user": "StockSnap",
+    "tags": "beanie, guy, man, beard, jacket, grey, looking, people, window, sad, longing, alone, remembering, man, man, man, man, man, people, people, people, sad, sad, sad, alone"
+  },
+  {
+    "slot": "feat-mens-health-2",
+    "query": "man lifting weights home",
+    "out": "feat-mens-health-2.jpg",
+    "pageURL": "https://pixabay.com/photos/weight-lifting-fitness-gym-1284616/",
+    "user": "Pexels",
+    "tags": "weight lifting, fitness, gym, perspective, bodybuilding, dumbells, weights, health, sport, training, exercise, workout, fitness, gym, gym, gym, gym, gym"
+  },
+  {
+    "slot": "feat-womens-health-1",
+    "query": "woman 40s outdoors confident",
+    "out": "feat-womens-health-1.jpg",
+    "pageURL": "https://pixabay.com/photos/portrait-woman-people-model-4697981/",
+    "user": "Gustav_Nilsson",
+    "tags": "portrait, woman, people, model, fashion, person, adult, lady, old, 40s, gray lady"
+  },
+  {
+    "slot": "feat-womens-health-2",
+    "query": "woman cooking healthy meal",
+    "out": "feat-womens-health-2.jpg",
+    "pageURL": "https://pixabay.com/photos/woman-hands-cutting-vegetables-1207952/",
+    "user": "martinvorel_com",
+    "tags": "woman hands, wallpaper hd, cutting vegetables, mac wallpaper, cooking, cook, fruit, 4k wallpaper 1920x1080, laptop wallpaper, vegetable, flat, hd wallpaper, cool backgrounds, chop, 4k wallpaper, cut, culinary, restaurant, food, gastronomy, homemaker, wife, preparing food, vegetarian, vegan, salad, cutting, wallpaper 4k, knife, vitamins, women, free wallpaper, beautiful hands, sensual, sensuality, free background, full hd wallpaper, workplan, desktop backgrounds, stove, windows wallpaper, chef, healthy eating, beautiful wallpaper, wallpaper"
+  },
+  {
+    "slot": "feat-longevity-1",
+    "query": "dna molecule research abstract",
+    "out": "feat-longevity-1.jpg",
+    "pageURL": "https://pixabay.com/photos/dna-biology-science-dna-helix-163710/",
+    "user": "PublicDomainPictures",
+    "tags": "dna, biology, science, dna helix, protein, molecule, molecular structure, chromosome, spiral, microbiology, deoxyribonucleic acid, 3d, render, isolated, dna, dna, dna, dna, dna"
+  },
+  {
+    "slot": "feat-longevity-2",
+    "query": "mature athlete training outdoor",
+    "out": "feat-longevity-2.jpg",
+    "pageURL": "https://pixabay.com/photos/tartan-track-athletics-2678544/",
+    "user": "anncapictures",
+    "tags": "tartan track, athletics, track and field, race track, start, run, race, sport, sports track, fitness, sports ground, competition, racecourse, stadium, numbering, athletics, start, start, run, race, race, sport, sport, sport, sport, sport, fitness"
+  },
+  {
+    "slot": "feat-sexual-health-1",
+    "query": "man bedroom morning relaxed",
+    "out": "feat-sexual-health-1.jpg",
+    "pageURL": "https://pixabay.com/photos/woman-asleep-girl-sleep-bed-cozy-2197947/",
+    "user": "Claudio_Scott",
+    "tags": "woman, asleep, girl, sleep, bed, cozy, tired, rest, resting, sleeping, sleeping woman, dreams, young woman, pillow, blanket, bedroom, sleeping beauty, morning, relax, sleep, sleep, sleep, sleep, sleep, sleeping, sleeping"
+  },
+  {
+    "slot": "feat-sexual-health-2",
+    "query": "couple candid lifestyle outdoors",
+    "out": "feat-sexual-health-2.jpg",
+    "pageURL": "https://pixabay.com/photos/couple-camera-pose-picture-4922442/",
+    "user": "Toan_Le",
+    "tags": "couple, camera, pose, picture, photograph, couple, couple, couple, couple, couple, camera, camera, camera, picture, picture, picture, photograph"
+  },
+  {
+    "slot": "feat-hair-derm-1",
+    "query": "shampoo bottle clean minimal",
+    "out": "feat-hair-derm-1.jpg",
+    "pageURL": "https://pixabay.com/photos/cream-lotion-hands-sunscreen-spa-4713579/",
+    "user": "AdoreBeautyNZ",
+    "tags": "cream, lotion, hands, sunscreen, spa, skin, wellness, moisturizer, cosmetic, product, bottle, shampoo, health, massage, body, www, adorebeauty, com, au, co, nz, young, white bottle, clean hands, beauty, lotion, lotion, sunscreen, sunscreen, sunscreen, sunscreen, sunscreen, moisturizer, moisturizer, shampoo, shampoo"
+  },
+  {
+    "slot": "feat-hair-derm-2",
+    "query": "face skincare minimal aesthetic",
+    "out": "feat-hair-derm-2.jpg",
+    "pageURL": "https://pixabay.com/photos/woman-bath-beauty-face-model-2498668/",
+    "user": "5882641",
+    "tags": "woman, bath, beauty, face, model, milk bath, skincare, bathtub, face, face, skincare, skincare, skincare, skincare, skincare"
+  },
+  {
+    "slot": "feat-labs-1",
+    "query": "pipette test tube science",
+    "out": "feat-labs-1.jpg",
+    "pageURL": "https://pixabay.com/photos/science-scientist-laboratory-5314419/",
+    "user": "trank",
+    "tags": "science, scientist, laboratory, chemistry, scientist, scientist, scientist, scientist, scientist, laboratory"
+  },
+  {
+    "slot": "feat-labs-2",
+    "query": "data graph chart analysis",
+    "out": "feat-labs-2.jpg",
+    "pageURL": "https://pixabay.com/photos/digital-marketing-technology-1433427/",
+    "user": "AS_Photography",
+    "tags": "digital marketing, technology, notebook, stats, statistics, internet, analyst, analysis, plan, tablet, office, work desk, modern, business, marketing, digital, computer, mobile technologies, work, electronics, web browser, diagrams, data, percentages, calculation, screen, seo, advertising, digital marketing, digital marketing, digital marketing, statistics, business, business, marketing, marketing, marketing, marketing, work, data, data, data, data, data, seo, seo"
+  },
+  {
+    "slot": "feat-lifestyle-1",
+    "query": "rainbow vegetables plate healthy",
+    "out": "feat-lifestyle-1.jpg",
+    "pageURL": "https://pixabay.com/photos/meal-carrots-peas-healthy-547511/",
+    "user": "congerdesign",
+    "tags": "meal, carrots, peas, healthy, naturally, frozen vegetables, cook, plate, carrots, carrots, peas, peas, peas, peas, peas, frozen vegetables, frozen vegetables, plate, plate, plate, plate"
+  },
+  {
+    "slot": "feat-lifestyle-2",
+    "query": "running shoes pavement morning",
+    "out": "feat-lifestyle-2.jpg",
+    "pageURL": "https://pixabay.com/photos/alone-feet-shoes-laces-sneakers-1869914/",
+    "user": "Pexels",
+    "tags": "alone, feet, shoes, laces, sneakers, casual, leisure, girl, night, pavement, standing, alone, feet, feet, shoes, shoes, shoes, shoes, shoes, sneakers, standing"
+  },
+  {
+    "slot": "feat-concierge-1",
+    "query": "home office video call laptop",
+    "out": "feat-concierge-1.jpg",
+    "pageURL": "https://pixabay.com/photos/skype-woman-computer-laptop-home-835470/",
+    "user": "secondfromthesun0",
+    "tags": "skype, woman, computer, laptop, home, internet, communication, female, adult, screen, notebook, office, talking, coffee, restaurant, macbook, desk, technology, conversation, skype, skype, skype, skype, skype, conversation"
+  },
+  {
+    "slot": "feat-concierge-2",
+    "query": "morning coffee home elegant",
+    "out": "feat-concierge-2.jpg",
+    "pageURL": "https://pixabay.com/photos/bread-coffee-breakfast-home-8420931/",
+    "user": "TheDesignLady87",
+    "tags": "bread, coffee, breakfast, home, morning, pancakes, table, tea, flat lay"
+  }
+]

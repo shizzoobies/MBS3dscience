@@ -11,6 +11,7 @@ import ServicePage from '../components/ServicePage.astro';
   chipLabel="ongoing care"
   chipClass="chip-sage"
   heroSurface="var(--surface-sand)"
+  heroImage="/images/hero-primary-care.jpg"
   values={[
     {
       heading: "Virtual primary care",
@@ -31,15 +32,16 @@ import ServicePage from '../components/ServicePage.astro';
       body: "Most primary care is reactive. We built this differently. Same-week routine visits, same-day acute care, a provider who knows your chart and has time to actually talk.",
       chipLabel: "whole-person care",
       chipClass: "chip-sage",
-      imgAlt: "Person in a comfortable telehealth visit"
+      imgAlt: "Patient on tablet at home for a telehealth visit",
+      image: "/images/feat-primary-care-1.jpg"
     },
     {
       heading: "Urgent care without the urgent care experience",
       body: "Sick or hurt? Skip the waiting room. Same-day video visit, prescription to your pharmacy, done. Most respiratory infections, UTIs, skin issues, and GI symptoms can be handled this way.",
       chipLabel: "same-day care",
       chipClass: "chip-coral",
-      imgAlt: "Person at home on a same-day visit",
-      imgSurface: "rgba(232,116,97,0.10)",
+      imgAlt: "Resting at home with tea during illness",
+      image: "/images/feat-primary-care-2.jpg",
       flip: true
     },
     {
@@ -47,8 +49,8 @@ import ServicePage from '../components/ServicePage.astro';
       body: "Hypertension, type 2 diabetes, thyroid, cholesterol, GERD, IBS. Regular check-ins, medication titration, real follow-up. Not a prescription renewed on autopilot.",
       chipLabel: "chronic care",
       chipClass: "chip-terracotta",
-      imgAlt: "Person reviewing health results",
-      imgSurface: "rgba(201,123,94,0.12)"
+      imgAlt: "Daily medication routine",
+      image: "/images/feat-primary-care-3.jpg"
     }
   ]}
   subServices={{
