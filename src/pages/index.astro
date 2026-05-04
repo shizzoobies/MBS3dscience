@@ -410,9 +410,11 @@ import Layout from '../layouts/Layout.astro';
     font-weight: var(--weight-regular);
     font-size: var(--text-sm);
     letter-spacing: 0.02em;
-    color: var(--accent-butter);
+    color: var(--color-accent-light);
     margin-bottom: 1.25rem;
     text-transform: lowercase;
+    /* Stronger shadow than parent so the small text reads on the flag */
+    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
   }
   .hero-fullbleed__title {
     font-family: var(--font-serif);
