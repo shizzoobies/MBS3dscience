@@ -120,9 +120,9 @@ const currentPath = Astro.url.pathname;
         href="https://mbsmedical.practicebetter.io"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn btn-inverse header-cta-btn"
+        class="header-cta-btn"
       >
-        book a visit
+        patient portal
       </a>
     </div>
 
@@ -181,20 +181,20 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <style>
-  /* ---- Header shell (dark, always) ---- */
+  /* ---- Header shell (cream, MBS-Test natural style) ---- */
   .site-header {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
-    background-color: rgba(26,26,26,0.72);
-    backdrop-filter: blur(14px) saturate(1.2);
-    -webkit-backdrop-filter: blur(14px) saturate(1.2);
-    border-bottom: 1px solid rgba(250,246,240,0.08);
+    background-color: rgba(249,247,242,0.82);
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    border-bottom: 1px solid rgba(60,56,54,0.08);
     transition: background-color 250ms ease, border-color 250ms ease;
   }
   .site-header.scrolled {
-    background-color: rgba(18,18,18,0.92);
-    border-bottom-color: rgba(250,246,240,0.1);
+    background-color: rgba(249,247,242,0.94);
+    border-bottom-color: rgba(60,56,54,0.12);
   }
 
   .header-inner {
@@ -232,11 +232,11 @@ const currentPath = Astro.url.pathname;
   }
 
   .nav-link {
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-wide);
+    font-size: 10px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(250,246,240,0.72);
+    color: rgba(60,56,54,0.55);
     text-decoration: none;
     padding-bottom: 2px;
     border-bottom: 1.5px solid transparent;
@@ -244,8 +244,8 @@ const currentPath = Astro.url.pathname;
   }
   .nav-link:hover,
   .nav-link.active {
-    color: var(--ink-inverse);
-    border-bottom-color: var(--accent-terracotta);
+    color: var(--color-primary);
+    border-bottom-color: var(--color-rust);
   }
   .nav-link--external {
     display: inline-flex;
@@ -410,17 +410,34 @@ const currentPath = Astro.url.pathname;
   }
   @media (min-width: 768px) { .hamburger { display: none; } }
 
-  /* Header CTA sizing */
+  /* Header CTA — bordered editorial pill, MBS-Test style */
   .header-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background-color: transparent;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-pill);
     padding: 10px 22px;
-    font-size: 0.8125rem;
+    text-decoration: none;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .header-cta-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-neutral);
   }
 
   .hamburger span {
     display: block;
     width: 22px;
     height: 1.5px;
-    background-color: var(--ink-inverse);
+    background-color: var(--color-primary);
     border-radius: 2px;
     transition: transform 250ms ease, opacity 150ms ease;
   }

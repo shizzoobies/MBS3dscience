@@ -176,13 +176,13 @@ const {
 
 
   <!-- ============================================================
-       TESTIMONIALS — ink surface
+       TESTIMONIALS — cream surface, dark quote cards
        ============================================================ -->
-  <section class="section bg-ink">
+  <section class="section bg-cream">
     <div class="container">
-      <div class="reveal" style="margin-bottom: 3rem;">
-        <span class="label" style="color: rgba(250,246,240,0.45);">patient stories</span>
-        <h2 style="color: var(--ink-inverse); margin-top: 0.75rem;">What patients say</h2>
+      <div class="reveal" style="margin-bottom: 3rem; text-align: center;">
+        <span class="sp-section-eyebrow">Patient stories</span>
+        <h2 style="margin-top: 0.75rem; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem);">What patients say.</h2>
       </div>
       <div class="sp-testimonials">
         {testimonials.map((t, i) => (
@@ -245,21 +245,23 @@ const {
 
 
   <!-- ============================================================
-       CTA — ink surface
+       CTA — rounded dark card (MBS-Test signature)
        ============================================================ -->
-  <section class="section bg-ink" style="text-align:center;">
+  <section class="section sp-cta-section">
     <div class="container">
-      <div class="reveal" style="max-width:640px; margin-inline:auto;">
-        <span class={`accent-chip ${chipClass}`} style="margin-bottom:1.5rem;">{chipLabel}</span>
-        <h2 style="color:var(--ink-inverse);">Ready to get started?</h2>
-        <p style="color:rgba(250,246,240,0.7); margin-top:1rem; font-size:var(--text-lg);">
-          Same-week telehealth across Florida. Cash pay, no insurance needed.
-        </p>
-        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:2.5rem;">
-          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-inverse">
-            book a visit
-          </a>
-          <a href="/contact/" class="btn btn-outline-inverse">ask a question</a>
+      <div class="reveal sp-cta-card">
+        <span class="sp-cta-deco sp-cta-deco--tr" aria-hidden="true"></span>
+        <span class="sp-cta-deco sp-cta-deco--bl" aria-hidden="true"></span>
+        <div class="sp-cta-inner">
+          <span class="sp-cta-eyebrow">Ready when you are</span>
+          <h2 class="sp-cta-title">Let&rsquo;s build your plan.</h2>
+          <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
+          <div class="sp-cta-actions">
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-cta-btn sp-cta-btn--primary">
+              book a visit
+            </a>
+            <a href="/contact/" class="sp-cta-btn sp-cta-btn--ghost">ask a question</a>
+          </div>
         </div>
       </div>
     </div>
@@ -420,4 +422,98 @@ const {
 
   /* Steps */
   .step-card h3 { font-size: var(--text-xl); }
+
+  /* ---- Closing CTA: rounded dark card ---- */
+  .sp-cta-section {
+    background-color: var(--color-neutral);
+    padding-block: 6rem;
+  }
+  .sp-cta-card {
+    position: relative;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border-radius: var(--radius-2xl);
+    padding: 5rem 2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .sp-cta-card { padding: 7rem 4rem; }
+  }
+  .sp-cta-deco {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+    pointer-events: none;
+  }
+  .sp-cta-deco--tr { width: 280px; height: 280px; top: 0; right: 0; transform: translate(40%, -40%); }
+  .sp-cta-deco--bl { width: 220px; height: 220px; bottom: 0; left: 0; transform: translate(-40%, 40%); border-style: dashed; }
+  .sp-cta-inner { position: relative; z-index: 1; max-width: 720px; margin-inline: auto; }
+  .sp-cta-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-rust);
+    margin-bottom: 2rem;
+  }
+  .sp-cta-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+    margin: 0;
+  }
+  .sp-cta-sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: rgba(255,255,255,0.65);
+    max-width: 52ch;
+    margin: 1.75rem auto 0;
+  }
+  .sp-cta-actions {
+    display: flex;
+    gap: 0.875rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2.75rem;
+  }
+  .sp-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 16px 38px;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .sp-cta-btn--primary {
+    background-color: var(--color-accent);
+    color: #FFFFFF;
+    border-color: var(--color-accent);
+  }
+  .sp-cta-btn--primary:hover {
+    background-color: #FFFFFF;
+    color: var(--color-accent);
+    border-color: #FFFFFF;
+  }
+  .sp-cta-btn--ghost {
+    background-color: transparent;
+    color: rgba(255,255,255,0.85);
+    border-color: rgba(255,255,255,0.30);
+  }
+  .sp-cta-btn--ghost:hover {
+    background-color: rgba(255,255,255,0.08);
+    color: #FFFFFF;
+    border-color: rgba(255,255,255,0.6);
+  }
 </style>

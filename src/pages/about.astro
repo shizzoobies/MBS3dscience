@@ -106,21 +106,28 @@ const team: TeamMember[] = [
 >
 
   <!-- HERO -->
-  <section class="section bg-peach" style="padding-top: 7rem; min-height: 70vh; display: flex; align-items: center;">
+  <section class="section bg-cream about-hero">
     <div class="container">
       <div class="hero-split">
         <div>
-          <span class="hero-eyebrow">about mbs medical</span>
-          <h1 class="hero-title">Mind, body, and spirit</h1>
-          <p class="hero-sub">
+          <span class="editorial-eyebrow">About MBS Medical</span>
+          <h1 class="about-hero-title">Mind, body, and spirit.</h1>
+          <p class="about-hero-sub">
             MBS Medical is a veteran-owned telehealth practice founded on a simple belief: healthcare works better when your provider actually knows you. We treat the whole person, not just the symptoms.
           </p>
-          <a href="/contact/" class="btn btn-primary" style="margin-top: 0.5rem;">get in touch</a>
+          <a href="/contact/" class="about-hero-link">
+            <span class="about-hero-link__rule" aria-hidden="true"></span>
+            Get in touch
+          </a>
         </div>
-        <div class="hero-media">
-          <div class="img-placeholder img-placeholder--tall" role="img" aria-label="MBS Medical team">
-            <span>team photo placeholder</span>
+        <div class="hero-media about-hero-media">
+          <div class="about-hero-frame" aria-label="MBS Medical team">
+            <img src="/images/david.jpg" alt="David Hervig, founder of MBS Medical" />
           </div>
+          <aside class="about-hero-quote">
+            <p>&ldquo;Healthcare works better when your provider actually knows you.&rdquo;</p>
+            <span>David Hervig, PA-C &mdash; Founder</span>
+          </aside>
         </div>
       </div>
     </div>
@@ -257,15 +264,20 @@ const team: TeamMember[] = [
   </div>
 
 
-  <!-- CTA -->
-  <section class="section bg-ink" style="text-align: center;">
+  <!-- CTA — rounded dark card -->
+  <section class="section bg-cream" style="padding-block: 6rem;">
     <div class="container">
-      <div class="reveal" style="max-width: 600px; margin-inline: auto;">
-        <h2 style="color: var(--ink-inverse);">Ready to meet your provider?</h2>
-        <p style="color: rgba(250,246,240,0.7); margin-top: 1rem; font-size: var(--text-lg);">Same-week telehealth across Florida. Book online in minutes.</p>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem;">
-          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-inverse">book a visit</a>
-          <a href="/services/" class="btn btn-outline-inverse">explore services</a>
+      <div class="reveal about-cta-card">
+        <span class="about-cta-deco about-cta-deco--tr" aria-hidden="true"></span>
+        <span class="about-cta-deco about-cta-deco--bl" aria-hidden="true"></span>
+        <div class="about-cta-inner">
+          <span class="about-cta-eyebrow">Ready when you are</span>
+          <h2 class="about-cta-title">Ready to meet your provider?</h2>
+          <p class="about-cta-sub">Same-week telehealth across Florida. Book online in minutes.</p>
+          <div class="about-cta-actions">
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="about-cta-btn about-cta-btn--primary">book a visit</a>
+            <a href="/services/" class="about-cta-btn about-cta-btn--ghost">explore services</a>
+          </div>
         </div>
       </div>
     </div>
@@ -275,14 +287,106 @@ const team: TeamMember[] = [
 
 
 <style>
-  .about-hero-img {
-    border-radius: var(--radius-xl);
+  .about-hero {
+    padding-top: 8rem;
+    padding-bottom: 6rem;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+  .about-hero-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+    margin: 1.5rem 0 1.75rem;
+  }
+  .about-hero-sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-secondary);
+    max-width: 48ch;
+    margin-bottom: 2rem;
+  }
+  .about-hero-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+  .about-hero-link__rule {
+    display: inline-block;
+    width: 48px;
+    height: 1px;
+    background-color: var(--color-primary);
+    transition: width 250ms ease, background-color 200ms ease;
+  }
+  .about-hero-link:hover { color: var(--color-rust); }
+  .about-hero-link:hover .about-hero-link__rule {
+    width: 80px;
+    background-color: var(--color-rust);
+  }
+
+  .about-hero-media { position: relative; }
+  .about-hero-frame {
+    position: relative;
     width: 100%;
     aspect-ratio: 4/5;
-    object-fit: cover;
-    display: block;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    background-color: var(--color-surface-warm);
+    border: 1px solid var(--color-border);
   }
-  @media (max-width: 767px) { .about-hero-img { aspect-ratio: 16/9; } }
+  .about-hero-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    filter: grayscale(100%) contrast(1.05);
+    transition: filter 600ms ease;
+  }
+  .about-hero-frame:hover img { filter: grayscale(0); }
+
+  /* Floating quote card overlapping the portrait, MBS-Test signature */
+  .about-hero-quote {
+    display: none;
+    position: absolute;
+    bottom: -2rem;
+    left: -2rem;
+    width: 280px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 1.75rem 1.5rem;
+    border-radius: var(--radius-lg);
+  }
+  @media (min-width: 1100px) {
+    .about-hero-quote { display: block; }
+  }
+  .about-hero-quote p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.4;
+    color: var(--color-primary);
+    margin: 0 0 0.875rem;
+  }
+  .about-hero-quote span {
+    display: block;
+    font-size: 10px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-rust);
+  }
 
   .philosophy-grid {
     display: grid;
@@ -591,6 +695,96 @@ const team: TeamMember[] = [
     content: '·';
     margin: 0 0.625rem;
     color: var(--border-subtle);
+  }
+
+  /* ---- About closing CTA: rounded dark card ---- */
+  .about-cta-card {
+    position: relative;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border-radius: var(--radius-2xl);
+    padding: 5rem 2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .about-cta-card { padding: 7rem 4rem; }
+  }
+  .about-cta-deco {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+    pointer-events: none;
+  }
+  .about-cta-deco--tr { width: 280px; height: 280px; top: 0; right: 0; transform: translate(40%, -40%); }
+  .about-cta-deco--bl { width: 220px; height: 220px; bottom: 0; left: 0; transform: translate(-40%, 40%); border-style: dashed; }
+  .about-cta-inner { position: relative; z-index: 1; max-width: 720px; margin-inline: auto; }
+  .about-cta-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-rust);
+    margin-bottom: 2rem;
+  }
+  .about-cta-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+    margin: 0;
+  }
+  .about-cta-sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: rgba(255,255,255,0.65);
+    max-width: 52ch;
+    margin: 1.5rem auto 0;
+  }
+  .about-cta-actions {
+    display: flex;
+    gap: 0.875rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+  .about-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 16px 38px;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .about-cta-btn--primary {
+    background-color: var(--color-accent);
+    color: #FFFFFF;
+    border-color: var(--color-accent);
+  }
+  .about-cta-btn--primary:hover {
+    background-color: #FFFFFF;
+    color: var(--color-accent);
+    border-color: #FFFFFF;
+  }
+  .about-cta-btn--ghost {
+    background-color: transparent;
+    color: rgba(255,255,255,0.85);
+    border-color: rgba(255,255,255,0.30);
+  }
+  .about-cta-btn--ghost:hover {
+    background-color: rgba(255,255,255,0.08);
+    color: #FFFFFF;
+    border-color: rgba(255,255,255,0.6);
   }
 </style>
 

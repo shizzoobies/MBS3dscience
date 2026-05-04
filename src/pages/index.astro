@@ -27,7 +27,7 @@ import Layout from '../layouts/Layout.astro';
 
     <div class="hero-fullbleed__grid container">
       <div class="hero-fullbleed__text">
-        <span class="hero-fullbleed__eyebrow">veteran-owned · florida telehealth</span>
+        <span class="hero-fullbleed__eyebrow">Veteran-owned &mdash; Florida telehealth</span>
         <h1 class="hero-fullbleed__title">
           healthcare that treats<br />the whole person
         </h1>
@@ -76,7 +76,7 @@ import Layout from '../layouts/Layout.astro';
           <h3>Whole-person care</h3>
           <p>We treat you, not a symptom list. Mental, physical, and preventive health addressed by one provider who knows your full history.</p>
         </div>
-        <div class="reveal reveal-delay-1 value-card">
+        <div class="reveal reveal-delay-1 value-card value-card--filled">
           <span class="value-accent value-accent--sage" aria-hidden="true"></span>
           <h3>No insurance needed</h3>
           <p>Cash pay keeps it simple. No referrals, no prior authorizations, no surprise bills. Transparent pricing, real care.</p>
@@ -295,22 +295,27 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
-       CLOSING CTA — ink surface
+       CLOSING CTA — rounded big-card on cream (MBS-Test signature)
        ============================================================ -->
-  <section class="section bg-ink cta-section">
+  <section class="section bg-cream cta-section">
     <div class="container">
-      <div class="reveal cta-inner">
-        <h2 style="color: var(--ink-inverse); font-size: var(--text-5xl);">The care you've always deserved</h2>
-        <p style="color: rgba(250,246,240,0.7); font-size: var(--text-lg); margin-top: 1.5rem; max-width: 52ch; margin-inline: auto;">
-          Veteran-owned. Patient-first. No insurance required. Same-week telehealth across Florida from a provider who shows up for you.
-        </p>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2.5rem;">
-          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-inverse">
-            book a free consultation
-          </a>
-          <a href="/contact/" class="btn btn-outline-inverse">
-            ask a question
-          </a>
+      <div class="reveal cta-card">
+        <span class="cta-card__deco cta-card__deco--tr" aria-hidden="true"></span>
+        <span class="cta-card__deco cta-card__deco--bl" aria-hidden="true"></span>
+        <div class="cta-card__inner">
+          <span class="cta-card__eyebrow">Ready when you are</span>
+          <h2 class="cta-card__title">The care you've always deserved.</h2>
+          <p class="cta-card__sub">
+            Veteran-owned. Patient-first. No insurance required. Same-week telehealth across Florida, from a provider who shows up for you.
+          </p>
+          <div class="cta-card__actions">
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="cta-card__btn cta-card__btn--primary">
+              book a free consultation
+            </a>
+            <a href="/contact/" class="cta-card__btn cta-card__btn--ghost">
+              ask a question
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -401,16 +406,14 @@ import Layout from '../layouts/Layout.astro';
 
   .hero-fullbleed__eyebrow {
     display: inline-block;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: var(--weight-regular);
-    font-size: var(--text-sm);
-    letter-spacing: 0.02em;
-    color: var(--color-accent-light);
+    font-family: var(--font-body);
+    font-weight: var(--weight-bold);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-rust);
     margin-bottom: 1.25rem;
-    text-transform: lowercase;
-    /* Stronger shadow than parent so the small text reads on the flag */
-    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 8px rgba(0,0,0,0.55);
   }
   .hero-fullbleed__title {
     font-family: var(--font-serif);
@@ -491,9 +494,18 @@ import Layout from '../layouts/Layout.astro';
     border-radius: var(--radius-pill);
     margin-bottom: 1.25rem;
   }
-  .value-accent--coral,
-  .value-accent--sage,
-  .value-accent--sky { background-color: var(--color-accent); }
+  .value-accent--coral { background-color: var(--color-rust); }
+  .value-accent--sage  { background-color: #FFFFFF; }
+  .value-accent--sky   { background-color: var(--color-accent); }
+
+  /* MBS-Test signature: middle value card filled sage with white text */
+  .value-card--filled {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #FFFFFF;
+  }
+  .value-card--filled h3 { color: #FFFFFF; }
+  .value-card--filled p  { color: rgba(255,255,255,0.82); }
 
   .hero-actions {
     display: flex;
@@ -610,7 +622,110 @@ import Layout from '../layouts/Layout.astro';
   }
   .faq-heading { position: sticky; top: 6rem; }
 
-  /* CTA */
-  .cta-section { text-align: center; }
-  .cta-inner { max-width: 720px; margin-inline: auto; }
+  /* ---- Closing CTA: rounded dark card with circle decorations ---- */
+  .cta-section { padding-block: 6rem; }
+  .cta-card {
+    position: relative;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border-radius: var(--radius-2xl);
+    padding: 5rem 2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .cta-card { padding: 7rem 4rem; }
+  }
+  .cta-card__deco {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+    pointer-events: none;
+  }
+  .cta-card__deco--tr {
+    width: 280px;
+    height: 280px;
+    top: 0; right: 0;
+    transform: translate(40%, -40%);
+  }
+  .cta-card__deco--bl {
+    width: 220px;
+    height: 220px;
+    bottom: 0; left: 0;
+    transform: translate(-40%, 40%);
+    border-style: dashed;
+  }
+  .cta-card__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+  .cta-card__eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-rust);
+    margin-bottom: 2rem;
+  }
+  .cta-card__title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+    margin: 0;
+  }
+  .cta-card__sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: rgba(255,255,255,0.65);
+    max-width: 52ch;
+    margin: 1.75rem auto 0;
+  }
+  .cta-card__actions {
+    display: flex;
+    gap: 0.875rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2.75rem;
+  }
+  .cta-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 16px 38px;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .cta-card__btn--primary {
+    background-color: var(--color-accent);
+    color: #FFFFFF;
+    border-color: var(--color-accent);
+  }
+  .cta-card__btn--primary:hover {
+    background-color: #FFFFFF;
+    color: var(--color-accent);
+    border-color: #FFFFFF;
+  }
+  .cta-card__btn--ghost {
+    background-color: transparent;
+    color: rgba(255,255,255,0.85);
+    border-color: rgba(255,255,255,0.30);
+  }
+  .cta-card__btn--ghost:hover {
+    background-color: rgba(255,255,255,0.08);
+    color: #FFFFFF;
+    border-color: rgba(255,255,255,0.6);
+  }
 </style>

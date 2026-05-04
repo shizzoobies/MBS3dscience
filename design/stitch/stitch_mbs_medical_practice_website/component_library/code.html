@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MBS Medical | Component Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "primary": "#000000",
+                    "tertiary": "#000000",
+                    "primary-container": "#1c1c1a",
+                    "surface-dim": "#ddd9d8",
+                    "secondary-container": "#e4e2db",
+                    "inverse-primary": "#c9c6c3",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#474744",
+                    "secondary-fixed": "#e4e2db",
+                    "on-primary-fixed": "#1c1c1a",
+                    "surface-container-low": "#f7f3f2",
+                    "primary-fixed-dim": "#c9c6c3",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#474740",
+                    "on-tertiary-fixed": "#1b1c16",
+                    "on-surface": "#1c1b1b",
+                    "surface-tint": "#5f5e5c",
+                    "outline": "#777771",
+                    "outline-variant": "#c8c7bf",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fdf8f7",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#474741",
+                    "surface-container-high": "#ebe7e6",
+                    "inverse-surface": "#313030",
+                    "on-secondary-container": "#65655f",
+                    "tertiary-container": "#1b1c16",
+                    "surface-bright": "#fdf8f7",
+                    "tertiary-fixed-dim": "#c8c7be",
+                    "on-secondary-fixed-variant": "#474742",
+                    "tertiary-fixed": "#e4e3d9",
+                    "on-background": "#1c1b1b",
+                    "secondary": "#5f5f59",
+                    "surface-container": "#f1edec",
+                    "on-tertiary-container": "#84847c",
+                    "on-secondary-fixed": "#1b1c18",
+                    "primary-fixed": "#e5e2de",
+                    "background": "#fdf8f7",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e5e2e1",
+                    "secondary-fixed-dim": "#c8c6c0",
+                    "on-primary-container": "#858481",
+                    "inverse-on-surface": "#f4f0ef",
+                    "surface-variant": "#e5e2e1",
+                    "surface-container-lowest": "#ffffff",
+                    "accent-green": "#2D5A4E",
+                    "accent-light": "#E8F0EE"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-padding-max": "128px",
+                    "max-width": "1440px",
+                    "grid-columns": "12",
+                    "section-padding-min": "80px",
+                    "gutter": "32px"
+            },
+            "fontFamily": {
+                    "display-hero": ["Fraunces"],
+                    "button-text": ["DM Sans"],
+                    "h3-subhead": ["DM Sans"],
+                    "label-tag": ["DM Sans"],
+                    "h2-section": ["Fraunces"],
+                    "h1-editorial": ["Fraunces"],
+                    "body-main": ["DM Sans"]
+            },
+            "fontSize": {
+                    "display-hero": ["84px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                    "button-text": ["16px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                    "h3-subhead": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "label-tag": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "h2-section": ["48px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "h1-editorial": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                    "body-main": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fdf8f7;
+        }
+    </style>
+</head>
+<body class="text-on-background">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full h-[68px] z-50 bg-emerald-900/80 backdrop-blur-md border-b border-white/10">
+<div class="flex justify-between items-center px-8 w-full max-w-screen-2xl mx-auto h-full">
+<div class="text-xl font-serif italic text-stone-50 bg-stone-100/10 px-4 py-1 rounded-full">
+                MBS Medical
+            </div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white border-b border-white pb-1" href="#">Services</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">Journal</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">Expertise</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">About</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="font-sans uppercase tracking-widest text-xs font-medium text-white border border-white/30 px-4 py-2 rounded-full hover:bg-white/10 transition-all">
+                    patient portal
+                </button>
+</div>
+</div>
+</header>
+<main class="pt-[128px] pb-20 px-8 max-w-screen-2xl mx-auto">
+<!-- Typography Section -->
+<section class="mb-32 grid grid-cols-12 gap-8">
+<div class="col-span-12 md:col-span-4">
+<span class="font-label-tag text-label-tag uppercase text-accent-green mb-4 block">01 / typography scale</span>
+<p class="font-body-main text-body-main text-on-surface-variant max-w-xs">A sophisticated pairing of fraunces for editorial weight and dm sans for functional clarity.</p>
+</div>
+<div class="col-span-12 md:col-span-8 flex flex-col gap-12">
+<div>
+<span class="font-label-tag text-label-tag uppercase text-outline mb-2 block">display-hero</span>
+<h1 class="font-display-hero text-display-hero text-primary">clinical precision</h1>
+</div>
+<div>
+<span class="font-label-tag text-label-tag uppercase text-outline mb-2 block">h1-editorial</span>
+<h2 class="font-h1-editorial text-h1-editorial text-primary">architectural integrity</h2>
+</div>
+<div>
+<span class="font-label-tag text-label-tag uppercase text-outline mb-2 block">h2-section</span>
+<h3 class="font-h2-section text-h2-section text-primary">bespoke medical systems</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<span class="font-label-tag text-label-tag uppercase text-outline mb-2 block">h3-subhead</span>
+<h4 class="font-h3-subhead text-h3-subhead text-primary">editorial excellence in care</h4>
+</div>
+<div>
+<span class="font-label-tag text-label-tag uppercase text-outline mb-2 block">body-main</span>
+<p class="font-body-main text-body-main text-on-surface-variant">The mbs medical journal prioritizes rigorous scientific inquiry through a lens of modern architectural philosophy.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- UI Elements: Buttons & Badges -->
+<section class="mb-32 grid grid-cols-12 gap-8">
+<div class="col-span-12 md:col-span-4">
+<span class="font-label-tag text-label-tag uppercase text-accent-green mb-4 block">02 / buttons &amp; tags</span>
+<p class="font-body-main text-body-main text-on-surface-variant max-w-xs">All actions are pill-shaped and strictly lowercase, emphasizing an understated confidence.</p>
+</div>
+<div class="col-span-12 md:col-span-8">
+<div class="flex flex-wrap items-center gap-4 mb-16">
+<button class="font-button-text text-button-text bg-accent-green text-white px-8 py-4 rounded-full transition-all hover:opacity-90">primary action</button>
+<button class="font-button-text text-button-text border border-primary text-primary px-8 py-4 rounded-full transition-all hover:bg-primary/5">secondary action</button>
+<button class="font-button-text text-button-text bg-primary text-white px-8 py-4 rounded-full transition-all hover:opacity-90">accent action</button>
+<div class="bg-primary p-4 rounded-xl flex gap-4">
+<button class="font-button-text text-button-text bg-white text-primary px-8 py-4 rounded-full transition-all hover:opacity-90">inverse action</button>
+<button class="font-button-text text-button-text border border-white text-white px-8 py-4 rounded-full transition-all hover:bg-white/10">outline inverse</button>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-4">
+<span class="font-label-tag text-label-tag uppercase bg-accent-light text-accent-green px-4 py-2 rounded-full">oncology</span>
+<span class="font-label-tag text-label-tag uppercase bg-accent-light text-accent-green px-4 py-2 rounded-full">neurology</span>
+<span class="font-label-tag text-label-tag uppercase bg-accent-light text-accent-green px-4 py-2 rounded-full">cardiology</span>
+</div>
+</div>
+</section>
+<!-- Bento Layout: Cards & Forms -->
+<section class="mb-32 grid grid-cols-12 gap-8">
+<div class="col-span-12 md:col-span-4">
+<span class="font-label-tag text-label-tag uppercase text-accent-green mb-4 block">03 / interactive shells</span>
+<p class="font-body-main text-body-main text-on-surface-variant max-w-xs">Flat containers defined by subtle borders and asymmetric content placement.</p>
+</div>
+<div class="col-span-12 md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Flat Card -->
+<div class="bg-surface border-l-4 border-l-accent-green border-y border-r border-outline-variant p-8">
+<h4 class="font-h3-subhead text-h3-subhead text-primary mb-4">patient assessment</h4>
+<p class="font-body-main text-body-main text-on-surface-variant mb-8">Detailed clinical records and diagnostic imaging history are consolidated for precision review.</p>
+<a class="font-button-text text-button-text text-accent-green flex items-center gap-2 group" href="#">
+                        view records
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<!-- Team Avatar -->
+<div class="bg-white border border-outline-variant p-8 flex flex-col items-start">
+<div class="mb-6 relative">
+<img alt="dr. elena vance" class="w-20 h-20 rounded-full object-cover border-2 border-accent-green/20 p-1" data-alt="A professional headshot of a female doctor in her late 40s with a confident, serene expression. She is wearing a white medical coat in a minimalist, bright architectural clinic setting with soft, natural lighting. The overall aesthetic is editorial and high-end, featuring a muted color palette of off-whites and soft greens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_h6c0wtpDeuR55YFjlJR0NtQHBCuwiDXUrOZiuuDpQcYXogbrJkOMoe7LBV-rMoBCxbwAIuRvF7AQx28xEQbpbGP397ka2-VNEoSfkw7G2TgVPtrMMx5BabAH8NirN2EYBk5gvVWOK8r90cfpNwPRhVJrVSpmd5w0FFDeuKObAtUgXwmfbjqeWmSau9r5yLapBl0mFmcWquQw4qo5ILcQ4ydQygKMvDbdoxAHPHfzMXy2oKHxTxUhHHZRoPc0lY3TcCU8cnFCD9Da"/>
+<div class="absolute -bottom-1 -right-1 bg-accent-green text-white w-8 h-8 rounded-full flex items-center justify-center border-2 border-white">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+</div>
+</div>
+<h5 class="font-h3-subhead text-h3-subhead text-primary">dr. elena vance</h5>
+<span class="font-label-tag text-label-tag uppercase text-accent-green mb-4">md, mrcp, oncology</span>
+<button class="font-button-text text-button-text border border-primary text-primary px-6 py-2 rounded-full hover:bg-primary text-sm hover:text-white transition-all">
+                        consultate
+                    </button>
+</div>
+<!-- Form Elements -->
+<div class="col-span-1 md:col-span-2 bg-surface-container-low border border-outline-variant p-10">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+<div>
+<label class="font-label-tag text-label-tag uppercase text-primary mb-3 block">patient full name</label>
+<input class="w-full bg-surface border-0 border-b border-primary px-0 py-3 focus:ring-0 focus:border-accent-green placeholder:text-outline-variant font-body-main" placeholder="enter patient name" type="text"/>
+</div>
+<div>
+<label class="font-label-tag text-label-tag uppercase text-primary mb-3 block">medical id</label>
+<input class="w-full bg-surface border-0 border-b border-primary px-0 py-3 focus:ring-0 focus:border-accent-green placeholder:text-outline-variant font-body-main" placeholder="mbs-000-000" type="text"/>
+</div>
+</div>
+<div class="flex justify-end">
+<button class="font-button-text text-button-text bg-accent-green text-white px-12 py-4 rounded-full">register inquiry</button>
+</div>
+</div>
+<!-- Accordion Section -->
+<div class="col-span-1 md:col-span-2 space-y-4">
+<!-- Closed State -->
+<div class="border border-outline-variant bg-surface p-6 flex justify-between items-center group cursor-pointer">
+<span class="font-h3-subhead text-h3-subhead text-primary">what is the governance framework?</span>
+<span class="material-symbols-outlined text-outline transition-transform group-hover:rotate-45">add</span>
+</div>
+<!-- Open State -->
+<div class="border border-accent-green bg-white p-6">
+<div class="flex justify-between items-center mb-6">
+<span class="font-h3-subhead text-h3-subhead text-accent-green">how do we ensure data integrity?</span>
+<span class="material-symbols-outlined text-accent-green">remove</span>
+</div>
+<p class="font-body-main text-body-main text-on-surface-variant">We utilize a proprietary clinical governance framework that prioritizes patient anonymity alongside multi-layered data encryption, ensuring editorial standards are maintained across all digital touchpoints.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-20 px-12 bg-emerald-900 border-t border-white/5">
+<div class="grid grid-cols-12 gap-8 items-start max-w-screen-2xl mx-auto">
+<div class="col-span-12 md:col-span-6">
+<span class="text-4xl font-serif font-light text-stone-50 mb-4 block">MBS Medical</span>
+<p class="font-serif font-light text-3xl text-stone-200 max-w-md">Precise Care, Editorial Excellence.</p>
+</div>
+<div class="col-span-6 md:col-span-3">
+<span class="font-label-tag text-label-tag uppercase text-stone-400 mb-6 block">Navigation</span>
+<ul class="space-y-4">
+<li><a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Clinical Governance</a></li>
+<li><a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Privacy Policy</a></li>
+<li><a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Terms of Service</a></li>
+<li><a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Accessibility</a></li>
+</ul>
+</div>
+<div class="col-span-6 md:col-span-3">
+<span class="font-label-tag text-label-tag uppercase text-stone-400 mb-6 block">Inquiries</span>
+<p class="font-sans uppercase tracking-tighter text-stone-200 mb-2">contact@mbsmedical.journal</p>
+<p class="font-sans uppercase tracking-tighter text-stone-200">+44 20 7946 0958</p>
+</div>
+<div class="col-span-12 border-t border-white/10 pt-8 mt-8">
+<p class="font-label-tag text-label-tag uppercase text-stone-500">© 2024 MBS Medical. Precise Care, Editorial Excellence.</p>
+</div>
+</div>
+</footer>
+</body></html>
