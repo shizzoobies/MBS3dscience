@@ -139,13 +139,12 @@ import Layout from '../layouts/Layout.astro';
     background-color: var(--surface-shell);
     border-radius: var(--radius-lg);
     padding: 2rem;
-    border: 1px solid var(--border-subtle);
-    box-shadow: 0 2px 8px rgba(26,26,26,0.04);
-    transition: transform var(--dur-base), box-shadow var(--dur-base);
+    border: 1px solid var(--color-border);
+    transition: transform var(--dur-base), border-color var(--dur-base);
   }
   .contact-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 24px rgba(26,26,26,0.08);
+    border-color: var(--color-border-strong);
   }
   .contact-card h3 {
     font-size: var(--text-xl);

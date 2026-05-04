@@ -1,7 +1,7 @@
 /* ============================================================
    MBS MEDICAL — DESIGN SYSTEM
-   Inspired by hims.com warm-neutral aesthetic
-   Fonts: DM Sans (sans) + Fraunces (serif accent)
+   Source of truth: DESIGN.md (warm-neutral + single forest-green accent)
+   Fonts: Fraunces (display/heads) + DM Sans (body/UI)
    ============================================================ */
 
 /* --- Google Fonts are loaded in Layout.astro head --- */
@@ -10,44 +10,60 @@
    1. DESIGN TOKENS
    ============================================================ */
 :root {
-  /* Surfaces */
-  --surface-cream:     #F4EFE6;
-  --surface-peach:     #F5D6C6;
-  --surface-sand:      #E8DFD1;
-  --surface-shell:     #FAF6F0;
-  --surface-ink:       #1A1A1A;
+  /* ---- Canonical color tokens (DESIGN.md) ---- */
+  --color-primary:        #1A1A18;   /* warm near-black */
+  --color-secondary:      #4A4A45;
+  --color-tertiary:       #7A7A72;
+  --color-neutral:        #F5F2EE;   /* warm off-white page bg */
+  --color-surface:        #FFFFFF;   /* pure white for inputs / modals */
+  --color-surface-warm:   #FAF7F3;   /* card / alt-section bg */
+  --color-accent:         #2D5A4E;   /* forest green - the only accent */
+  --color-accent-hover:   #244A40;
+  --color-accent-light:   #E8F0EE;   /* tag / chip background */
+  --color-accent-muted:   #8BAF9F;
+  --color-border:         #E2DDD8;
+  --color-border-strong:  #C8C2BA;
+  --color-success:        #2D5A4E;
+  --color-error:          #B84A3E;
 
-  /* Ink */
-  --ink-primary:       #1A1A1A;
-  --ink-secondary:     #4A4A4A;
-  --ink-muted:         #8A8A8A;
-  --ink-inverse:       #FAF6F0;
+  /* Typography family */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body:    "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Accents */
-  --accent-coral:      #E87461;
-  --accent-sage:       #A8B89B;
-  --accent-sky:        #A8C4D4;
-  --accent-terracotta: #C97B5E;
-  --accent-butter:     #EFCF8F;
+  /* ---- Legacy aliases ----
+     Old token names still referenced throughout the codebase.
+     They now point at the canonical tokens above so the whole site
+     re-themes automatically without touching every file. */
+  --surface-cream:     var(--color-neutral);
+  --surface-peach:     var(--color-surface-warm);
+  --surface-sand:      var(--color-surface-warm);
+  --surface-shell:     var(--color-surface-warm);
+  --surface-ink:       var(--color-primary);
 
-  /* Functional */
-  --border-subtle:     #E0D9CC;
-  --border-strong:     #1A1A1A;
-  --color-success:     #5A7A5F;
-  --color-error:       #B84A3E;
+  --ink-primary:       var(--color-primary);
+  --ink-secondary:     var(--color-secondary);
+  --ink-muted:         var(--color-tertiary);
+  --ink-inverse:       var(--color-neutral);
 
-  /* Brand — pulled from the MBS logo for subtle accents site-wide */
-  --brand-teal:        #2E8E9D;
-  --brand-pink:        #E06389;
-  --brand-purple:      #9B79A7;
-  --gradient-brand:    linear-gradient(90deg,
-                         var(--brand-teal) 0%,
-                         var(--brand-pink) 50%,
-                         var(--brand-purple) 100%);
+  /* All multi-accents collapse to the single forest-green accent */
+  --accent-coral:      var(--color-accent);
+  --accent-sage:       var(--color-accent);
+  --accent-sky:        var(--color-accent);
+  --accent-terracotta: var(--color-accent);
+  --accent-butter:     var(--color-accent);
 
-  /* Typography */
-  --font-sans:   "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif:  "Fraunces", Georgia, serif;
+  --border-subtle:     var(--color-border);
+  --border-strong:     var(--color-border-strong);
+
+  /* Brand-gradient tokens neutralised: no more multi-color gradient */
+  --brand-teal:        var(--color-accent);
+  --brand-pink:        var(--color-accent);
+  --brand-purple:      var(--color-accent);
+  --gradient-brand:    var(--color-accent);
+
+  /* Old font tokens still referenced */
+  --font-sans:   var(--font-body);
+  --font-serif:  var(--font-display);
 
   --text-xs:    0.75rem;
   --text-sm:    0.875rem;
@@ -92,10 +108,10 @@
   --radius-xl:   24px;
   --radius-pill: 999px;
 
-  /* Shadow */
-  --shadow-sm: 0 1px 2px rgba(26,26,26,0.04);
-  --shadow-md: 0 4px 12px rgba(26,26,26,0.06);
-  --shadow-lg: 0 12px 32px rgba(26,26,26,0.08);
+  /* Shadows — DESIGN.md says flat. Reserve only for modal overlays. */
+  --shadow-sm: 0 0 0 0 transparent;
+  --shadow-md: 0 0 0 0 transparent;
+  --shadow-lg: 0 8px 40px rgba(26,26,24,0.10);  /* modal-only */
 
   /* Motion */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
@@ -120,29 +136,17 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: var(--text-base);
   font-weight: var(--weight-regular);
   line-height: var(--leading-normal);
-  color: var(--ink-primary);
-  background-color: var(--surface-cream);
+  color: var(--color-primary);
+  background-color: var(--color-neutral);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Thin brand gradient strip — sits at the very top of every page, above
-   the header. Subtle brand signal pulled from the logo's three columns. */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--gradient-brand);
-  z-index: 1001;
-  pointer-events: none;
-}
+/* No top brand strip — DESIGN.md disallows gradient overlays. */
 
 img, video {
   max-width: 100%;
@@ -276,76 +280,88 @@ p {
 
 /* Primary — dark on light */
 .btn-primary {
-  background-color: var(--ink-primary);
-  color: var(--ink-inverse);
-  border-color: var(--ink-primary);
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
 }
 .btn-primary:hover {
-  background-color: #2e2e2e;
-  border-color: #2e2e2e;
+  background-color: #2D2D2A;
+  border-color: #2D2D2A;
+}
+
+/* Accent — forest green for primary patient-action CTAs
+   ("request appointment", "contact us") per DESIGN.md */
+.btn-accent {
+  background-color: var(--color-accent);
+  color: #FFFFFF;
+  border-color: var(--color-accent);
+}
+.btn-accent:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
 }
 
 /* Secondary — outlined */
 .btn-secondary {
   background-color: transparent;
-  color: var(--ink-primary);
-  border-color: var(--ink-primary);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 .btn-secondary:hover {
-  background-color: var(--ink-primary);
-  color: var(--ink-inverse);
+  background-color: var(--color-neutral);
+  color: var(--color-primary);
 }
 
-/* Inverse — for use on ink (dark) surfaces */
+/* Inverse — for use on dark/ink surfaces */
 .btn-inverse {
-  background-color: var(--ink-inverse);
-  color: var(--ink-primary);
-  border-color: var(--ink-inverse);
+  background-color: var(--color-neutral);
+  color: var(--color-primary);
+  border-color: var(--color-neutral);
 }
 .btn-inverse:hover {
   background-color: transparent;
-  color: var(--ink-inverse);
-  border-color: var(--ink-inverse);
+  color: var(--color-neutral);
+  border-color: var(--color-neutral);
 }
 
 /* Outline inverse — ghost on dark surfaces */
 .btn-outline-inverse {
   background-color: transparent;
-  color: rgba(250,246,240,0.8);
-  border-color: rgba(250,246,240,0.3);
+  color: rgba(245,242,238,0.85);
+  border-color: rgba(245,242,238,0.35);
 }
 .btn-outline-inverse:hover {
-  background-color: var(--ink-inverse);
-  color: var(--ink-primary);
-  border-color: var(--ink-inverse);
+  background-color: var(--color-neutral);
+  color: var(--color-primary);
+  border-color: var(--color-neutral);
 }
 
 /* ============================================================
    6. CARDS
    ============================================================ */
+/* Cards stay flat. Hierarchy via border + tonal background, lift on hover. */
 .card {
-  background-color: var(--surface-shell);
+  background-color: var(--color-surface-warm);
   border-radius: var(--radius-lg);
   padding: var(--space-5);
-  border: 1px solid var(--border-subtle);
-  transition: box-shadow var(--dur-base) var(--ease-standard),
-              transform var(--dur-base) var(--ease-standard);
+  border: 1px solid var(--color-border);
+  transition: transform var(--dur-base) var(--ease-standard),
+              border-color var(--dur-base) var(--ease-standard);
 }
 .card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  border-color: var(--color-border-strong);
 }
 
 /* Service card link */
 .service-card {
   display: block;
-  background-color: var(--surface-shell);
+  background-color: var(--color-surface-warm);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--color-border);
   text-decoration: none;
-  transition: box-shadow var(--dur-base) var(--ease-standard),
-              transform var(--dur-base) var(--ease-standard),
+  transition: transform var(--dur-base) var(--ease-standard),
               border-color var(--dur-base) var(--ease-standard);
 }
 .service-card:hover {
@@ -406,38 +422,32 @@ p {
   object-fit: cover;
 }
 
-/* Eyebrow label — no pill, no background. Just colored uppercase text
-   with a small accent bar underneath. Class name kept for compatibility. */
+/* Tag / badge — pill, accent-light bg, accent-green text.
+   Per DESIGN.md component spec. The legacy chip-* modifier classes
+   all collapse to this single style. */
 .accent-chip {
   display: inline-block;
-  position: relative;
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-wide);
+  padding: 4px 12px;
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 0 0 10px 0;
   margin-bottom: var(--space-4);
   border: 0;
-  border-radius: 0;
-  background: transparent;
 }
-.accent-chip::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 28px;
-  height: 2px;
-  border-radius: 2px;
-  background-color: currentColor;
-  opacity: 0.7;
+.accent-chip::after { display: none; } /* drop the previous bar */
+.chip-coral,
+.chip-sage,
+.chip-sky,
+.chip-terracotta,
+.chip-butter,
+.chip-ink {
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
 }
-.chip-coral      { color: #c45a46; }
-.chip-sage       { color: #6a7f5e; }
-.chip-sky        { color: #4a7a8e; }
-.chip-terracotta { color: #a0593a; }
-.chip-butter     { color: #9a7220; }
-.chip-ink        { color: var(--ink-secondary); }
 
 /* Stats row */
 .stats-row {

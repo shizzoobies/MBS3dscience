@@ -175,21 +175,21 @@ const categories: Category[] = [
     padding: 1.5rem 1.75rem;
     background-color: var(--surface-shell);
     border: 1px solid var(--border-subtle);
-    border-left: 3px solid var(--accent, var(--accent-terracotta));
+    border-left: 3px solid var(--color-accent);
     border-radius: var(--radius-md);
     text-decoration: none;
-    color: var(--ink-primary);
-    box-shadow: 0 1px 3px rgba(26,26,26,0.04);
+    color: var(--color-primary);
     transition: transform var(--dur-base) var(--ease-standard),
-                box-shadow var(--dur-base) var(--ease-standard),
+                border-left-width var(--dur-base) var(--ease-standard),
                 border-color var(--dur-base) var(--ease-standard);
   }
-  .section.bg-shell .cat-service { background-color: var(--surface-cream); }
+  .section.bg-shell .cat-service { background-color: var(--color-neutral); }
 
   .cat-service:hover {
     transform: translateX(3px);
-    box-shadow: 0 12px 28px rgba(26,26,26,0.1);
     border-left-width: 6px;
+    border-color: var(--color-border-strong);
+    border-left-color: var(--color-accent);
   }
 
   .cat-service__body h3 {
