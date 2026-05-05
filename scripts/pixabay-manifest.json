@@ -1,10 +1,10 @@
 [
   {
-    "slot": "feat-labs-1",
-    "query": "blood test tube purple top vial",
-    "out": "feat-labs-1.jpg",
-    "pageURL": "https://pixabay.com/photos/sample-lab-laboratory-scientist-4944421/",
-    "user": "AhmadArdity",
-    "tags": "sample, lab, laboratory, scientist, medical, health, test, science, healthcare, research, tube, blue health, blue medical, blue science, blue research, blue lab, blue test, blue blood, blue laboratory, blue healthcare"
+    "slot": "feat-weight-loss-1",
+    "query": "pills capsule white isolated medication",
+    "out": "feat-weight-loss-1.jpg",
+    "pageURL": "https://pixabay.com/photos/pill-medicine-capsule-illness-pain-3264951/",
+    "user": "newsong",
+    "tags": "pill, medicine, capsule, illness, pain, medication, pharmacy, medical, white, prescription, pharmaceutical, treatment, tablet, dose, remedy, addiction, color, vitamin, holistic"
   }
 ]
