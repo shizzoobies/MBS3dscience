@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Fraunces:ital,opsz,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "primary": "#000000",
+                    "tertiary": "#000000",
+                    "primary-container": "#1c1c1a",
+                    "surface-dim": "#ddd9d8",
+                    "secondary-container": "#e4e2db",
+                    "inverse-primary": "#c9c6c3",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#474744",
+                    "secondary-fixed": "#e4e2db",
+                    "on-primary-fixed": "#1c1c1a",
+                    "surface-container-low": "#f7f3f2",
+                    "primary-fixed-dim": "#c9c6c3",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#474740",
+                    "on-tertiary-fixed": "#1b1c16",
+                    "on-surface": "#1c1b1b",
+                    "surface-tint": "#5f5e5c",
+                    "outline": "#777771",
+                    "outline-variant": "#c8c7bf",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fdf8f7",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#474741",
+                    "surface-container-high": "#ebe7e6",
+                    "inverse-surface": "#313030",
+                    "on-secondary-container": "#65655f",
+                    "tertiary-container": "#1b1c16",
+                    "surface-bright": "#fdf8f7",
+                    "tertiary-fixed-dim": "#c8c7be",
+                    "on-secondary-fixed-variant": "#474742",
+                    "tertiary-fixed": "#e4e3d9",
+                    "on-background": "#1c1b1b",
+                    "secondary": "#5f5f59",
+                    "surface-container": "#f1edec",
+                    "on-tertiary-container": "#84847c",
+                    "on-secondary-fixed": "#1b1c18",
+                    "primary-fixed": "#e5e2de",
+                    "background": "#fdf8f7",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e5e2e1",
+                    "secondary-fixed-dim": "#c8c6c0",
+                    "on-primary-container": "#858481",
+                    "inverse-on-surface": "#f4f0ef",
+                    "surface-variant": "#e5e2e1",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-padding-max": "128px",
+                    "max-width": "1440px",
+                    "grid-columns": "12",
+                    "section-padding-min": "80px",
+                    "gutter": "32px"
+            },
+            "fontFamily": {
+                    "display-hero": ["Fraunces"],
+                    "button-text": ["DM Sans"],
+                    "h3-subhead": ["DM Sans"],
+                    "label-tag": ["DM Sans"],
+                    "h2-section": ["Fraunces"],
+                    "h1-editorial": ["Fraunces"],
+                    "body-main": ["DM Sans"]
+            },
+            "fontSize": {
+                    "display-hero": ["84px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                    "button-text": ["16px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                    "h3-subhead": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "label-tag": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "h2-section": ["48px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "h1-editorial": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                    "body-main": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-main selection:bg-secondary-container">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full h-[68px] z-50 bg-emerald-900/80 dark:bg-stone-950/80 backdrop-blur-md border-b border-white/10 flex justify-between items-center px-8">
+<div class="max-w-screen-2xl w-full mx-auto flex justify-between items-center">
+<div class="text-xl font-serif italic text-stone-50 bg-stone-100/10 px-4 py-1 rounded-full">
+                MBS Medical
+            </div>
+<nav class="hidden md:flex gap-8">
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">Services</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">Journal</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">Expertise</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white border-b border-white pb-1" href="#">About</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="font-sans uppercase tracking-widest text-xs font-medium text-white bg-white/10 px-6 py-2 rounded-full hover:bg-white/20 transition-all duration-300">
+                    patient portal
+                </button>
+</div>
+</div>
+</header>
+<main class="pt-[68px]">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center overflow-hidden bg-surface-container-lowest">
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background: radial-gradient(circle at 20% 50%, #ffc8a1 0%, transparent 50%);"></div>
+<div class="max-w-screen-2xl mx-auto w-full px-8 grid grid-cols-12 gap-gutter items-center">
+<div class="col-span-12 lg:col-span-7 space-y-8 z-10">
+<span class="font-label-tag text-label-tag uppercase text-secondary tracking-[0.2em]">about mbs medical</span>
+<h1 class="font-display-hero text-display-hero text-primary max-w-2xl">
+                        Mind, body, and spirit
+                    </h1>
+<p class="font-body-main text-body-main text-on-surface-variant max-w-xl leading-relaxed">
+                        We provide clinical excellence through an editorial lens—where precision medicine meets holistic intentionality. Our practice is designed for those who seek depth in their care.
+                    </p>
+</div>
+<div class="col-span-12 lg:col-span-5 relative mt-12 lg:mt-0">
+<div class="aspect-[4/5] rounded-lg overflow-hidden grayscale contrast-125">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-contrast portrait of a diverse medical team standing confidently in a bright, modern architectural office space. The lighting is soft and natural, emphasizing textures of high-quality fabrics and polished surfaces. The aesthetic is clean and editorial, avoiding clinical stereotypes in favor of a sophisticated professional environment. Deep blacks and warm neutral tones dominate the composition, creating an atmosphere of trust and modern expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIoX-7ISiNy634KxnHv_7ttz99j-LP_4drcchXGmo1Y_79Cl3TEt8AhD3d0l2Gm1cd7XeCtPScrV64MpsWh_tV_4ouMUyW2wXP5-koGqTlzrC4bGzR4bekQn1rD9V7C2HE0YWRoZEvKbYYdm_AxXhXIbYCdMHB_Odwu5CiF3LlBSOebZwpu2U1oE3-36cw5gS9xUI0w-XDRVeAnYVeyQKxWrcEywfmTXzf1NqetkFmmBO2lbsdbkzYXUf8KBRBpEqLRCIoUASe3EN7"/>
+</div>
+<div class="absolute -bottom-8 -left-8 bg-surface p-8 border border-outline-variant max-w-xs hidden xl:block">
+<p class="font-h3-subhead text-h3-subhead italic">"Redefining the standard of care through intentional clinical dialogue."</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Philosophy Section -->
+<section class="py-section-padding-max bg-surface-container-low">
+<div class="max-w-screen-2xl mx-auto px-8 grid grid-cols-12 gap-gutter">
+<div class="col-span-12 mb-16">
+<span class="font-label-tag text-label-tag uppercase text-secondary">our approach</span>
+<h2 class="font-h2-section text-h2-section text-primary mt-4 max-w-2xl">Healthcare built on trust, not transactions</h2>
+</div>
+<div class="col-span-12 md:col-span-4 group">
+<div class="h-1 w-12 bg-emerald-900 mb-8 transition-all duration-500 group-hover:w-full"></div>
+<h3 class="font-h3-subhead text-h3-subhead mb-4">Intellectual Rigor</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">Every diagnosis is approached with the scrutiny of a clinical journal, ensuring no detail is overlooked in your journey.</p>
+</div>
+<div class="col-span-12 md:col-span-4 group">
+<div class="h-1 w-12 bg-emerald-900 mb-8 transition-all duration-500 group-hover:w-full"></div>
+<h3 class="font-h3-subhead text-h3-subhead mb-4">Empathetic Precision</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">We bridge the gap between technical medical science and the human experience, treating the person, not just the symptom.</p>
+</div>
+<div class="col-span-12 md:col-span-4 group">
+<div class="h-1 w-12 bg-emerald-900 mb-8 transition-all duration-500 group-hover:w-full"></div>
+<h3 class="font-h3-subhead text-h3-subhead mb-4">Patient Sovereignty</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">Information is shared transparently, empowering you to make informed decisions about your long-term health and vitality.</p>
+</div>
+</div>
+</section>
+<!-- Founders Section -->
+<section class="py-section-padding-max bg-background">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="grid grid-cols-12 gap-gutter items-end mb-20">
+<div class="col-span-12 lg:col-span-6">
+<span class="font-label-tag text-label-tag uppercase text-secondary">leadership</span>
+<h2 class="font-h2-section text-h2-section text-primary mt-4">The Visionaries</h2>
+</div>
+</div>
+<div class="flex flex-wrap gap-24">
+<!-- Founder 1 -->
+<button class="flex flex-col items-start text-left group">
+<div class="w-[150px] h-[150px] rounded-full overflow-hidden mb-6 border border-outline-variant grayscale group-hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of David Hervig, a man in his 40s with a thoughtful expression. He is wearing a minimalist, charcoal-colored tailored sweater. The setting is a bright, architecturally significant office with large windows and clean lines. The lighting is soft and flattering, highlighting a sense of intelligence and warmth. The overall mood is sophisticated and editorial, consistent with a high-end medical publication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfO6UYHap8Y5Z8pjbPzaa5FrKPtHEeRPYrjlovcrIqA3bYS3kNonyAZt-m6Z5xLmISon6S2Tg-JgzgRyktPzd3o7BRV7TzBOksg7SuVBZJcAL43ju4OwXBagW1A8TMEI-92cyTTdVDAWuD0HM-PXmcXBhMpSSZteCo5IcVA5rPm3ujdF4KkjQuzv6CfJOx2TxFu8BcqWzx4IS2Bi8twywdhCkqxySg9sRgQ5TKytGZJOU_0hoo1sfzS82lPOEwVl9g76LNeJuluxaG"/>
+</div>
+<h4 class="font-h3-subhead text-h3-subhead text-primary">David Hervig PA-C</h4>
+<span class="font-label-tag text-label-tag text-secondary uppercase mt-1">Founder / Clinical Director</span>
+</button>
+<!-- Founder 2 -->
+<button class="flex flex-col items-start text-left group">
+<div class="w-[150px] h-[150px] rounded-full overflow-hidden mb-6 border border-outline-variant grayscale group-hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of Alex Anderson, a woman in her 30s with an air of creative leadership. She is dressed in a structured, cream-colored minimalist blazer. The background is a serene, modern workspace with natural wood textures and soft daylight. The aesthetic is high-art and professional, conveying a sense of authority and approachability without the need for traditional clinical uniforms." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmqE8QmX2ILzLyermSMJJEKMv4aSnEZAWlxIcHaBhGK7Y-iJaQ8uRbaMx2ftQjb0B5cmNa5nfpfEYi3JcPcc331dQi4p-2e2x5YL2pdZLummssun4Dphe3MqFtpPjLFnMDLmJ4MOqUhFAeYqqtocVpFuzzEPX_kL5mEEw6gOqh0ND2_5wZqLGDsfqjhlXyTelRbDm9Mdom63TR_Cs1InnY7CZjlxQOyCjQA-fdL_GMQhl2K8E049bJya-VSfX368GYncK-B9x8LZq3"/>
+</div>
+<h4 class="font-h3-subhead text-h3-subhead text-primary">Alex Anderson</h4>
+<span class="font-label-tag text-label-tag text-secondary uppercase mt-1">Founder / Executive Director</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Team Section -->
+<section class="py-section-padding-min border-t border-outline-variant bg-surface-container-lowest">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="mb-12">
+<span class="font-label-tag text-label-tag uppercase text-secondary">clinical team</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12">
+<!-- Team 1 -->
+<div class="flex flex-col items-center text-center">
+<div class="w-[120px] h-[120px] rounded-full overflow-hidden mb-4 border border-outline-variant grayscale">
+<img class="w-full h-full object-cover" data-alt="A minimalist professional headshot of Julie Vera Rivas in a light-filled studio. She wears a simple black linen top. The style is strictly editorial and high-contrast, focusing on a sincere and professional expression. The background is a smooth, off-white surface that complements the modern medical brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIZp0NGAkr2sScUcmsnHlACtm_COyvYgzbOCK_nfUMtAAY2WpbYW6sBuaMWloWTgLeIoDiUKr14NpgVG0wYCwVdBmKYRRe5BC7xAW8RKfs4u4OSlnz853qGcqZ7bmJzNVhzFbWO2xpxTApsBtjkaJppEfeh7UdYV2hSObtOF-pdO8FevzmdLtOyxXb5qE-EZqrJ1Vvommi-jcF8G1FArYekkpxIM0jNptagzB1mounhSCtoeybkjKwO10gANA7M6RDO1iUCeZoJF8o"/>
+</div>
+<p class="font-button-text text-button-text text-primary">Julie Vera Rivas</p>
+<p class="text-[10px] font-sans uppercase tracking-widest text-secondary mt-1">Patient Advocacy</p>
+</div>
+<!-- Team 2 -->
+<div class="flex flex-col items-center text-center">
+<div class="w-[120px] h-[120px] rounded-full overflow-hidden mb-4 border border-outline-variant grayscale">
+<img class="w-full h-full object-cover" data-alt="A portrait of Dr. Eric Folkens MD, looking relaxed yet professional in a modern office environment. He is wearing a navy blue button-down shirt. The lighting is cinematic, casting soft shadows that create depth. The aesthetic is curated and calm, reflecting a high-end medical practice that values personal connection and intellectual precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxX3zh3F5toqknfbzST3Z7YaZEUg6dJ_8PqwkgkdMTerEBuFrPbojoFMofQBQdetTy6yqMj5AxAOPPGeGVEXLKBdHX8FhUbqCbouL2ZlZA1KT40CK1k_3VJlaku0vVMFZ1_n9hS1_S6ML8vtCXIX4evBn0lSQYFMiHDlvedwLBf9Q7NnQ0OtbtM-QO3bC0Sz5bcrmEiRl9y9C3XtWHOK2LV2CNyMb1OHioAiats1ah_RgwVgegPFblH3G_ia2wcGbu6V3zi_Gh3uvB"/>
+</div>
+<p class="font-button-text text-button-text text-primary">Dr. Eric Folkens MD</p>
+<p class="text-[10px] font-sans uppercase tracking-widest text-secondary mt-1">Senior Consultant</p>
+</div>
+<!-- Team 3 -->
+<div class="flex flex-col items-center text-center">
+<div class="w-[120px] h-[120px] rounded-full overflow-hidden mb-4 border border-outline-variant grayscale">
+<img class="w-full h-full object-cover" data-alt="A clean, professional headshot of Dr. Mark Dawson MD against a textured architectural wall. He is wearing a dark grey tailored suit jacket without a tie. The lighting is bright and even, reinforcing the light-mode UI aesthetic. The overall look is modern, authoritative, and intentionally polished, fitting for a premium medical monograph style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0hyfGpMrrGTGy15m_gS-IhYCUQoh_PhB22UiSRum0XpGpFfXs6VPUk16OCb4aR8F4go2CESxeAgGYTR3V71WHK1HmaGrwsZjFU71IElQny36O5X0NTvFHoCONIvNGqVt2CEc9JVL89S_bvGSOUXg2p3hnpe5J5eqWBoDRIbfX6kNMIILS7YGgIDvJOfGL27r54oEOook58yTuPQCYGF4LikN6wOM3NBVNnjBrRa_9s_5f4LXP_DtRLoE0OHhYRGvhfD_UUMPkplhQ"/>
+</div>
+<p class="font-button-text text-button-text text-primary">Dr. Mark Dawson MD</p>
+<p class="text-[10px] font-sans uppercase tracking-widest text-secondary mt-1">Medical Specialist</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Closing CTA -->
+<section class="bg-primary py-section-padding-max text-white overflow-hidden relative">
+<div class="absolute right-0 top-0 h-full w-1/2 opacity-30">
+<img class="w-full h-full object-cover" data-alt="An abstract, high-art architectural shot of a modern glass-walled clinic interior at night. The lighting is cool and sophisticated, with glowing geometric lines reflecting off polished surfaces. The composition is asymmetrically balanced, creating a sense of dynamic movement and advanced medical technology. The mood is serene, private, and highly premium." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9pN9pOHTkFgIQxwZnMevkhqCN8UYSGvmHN2gV2tJNLB2OD75tFYbuIqYFXrKK26NHc2TjfEVnWbW3JCi9HTWYPw3VKnBRCSWfwbxadtOm_gJrv88ywNbTIcIinXBvqVLhxFL3U9seEicHwCTRwF9G3TP4IaCOO_cRCneh-Pn93B-MUh0ztgojWpHptr874o0XhPQZ9hjKa6qfEh8rXQWCDIWTDsFMZUfXgKaXPjHX4B700yG4IBu7SfklKagas2GBdxfsj-yhIgRP"/>
+</div>
+<div class="max-w-screen-2xl mx-auto px-8 relative z-10 grid grid-cols-12">
+<div class="col-span-12 lg:col-span-6">
+<h2 class="font-h1-editorial text-h1-editorial mb-8">Ready to meet your provider?</h2>
+<div class="flex flex-col sm:flex-row gap-6">
+<button class="bg-white text-primary px-12 py-4 rounded-full font-button-text text-button-text lowercase hover:bg-surface-container-low transition-colors w-fit">
+                            schedule a consultation
+                        </button>
+<button class="border border-white/30 text-white px-12 py-4 rounded-full font-button-text text-button-text lowercase hover:bg-white/10 transition-colors w-fit">
+                            view services
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-emerald-900 dark:bg-stone-950 w-full py-20 px-12 border-t border-white/5">
+<div class="grid grid-cols-12 gap-8 items-start max-w-screen-2xl mx-auto text-stone-200">
+<div class="col-span-12 lg:col-span-4">
+<span class="text-4xl font-serif font-light text-stone-50 mb-4 block">MBS Medical</span>
+<p class="font-sans uppercase tracking-tighter text-xs text-stone-400">Precise Care, Editorial Excellence.</p>
+</div>
+<div class="col-span-6 lg:col-span-2">
+<h5 class="font-serif font-light text-xl mb-6 text-stone-50">Menu</h5>
+<div class="flex flex-col gap-3">
+<a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white hover:translate-x-1 transition-all duration-200" href="#">Services</a>
+<a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white hover:translate-x-1 transition-all duration-200" href="#">Journal</a>
+<a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white hover:translate-x-1 transition-all duration-200" href="#">Expertise</a>
+<a class="font-sans uppercase tracking-tighter text-white font-bold" href="#">About</a>
+</div>
+</div>
+<div class="col-span-6 lg:col-span-2">
+<h5 class="font-serif font-light text-xl mb-6 text-stone-50">Legal</h5>
+<div class="flex flex-col gap-3">
+<a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white hover:translate-x-1 transition-all duration-200" href="#">Clinical Governance</a>
+<a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white hover:translate-x-1 transition-all duration-200" href="#">Privacy Policy</a>
+<a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white hover:translate-x-1 transition-all duration-200" href="#">Terms of Service</a>
+<a class="font-sans uppercase tracking-tighter text-stone-400 hover:text-white hover:translate-x-1 transition-all duration-200" href="#">Accessibility</a>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 text-left lg:text-right mt-12 lg:mt-0">
+<p class="text-xs font-sans text-stone-400">© 2024 MBS Medical. All Rights Reserved.</p>
+</div>
+</div>
+</footer>
+</body></html>

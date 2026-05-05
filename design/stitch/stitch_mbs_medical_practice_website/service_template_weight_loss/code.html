@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500&amp;family=DM+Sans:wght@400;500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "primary": "#000000",
+                        "tertiary": "#000000",
+                        "primary-container": "#1c1c1a",
+                        "surface-dim": "#ddd9d8",
+                        "secondary-container": "#e4e2db",
+                        "inverse-primary": "#c9c6c3",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#474744",
+                        "secondary-fixed": "#e4e2db",
+                        "on-primary-fixed": "#1c1c1a",
+                        "surface-container-low": "#f7f3f2",
+                        "primary-fixed-dim": "#c9c6c3",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#474740",
+                        "on-tertiary-fixed": "#1b1c16",
+                        "on-surface": "#1c1b1b",
+                        "surface-tint": "#5f5e5c",
+                        "outline": "#777771",
+                        "outline-variant": "#c8c7bf",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fdf8f7",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#474741",
+                        "surface-container-high": "#ebe7e6",
+                        "inverse-surface": "#313030",
+                        "on-secondary-container": "#65655f",
+                        "tertiary-container": "#1b1c16",
+                        "surface-bright": "#fdf8f7",
+                        "tertiary-fixed-dim": "#c8c8be",
+                        "on-secondary-fixed-variant": "#474742",
+                        "tertiary-fixed": "#e4e3d9",
+                        "on-background": "#1c1b1b",
+                        "secondary": "#5f5f59",
+                        "surface-container": "#f1edec",
+                        "on-tertiary-container": "#84847c",
+                        "on-secondary-fixed": "#1b1c18",
+                        "primary-fixed": "#e5e2de",
+                        "background": "#fdf8f7",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e5e2e1",
+                        "secondary-fixed-dim": "#c8c6c0",
+                        "on-primary-container": "#858481",
+                        "inverse-on-surface": "#f4f0ef",
+                        "surface-variant": "#e5e2e1",
+                        "surface-container-lowest": "#ffffff",
+                        "accent-forest": "#2D5A4E",
+                        "accent-sage": "#E8F0EE"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "display-hero": ["Fraunces"],
+                        "button-text": ["DM Sans"],
+                        "h3-subhead": ["DM Sans"],
+                        "label-tag": ["DM Sans"],
+                        "h2-section": ["Fraunces"],
+                        "h1-editorial": ["Fraunces"],
+                        "body-main": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "display-hero": ["84px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                        "button-text": ["16px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                        "h3-subhead": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "label-tag": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "h2-section": ["48px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "h1-editorial": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "300"}],
+                        "body-main": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 32px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-main selection:bg-accent-sage selection:text-accent-forest">
+<!-- Header Navigation -->
+<header class="fixed top-0 w-full h-[68px] z-50 bg-emerald-900/80 backdrop-blur-md border-b border-white/10">
+<nav class="flex justify-between items-center px-8 h-full max-w-screen-2xl mx-auto">
+<div class="text-xl font-serif italic text-stone-50 bg-stone-100/10 px-4 py-1 rounded-full">MBS Medical</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white border-b border-white pb-1" href="#">Services</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">Journal</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">Expertise</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">About</a>
+<a class="font-sans uppercase tracking-widest text-xs font-medium text-white/70 hover:text-white transition-colors" href="#">Contact</a>
+</div>
+<button class="font-sans uppercase tracking-widest text-xs font-medium text-white bg-white/10 px-6 py-2 rounded-full hover:bg-white/20 transition-all duration-300">patient portal</button>
+</nav>
+</header>
+<main class="pt-[68px]">
+<!-- Hero Section -->
+<section class="bg-accent-sage min-h-[921px] flex items-center py-20 overflow-hidden">
+<div class="max-w-[1440px] mx-auto px-8 w-full editorial-grid">
+<div class="col-span-12 md:col-span-7 flex flex-col justify-center space-y-8">
+<span class="inline-block px-4 py-1 bg-white text-accent-forest font-label-tag text-label-tag rounded-full w-fit">medical weight loss</span>
+<h1 class="font-h1-editorial text-[56px] leading-[1.1] text-primary lowercase">finally, weight loss that works</h1>
+<p class="font-body-main text-body-main text-secondary max-w-lg">Advanced metabolic science combined with physician oversight. Our GLP-1 programs are designed for sustainable results and clinical excellence.</p>
+<div class="pt-4">
+<button class="bg-accent-forest text-white px-10 py-5 rounded-full font-button-text text-button-text lowercase hover:opacity-90 transition-opacity">
+                            begin your consultation
+                        </button>
+</div>
+</div>
+<div class="col-span-12 md:col-span-5 relative mt-12 md:mt-0">
+<div class="aspect-[4/5] bg-surface overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist medical still life featuring a precision GLP-1 injection pen resting on a matte white surface. The lighting is soft and high-key, highlighting the architectural quality of the medical device. Sage green accents in the background provide a calming, clinical aesthetic that aligns with a high-end medical journal style. The composition is asymmetrical and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu3NNgRqzwATM5DOz1XwXTjXIDo4fCsVUj-9ePcEIMinJB7Z3KULNtYeyq_uRwFsTaiJngyVUJjs8fPnUsavMU5DorQ3r7GLrcSxWsXQYT_7aspkBXCP0kAEfErfevLM051bET6h9u0Htyvz3r-OB6CPXLMNCTWi4QM0huQ1YLUws86PJlv7-YVyC4wQ_5z0wG9hUfEysC3Pt8BarjQfGn7qI6InTmBqJ7CJl_z8dyvVUAUscEsImfOsv7khPnwVKHBTEOeRwO7DQU"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Core Values -->
+<section class="py-32 bg-background">
+<div class="max-w-[1440px] mx-auto px-8 editorial-grid">
+<div class="col-span-12 md:col-span-4 p-8 bg-surface border border-outline-variant flex flex-col h-full">
+<div class="w-12 h-1 bg-accent-forest mb-8"></div>
+<h3 class="font-h3-subhead text-h3-subhead mb-4">GLP-1 programs</h3>
+<p class="font-body-main text-secondary text-base">Utilizing the latest breakthroughs in metabolic pharmacology to regulate appetite and improve insulin sensitivity.</p>
+</div>
+<div class="col-span-12 md:col-span-4 p-8 bg-surface border border-outline-variant flex flex-col h-full mt-8 md:mt-0">
+<div class="w-12 h-1 bg-accent-forest mb-8"></div>
+<h3 class="font-h3-subhead text-h3-subhead mb-4">Physician-guided</h3>
+<p class="font-body-main text-secondary text-base">Every patient is overseen by board-certified specialists ensuring safety, dosage precision, and clinical integrity.</p>
+</div>
+<div class="col-span-12 md:col-span-4 p-8 bg-surface border border-outline-variant flex flex-col h-full mt-8 md:mt-0">
+<div class="w-12 h-1 bg-accent-forest mb-8"></div>
+<h3 class="font-h3-subhead text-h3-subhead mb-4">Metabolic optimization</h3>
+<p class="font-body-main text-secondary text-base">Beyond weight loss, we focus on blood pressure, lipid profiles, and cardiovascular longevity for holistic health.</p>
+</div>
+</div>
+</section>
+<!-- Feature Rows (Zigzag) -->
+<section class="pb-32">
+<!-- Row 1 -->
+<div class="max-w-[1440px] mx-auto px-8 editorial-grid mb-32 items-center">
+<div class="col-span-12 md:col-span-6 bg-surface-container-low aspect-square relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sophisticated macro photograph capturing biological textures reminiscent of cellular structures under soft studio lighting. The color palette consists of neutral beiges and deep forest greens, creating an abstract, high-art medical aesthetic. The image conveys precision and scientific rigor without using standard clinical imagery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAPzADxDLsClyxzyzKSjqLkBLHCszabeO-FqFuAkVra3A3SPJ7YPw7Xn--HgcgqRFtlwuD9mnHD3iCtvRo2Se2C2jPMNLHw74QT7B2jCRALndvPYZbB00o7wqFvjP9s9wTjvIFHPMlhiU49oQsoOTrNPhb1zr8DxtLSrCliAZ3i7lOqmoq382Bhth_5RUyI7GTq8TCaC-ed72hY8YNEHk2lHtV05f9uZBcFjyy8TVDY_SFQvBlKRMpt83sscSL9h5747Hb5vsRo-fY"/>
+</div>
+<div class="col-span-12 md:col-span-5 md:col-start-8">
+<span class="text-accent-forest font-label-tag text-label-tag uppercase mb-4 block">Precision Diagnostics</span>
+<h2 class="font-h2-section text-h2-section mb-6">Metabolic testing to define your baseline.</h2>
+<p class="text-secondary font-body-main mb-8">Our protocol begins with comprehensive lab work analyzing thyroid function, insulin resistance, and hormonal balance to tailor your specific dosage.</p>
+<button class="border border-primary px-8 py-3 rounded-full font-button-text text-button-text lowercase hover:bg-primary hover:text-white transition-all">read more</button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="max-w-[1440px] mx-auto px-8 editorial-grid items-center">
+<div class="col-span-12 md:col-span-5 order-2 md:order-1">
+<span class="text-accent-forest font-label-tag text-label-tag uppercase mb-4 block">Continuous Support</span>
+<h2 class="font-h2-section text-h2-section mb-6">Concierge care for your journey.</h2>
+<p class="text-secondary font-body-main mb-8">Experience a high-touch medical service with direct access to your clinical team, nutritional counseling, and progress tracking through our secure portal.</p>
+<button class="border border-primary px-8 py-3 rounded-full font-button-text text-button-text lowercase hover:bg-primary hover:text-white transition-all">view patient path</button>
+</div>
+<div class="col-span-12 md:col-span-6 md:col-start-7 order-1 md:order-2 bg-surface-container-low aspect-square relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Modern architectural medical interior with clean lines, soft natural lighting, and a palette of warm whites and sage greens. The space feels calm, authoritative, and bespoke, resembling a high-end monograph of architectural design rather than a corporate clinic. The perspective is asymmetric and artistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG10Hy5MsndOynwW_QDLNjm3TOY7OvpgCmaDBgFbQZU9-xgWKHTDsqA1DLnJA5qoih4GukXJFQFS58r_frQZk1z-aRygznJotRmX_yygqPEn-ek1sZ6MCB1nahMIAcWIERgrQBGEytGbLwLolAfqGI7429HlSMZyBQ8g5lE5GJZcDMpODX6r06S0u7-4uDBQ7rsXR9aODRJzPqUH_kvfi-_BFm7YJPxMdEKjesC8IE5C7LddKV0wzjBPrQWMdR5WfkG_mMZGaNnw0W"/>
+</div>
+</div>
+</section>
+<!-- Sub-services (Collapsible) -->
+<section class="py-32 bg-accent-sage/30">
+<div class="max-w-[1440px] mx-auto px-8">
+<div class="editorial-grid items-center pb-12">
+<div class="col-span-12 flex items-center justify-between group cursor-pointer border-b border-accent-forest/10 pb-8">
+<div class="flex items-center space-x-8">
+<span class="bg-accent-forest text-white text-[10px] uppercase font-bold px-3 py-1 rounded-full">clinical specializations</span>
+<h2 class="font-h2-section text-h2-section">Condition-specific metabolic care.</h2>
+</div>
+<div class="w-12 h-12 rounded-full border border-accent-forest flex items-center justify-center">
+<span class="material-symbols-outlined text-accent-forest">expand_more</span>
+</div>
+</div>
+</div>
+<div class="editorial-grid">
+<div class="col-span-12 md:col-span-8 md:col-start-3">
+<ul class="space-y-6">
+<li class="flex justify-between items-center py-4 border-b border-outline-variant/30">
+<span class="font-h3-subhead text-xl">Type 2 Diabetes Management</span>
+<span class="material-symbols-outlined text-secondary">arrow_outward</span>
+</li>
+<li class="flex justify-between items-center py-4 border-b border-outline-variant/30">
+<span class="font-h3-subhead text-xl">PCOS &amp; Insulin Sensitivity</span>
+<span class="material-symbols-outlined text-secondary">arrow_outward</span>
+</li>
+<li class="flex justify-between items-center py-4 border-b border-outline-variant/30">
+<span class="font-h3-subhead text-xl">Post-Menopausal Weight Management</span>
+<span class="material-symbols-outlined text-secondary">arrow_outward</span>
+</li>
+<li class="flex justify-between items-center py-4 border-b border-outline-variant/30">
+<span class="font-h3-subhead text-xl">Cardiometabolic Risk Reduction</span>
+<span class="material-symbols-outlined text-secondary">arrow_outward</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works (Bento) -->
+<section class="py-32 bg-background">
+<div class="max-w-[1440px] mx-auto px-8">
+<h2 class="font-h2-section text-h2-section mb-16 max-w-xl">A patient journey defined by precision.</h2>
+<div class="editorial-grid auto-rows-[300px]">
+<div class="col-span-12 md:col-span-8 bg-surface-container-high p-12 flex flex-col justify-end">
+<span class="text-accent-forest font-bold mb-4">01</span>
+<h3 class="font-h3-subhead text-h3-subhead mb-2">Clinical Consultation</h3>
+<p class="text-secondary max-w-md">Comprehensive review of medical history and goals with a metabolic specialist.</p>
+</div>
+<div class="col-span-12 md:col-span-4 bg-accent-forest text-white p-12 flex flex-col justify-end">
+<span class="text-accent-sage font-bold mb-4">02</span>
+<h3 class="font-h3-subhead text-h3-subhead mb-2">Metabolic Blueprint</h3>
+<p class="text-white/80">Diagnostic testing and customized pharmacological strategy.</p>
+</div>
+<div class="col-span-12 md:col-span-4 bg-primary text-white p-12 flex flex-col justify-end">
+<span class="text-accent-sage font-bold mb-4">03</span>
+<h3 class="font-h3-subhead text-h3-subhead mb-2">Guided Therapy</h3>
+<p class="text-white/80">Weekly injections and monitoring by our expert clinical team.</p>
+</div>
+<div class="col-span-12 md:col-span-8 bg-surface p-12 border border-outline-variant flex flex-col justify-end">
+<span class="text-accent-forest font-bold mb-4">04</span>
+<h3 class="font-h3-subhead text-h3-subhead mb-2">Long-term Optimization</h3>
+<p class="text-secondary max-w-md">Transitioning to sustainable lifestyle maintenance and metabolic balance.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="py-32 border-t border-outline-variant/30">
+<div class="max-w-[1440px] mx-auto px-8 editorial-grid">
+<div class="col-span-12 md:col-span-4">
+<div class="sticky top-32">
+<span class="text-accent-forest font-label-tag text-label-tag uppercase mb-4 block">Common inquiries</span>
+<h2 class="font-h2-section text-h2-section mb-6">Your questions, addressed.</h2>
+<p class="text-secondary">Understanding clinical weight loss is the first step toward successful outcomes.</p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-7 md:col-start-6 space-y-8">
+<div class="border-b border-outline-variant pb-6">
+<button class="w-full flex justify-between items-center text-left">
+<span class="font-h3-subhead text-xl">How does GLP-1 therapy differ from other options?</span>
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="border-b border-outline-variant pb-6">
+<button class="w-full flex justify-between items-center text-left">
+<span class="font-h3-subhead text-xl">What are the potential side effects?</span>
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="border-b border-outline-variant pb-6">
+<button class="w-full flex justify-between items-center text-left">
+<span class="font-h3-subhead text-xl">Is insurance coverage available for these programs?</span>
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="border-b border-outline-variant pb-6">
+<button class="w-full flex justify-between items-center text-left">
+<span class="font-h3-subhead text-xl">How long does the typical program last?</span>
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-32 bg-accent-sage">
+<div class="max-w-[1440px] mx-auto px-8 editorial-grid">
+<div class="col-span-12 md:col-span-8 md:col-start-3 text-center">
+<span class="material-symbols-outlined text-accent-forest text-4xl mb-8">format_quote</span>
+<p class="font-h2-section text-[32px] italic leading-tight mb-12">"MBS Medical provided the clinical rigor I was missing. This wasn't just about weight loss; it was about regaining my health under the guidance of experts who actually understood the metabolic science."</p>
+<div class="flex flex-col items-center">
+<span class="font-bold text-primary">Julianna V.</span>
+<span class="text-secondary text-sm uppercase tracking-widest font-medium">Patient since 2023</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Closing CTA -->
+<section class="py-32">
+<div class="max-w-[1440px] mx-auto px-8">
+<div class="bg-primary-container text-white rounded-lg p-16 editorial-grid items-center overflow-hidden relative">
+<div class="col-span-12 md:col-span-7 relative z-10">
+<h2 class="font-h1-editorial text-[48px] mb-8 lowercase">start your transformation with precision.</h2>
+<p class="text-on-primary-container text-lg mb-12 max-w-md">Schedule a digital consultation today to speak with our clinical specialists about your metabolic health.</p>
+<button class="bg-accent-forest text-white px-10 py-5 rounded-full font-button-text text-button-text lowercase hover:opacity-90 transition-all">book your assessment</button>
+</div>
+<div class="absolute right-0 top-0 bottom-0 w-1/3 bg-accent-forest/10 hidden md:block opacity-30"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-emerald-900 w-full py-20 px-12 border-t border-white/5">
+<div class="max-w-screen-2xl mx-auto grid grid-cols-12 gap-8 items-start">
+<div class="col-span-12 md:col-span-4">
+<span class="text-4xl font-serif font-light text-stone-50 mb-4 block">MBS Medical</span>
+<p class="text-stone-200 font-sans uppercase tracking-widest text-xs">© 2024 MBS Medical. Precise Care, Editorial Excellence.</p>
+</div>
+<div class="col-span-6 md:col-span-2 space-y-4">
+<span class="text-stone-400 font-sans uppercase tracking-tighter text-xs block mb-6">Practices</span>
+<a class="text-stone-400 hover:text-white transition-all duration-200 hover:translate-x-1 block font-sans uppercase tracking-tighter text-sm" href="#">Metabolic</a>
+<a class="text-stone-400 hover:text-white transition-all duration-200 hover:translate-x-1 block font-sans uppercase tracking-tighter text-sm" href="#">Longevity</a>
+<a class="text-stone-400 hover:text-white transition-all duration-200 hover:translate-x-1 block font-sans uppercase tracking-tighter text-sm" href="#">Clinical</a>
+</div>
+<div class="col-span-6 md:col-span-2 space-y-4">
+<span class="text-stone-400 font-sans uppercase tracking-tighter text-xs block mb-6">Journal</span>
+<a class="text-stone-400 hover:text-white transition-all duration-200 hover:translate-x-1 block font-sans uppercase tracking-tighter text-sm" href="#">Research</a>
+<a class="text-stone-400 hover:text-white transition-all duration-200 hover:translate-x-1 block font-sans uppercase tracking-tighter text-sm" href="#">Case Studies</a>
+<a class="text-stone-400 hover:text-white transition-all duration-200 hover:translate-x-1 block font-sans uppercase tracking-tighter text-sm" href="#">Insights</a>
+</div>
+<div class="col-span-12 md:col-span-4 space-y-4">
+<span class="text-stone-400 font-sans uppercase tracking-tighter text-xs block mb-6">Legal &amp; Access</span>
+<div class="flex flex-wrap gap-x-6 gap-y-2">
+<a class="text-stone-400 hover:text-white transition-colors font-sans uppercase tracking-tighter text-xs" href="#">Clinical Governance</a>
+<a class="text-stone-400 hover:text-white transition-colors font-sans uppercase tracking-tighter text-xs" href="#">Privacy Policy</a>
+<a class="text-stone-400 hover:text-white transition-colors font-sans uppercase tracking-tighter text-xs" href="#">Terms of Service</a>
+<a class="text-stone-400 hover:text-white transition-colors font-sans uppercase tracking-tighter text-xs" href="#">Accessibility</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

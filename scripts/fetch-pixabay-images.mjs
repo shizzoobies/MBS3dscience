@@ -38,54 +38,54 @@ export const IMAGE_SLOTS = [
   { id: 'home-mental-health',  query: 'sleeping woman peaceful bed morning',      out: 'home-mental-health.jpg' },
 
   // ---- Service hero banners (one per page) ----
-  { id: 'hero-weight-loss',         query: 'weight scale measuring tape goal',          out: 'hero-weight-loss.jpg' },
-  { id: 'hero-mental-health',       query: 'window sunrise peaceful calm bedroom',      out: 'hero-mental-health.jpg' },
-  { id: 'hero-primary-care',        query: 'laptop video call home cozy',               out: 'hero-primary-care.jpg' },
+  { id: 'hero-weight-loss',         query: 'plate salmon vegetables clean minimal',     out: 'hero-weight-loss.jpg' },
+  { id: 'hero-mental-health',       query: 'white linen bed morning sunlight window',   out: 'hero-mental-health.jpg' },
+  { id: 'hero-primary-care',        query: 'morning coffee window warm reading',        out: 'hero-primary-care.jpg' },
   { id: 'hero-mens-health',         query: 'fit man jogging trail morning',             out: 'hero-mens-health.jpg' },
   { id: 'hero-womens-health',       query: 'woman yoga stretching morning home',        out: 'hero-womens-health.jpg' },
   { id: 'hero-longevity',           query: 'mature couple hiking trail outdoor',        out: 'hero-longevity.jpg' },
   { id: 'hero-sexual-health',       query: 'couple holding hands sunset romantic',      out: 'hero-sexual-health.jpg' },
-  { id: 'hero-hair-dermatology',    query: 'man combing hair mirror grooming',          out: 'hero-hair-dermatology.jpg' },
-  { id: 'hero-labs',                query: 'blood test tubes vials laboratory',         out: 'hero-labs.jpg' },
-  { id: 'hero-lifestyle-medicine',  query: 'colorful vegetables kitchen healthy',       out: 'hero-lifestyle-medicine.jpg' },
-  { id: 'hero-concierge-medicine',  query: 'luxury home interior modern minimalist',    out: 'hero-concierge-medicine.jpg' },
+  { id: 'hero-hair-dermatology',    query: 'serum dropper bottle skincare flatlay',     out: 'hero-hair-dermatology.jpg' },
+  { id: 'hero-labs',                query: 'test tubes rack neutral minimal',           out: 'hero-labs.jpg' },
+  { id: 'hero-lifestyle-medicine',  query: 'fresh vegetables wooden cutting board top',  out: 'hero-lifestyle-medicine.jpg' },
+  { id: 'hero-concierge-medicine',  query: 'smartphone laptop modern desk minimal home', out: 'hero-concierge-medicine.jpg' },
 
   // ---- Feature-row images (alt themes per page) ----
   // Weight Loss: GLP-1 medication then metabolic optimization (food)
-  { id: 'feat-weight-loss-1',  query: 'syringe pen medication white background',  out: 'feat-weight-loss-1.jpg' },
+  { id: 'feat-weight-loss-1',  query: 'pills capsule white isolated medication', out: 'feat-weight-loss-1.jpg' },
   { id: 'feat-weight-loss-2',  query: 'meal prep vegetables protein bowl',        out: 'feat-weight-loss-2.jpg' },
   // Mental Health: anxiety calm, sleep, addiction recovery contemplation
   { id: 'feat-mental-health-1', query: 'woman meditating yoga calm home',         out: 'feat-mental-health-1.jpg' },
   { id: 'feat-mental-health-2', query: 'sleeping bedroom peaceful dawn',          out: 'feat-mental-health-2.jpg' },
-  { id: 'feat-mental-health-3', query: 'mug warm hands quiet morning',            out: 'feat-mental-health-3.jpg' },
+  { id: 'feat-mental-health-3', query: 'forest path sunrise morning hopeful',     out: 'feat-mental-health-3.jpg' },
   // Primary & Urgent Care: telehealth visit, sick day at home, chronic meds
-  { id: 'feat-primary-care-1',  query: 'tablet relaxed couch home',               out: 'feat-primary-care-1.jpg' },
-  { id: 'feat-primary-care-2',  query: 'thermometer tissues cold flu sick',       out: 'feat-primary-care-2.jpg' },
-  { id: 'feat-primary-care-3',  query: 'pill bottle medication daily',            out: 'feat-primary-care-3.jpg' },
+  { id: 'feat-primary-care-1',  query: 'laptop video call home sofa morning',     out: 'feat-primary-care-1.jpg' },
+  { id: 'feat-primary-care-2',  query: 'honey lemon tea cold remedy',             out: 'feat-primary-care-2.jpg' },
+  { id: 'feat-primary-care-3',  query: 'pills medication bottle close up',        out: 'feat-primary-care-3.jpg' },
   // Men's Health: TRT (lab vial), ED feature (couple/confidence)
-  { id: 'feat-mens-health-1',   query: 'man portrait window light confident',     out: 'feat-mens-health-1.jpg' },
+  { id: 'feat-mens-health-1',   query: 'middle aged man smiling outdoor casual',  out: 'feat-mens-health-1.jpg' },
   { id: 'feat-mens-health-2',   query: 'couple bedroom morning sunlight tender',  out: 'feat-mens-health-2.jpg' },
   // Women's Health: menopause life, PCOS hormone wellness
-  { id: 'feat-womens-health-1', query: 'woman 40s confident outdoor',             out: 'feat-womens-health-1.jpg' },
-  { id: 'feat-womens-health-2', query: 'woman yoga wellness exercise',            out: 'feat-womens-health-2.jpg' },
+  { id: 'feat-womens-health-1', query: 'woman portrait soft natural light smile', out: 'feat-womens-health-1.jpg' },
+  { id: 'feat-womens-health-2', query: 'woman yoga mat home neutral stretch',     out: 'feat-womens-health-2.jpg' },
   // Longevity: biomarkers, recovery training
-  { id: 'feat-longevity-1',     query: 'dna molecule research abstract',          out: 'feat-longevity-1.jpg' },
+  { id: 'feat-longevity-1',     query: 'forest sunlight beam morning ethereal',   out: 'feat-longevity-1.jpg' },
   { id: 'feat-longevity-2',     query: 'mature athlete training outdoor',         out: 'feat-longevity-2.jpg' },
   // Sexual Health: ED (relaxed morning), low libido (couple)
   { id: 'feat-sexual-health-1', query: 'couple bed morning soft light',           out: 'feat-sexual-health-1.jpg' },
   { id: 'feat-sexual-health-2', query: 'couple walking holding hands park',       out: 'feat-sexual-health-2.jpg' },
   // Hair & Derm: hair loss medication, skin care routine
-  { id: 'feat-hair-derm-1',     query: 'pills medication bottle counter',         out: 'feat-hair-derm-1.jpg' },
+  { id: 'feat-hair-derm-1',     query: 'white tablets capsules neutral background',out: 'feat-hair-derm-1.jpg' },
   { id: 'feat-hair-derm-2',     query: 'face skincare cream serum bottle',        out: 'feat-hair-derm-2.jpg' },
   // Labs: panels, monitoring trends
-  { id: 'feat-labs-1',          query: 'pipette test tube science',               out: 'feat-labs-1.jpg' },
-  { id: 'feat-labs-2',          query: 'data graph chart analysis',               out: 'feat-labs-2.jpg' },
+  { id: 'feat-labs-1',          query: 'blood test tube purple top vial',         out: 'feat-labs-1.jpg' },
+  { id: 'feat-labs-2',          query: 'fitness tracker watch wrist morning',     out: 'feat-labs-2.jpg' },
   // Lifestyle Medicine: T2D nutrition, cardiovascular movement
-  { id: 'feat-lifestyle-1',     query: 'rainbow vegetables plate healthy',        out: 'feat-lifestyle-1.jpg' },
+  { id: 'feat-lifestyle-1',     query: 'salad bowl wooden table fresh greens',    out: 'feat-lifestyle-1.jpg' },
   { id: 'feat-lifestyle-2',     query: 'running shoes pavement morning',          out: 'feat-lifestyle-2.jpg' },
   // Concierge: availability (video call), continuity (warm home)
-  { id: 'feat-concierge-1',     query: 'home office video call laptop',           out: 'feat-concierge-1.jpg' },
-  { id: 'feat-concierge-2',     query: 'cozy living room reading interior',       out: 'feat-concierge-2.jpg' }
+  { id: 'feat-concierge-1',     query: 'laptop coffee desk minimal home office',  out: 'feat-concierge-1.jpg' },
+  { id: 'feat-concierge-2',     query: 'reading nook armchair window neutral',    out: 'feat-concierge-2.jpg' }
 ];
 
 function isBlocked(hit) {

@@ -60,28 +60,36 @@ const {
 <Layout title={title} description={description}>
 
   <!-- ============================================================
-       HERO
+       HERO — MBS-Test editorial split: rust eyebrow, big serif lowercase
+       title on the left; rounded-2xl image card with badge on the right.
        ============================================================ -->
-  <section class="section service-hero" style={`background-color: ${heroSurface}; padding-top: 7rem;`}>
+  <section class="section sp-hero">
     <div class="container">
-      <div class="hero-split">
-        <div>
-          <span class="hero-eyebrow">{eyebrow}</span>
-          <h1 class="hero-title">{heroTitle}</h1>
-          <p class="hero-sub">{heroSub}</p>
-          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top: 0.5rem;">
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-              book a visit
+      <div class="sp-hero__grid">
+        <div class="sp-hero__text">
+          <span class="editorial-eyebrow">{eyebrow}</span>
+          <h1 class="sp-hero__title">{heroTitle}</h1>
+          <p class="sp-hero__sub">{heroSub}</p>
+          <div class="sp-hero__actions">
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-hero__cta">
+              <span class="sp-hero__cta-rule" aria-hidden="true"></span>
+              Begin consultation
             </a>
-            <a href="/contact/" class="btn btn-secondary">ask a question</a>
+            <a href="/contact/" class="sp-hero__cta sp-hero__cta--ghost">
+              Ask a question
+            </a>
           </div>
         </div>
-        <div class="hero-media">
+        <div class="sp-hero__media">
           {heroImage ? (
-            <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero-img" />
+            <div class="sp-hero__frame">
+              <img src={heroImage} alt={`${title} at MBS Medical`} />
+              <span class="sp-hero__badge">{chipLabel}</span>
+            </div>
           ) : (
-            <div class="img-placeholder img-placeholder--tall" role="img" aria-label={`${title} service`}>
+            <div class="sp-hero__frame sp-hero__frame--placeholder" role="img" aria-label={`${title} service`}>
               <span>{title.toLowerCase()} photo</span>
+              <span class="sp-hero__badge">{chipLabel}</span>
             </div>
           )}
         </div>
@@ -112,15 +120,17 @@ const {
        FEATURES — zigzag, alternating shell/sand
        ============================================================ -->
   {features.map((f, i) => (
-    <section class={`section ${i % 2 === 0 ? 'bg-shell' : 'bg-sand'}`}>
+    <section class={`section sp-feature ${i % 2 === 0 ? 'bg-cream' : 'bg-shell'}`}>
       <div class="container">
         <div class={`feature-row reveal ${f.flip ? 'feature-row--flip' : ''}`}>
           <div class="feature-row__media">
             {f.image ? (
-              <img src={f.image} alt={f.imgAlt ?? f.heading} class="sp-feature-img" />
+              <div class="sp-feature-frame">
+                <img src={f.image} alt={f.imgAlt ?? f.heading} />
+              </div>
             ) : (
               <div
-                class="img-placeholder"
+                class="sp-feature-frame sp-feature-frame--placeholder"
                 style={f.imgSurface ? `background-color: ${f.imgSurface}` : ''}
                 role="img"
                 aria-label={f.imgAlt ?? f.heading}
@@ -130,16 +140,12 @@ const {
             )}
           </div>
           <div class="feature-row__text">
-            {(f.chipLabel || f.chipClass) && (
-              <span class={`accent-chip ${f.chipClass ?? chipClass}`}>
-                {f.chipLabel ?? chipLabel}
-              </span>
-            )}
-            <h2>{f.heading}</h2>
-            <p>{f.body}</p>
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer"
-               class="btn btn-primary" style="margin-top: 2rem;">
-              get started
+            <span class="editorial-eyebrow">{f.chipLabel ?? chipLabel}</span>
+            <h2 class="sp-feature-heading">{f.heading}</h2>
+            <p class="sp-feature-body">{f.body}</p>
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-feature-cta">
+              <span class="sp-feature-cta-rule" aria-hidden="true"></span>
+              Get started
             </a>
           </div>
         </div>
@@ -176,13 +182,13 @@ const {
 
 
   <!-- ============================================================
-       TESTIMONIALS — ink surface
+       TESTIMONIALS — cream surface, dark quote cards
        ============================================================ -->
-  <section class="section bg-ink">
+  <section class="section bg-cream">
     <div class="container">
-      <div class="reveal" style="margin-bottom: 3rem;">
-        <span class="label" style="color: rgba(250,246,240,0.45);">patient stories</span>
-        <h2 style="color: var(--ink-inverse); margin-top: 0.75rem;">What patients say</h2>
+      <div class="reveal" style="margin-bottom: 3rem; text-align: center;">
+        <span class="sp-section-eyebrow">Patient stories</span>
+        <h2 style="margin-top: 0.75rem; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem);">What patients say.</h2>
       </div>
       <div class="sp-testimonials">
         {testimonials.map((t, i) => (
@@ -208,8 +214,7 @@ const {
       <div class="steps-grid">
         {steps.map((s, i) => (
           <div class={`reveal step-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
-            <span class="step-number">0{i + 1}</span>
-            <h3 style="margin-top:1rem; margin-bottom:0.75rem;">{s.heading}</h3>
+            <h3 style="margin-bottom:0.875rem;">{s.heading}</h3>
             <p style="color:var(--ink-secondary); font-size:var(--text-sm);">{s.body}</p>
           </div>
         ))}
@@ -245,21 +250,23 @@ const {
 
 
   <!-- ============================================================
-       CTA — ink surface
+       CTA — rounded dark card (MBS-Test signature)
        ============================================================ -->
-  <section class="section bg-ink" style="text-align:center;">
+  <section class="section sp-cta-section">
     <div class="container">
-      <div class="reveal" style="max-width:640px; margin-inline:auto;">
-        <span class={`accent-chip ${chipClass}`} style="margin-bottom:1.5rem;">{chipLabel}</span>
-        <h2 style="color:var(--ink-inverse);">Ready to get started?</h2>
-        <p style="color:rgba(250,246,240,0.7); margin-top:1rem; font-size:var(--text-lg);">
-          Same-week telehealth across Florida. Cash pay, no insurance needed.
-        </p>
-        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:2.5rem;">
-          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-inverse">
-            book a visit
-          </a>
-          <a href="/contact/" class="btn btn-outline-inverse">ask a question</a>
+      <div class="reveal sp-cta-card">
+        <span class="sp-cta-deco sp-cta-deco--tr" aria-hidden="true"></span>
+        <span class="sp-cta-deco sp-cta-deco--bl" aria-hidden="true"></span>
+        <div class="sp-cta-inner">
+          <span class="sp-cta-eyebrow">Ready when you are</span>
+          <h2 class="sp-cta-title">Let&rsquo;s build your plan.</h2>
+          <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
+          <div class="sp-cta-actions">
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-cta-btn sp-cta-btn--primary">
+              book a visit
+            </a>
+            <a href="/contact/" class="sp-cta-btn sp-cta-btn--ghost">ask a question</a>
+          </div>
         </div>
       </div>
     </div>
@@ -269,19 +276,216 @@ const {
 
 
 <style>
-  /* Hero */
-  .service-hero { min-height: 85vh; display: flex; align-items: center; }
+  /* ---- Service hero (MBS-Test editorial split) ---- */
+  .sp-hero {
+    background-color: var(--color-neutral);
+    padding-top: 9rem;
+    padding-bottom: 6rem;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .sp-hero::before,
+  .sp-hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(60,56,54,0.06);
+    pointer-events: none;
+  }
+  .sp-hero::before {
+    width: 360px; height: 360px;
+    top: 50%; left: -120px;
+    transform: translateY(-50%);
+    border-style: dashed;
+  }
+  .sp-hero::after {
+    width: 480px; height: 480px;
+    bottom: -240px; right: -120px;
+  }
+  .sp-hero__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .sp-hero__grid { grid-template-columns: 6fr 6fr; gap: 4rem; }
+  }
+  .sp-hero__text { display: flex; flex-direction: column; gap: 1.75rem; }
+  .sp-hero__title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.75rem, 6.5vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+    text-transform: lowercase;
+    margin: 0;
+  }
+  .sp-hero__sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-secondary);
+    max-width: 48ch;
+    margin: 0;
+  }
+  .sp-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .sp-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 200ms ease;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .sp-hero__cta:hover { color: var(--color-rust); }
+  .sp-hero__cta-rule {
+    display: inline-block;
+    width: 48px;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 250ms ease;
+  }
+  .sp-hero__cta:hover .sp-hero__cta-rule { width: 80px; }
+  .sp-hero__cta--ghost { color: var(--color-tertiary); }
 
-  .sp-hero-img {
-    border-radius: var(--radius-xl);
+  /* Image card with rounded-2xl + small uppercase badge bottom-left */
+  .sp-hero__media { position: relative; }
+  .sp-hero__frame {
+    position: relative;
     width: 100%;
     aspect-ratio: 4/5;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    background-color: var(--color-surface-warm);
+    border: 1px solid var(--color-border);
+  }
+  .sp-hero__frame img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    display: block;
+    transition: transform 700ms ease;
+  }
+  .sp-hero__frame:hover img { transform: scale(1.04); }
+  .sp-hero__frame--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-tertiary);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+  .sp-hero__badge {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background-color: rgba(255,255,255,0.92);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 8px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
   }
   @media (max-width: 767px) {
-    .sp-hero-img { aspect-ratio: 16/9; }
+    .sp-hero { min-height: auto; padding-top: 7rem; }
+    .sp-hero__frame { aspect-ratio: 16/10; }
+    .sp-hero__badge { bottom: 1rem; left: 1rem; }
   }
+
+  /* ---- Feature row (MBS-Test editorial split with rounded-2xl frame) ---- */
+  .sp-feature {
+    padding-block: clamp(5rem, 10vw, 8rem);
+  }
+  .sp-feature-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    background-color: var(--color-surface-warm);
+    border: 1px solid var(--color-border);
+  }
+  .sp-feature-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 700ms ease;
+  }
+  .sp-feature-frame:hover img { transform: scale(1.04); }
+  .sp-feature-frame--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-tertiary);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+  @media (max-width: 767px) {
+    .sp-feature-frame { aspect-ratio: 4/3; }
+  }
+
+  .sp-feature-heading {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-primary);
+    margin: 1.25rem 0 1.25rem;
+    max-width: 18ch;
+  }
+  .sp-feature-body {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-secondary);
+    max-width: 50ch;
+    margin-bottom: 2.25rem;
+  }
+  .sp-feature-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+  .sp-feature-cta:hover { color: var(--color-rust); }
+  .sp-feature-cta-rule {
+    display: inline-block;
+    width: 48px;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 250ms ease;
+  }
+  .sp-feature-cta:hover .sp-feature-cta-rule { width: 80px; }
 
   .sp-feature-img {
     border-radius: var(--radius-xl);
@@ -418,6 +622,156 @@ const {
   }
   .faq-heading { position: sticky; top: 6rem; }
 
-  /* Steps */
-  .step-card h3 { font-size: var(--text-xl); }
+  /* ---- Steps (MBS-Test bento variant) ---- */
+  .step-card {
+    position: relative;
+    padding: 2.5rem 2rem 2.25rem;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform var(--dur-base) var(--ease-standard);
+  }
+  .step-card:hover { transform: translateY(-3px); }
+  .step-card h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.875rem;
+    line-height: 1.2;
+    color: inherit;
+  }
+  /* nth-child variants: alternate cream → sage → primary → cream-bordered */
+  .step-card:nth-child(2) {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #FFFFFF;
+  }
+  .step-card:nth-child(2) p { color: rgba(255,255,255,0.78) !important; }
+  .step-card:nth-child(3) {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #FFFFFF;
+  }
+  .step-card:nth-child(3) p { color: rgba(255,255,255,0.72) !important; }
+  .step-card:nth-child(4) {
+    background-color: var(--color-surface-warm);
+  }
+
+  /* ---- Sub-services list: arrow-out chips MBS-Test style ----
+     Adds a circle arrow on each item when present */
+  .sp-sub-list li {
+    position: relative;
+    padding-right: 2.5rem;
+  }
+  .sp-sub-list li::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888377' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><line x1='7' y1='17' x2='17' y2='7'/><polyline points='7 7 17 7 17 17'/></svg>");
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.55;
+  }
+
+  /* ---- Closing CTA: rounded dark card ---- */
+  .sp-cta-section {
+    background-color: var(--color-neutral);
+    padding-block: 6rem;
+  }
+  .sp-cta-card {
+    position: relative;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border-radius: var(--radius-2xl);
+    padding: 5rem 2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .sp-cta-card { padding: 7rem 4rem; }
+  }
+  .sp-cta-deco {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+    pointer-events: none;
+  }
+  .sp-cta-deco--tr { width: 280px; height: 280px; top: 0; right: 0; transform: translate(40%, -40%); }
+  .sp-cta-deco--bl { width: 220px; height: 220px; bottom: 0; left: 0; transform: translate(-40%, 40%); border-style: dashed; }
+  .sp-cta-inner { position: relative; z-index: 1; max-width: 720px; margin-inline: auto; }
+  .sp-cta-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-rust);
+    margin-bottom: 2rem;
+  }
+  .sp-cta-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+    margin: 0;
+  }
+  .sp-cta-sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: rgba(255,255,255,0.65);
+    max-width: 52ch;
+    margin: 1.75rem auto 0;
+  }
+  .sp-cta-actions {
+    display: flex;
+    gap: 0.875rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2.75rem;
+  }
+  .sp-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 16px 38px;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .sp-cta-btn--primary {
+    background-color: var(--color-accent);
+    color: #FFFFFF;
+    border-color: var(--color-accent);
+  }
+  .sp-cta-btn--primary:hover {
+    background-color: #FFFFFF;
+    color: var(--color-accent);
+    border-color: #FFFFFF;
+  }
+  .sp-cta-btn--ghost {
+    background-color: transparent;
+    color: rgba(255,255,255,0.85);
+    border-color: rgba(255,255,255,0.30);
+  }
+  .sp-cta-btn--ghost:hover {
+    background-color: rgba(255,255,255,0.08);
+    color: #FFFFFF;
+    border-color: rgba(255,255,255,0.6);
+  }
 </style>

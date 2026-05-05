@@ -12,46 +12,47 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    /* Mapped to MBS design system (warm neutrals + brand) */
-    --surface-cream:  #F4EFE6;
-    --surface-shell:  #FAF6F0;
-    --surface-sand:   #E8DFD1;
-    --surface-peach:  #F5D6C6;
-    --surface-ink:    #1A1A1A;
-    --ink-primary:    #1A1A1A;
-    --ink-secondary:  #4A4A4A;
-    --ink-muted:      #8A8A8A;
-    --ink-inverse:    #FAF6F0;
-    --border-subtle:  #E0D9CC;
-    --accent-coral:      #E87461;
-    --accent-sage:       #A8B89B;
-    --accent-terracotta: #C97B5E;
-    --accent-butter:     #EFCF8F;
-    --brand-teal:   #2E8E9D;
-    --brand-pink:   #E06389;
-    --brand-purple: #9B79A7;
-    --gradient-brand: linear-gradient(90deg, var(--brand-teal) 0%, var(--brand-pink) 50%, var(--brand-purple) 100%);
+    /* Mapped to MBS design system v3 (MBS-Test natural palette: warm cream + sage + rust) */
+    --surface-cream:  #F9F7F2;   /* page bg */
+    --surface-shell:  #F4F1EA;   /* off-cream alt section */
+    --surface-sand:   #EAE7E0;   /* image-frame / panel */
+    --surface-peach:  #EAE7E0;
+    --surface-ink:    #3C3836;   /* warm dark sepia */
+    --ink-primary:    #3C3836;
+    --ink-secondary:  #5C5753;
+    --ink-muted:      #888377;
+    --ink-inverse:    #F9F7F2;
+    --border-subtle:  #DEDBD2;
+    --accent-coral:      #C27A63;   /* rust */
+    --accent-sage:       #7D8C7B;   /* sage */
+    --accent-terracotta: #C27A63;
+    --accent-butter:     #C27A63;
+    /* Brand gradient retired in v3 — single rust accent only */
+    --brand-teal:   #C27A63;
+    --brand-pink:   #C27A63;
+    --brand-purple: #C27A63;
+    --gradient-brand: #C27A63;
 
-    /* Legacy variable aliases — keep so 1500 lines of CSS below still resolve */
-    --navy:         #1A1A1A;
-    --teal:         #C97B5E;
-    --teal-light:   #E87461;
-    --green:        #6A7F5E;
-    --green-bg:     rgba(168,184,155,0.18);
-    --green-border: rgba(168,184,155,0.55);
-    --orange:       #A0593A;
-    --orange-light: #C97B5E;
-    --orange-bg:    rgba(232,116,97,0.10);
-    --orange-border:rgba(232,116,97,0.32);
-    --gray-50:      #FAF6F0;
-    --gray-100:     #F4EFE6;
-    --gray-200:     #E0D9CC;
-    --gray-300:     #C9C0AE;
-    --gray-400:     #8A8A8A;
-    --gray-500:     #6E6E6E;
-    --gray-700:     #4A4A4A;
-    --gray-900:     #1A1A1A;
-    --white:        #FAF6F0;
+    /* Legacy aliases retargeted to new palette so 1500 lines of CSS below auto-retheme */
+    --navy:         #3C3836;
+    --teal:         #C27A63;
+    --teal-light:   #D08F7B;
+    --green:        #7D8C7B;
+    --green-bg:     rgba(125,140,123,0.18);
+    --green-border: rgba(125,140,123,0.45);
+    --orange:       #C27A63;
+    --orange-light: #D08F7B;
+    --orange-bg:    rgba(194,122,99,0.10);
+    --orange-border:rgba(194,122,99,0.32);
+    --gray-50:      #F9F7F2;
+    --gray-100:     #F4F1EA;
+    --gray-200:     #DEDBD2;
+    --gray-300:     #C8C2BA;
+    --gray-400:     #888377;
+    --gray-500:     #6E6963;
+    --gray-700:     #5C5753;
+    --gray-900:     #3C3836;
+    --white:        #FFFFFF;
     --radius: 8px;
     --header-h: 56px;
     --sidebar-w: 230px;
@@ -68,46 +69,38 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Brand gradient strip across the very top — same as the live site */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--gradient-brand);
-    z-index: 200;
-    pointer-events: none;
-  }
+  /* No brand gradient strip in v3 — design system is single rust accent */
 
-  /* ── Header ── */
+  /* ── Header (v3 cream natural style, matches main site) ── */
   .header {
     position: fixed;
-    top: 3px; left: 0; right: 0;          /* clear brand strip */
+    top: 0; left: 0; right: 0;
     height: var(--header-h);
-    background: var(--surface-ink);
-    color: var(--ink-inverse);
+    background: rgba(249,247,242,0.96);
+    backdrop-filter: blur(10px) saturate(1.05);
+    -webkit-backdrop-filter: blur(10px) saturate(1.05);
+    color: var(--ink-primary);
     display: flex;
     align-items: center;
     padding: 0 20px;
     gap: 16px;
     z-index: 100;
-    border-bottom: 1px solid rgba(250,246,240,0.08);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(60,56,54,0.10);
   }
   .header-title {
     font-family: 'Fraunces', Georgia, serif;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     letter-spacing: -0.01em;
     text-transform: lowercase;
-    color: var(--ink-inverse);
+    color: var(--ink-primary);
   }
   .header-sub {
     font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-weight: 700;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--accent-butter);
+    color: var(--accent-coral);
     margin-top: 2px;
   }
 
@@ -122,20 +115,20 @@
   .header-progress-bar {
     flex: 1;
     height: 5px;
-    background: rgba(255,255,255,0.15);
+    background: rgba(60,56,54,0.10);
     border-radius: 999px;
     overflow: hidden;
   }
   .header-progress-fill {
     height: 100%;
-    background: var(--gradient-brand);
+    background: var(--accent-sage);
     border-radius: 999px;
     transition: width 0.4s ease;
     width: 0%;
   }
   .header-progress-label {
     font-size: 11px;
-    color: rgba(255,255,255,0.65);
+    color: var(--ink-muted);
     white-space: nowrap;
   }
 
@@ -148,12 +141,13 @@
     font-size: 11px;
     padding: 3px 9px;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.6);
+    border: 1px solid var(--border-subtle);
+    color: var(--ink-muted);
+    background: rgba(255,255,255,0.6);
   }
-  .conn-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gray-400); }
+  .conn-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-muted); }
   .conn-badge.online .conn-dot { background: var(--accent-sage); }
-  .conn-badge.online { color: rgba(255,255,255,0.8); }
+  .conn-badge.online { color: var(--ink-secondary); }
   .conn-badge.offline .conn-dot { background: var(--accent-coral); }
 
   .btn {
@@ -162,27 +156,29 @@
     gap: 5px;
     padding: 5px 12px;
     border-radius: var(--radius);
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     cursor: pointer;
     border: 1px solid transparent;
     white-space: nowrap;
-    transition: background 0.15s;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
   .btn-ghost {
-    background: rgba(255,255,255,0.08);
-    color: var(--white);
-    border-color: rgba(255,255,255,0.18);
+    background: transparent;
+    color: var(--ink-primary);
+    border-color: var(--ink-primary);
   }
-  .btn-ghost:hover { background: rgba(255,255,255,0.16); }
-  .btn-teal { background: var(--teal); color: var(--white); }
-  .btn-teal:hover { background: var(--teal-light); }
-  .btn-sm { padding: 4px 10px; font-size: 11px; }
+  .btn-ghost:hover { background: var(--ink-primary); color: var(--ink-inverse); }
+  .btn-teal { background: var(--accent-coral); color: #FFFFFF; border-color: var(--accent-coral); }
+  .btn-teal:hover { background: #B06752; border-color: #B06752; }
+  .btn-sm { padding: 4px 10px; font-size: 10px; }
 
   /* ── Layout body ── */
   .layout {
     position: fixed;
-    top: calc(var(--header-h) + 3px);   /* clear brand strip + header */
+    top: var(--header-h);   /* clear header (no brand strip in v3) */
     left: 0; right: 0; bottom: 0;
     display: flex;
   }
@@ -963,7 +959,11 @@ const PAGES_REF = db.ref('review/pages');
 const GENERAL_REF = db.ref('review/general');
 
 // ── Page data ──────────────────────────────────────────────────────────────
-const BASE = 'https://mbsdoc.com';
+// Load from same origin so the review tool reviews whichever deploy
+// it's served from (preview branch deploys their own pages; prod
+// reviews prod). Avoids the old hardcoded mbsdoc.com which made every
+// preview show stale prod content.
+const BASE = '';
 
 const GROUPS = [
   { label: 'Main Pages', pages: [
@@ -971,7 +971,6 @@ const GROUPS = [
     { name: 'About',    path: '/about/' },
     { name: 'Services', path: '/services/' },
     { name: 'Contact',  path: '/contact/' },
-    { name: 'Tools',    path: '/tools/' },
   ]},
   { label: 'Primary Care & Prevention', pages: [
     { name: 'Primary Care',        path: '/primary-care/' },
