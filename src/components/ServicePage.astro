@@ -214,8 +214,7 @@ const {
       <div class="steps-grid">
         {steps.map((s, i) => (
           <div class={`reveal step-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
-            <span class="step-number">0{i + 1}</span>
-            <h3 style="margin-top:1rem; margin-bottom:0.75rem;">{s.heading}</h3>
+            <h3 style="margin-bottom:0.875rem;">{s.heading}</h3>
             <p style="color:var(--ink-secondary); font-size:var(--text-sm);">{s.body}</p>
           </div>
         ))}
@@ -645,37 +644,18 @@ const {
     line-height: 1.2;
     color: inherit;
   }
-  .step-card .step-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid currentColor;
-    font-family: var(--font-body);
-    font-size: 12px;
-    font-weight: var(--weight-bold);
-    letter-spacing: 0.1em;
-    color: var(--color-rust);
-    margin-bottom: 1.5rem;
-    opacity: 0.85;
-  }
-
   /* nth-child variants: alternate cream → sage → primary → cream-bordered */
   .step-card:nth-child(2) {
     background-color: var(--color-accent);
     border-color: var(--color-accent);
     color: #FFFFFF;
   }
-  .step-card:nth-child(2) .step-number { color: rgba(255,255,255,0.85); }
   .step-card:nth-child(2) p { color: rgba(255,255,255,0.78) !important; }
   .step-card:nth-child(3) {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
     color: #FFFFFF;
   }
-  .step-card:nth-child(3) .step-number { color: var(--color-rust); }
   .step-card:nth-child(3) p { color: rgba(255,255,255,0.72) !important; }
   .step-card:nth-child(4) {
     background-color: var(--color-surface-warm);

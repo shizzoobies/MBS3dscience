@@ -545,19 +545,6 @@ p {
   border: 1px solid var(--border-subtle);
   position: relative;
 }
-.step-number {
-  font-family: var(--font-serif);
-  font-size: 3.5rem;
-  font-weight: var(--weight-bold);
-  line-height: 1;
-  color: var(--surface-sand);
-  position: absolute;
-  top: var(--space-5);
-  right: var(--space-5);
-  text-transform: none;
-  user-select: none;
-}
-
 /* FAQ accordion */
 .faq-item {
   border-bottom: 1px solid var(--border-subtle);
