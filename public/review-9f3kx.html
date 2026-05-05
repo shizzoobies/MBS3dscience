@@ -959,7 +959,11 @@ const PAGES_REF = db.ref('review/pages');
 const GENERAL_REF = db.ref('review/general');
 
 // ── Page data ──────────────────────────────────────────────────────────────
-const BASE = 'https://mbsdoc.com';
+// Load from same origin so the review tool reviews whichever deploy
+// it's served from (preview branch deploys their own pages; prod
+// reviews prod). Avoids the old hardcoded mbsdoc.com which made every
+// preview show stale prod content.
+const BASE = '';
 
 const GROUPS = [
   { label: 'Main Pages', pages: [
@@ -967,7 +971,6 @@ const GROUPS = [
     { name: 'About',    path: '/about/' },
     { name: 'Services', path: '/services/' },
     { name: 'Contact',  path: '/contact/' },
-    { name: 'Tools',    path: '/tools/' },
   ]},
   { label: 'Primary Care & Prevention', pages: [
     { name: 'Primary Care',        path: '/primary-care/' },
