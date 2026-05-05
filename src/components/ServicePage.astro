@@ -120,15 +120,17 @@ const {
        FEATURES — zigzag, alternating shell/sand
        ============================================================ -->
   {features.map((f, i) => (
-    <section class={`section ${i % 2 === 0 ? 'bg-shell' : 'bg-sand'}`}>
+    <section class={`section sp-feature ${i % 2 === 0 ? 'bg-cream' : 'bg-shell'}`}>
       <div class="container">
         <div class={`feature-row reveal ${f.flip ? 'feature-row--flip' : ''}`}>
           <div class="feature-row__media">
             {f.image ? (
-              <img src={f.image} alt={f.imgAlt ?? f.heading} class="sp-feature-img" />
+              <div class="sp-feature-frame">
+                <img src={f.image} alt={f.imgAlt ?? f.heading} />
+              </div>
             ) : (
               <div
-                class="img-placeholder"
+                class="sp-feature-frame sp-feature-frame--placeholder"
                 style={f.imgSurface ? `background-color: ${f.imgSurface}` : ''}
                 role="img"
                 aria-label={f.imgAlt ?? f.heading}
@@ -138,16 +140,12 @@ const {
             )}
           </div>
           <div class="feature-row__text">
-            {(f.chipLabel || f.chipClass) && (
-              <span class={`accent-chip ${f.chipClass ?? chipClass}`}>
-                {f.chipLabel ?? chipLabel}
-              </span>
-            )}
-            <h2>{f.heading}</h2>
-            <p>{f.body}</p>
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer"
-               class="btn btn-primary" style="margin-top: 2rem;">
-              get started
+            <span class="editorial-eyebrow">{f.chipLabel ?? chipLabel}</span>
+            <h2 class="sp-feature-heading">{f.heading}</h2>
+            <p class="sp-feature-body">{f.body}</p>
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-feature-cta">
+              <span class="sp-feature-cta-rule" aria-hidden="true"></span>
+              Get started
             </a>
           </div>
         </div>
@@ -419,13 +417,76 @@ const {
     .sp-hero__badge { bottom: 1rem; left: 1rem; }
   }
 
-  .sp-feature-img {
-    border-radius: var(--radius-2xl);
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
+  /* ---- Feature row (MBS-Test editorial split with rounded-2xl frame) ---- */
+  .sp-feature {
+    padding-block: clamp(5rem, 10vw, 8rem);
   }
+  .sp-feature-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    background-color: var(--color-surface-warm);
+    border: 1px solid var(--color-border);
+  }
+  .sp-feature-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 700ms ease;
+  }
+  .sp-feature-frame:hover img { transform: scale(1.04); }
+  .sp-feature-frame--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-tertiary);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+  @media (max-width: 767px) {
+    .sp-feature-frame { aspect-ratio: 4/3; }
+  }
+
+  .sp-feature-heading {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-primary);
+    margin: 1.25rem 0 1.25rem;
+    max-width: 18ch;
+  }
+  .sp-feature-body {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-secondary);
+    max-width: 50ch;
+    margin-bottom: 2.25rem;
+  }
+  .sp-feature-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+  .sp-feature-cta:hover { color: var(--color-rust); }
+  .sp-feature-cta-rule {
+    display: inline-block;
+    width: 48px;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 250ms ease;
+  }
+  .sp-feature-cta:hover .sp-feature-cta-rule { width: 80px; }
 
   .sp-feature-img {
     border-radius: var(--radius-xl);
