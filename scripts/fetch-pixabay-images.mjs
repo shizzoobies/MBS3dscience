@@ -46,7 +46,7 @@ export const IMAGE_SLOTS = [
   { id: 'hero-longevity',           query: 'mature couple hiking trail outdoor',        out: 'hero-longevity.jpg' },
   { id: 'hero-sexual-health',       query: 'couple holding hands sunset romantic',      out: 'hero-sexual-health.jpg' },
   { id: 'hero-hair-dermatology',    query: 'man combing hair mirror grooming',          out: 'hero-hair-dermatology.jpg' },
-  { id: 'hero-labs',                query: 'blood test tubes vials laboratory',         out: 'hero-labs.jpg' },
+  { id: 'hero-labs',                query: 'test tubes rack neutral minimal',           out: 'hero-labs.jpg' },
   { id: 'hero-lifestyle-medicine',  query: 'colorful vegetables kitchen healthy',       out: 'hero-lifestyle-medicine.jpg' },
   { id: 'hero-concierge-medicine',  query: 'luxury home interior modern minimalist',    out: 'hero-concierge-medicine.jpg' },
 
@@ -78,8 +78,8 @@ export const IMAGE_SLOTS = [
   { id: 'feat-hair-derm-1',     query: 'pills medication bottle counter',         out: 'feat-hair-derm-1.jpg' },
   { id: 'feat-hair-derm-2',     query: 'face skincare cream serum bottle',        out: 'feat-hair-derm-2.jpg' },
   // Labs: panels, monitoring trends
-  { id: 'feat-labs-1',          query: 'pipette test tube science',               out: 'feat-labs-1.jpg' },
-  { id: 'feat-labs-2',          query: 'data graph chart analysis',               out: 'feat-labs-2.jpg' },
+  { id: 'feat-labs-1',          query: 'blood test tube purple top vial',         out: 'feat-labs-1.jpg' },
+  { id: 'feat-labs-2',          query: 'fitness tracker watch wrist morning',     out: 'feat-labs-2.jpg' },
   // Lifestyle Medicine: T2D nutrition, cardiovascular movement
   { id: 'feat-lifestyle-1',     query: 'rainbow vegetables plate healthy',        out: 'feat-lifestyle-1.jpg' },
   { id: 'feat-lifestyle-2',     query: 'running shoes pavement morning',          out: 'feat-lifestyle-2.jpg' },

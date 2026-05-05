@@ -1,10 +1,10 @@
 [
   {
-    "slot": "feat-primary-care-2",
-    "query": "honey lemon tea cold remedy",
-    "out": "feat-primary-care-2.jpg",
-    "pageURL": "https://pixabay.com/photos/ginger-hot-lemon-tea-lemon-snow-1918107/",
-    "user": "silviarita",
-    "tags": "ginger, hot lemon, tea, lemon, snow, juice, cold, defense, health, immune system, nature, vitamins, healthy, flu, winter, prevent"
+    "slot": "feat-labs-1",
+    "query": "blood test tube purple top vial",
+    "out": "feat-labs-1.jpg",
+    "pageURL": "https://pixabay.com/photos/sample-lab-laboratory-scientist-4944421/",
+    "user": "AhmadArdity",
+    "tags": "sample, lab, laboratory, scientist, medical, health, test, science, healthcare, research, tube, blue health, blue medical, blue science, blue research, blue lab, blue test, blue blood, blue laboratory, blue healthcare"
   }
 ]
