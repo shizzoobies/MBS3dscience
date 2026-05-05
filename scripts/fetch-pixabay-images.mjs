@@ -39,7 +39,7 @@ export const IMAGE_SLOTS = [
 
   // ---- Service hero banners (one per page) ----
   { id: 'hero-weight-loss',         query: 'plate salmon vegetables clean minimal',     out: 'hero-weight-loss.jpg' },
-  { id: 'hero-mental-health',       query: 'curtain morning window soft light bedroom', out: 'hero-mental-health.jpg' },
+  { id: 'hero-mental-health',       query: 'white linen bed morning sunlight window',   out: 'hero-mental-health.jpg' },
   { id: 'hero-primary-care',        query: 'morning coffee window warm reading',        out: 'hero-primary-care.jpg' },
   { id: 'hero-mens-health',         query: 'fit man jogging trail morning',             out: 'hero-mens-health.jpg' },
   { id: 'hero-womens-health',       query: 'woman yoga stretching morning home',        out: 'hero-womens-health.jpg' },
@@ -47,8 +47,8 @@ export const IMAGE_SLOTS = [
   { id: 'hero-sexual-health',       query: 'couple holding hands sunset romantic',      out: 'hero-sexual-health.jpg' },
   { id: 'hero-hair-dermatology',    query: 'serum dropper bottle skincare flatlay',     out: 'hero-hair-dermatology.jpg' },
   { id: 'hero-labs',                query: 'test tubes rack neutral minimal',           out: 'hero-labs.jpg' },
-  { id: 'hero-lifestyle-medicine',  query: 'colorful vegetables variety plate top',     out: 'hero-lifestyle-medicine.jpg' },
-  { id: 'hero-concierge-medicine',  query: 'kitchen window morning warm sunlight',      out: 'hero-concierge-medicine.jpg' },
+  { id: 'hero-lifestyle-medicine',  query: 'fresh vegetables wooden cutting board top',  out: 'hero-lifestyle-medicine.jpg' },
+  { id: 'hero-concierge-medicine',  query: 'smartphone laptop modern desk minimal home', out: 'hero-concierge-medicine.jpg' },
 
   // ---- Feature-row images (alt themes per page) ----
   // Weight Loss: GLP-1 medication then metabolic optimization (food)

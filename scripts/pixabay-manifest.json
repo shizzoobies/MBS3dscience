@@ -1,10 +1,10 @@
 [
   {
-    "slot": "feat-weight-loss-1",
-    "query": "pills capsule white isolated medication",
-    "out": "feat-weight-loss-1.jpg",
-    "pageURL": "https://pixabay.com/photos/pill-medicine-capsule-illness-pain-3264951/",
-    "user": "newsong",
-    "tags": "pill, medicine, capsule, illness, pain, medication, pharmacy, medical, white, prescription, pharmaceutical, treatment, tablet, dose, remedy, addiction, color, vitamin, holistic"
+    "slot": "hero-concierge-medicine",
+    "query": "smartphone laptop modern desk minimal home",
+    "out": "hero-concierge-medicine.jpg",
+    "pageURL": "https://pixabay.com/photos/table-workplace-pen-keyboard-3997521/",
+    "user": "Ylanite",
+    "tags": "table, workplace, pen, keyboard, notebook, work, glasses, telephone, copy space, table, table, table, table, table, workplace, keyboard, notebook, notebook, work, work, work"
   }
 ]
