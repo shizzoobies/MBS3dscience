@@ -75,8 +75,8 @@ export const IMAGE_SLOTS = [
   { id: 'feat-sexual-health-1', query: 'couple bed morning soft light',           out: 'feat-sexual-health-1.jpg' },
   { id: 'feat-sexual-health-2', query: 'couple walking holding hands park',       out: 'feat-sexual-health-2.jpg' },
   // Hair & Derm: hair loss medication, skin care routine
-  { id: 'feat-hair-derm-1',     query: 'white tablets capsules neutral background',out: 'feat-hair-derm-1.jpg' },
-  { id: 'feat-hair-derm-2',     query: 'face skincare cream serum bottle',        out: 'feat-hair-derm-2.jpg' },
+  { id: 'feat-hair-derm-1',     query: 'white tablets capsules neutral linen',     out: 'feat-hair-derm-1.jpg' },
+  { id: 'feat-hair-derm-2',     query: 'lotion bottle row counter neutral cream',  out: 'feat-hair-derm-2.jpg' },
   // Labs: panels, monitoring trends
   { id: 'feat-labs-1',          query: 'blood test tube purple top vial',         out: 'feat-labs-1.jpg' },
   { id: 'feat-labs-2',          query: 'fitness tracker watch wrist morning',     out: 'feat-labs-2.jpg' },
