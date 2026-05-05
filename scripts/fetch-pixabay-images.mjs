@@ -40,7 +40,7 @@ export const IMAGE_SLOTS = [
   // ---- Service hero banners (one per page) ----
   { id: 'hero-weight-loss',         query: 'weight scale measuring tape goal',          out: 'hero-weight-loss.jpg' },
   { id: 'hero-mental-health',       query: 'window sunrise peaceful calm bedroom',      out: 'hero-mental-health.jpg' },
-  { id: 'hero-primary-care',        query: 'laptop video call home cozy',               out: 'hero-primary-care.jpg' },
+  { id: 'hero-primary-care',        query: 'morning coffee window warm reading',        out: 'hero-primary-care.jpg' },
   { id: 'hero-mens-health',         query: 'fit man jogging trail morning',             out: 'hero-mens-health.jpg' },
   { id: 'hero-womens-health',       query: 'woman yoga stretching morning home',        out: 'hero-womens-health.jpg' },
   { id: 'hero-longevity',           query: 'mature couple hiking trail outdoor',        out: 'hero-longevity.jpg' },
@@ -59,9 +59,9 @@ export const IMAGE_SLOTS = [
   { id: 'feat-mental-health-2', query: 'sleeping bedroom peaceful dawn',          out: 'feat-mental-health-2.jpg' },
   { id: 'feat-mental-health-3', query: 'mug warm hands quiet morning',            out: 'feat-mental-health-3.jpg' },
   // Primary & Urgent Care: telehealth visit, sick day at home, chronic meds
-  { id: 'feat-primary-care-1',  query: 'tablet relaxed couch home',               out: 'feat-primary-care-1.jpg' },
-  { id: 'feat-primary-care-2',  query: 'thermometer tissues cold flu sick',       out: 'feat-primary-care-2.jpg' },
-  { id: 'feat-primary-care-3',  query: 'pill bottle medication daily',            out: 'feat-primary-care-3.jpg' },
+  { id: 'feat-primary-care-1',  query: 'laptop video call home sofa morning',     out: 'feat-primary-care-1.jpg' },
+  { id: 'feat-primary-care-2',  query: 'honey lemon tea cold remedy',             out: 'feat-primary-care-2.jpg' },
+  { id: 'feat-primary-care-3',  query: 'pills medication bottle close up',        out: 'feat-primary-care-3.jpg' },
   // Men's Health: TRT (lab vial), ED feature (couple/confidence)
   { id: 'feat-mens-health-1',   query: 'man portrait window light confident',     out: 'feat-mens-health-1.jpg' },
   { id: 'feat-mens-health-2',   query: 'couple bedroom morning sunlight tender',  out: 'feat-mens-health-2.jpg' },
