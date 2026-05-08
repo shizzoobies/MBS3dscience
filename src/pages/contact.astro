@@ -8,17 +8,69 @@ import Layout from '../layouts/Layout.astro';
 >
 
   <!-- Hero -->
-  <section class="section bg-shell" style="padding-top: 7rem; background: radial-gradient(ellipse at top right, rgba(245,214,198,0.4) 0%, rgba(245,214,198,0) 60%), var(--surface-shell);">
+  <section class="section bg-cream" style="padding-top: 8rem;">
     <div class="container">
-      <div class="contact-hero">
-        <div>
-          <span class="hero-eyebrow">get in touch</span>
-          <h1 class="hero-title">Let's talk about your health</h1>
-          <p class="hero-sub">Have a question before booking? Want to know if we're the right fit? Reach out. We're real people and we'll respond promptly.</p>
+      <div class="contact-hero-grid">
+        <div class="contact-hero-text">
+          <span class="editorial-eyebrow">Get in touch</span>
+          <h1 class="contact-hero-title">Let's talk about your health.</h1>
+          <p class="contact-hero-sub">Have a question before booking? Want to know if we're the right fit? Reach out. We're real people and we'll respond promptly.</p>
+        </div>
+        <div class="contact-hero-media">
+          <div class="contact-hero-frame">
+            <img src="/images/sig-leaf.jpg" alt="Macro detail of a palm leaf, soft natural light" />
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <style>
+    .contact-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .contact-hero-grid { grid-template-columns: 7fr 5fr; gap: 4rem; }
+    }
+    .contact-hero-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+      text-transform: lowercase;
+      margin: 1.5rem 0 1.5rem;
+      max-width: 16ch;
+    }
+    .contact-hero-sub {
+      font-size: var(--text-lg);
+      line-height: var(--leading-relaxed);
+      color: var(--color-secondary);
+      max-width: 48ch;
+    }
+    .contact-hero-frame {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      background-color: var(--color-surface-warm);
+      border: 1px solid var(--color-border);
+    }
+    .contact-hero-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 700ms ease;
+    }
+    .contact-hero-frame:hover img { transform: scale(1.04); }
+    @media (max-width: 767px) {
+      .contact-hero-frame { aspect-ratio: 16/10; }
+    }
+  </style>
 
 
   <!-- Contact layout -->

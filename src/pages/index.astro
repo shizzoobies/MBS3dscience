@@ -167,10 +167,11 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
-       STATS — ink surface
+       STATS — ink surface with subtle aerial backdrop
        ============================================================ -->
-  <section class="section bg-ink">
-    <div class="container">
+  <section class="section bg-ink stats-section">
+    <img src="/images/sig-stats-bg.jpg" alt="" class="stats-section__bg" aria-hidden="true" />
+    <div class="container" style="position: relative; z-index: 1;">
       <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
         <h2 style="color: var(--ink-inverse);">Numbers that mean something</h2>
       </div>
@@ -259,9 +260,12 @@ import Layout from '../layouts/Layout.astro';
     <div class="container">
       <div class="reveal faq-layout">
         <div class="faq-heading">
-          <span class="label">common questions</span>
-          <h2 style="margin-top: 0.75rem;">Things people usually ask</h2>
+          <span class="editorial-eyebrow">Common questions</span>
+          <h2 style="margin-top: 1rem; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.1; letter-spacing: -0.015em;">Things people usually ask.</h2>
           <p style="color: var(--ink-secondary); margin-top: 1rem; font-size: var(--text-sm);">Don't see your question? <a href="/contact/" style="text-decoration: underline; text-underline-offset: 3px;">Contact us directly.</a></p>
+          <div class="home-faq-frame" aria-hidden="true">
+            <img src="/images/sig-leaf.jpg" alt="" />
+          </div>
         </div>
 
         <div class="faq-list">
@@ -297,6 +301,7 @@ import Layout from '../layouts/Layout.astro';
   <section class="section bg-cream cta-section">
     <div class="container">
       <div class="reveal cta-card">
+        <img src="/images/sig-cta-dark.jpg" alt="" class="cta-card__bg" aria-hidden="true" />
         <span class="cta-card__deco cta-card__deco--tr" aria-hidden="true"></span>
         <span class="cta-card__deco cta-card__deco--bl" aria-hidden="true"></span>
         <div class="cta-card__inner">
@@ -601,6 +606,20 @@ import Layout from '../layouts/Layout.astro';
     max-width: 52ch;
   }
 
+  /* Stats section with backdrop image */
+  .stats-section { position: relative; overflow: hidden; }
+  .stats-section__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.18;
+    mix-blend-mode: lighten;
+    pointer-events: none;
+    filter: grayscale(35%) contrast(1.05);
+  }
+
   /* Testimonials */
   .testimonials-grid {
     display: grid;
@@ -624,6 +643,24 @@ import Layout from '../layouts/Layout.astro';
     .faq-layout { grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start; }
   }
   .faq-heading { position: sticky; top: 6rem; }
+  .home-faq-frame {
+    display: none;
+    margin-top: 2.5rem;
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    background-color: var(--color-surface-warm);
+    border: 1px solid var(--color-border);
+  }
+  .home-faq-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media (min-width: 1024px) {
+    .home-faq-frame { display: block; }
+  }
 
   /* ---- Closing CTA: rounded dark card with circle decorations ---- */
   .cta-section { padding-block: 6rem; }
@@ -657,6 +694,17 @@ import Layout from '../layouts/Layout.astro';
     bottom: 0; left: 0;
     transform: translate(-40%, 40%);
     border-style: dashed;
+  }
+  .cta-card__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.22;
+    mix-blend-mode: lighten;
+    pointer-events: none;
+    filter: grayscale(40%) contrast(1.05);
   }
   .cta-card__inner {
     position: relative;

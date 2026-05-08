@@ -68,15 +68,82 @@ const categories: Category[] = [
 >
 
   <!-- Hero -->
-  <section class="section bg-sand" style="padding-top: 7rem; text-align: center;">
-    <div class="container" style="max-width: 720px;">
-      <span class="hero-eyebrow">what we treat</span>
-      <h1 class="hero-title" style="max-width: none;">All of our services</h1>
-      <p class="hero-sub" style="margin-inline: auto;">
+  <section class="services-hero">
+    <img src="/images/sig-coast.jpg" alt="" class="services-hero__bg" aria-hidden="true" />
+    <div class="services-hero__scrim" aria-hidden="true"></div>
+    <div class="container services-hero__inner">
+      <span class="services-hero__eyebrow">What we treat</span>
+      <h1 class="services-hero__title">All of our services.</h1>
+      <p class="services-hero__sub">
         Eleven specialties, one consistent provider. No insurance needed. Telehealth across Florida, same week.
       </p>
     </div>
   </section>
+
+  <style>
+    .services-hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 9rem 1.5rem 6rem;
+      text-align: center;
+      background-color: var(--color-primary);
+    }
+    .services-hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+      opacity: 0.85;
+    }
+    .services-hero__scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(60,56,54,0.30) 0%, rgba(60,56,54,0.50) 60%, rgba(60,56,54,0.72) 100%);
+      pointer-events: none;
+    }
+    .services-hero__inner {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      color: #FFFFFF;
+    }
+    .services-hero__eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: var(--weight-bold);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-rust);
+      margin-bottom: 1.5rem;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    }
+    .services-hero__title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(3rem, 7vw, 5rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      text-transform: lowercase;
+      margin: 0 auto 1.5rem;
+      max-width: 14ch;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .services-hero__sub {
+      font-size: var(--text-lg);
+      line-height: var(--leading-relaxed);
+      color: rgba(255,255,255,0.86);
+      max-width: 52ch;
+      margin: 0 auto;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    }
+  </style>
 
 
   <!-- Categorized services -->

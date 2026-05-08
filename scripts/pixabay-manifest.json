@@ -1,10 +1,26 @@
 [
   {
-    "slot": "feat-hair-derm-1",
-    "query": "white tablets capsules neutral linen",
-    "out": "feat-hair-derm-1.jpg",
-    "pageURL": "https://pixabay.com/photos/pills-medicines-tablets-dose-rx-6826554/",
-    "user": "Rigby40",
-    "tags": "pills, medicines, tablets, dose, rx, pharma, pharmaceutical, addiction"
+    "slot": "sig-patient-call",
+    "query": "tablet sofa hand morning home neutral",
+    "out": "sig-patient-call.jpg",
+    "pageURL": "https://pixabay.com/photos/man-sofa-coffee-mug-cup-drink-2178466/",
+    "user": "Pexels",
+    "tags": "man, sofa, coffee, coffee cup, mug, animal, cup, drink, drinking coffee, morning coffee, coffee break, caffeine, drinking, adult, cat, pet, couch, indoors, leisure, portrait, seat, sitting"
+  },
+  {
+    "slot": "sig-interior",
+    "query": "modern living room window curtain sunlight",
+    "out": "sig-interior.jpg",
+    "pageURL": "https://pixabay.com/photos/bedroom-cupboard-bed-room-sofa-1872196/",
+    "user": "manbob86",
+    "tags": "bedroom, cupboard, bed, room, sofa, window, living room, modern, bedroom, bedroom, bedroom, bedroom, room, room, room, room, room, window, living room, living room, living room, living room"
+  },
+  {
+    "slot": "sig-stats-bg",
+    "query": "aerial coastline abstract earth pattern",
+    "out": "sig-stats-bg.jpg",
+    "pageURL": "https://pixabay.com/photos/beach-island-island-water-gulf-7054907/",
+    "user": "Lenzatic",
+    "tags": "beach island, island, water, gulf, florida, sand, sea, drone, earth, nature, travel, aerial photography, island, island, island, florida, florida, earth, earth, travel, travel, travel, travel, travel"
   }
 ]

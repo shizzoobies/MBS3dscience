@@ -85,7 +85,15 @@ export const IMAGE_SLOTS = [
   { id: 'feat-lifestyle-2',     query: 'running shoes pavement morning',          out: 'feat-lifestyle-2.jpg' },
   // Concierge: availability (video call), continuity (warm home)
   { id: 'feat-concierge-1',     query: 'laptop coffee desk minimal home office',  out: 'feat-concierge-1.jpg' },
-  { id: 'feat-concierge-2',     query: 'reading nook armchair window neutral',    out: 'feat-concierge-2.jpg' }
+  { id: 'feat-concierge-2',     query: 'reading nook armchair window neutral',    out: 'feat-concierge-2.jpg' },
+
+  // ---- Shared signature library (reusable across pages) ----
+  { id: 'sig-coast',        query: 'florida coast palm trees ocean dawn',          out: 'sig-coast.jpg' },
+  { id: 'sig-leaf',         query: 'palm leaf macro green soft natural light',     out: 'sig-leaf.jpg' },
+  { id: 'sig-patient-call', query: 'tablet sofa hand morning home neutral',       out: 'sig-patient-call.jpg' },
+  { id: 'sig-interior',     query: 'modern living room window curtain sunlight',  out: 'sig-interior.jpg' },
+  { id: 'sig-cta-dark',     query: 'ocean sunset dark moody horizon',              out: 'sig-cta-dark.jpg' },
+  { id: 'sig-stats-bg',     query: 'aerial coastline abstract earth pattern',     out: 'sig-stats-bg.jpg' }
 ];
 
 function isBlocked(hit) {
