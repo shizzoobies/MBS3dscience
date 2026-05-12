@@ -778,12 +778,12 @@ details[open] .faq-summary::after {
   transform: translate(-50%, -50%);
   z-index: 1101;
   width: calc(100% - 2rem);
-  max-width: 720px;
+  max-width: 640px;
   max-height: calc(100vh - 4rem);
   overflow-y: auto;
   background-color: var(--surface-cream);
   border-radius: var(--radius-xl);
-  padding: 2.5rem;
+  padding: 2rem;
   margin: 0;
   box-shadow: var(--shadow-lg);
   animation: dialogIn 280ms cubic-bezier(0, 0, 0.2, 1);
