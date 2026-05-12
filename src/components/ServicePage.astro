@@ -354,7 +354,9 @@ const {
     align-items: center;
   }
   @media (min-width: 900px) {
-    .sp-hero__grid { grid-template-columns: 6fr 6fr; gap: 4rem; }
+    /* Text column wider (7) than image column (5) so the pricing card
+       has room to breathe; image stays editorial but doesn't dominate. */
+    .sp-hero__grid { grid-template-columns: 7fr 5fr; gap: 3.5rem; }
   }
   .sp-hero__text { display: flex; flex-direction: column; gap: 1.75rem; }
   .sp-hero__title {
@@ -375,8 +377,10 @@ const {
     margin: 0;
   }
   .sp-hero__plan {
-    margin-top: 0.5rem;
-    max-width: 460px;
+    margin-top: 0.75rem;
+    /* Fill the text column so the card visually anchors to the title above
+       instead of floating as a narrower object. */
+    width: 100%;
   }
   .sp-hero__actions {
     display: flex;
@@ -416,7 +420,10 @@ const {
   .sp-hero__frame {
     position: relative;
     width: 100%;
-    aspect-ratio: 4/5;
+    /* 4:5 portrait was too tall — created big empty vertical space next to
+       text+card. 5:6 is closer to square and feels balanced against the
+       stacked text column. */
+    aspect-ratio: 5/6;
     border-radius: var(--radius-2xl);
     overflow: hidden;
     background-color: var(--color-surface-warm);
