@@ -1,10 +1,12 @@
 ---
 /**
- * Compact membership card sized to sit in the hero right column.
+ * Membership price line for the service-page hero — text-only, no box.
  *
- * Used in place of the hero image for service pages with a SINGLE plan.
- * Multi-plan services (TRT, HRT) keep the hero image and render the
- * full <MembershipPricing /> comparison block deeper in the page.
+ * Editorial treatment: hairline rule above, rust uppercase eyebrow,
+ * plan name + serif-numerals price on one row, tagline beneath, and
+ * a hairline-rule "Start membership" link matching the rest of the
+ * hero CTA pattern. Reads as part of the typography, not a card
+ * sitting on top of the layout.
  */
 
 interface Plan {
@@ -12,7 +14,7 @@ interface Plan {
   price: string;
   period?: string;
   tagline: string;
-  includes: string[];
+  includes: string[];        // kept for API parity; rendered as a single inline credit-roll
   cta?: { label: string; href: string };
   note?: string;
 }
@@ -34,61 +36,59 @@ const cta = plan.cta ?? DEFAULT_CTA;
 const note = plan.note ?? DEFAULT_NOTE;
 ---
 
-<article class="hero-plan">
-  <span class="hero-plan__eyebrow">{eyebrow}</span>
-  <span class="hero-plan__name">{plan.name}</span>
+<div class="hero-priceline">
+  <hr class="hero-priceline__rule" aria-hidden="true" />
 
-  <div class="hero-plan__price-row">
-    <span class="hero-plan__price">{plan.price}</span>
-    <span class="hero-plan__period">/ {plan.period ?? 'month'}</span>
+  <span class="hero-priceline__eyebrow">{eyebrow}</span>
+
+  <div class="hero-priceline__row">
+    <span class="hero-priceline__name">{plan.name}</span>
+    <span class="hero-priceline__price">
+      {plan.price}<span class="hero-priceline__period">/ {plan.period ?? 'month'}</span>
+    </span>
   </div>
 
-  <p class="hero-plan__tagline">{plan.tagline}</p>
+  <p class="hero-priceline__tagline">{plan.tagline}</p>
 
-  <hr class="hero-plan__rule" aria-hidden="true" />
+  {plan.includes && plan.includes.length > 0 && (
+    <p class="hero-priceline__includes">
+      {plan.includes.map((item, i) => (
+        <>
+          {i > 0 && <span class="hero-priceline__dot" aria-hidden="true">·</span>}
+          <span>{item}</span>
+        </>
+      ))}
+    </p>
+  )}
 
-  <ul class="hero-plan__includes" role="list">
-    {plan.includes.map(item => (
-      <li>
-        <span class="hero-plan__bullet" aria-hidden="true">—</span>
-        <span>{item}</span>
-      </li>
-    ))}
-  </ul>
-
-  <a
-    href={cta.href}
-    target={cta.href.startsWith('http') ? '_blank' : undefined}
-    rel={cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-    class="hero-plan__cta"
-  >
-    {cta.label}
-  </a>
-
-  <p class="hero-plan__note">{note}</p>
-</article>
+  <div class="hero-priceline__foot">
+    <a
+      href={cta.href}
+      target={cta.href.startsWith('http') ? '_blank' : undefined}
+      rel={cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+      class="hero-priceline__cta"
+    >
+      <span class="hero-priceline__cta-rule" aria-hidden="true"></span>
+      {cta.label}
+    </a>
+    <span class="hero-priceline__note">{note}</span>
+  </div>
+</div>
 
 <style>
-  .hero-plan {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    padding: 1.75rem 1.75rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    /* Slight elevation pop so it reads as a separate object, not a flat panel.
-       Single tasteful shadow only — keeps with the flat-design rule but
-       lets the card float above the cream hero surface. */
-    box-shadow: 0 18px 40px rgba(60, 56, 54, 0.07);
-    transition: transform 250ms ease, box-shadow 250ms ease;
+  .hero-priceline {
+    margin-top: 0.5rem;
+    padding-top: 1.25rem;
+    width: 100%;
   }
-  .hero-plan:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 24px 50px rgba(60, 56, 54, 0.10);
+  .hero-priceline__rule {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 0 0 1.25rem;
+    width: 64px;
   }
 
-  .hero-plan__eyebrow {
+  .hero-priceline__eyebrow {
     display: inline-block;
     font-family: var(--font-body);
     font-size: 10px;
@@ -98,108 +98,108 @@ const note = plan.note ?? DEFAULT_NOTE;
     color: var(--color-rust);
     margin-bottom: 0.625rem;
   }
-  .hero-plan__name {
-    display: block;
-    font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: clamp(1.25rem, 2.4vw, 1.5rem);
-    line-height: 1.15;
-    color: var(--color-primary);
-    margin-bottom: 0.75rem;
-  }
 
-  .hero-plan__price-row {
+  .hero-priceline__row {
     display: flex;
     align-items: baseline;
-    gap: 0.5rem;
-    margin-bottom: 0.625rem;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
   }
-  .hero-plan__price {
+  .hero-priceline__name {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(1.375rem, 2.6vw, 1.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--color-primary);
+  }
+  .hero-priceline__price {
     font-family: var(--font-serif);
     font-weight: 300;
-    font-size: clamp(2.25rem, 4.5vw, 3rem);
+    font-size: clamp(1.75rem, 3.2vw, 2.25rem);
     line-height: 1;
     letter-spacing: -0.02em;
     color: var(--color-primary);
+    white-space: nowrap;
   }
-  .hero-plan__period {
-    font-size: var(--text-sm);
+  .hero-priceline__period {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
     color: var(--color-secondary);
     font-weight: var(--weight-medium);
     text-transform: lowercase;
+    margin-left: 0.375rem;
+    letter-spacing: 0;
   }
-  .hero-plan__tagline {
+
+  .hero-priceline__tagline {
     font-size: 0.9375rem;
-    line-height: 1.4;
-    color: var(--color-secondary);
-    margin: 0;
-    max-width: 36ch;
-  }
-
-  .hero-plan__rule {
-    border: none;
-    border-top: 1px solid var(--color-border);
-    margin: 1.25rem 0 1rem;
-  }
-
-  .hero-plan__includes {
-    list-style: none;
-    margin: 0 0 1.5rem;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .hero-plan__includes li {
-    display: flex;
-    gap: 0.625rem;
-    align-items: flex-start;
-    font-size: 0.875rem;
     line-height: 1.45;
-    color: var(--color-primary);
-  }
-  .hero-plan__bullet {
-    color: var(--color-rust);
-    flex-shrink: 0;
-    font-weight: var(--weight-bold);
+    color: var(--color-secondary);
+    margin: 0 0 0.75rem;
+    max-width: 52ch;
   }
 
-  .hero-plan__cta {
+  .hero-priceline__includes {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    line-height: 1.9;
+    margin: 0;
+    max-width: 60ch;
+  }
+  .hero-priceline__includes > span:not(.hero-priceline__dot) {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .hero-priceline__dot {
+    display: inline;
+    margin: 0 0.5rem;
+    color: var(--color-rust);
+    font-weight: var(--weight-bold);
+    opacity: 0.7;
+  }
+
+  .hero-priceline__foot {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+  }
+  .hero-priceline__cta {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 1rem;
     font-family: var(--font-body);
     font-size: 11px;
     font-weight: var(--weight-bold);
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    padding: 13px 28px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--color-primary);
-    background-color: var(--color-primary);
-    color: #FFFFFF;
-    text-decoration: none;
-    text-align: center;
-    transition: background-color 200ms ease, color 200ms ease;
-  }
-  .hero-plan__cta:hover {
-    background-color: transparent;
     color: var(--color-primary);
+    text-decoration: none;
+    transition: color 200ms ease;
   }
+  .hero-priceline__cta:hover { color: var(--color-rust); }
+  .hero-priceline__cta-rule {
+    display: inline-block;
+    width: 48px;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 250ms ease;
+  }
+  .hero-priceline__cta:hover .hero-priceline__cta-rule { width: 80px; }
 
-  .hero-plan__note {
+  .hero-priceline__note {
     font-size: 10px;
     font-weight: var(--weight-bold);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--color-tertiary);
-    text-align: center;
-    margin: 0.75rem 0 0;
-  }
-
-  @media (max-width: 767px) {
-    .hero-plan {
-      padding: 1.5rem 1.5rem 1.25rem;
-    }
   }
 </style>
