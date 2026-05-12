@@ -51,14 +51,14 @@ const note = plan.note ?? DEFAULT_NOTE;
         </div>
       </div>
 
-      <div class="hero-strip__includes">
-        {plan.includes.map((item, i) => (
-          <>
-            {i > 0 && <span class="hero-strip__dot" aria-hidden="true">·</span>}
+      <ul class="hero-strip__includes" role="list">
+        {plan.includes.map(item => (
+          <li>
+            <span class="hero-strip__bullet" aria-hidden="true">—</span>
             <span>{item}</span>
-          </>
+          </li>
         ))}
-      </div>
+      </ul>
 
       <div class="hero-strip__action">
         <a
@@ -140,31 +140,29 @@ const note = plan.note ?? DEFAULT_NOTE;
     letter-spacing: 0;
   }
 
-  /* --- Middle: includes credit-roll --- */
+  /* --- Middle: includes stacked list (matches MembershipPricing card) --- */
   .hero-strip__includes {
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: var(--weight-semibold);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-primary);
-    line-height: 1.8;
+    list-style: none;
     margin: 0;
-    text-align: left;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    max-width: 380px;
   }
-  @media (min-width: 900px) {
-    .hero-strip__includes { text-align: center; }
+  .hero-strip__includes li {
+    display: flex;
+    gap: 0.625rem;
+    align-items: flex-start;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--color-primary);
   }
-  .hero-strip__includes > span:not(.hero-strip__dot) {
-    display: inline-block;
-    white-space: nowrap;
-  }
-  .hero-strip__dot {
-    display: inline;
-    margin: 0 0.5rem;
+  .hero-strip__bullet {
     color: var(--color-rust);
+    flex-shrink: 0;
     font-weight: var(--weight-bold);
-    opacity: 0.7;
   }
 
   /* --- Action block: CTA + cancel note --- */

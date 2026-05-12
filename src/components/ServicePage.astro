@@ -58,11 +58,12 @@ interface Props {
     surface?: string;          // section bg, defaults to bg-shell
     items: string[];
   };
-  // Optional: render a membership pricing section between values and features
+  // Optional: render a membership pricing section right below the hero.
+  // Single-plan renders as a horizontal strip (HeroMembershipCard, which
+  // uses `eyebrow`); 2+ plans render as side-by-side cards (MembershipPricing,
+  // which ignores `eyebrow`).
   pricing?: {
     eyebrow?: string;
-    heading: string;
-    intro?: string;
     plans: MembershipPlan[];
   };
 }
@@ -124,12 +125,7 @@ const {
   )}
 
   {pricing && pricing.plans.length > 1 && (
-    <MembershipPricing
-      eyebrow={pricing.eyebrow}
-      heading={pricing.heading}
-      intro={pricing.intro}
-      plans={pricing.plans}
-    />
+    <MembershipPricing plans={pricing.plans} />
   )}
 
 
