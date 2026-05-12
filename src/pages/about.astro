@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import TeamBioModal from '../components/react/TeamBioModal.tsx';
 
 type TeamMember = {
   name: string;
@@ -232,39 +233,10 @@ const team: TeamMember[] = [
   </section>
 
 
-  <!-- MODAL -->
-  <div id="member-modal" class="member-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="member-modal-name">
-    <div class="member-modal__backdrop" data-close-modal></div>
-    <div class="member-modal__dialog">
-      <button type="button" class="member-modal__close" aria-label="Close bio" data-close-modal>&times;</button>
+  <!-- MODAL — now a Radix Dialog React island for proper focus trap,
+       scroll lock, ESC handling, and state isolation per member. -->
+  <TeamBioModal client:load />
 
-      <div class="member-modal__header">
-        <div class="member-modal__photo">
-          <img id="member-modal-img" src="" alt="" />
-        </div>
-        <div>
-          <span id="member-modal-chip" class="accent-chip"></span>
-          <h2 id="member-modal-name" style="margin-top: 0.75rem;"></h2>
-          <p id="member-modal-role" class="member-modal__role"></p>
-          <p id="member-modal-creds" class="member-modal__creds"></p>
-        </div>
-      </div>
-
-      <div id="member-modal-bio" class="member-modal__bio"></div>
-
-      <p id="member-modal-link-wrap" class="member-modal__link-wrap">
-        <a id="member-modal-link" class="member-modal__link" href="" target="_blank" rel="noopener noreferrer">
-          <span class="member-modal__link-label"></span>
-          <svg class="member-modal__link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="7" y1="17" x2="17" y2="7"></line>
-            <polyline points="7 7 17 7 17 17"></polyline>
-          </svg>
-        </a>
-      </p>
-
-      <div id="member-modal-tags" class="member-modal__tags"></div>
-    </div>
-  </div>
 
 
   <!-- CTA — rounded dark card -->
@@ -824,83 +796,19 @@ const team: TeamMember[] = [
 
 
 <script>
-  const modal = document.getElementById('member-modal') as HTMLElement;
-  const imgEl = document.getElementById('member-modal-img') as HTMLImageElement;
-  const chipEl = document.getElementById('member-modal-chip') as HTMLElement;
-  const nameEl = document.getElementById('member-modal-name') as HTMLElement;
-  const roleEl = document.getElementById('member-modal-role') as HTMLElement;
-  const credsEl = document.getElementById('member-modal-creds') as HTMLElement;
-  const bioEl = document.getElementById('member-modal-bio') as HTMLElement;
-  const linkWrapEl = document.getElementById('member-modal-link-wrap') as HTMLElement;
-  const linkEl = document.getElementById('member-modal-link') as HTMLAnchorElement;
-  const linkLabelEl = linkEl?.querySelector('.member-modal__link-label') as HTMLElement;
-  const tagsEl = document.getElementById('member-modal-tags') as HTMLElement;
-
-  function openMember(data: any) {
-    imgEl.src = data.image;
-    imgEl.alt = data.name;
-    chipEl.textContent = data.chipLabel;
-    chipEl.className = `accent-chip ${data.chipClass}`;
-    nameEl.textContent = data.name;
-    roleEl.textContent = data.role;
-    credsEl.textContent = data.credentials ?? '';
-    credsEl.style.display = data.credentials ? '' : 'none';
-
-    bioEl.innerHTML = '';
-    (data.fullBio ?? []).forEach((para: string) => {
-      const p = document.createElement('p');
-      p.textContent = para;
-      bioEl.appendChild(p);
-    });
-
-    // Reset link state every open so a previously-shown link can never
-    // bleed into a member that doesn't have one.
-    linkWrapEl.classList.remove('is-shown');
-    linkEl.removeAttribute('href');
-    linkLabelEl.textContent = '';
-
-    if (data.link && data.link.href && data.link.label) {
-      linkEl.href = data.link.href;
-      linkLabelEl.textContent = data.link.label;
-      linkWrapEl.classList.add('is-shown');
-    }
-
-    tagsEl.innerHTML = '';
-    (data.tags ?? []).forEach((tag: string) => {
-      const span = document.createElement('span');
-      span.className = 'tag';
-      span.textContent = tag;
-      tagsEl.appendChild(span);
-    });
-
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
+  // Team-avatar buttons now dispatch a custom event the React TeamBioModal
+  // island listens for. Focus management, scroll lock, ESC, and per-member
+  // state isolation are handled by Radix Dialog inside the island.
   document.querySelectorAll<HTMLButtonElement>('.team-avatar-card').forEach(card => {
     card.addEventListener('click', () => {
       const raw = card.getAttribute('data-member');
       if (!raw) return;
       try {
-        openMember(JSON.parse(raw));
+        const detail = JSON.parse(raw);
+        window.dispatchEvent(new CustomEvent('mbs-open-bio', { detail }));
       } catch (e) {
         console.error('Bad member data', e);
       }
     });
-  });
-
-  document.querySelectorAll('[data-close-modal]').forEach(el => {
-    el.addEventListener('click', closeModal);
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
-      closeModal();
-    }
   });
 </script>

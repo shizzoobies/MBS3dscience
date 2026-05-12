@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/react/ContactForm.tsx';
 ---
 
 <Layout
@@ -123,60 +124,8 @@ import Layout from '../layouts/Layout.astro';
           <h2 style="margin-bottom: 0.5rem;">Send us a message</h2>
           <p style="color: var(--ink-secondary); font-size: var(--text-sm); margin-bottom: 2rem;">We'll get back to you within one business day.</p>
 
-          <form class="contact-form" name="contact" method="POST" action="/contact/success/" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="first-name">first name</label>
-                <input type="text" id="first-name" name="first-name" class="input" placeholder="Your first name" required />
-              </div>
-              <div class="form-group">
-                <label for="last-name">last name</label>
-                <input type="text" id="last-name" name="last-name" class="input" placeholder="Your last name" required />
-              </div>
-            </div>
+          <ContactForm client:load />
 
-            <div class="form-group">
-              <label for="email">email address</label>
-              <input type="email" id="email" name="email" class="input" placeholder="you@example.com" required />
-            </div>
-
-            <div class="form-group">
-              <label for="phone">phone (optional)</label>
-              <input type="tel" id="phone" name="phone" class="input" placeholder="(123) 456-7890" />
-            </div>
-
-            <div class="form-group">
-              <label for="service">service of interest</label>
-              <select id="service" name="service" class="input">
-                <option value="">choose a service...</option>
-                <option>Primary Care</option>
-                <option>Medical Weight Loss</option>
-                <option>Men's Health / TRT</option>
-                <option>Women's Health</option>
-                <option>Mental Health</option>
-                <option>Longevity &amp; Performance</option>
-                <option>Sexual Health</option>
-                <option>Hair &amp; Dermatology</option>
-                <option>Lab Testing</option>
-                <option>Lifestyle Medicine</option>
-                <option>Concierge Medicine</option>
-                <option>Not sure yet</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="message">message</label>
-              <textarea id="message" name="message" class="input" rows="5" placeholder="Tell us a little about what's on your mind. No pressure to share more than you're comfortable with." required></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-              send message
-            </button>
-
-            <p style="font-size: var(--text-xs); color: var(--ink-muted); margin-top: 1rem; text-align: center;">
-              This form is not for medical emergencies. If you are experiencing a medical emergency, call 911.
-            </p>
-          </form>
         </div>
       </div>
     </div>
