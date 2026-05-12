@@ -119,6 +119,20 @@ const {
   </section>
 
 
+  {pricing && pricing.plans.length === 1 && (
+    <HeroMembershipCard eyebrow={pricing.eyebrow} plan={pricing.plans[0]} />
+  )}
+
+  {pricing && pricing.plans.length > 1 && (
+    <MembershipPricing
+      eyebrow={pricing.eyebrow}
+      heading={pricing.heading}
+      intro={pricing.intro}
+      plans={pricing.plans}
+    />
+  )}
+
+
   <!-- ============================================================
        VALUE PROPS — cream surface
        ============================================================ -->
@@ -135,19 +149,6 @@ const {
       </div>
     </div>
   </section>
-
-  {pricing && pricing.plans.length === 1 && (
-    <HeroMembershipCard eyebrow={pricing.eyebrow} plan={pricing.plans[0]} />
-  )}
-
-  {pricing && pricing.plans.length > 1 && (
-    <MembershipPricing
-      eyebrow={pricing.eyebrow}
-      heading={pricing.heading}
-      intro={pricing.intro}
-      plans={pricing.plans}
-    />
-  )}
 
 
   <!-- ============================================================
