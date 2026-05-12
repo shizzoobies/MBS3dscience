@@ -921,16 +921,15 @@ details[open] .faq-summary::after {
   transform: translate(2px, -2px);
 }
 
-/* Tags promoted from afterthought to a labeled "Areas of focus" group
-   with hairline divider above and editorial pill chips. */
+/* Tags as a magazine-byline credit line — no boxes, no pills, just
+   small-caps text with middots between. Reads designed, not generated. */
 .member-modal__tags {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  display: block;
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--border-subtle);
+  line-height: 2;
 }
 .member-modal__tags::before {
   content: 'Areas of focus';
@@ -942,27 +941,29 @@ details[open] .faq-summary::after {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-rust);
-  margin-bottom: 0.375rem;
+  margin-bottom: 0.5rem;
 }
 .member-modal__tags .tag {
-  display: inline-flex;
-  align-items: center;
+  display: inline;
   font-family: var(--font-body);
   font-size: 11px;
-  font-weight: var(--weight-medium);
-  letter-spacing: 0.08em;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-primary);
-  padding: 6px 12px;
+  padding: 0;
   background: transparent;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  transition: border-color 200ms ease, color 200ms ease;
+  border: none;
+  border-radius: 0;
 }
-.member-modal__tags .tag:hover {
-  border-color: var(--color-primary);
+.member-modal__tags .tag + .tag::before {
+  content: '·';
+  display: inline;
+  margin: 0 0.625rem;
+  color: var(--color-rust);
+  font-weight: var(--weight-bold);
+  opacity: 0.7;
 }
-.member-modal__tags .tag + .tag::before { content: none; }
 
 /* ---- React-hook-form contact form styles ---- */
 .cf-error {
