@@ -317,11 +317,13 @@ const {
   /* ---- Service hero (MBS-Test editorial split) ---- */
   .sp-hero {
     background-color: var(--color-neutral);
-    padding-top: 9rem;
-    padding-bottom: 6rem;
-    min-height: 92vh;
-    display: flex;
-    align-items: center;
+    padding-top: 8rem;
+    padding-bottom: 3rem;
+    /* No min-height — let content drive height. The 92vh that used to be
+       here was forcing the hero to stretch the full viewport even when
+       the title + intro + image were ~600px, creating dead padding
+       below the content. */
+    display: block;
     position: relative;
     overflow: hidden;
   }
@@ -460,7 +462,7 @@ const {
     border-radius: 4px;
   }
   @media (max-width: 767px) {
-    .sp-hero { min-height: auto; padding-top: 7rem; }
+    .sp-hero { padding-top: 7rem; padding-bottom: 2rem; }
     .sp-hero__frame { aspect-ratio: 16/10; }
     .sp-hero__badge { bottom: 1rem; left: 1rem; }
   }
