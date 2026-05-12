@@ -12,6 +12,37 @@ import ServicePage from '../components/ServicePage.astro';
   chipClass="chip-coral"
   heroSurface="rgba(232,116,97,0.15)"
   heroImage="/images/hero-womens-health.jpg"
+  pricing={{
+    eyebrow: 'HRT Membership',
+    heading: 'Two ways to start HRT.',
+    intro: 'Both plans include all medication and provider oversight. Premium adds every lab cost on top of that, which usually pays for itself once you are running quarterly panels.',
+    plans: [
+      {
+        name: 'HRT Standard',
+        price: '$139',
+        tagline: 'Medication, monitoring, and titration. You pay for your own labs.',
+        includes: [
+          'All HRT medication included',
+          'Provider visits and ongoing monitoring',
+          'Dose titration as needed',
+          'Labs ordered for you, paid at the lab',
+          'Cancel anytime',
+        ],
+      },
+      {
+        name: 'HRT Premium',
+        price: '$249',
+        tagline: 'Everything in Standard plus all lab costs.',
+        featured: true,
+        includes: [
+          'Everything in HRT Standard',
+          'All lab costs included (quarterly panels)',
+          'Priority scheduling',
+          'Best value if you run labs every 3 months',
+        ],
+      },
+    ],
+  }}
   values={[
     {
       icon: "○",

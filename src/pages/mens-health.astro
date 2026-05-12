@@ -12,6 +12,37 @@ import ServicePage from '../components/ServicePage.astro';
   chipClass="chip-terracotta"
   heroSurface="var(--surface-sand)"
   heroImage="/images/hero-mens-health.jpg"
+  pricing={{
+    eyebrow: 'TRT Membership',
+    heading: 'Two ways to start TRT.',
+    intro: 'Both plans include all medication and provider oversight. Premium adds every lab cost on top of that, which usually pays for itself once you are running quarterly panels.',
+    plans: [
+      {
+        name: 'TRT Standard',
+        price: '$139.99',
+        tagline: 'Medication, monitoring, and titration. You pay for your own labs.',
+        includes: [
+          'All TRT medication included',
+          'Provider visits and ongoing monitoring',
+          'Dose titration as needed',
+          'Labs ordered for you, paid at the lab',
+          'Cancel anytime',
+        ],
+      },
+      {
+        name: 'TRT Premium',
+        price: '$249',
+        tagline: 'Everything in Standard plus all lab costs.',
+        featured: true,
+        includes: [
+          'Everything in TRT Standard',
+          'All lab costs included (quarterly panels)',
+          'Priority scheduling',
+          'Best value if you run labs every 3 months',
+        ],
+      },
+    ],
+  }}
   values={[
     {
       icon: "▲",
