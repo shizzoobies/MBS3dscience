@@ -83,6 +83,12 @@ const note = plan.note ?? DEFAULT_NOTE;
     border-bottom: 1px solid var(--color-border);
     padding-block: 2rem;
   }
+  /* Strip uses a wider inner max-width than other sections so the
+     two-column includes have room to breathe alongside the lead and
+     action blocks. */
+  .hero-strip > .container {
+    max-width: 1440px;
+  }
 
   .hero-strip__grid {
     display: grid;
@@ -93,7 +99,7 @@ const note = plan.note ?? DEFAULT_NOTE;
   @media (min-width: 900px) {
     .hero-strip__grid {
       grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
-      gap: 3rem;
+      gap: 3.5rem;
     }
   }
 
@@ -140,40 +146,48 @@ const note = plan.note ?? DEFAULT_NOTE;
     letter-spacing: 0;
   }
 
-  /* --- Middle: includes stacked list (matches MembershipPricing card) --- */
+  /* --- Middle: includes as a 2-column list (caps at 3 lines per column).
+     Single-column on mobile so items stay readable. --- */
   .hero-strip__includes {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-    max-width: 380px;
+    max-width: 640px;
   }
   .hero-strip__includes li {
-    display: flex;
-    gap: 0.625rem;
-    align-items: flex-start;
     font-family: var(--font-body);
     font-size: 0.8125rem;
     line-height: 1.4;
     color: var(--color-primary);
+    padding-left: 1rem;
+    padding-bottom: 0.375rem;
+    position: relative;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
   }
+  .hero-strip__includes li:last-child { padding-bottom: 0; }
   .hero-strip__bullet {
+    position: absolute;
+    left: 0;
+    top: 0;
     color: var(--color-rust);
-    flex-shrink: 0;
     font-weight: var(--weight-bold);
   }
+  @media (min-width: 720px) {
+    .hero-strip__includes {
+      columns: 2;
+      column-gap: 2.5rem;
+    }
+  }
 
-  /* --- Action block: CTA + cancel note --- */
+  /* --- Action block: CTA + cancel note, both center-aligned so the
+     pill sits visually centered over the cancel-anytime line. --- */
   .hero-strip__action {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    align-items: flex-start;
-  }
-  @media (min-width: 900px) {
-    .hero-strip__action { align-items: flex-end; }
+    align-items: center;
+    text-align: center;
   }
   .hero-strip__cta {
     display: inline-flex;
