@@ -70,7 +70,6 @@ export default function TeamBioModal() {
                   <Dialog.Title style={{ marginTop: '0.75rem' }} asChild>
                     <h2>{member.name}</h2>
                   </Dialog.Title>
-                  <p className="member-modal__role">{member.role}</p>
                   {member.credentials && (
                     <p className="member-modal__creds">{member.credentials}</p>
                   )}
