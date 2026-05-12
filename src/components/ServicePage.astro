@@ -91,11 +91,6 @@ const {
           <span class="editorial-eyebrow">{eyebrow}</span>
           <h1 class="sp-hero__title">{heroTitle}</h1>
           <p class="sp-hero__sub">{heroSub}</p>
-          {pricing && pricing.plans.length === 1 && (
-            <div class="sp-hero__plan">
-              <HeroMembershipCard eyebrow={pricing.eyebrow} plan={pricing.plans[0]} />
-            </div>
-          )}
           <div class="sp-hero__actions">
             <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-hero__cta">
               <span class="sp-hero__cta-rule" aria-hidden="true"></span>
@@ -141,6 +136,9 @@ const {
     </div>
   </section>
 
+  {pricing && pricing.plans.length === 1 && (
+    <HeroMembershipCard eyebrow={pricing.eyebrow} plan={pricing.plans[0]} />
+  )}
 
   {pricing && pricing.plans.length > 1 && (
     <MembershipPricing
