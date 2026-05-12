@@ -57,6 +57,7 @@ interface Props {
     intro?: string;
     surface?: string;          // section bg, defaults to bg-shell
     items: string[];
+    disclaimer?: string;       // small muted line below the list
   };
   // Optional: render a membership pricing section right below the hero.
   // Single-plan renders as a horizontal strip (HeroMembershipCard, which
@@ -206,6 +207,9 @@ const {
               <li>{item}</li>
             ))}
           </ul>
+          {subServices.disclaimer && (
+            <p class="sp-sub-disclaimer">{subServices.disclaimer}</p>
+          )}
         </details>
       </div>
     </section>
@@ -727,24 +731,14 @@ const {
     background-color: var(--color-surface-warm);
   }
 
-  /* ---- Sub-services list: arrow-out chips MBS-Test style ----
-     Adds a circle arrow on each item when present */
-  .sp-sub-list li {
-    position: relative;
-    padding-right: 2.5rem;
-  }
-  .sp-sub-list li::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14px;
-    height: 14px;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888377' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><line x1='7' y1='17' x2='17' y2='7'/><polyline points='7 7 17 7 17 17'/></svg>");
-    background-repeat: no-repeat;
-    background-size: contain;
-    opacity: 0.55;
+  /* ---- Disclaimer line below the conditions list ---- */
+  .sp-sub-disclaimer {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--ink-secondary);
+    font-style: italic;
+    margin: 1rem 0 0;
+    max-width: 60ch;
   }
 
   /* ---- Closing CTA: rounded dark card ---- */
