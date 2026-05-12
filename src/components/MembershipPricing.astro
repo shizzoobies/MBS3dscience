@@ -1,0 +1,288 @@
+---
+/**
+ * Membership pricing block — reusable across service pages.
+ *
+ * Supports 1 or 2 plans. Two-plan layouts get side-by-side comparison
+ * cards with the optional `featured: true` plan highlighted in filled
+ * sage (matches the signature value-card treatment from the home page).
+ *
+ * Static Astro component; no JS needed.
+ */
+
+interface Plan {
+  name: string;
+  price: string;              // "$99", "$139.99" — string so cents work
+  period?: string;            // default: "per month"
+  tagline: string;
+  includes: string[];
+  cta?: { label: string; href: string };
+  featured?: boolean;
+  note?: string;              // override the default "Cancel anytime · 10% off annual"
+}
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  intro?: string;
+  plans: Plan[];
+}
+
+const {
+  eyebrow = 'Membership',
+  heading,
+  intro,
+  plans,
+} = Astro.props as Props;
+
+const DEFAULT_CTA = {
+  label: 'Start membership',
+  href: 'https://mbsmedical.practicebetter.io',
+};
+const DEFAULT_NOTE = 'Cancel anytime · 10% off annual';
+---
+
+<section class="sp-pricing bg-cream">
+  <div class="container">
+    <div class="reveal sp-pricing__header">
+      <span class="editorial-eyebrow">{eyebrow}</span>
+      <h2 class="sp-pricing__heading">{heading}</h2>
+      {intro && <p class="sp-pricing__intro">{intro}</p>}
+    </div>
+
+    <div class={`sp-pricing__grid sp-pricing__grid--${plans.length}`}>
+      {plans.map((plan, i) => {
+        const cta = plan.cta ?? DEFAULT_CTA;
+        const note = plan.note ?? DEFAULT_NOTE;
+        return (
+          <article class={`reveal sp-plan ${plan.featured ? 'sp-plan--featured' : ''} ${i > 0 ? 'reveal-delay-1' : ''}`}>
+            <header class="sp-plan__head">
+              <span class="sp-plan__name">{plan.name}</span>
+              <div class="sp-plan__price-row">
+                <span class="sp-plan__price">{plan.price}</span>
+                <span class="sp-plan__period">/ {plan.period ?? 'month'}</span>
+              </div>
+              <p class="sp-plan__tagline">{plan.tagline}</p>
+            </header>
+
+            <hr class="sp-plan__rule" aria-hidden="true" />
+
+            <ul class="sp-plan__includes" role="list">
+              {plan.includes.map(item => (
+                <li>
+                  <span class="sp-plan__bullet" aria-hidden="true">—</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={cta.href}
+              target={cta.href.startsWith('http') ? '_blank' : undefined}
+              rel={cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              class="sp-plan__cta"
+            >
+              {cta.label}
+            </a>
+
+            <p class="sp-plan__note">{note}</p>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .sp-pricing {
+    padding-block: clamp(4.5rem, 9vw, 7rem);
+  }
+  .sp-pricing__header {
+    max-width: 640px;
+    margin-inline: auto;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .sp-pricing__heading {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-primary);
+    margin: 1rem 0 1rem;
+  }
+  .sp-pricing__intro {
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-secondary);
+    max-width: 52ch;
+    margin-inline: auto;
+  }
+
+  /* ---- Grid layouts ---- */
+  .sp-pricing__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-inline: auto;
+  }
+  .sp-pricing__grid--1 {
+    max-width: 480px;
+  }
+  .sp-pricing__grid--2 {
+    max-width: 920px;
+  }
+  @media (min-width: 768px) {
+    .sp-pricing__grid--2 {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+  }
+
+  /* ---- Plan card (default: cream w/ hairline border) ---- */
+  .sp-plan {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 2.5rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 250ms ease, transform 250ms ease;
+  }
+  .sp-plan:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+  }
+
+  .sp-plan__head { margin-bottom: 1.5rem; }
+  .sp-plan__name {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-rust);
+    margin-bottom: 0.875rem;
+  }
+  .sp-plan__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.875rem;
+  }
+  .sp-plan__price {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+  }
+  .sp-plan__period {
+    font-size: var(--text-sm);
+    color: var(--color-secondary);
+    font-weight: var(--weight-medium);
+    text-transform: lowercase;
+  }
+  .sp-plan__tagline {
+    font-size: var(--text-base);
+    line-height: var(--leading-snug);
+    color: var(--color-secondary);
+    margin: 0;
+    max-width: 32ch;
+  }
+
+  .sp-plan__rule {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 0 0 1.5rem;
+  }
+
+  .sp-plan__includes {
+    list-style: none;
+    margin: 0 0 2rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex-grow: 1;
+  }
+  .sp-plan__includes li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--color-primary);
+  }
+  .sp-plan__bullet {
+    color: var(--color-rust);
+    flex-shrink: 0;
+    font-weight: var(--weight-bold);
+    margin-top: 0;
+  }
+
+  .sp-plan__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .sp-plan__cta:hover {
+    background-color: transparent;
+    color: var(--color-primary);
+  }
+
+  .sp-plan__note {
+    font-size: 10px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-tertiary);
+    text-align: center;
+    margin: 1rem 0 0;
+  }
+
+  /* ---- Featured (Premium) variant: filled sage, white text ---- */
+  .sp-plan--featured {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #FFFFFF;
+  }
+  .sp-plan--featured:hover {
+    border-color: var(--color-accent-hover);
+    background-color: var(--color-accent-hover);
+  }
+  .sp-plan--featured .sp-plan__name { color: rgba(255,255,255,0.85); }
+  .sp-plan--featured .sp-plan__price { color: #FFFFFF; }
+  .sp-plan--featured .sp-plan__period { color: rgba(255,255,255,0.78); }
+  .sp-plan--featured .sp-plan__tagline { color: rgba(255,255,255,0.85); }
+  .sp-plan--featured .sp-plan__rule { border-top-color: rgba(255,255,255,0.20); }
+  .sp-plan--featured .sp-plan__includes li { color: #FFFFFF; }
+  .sp-plan--featured .sp-plan__bullet { color: rgba(255,255,255,0.6); }
+  .sp-plan--featured .sp-plan__note { color: rgba(255,255,255,0.65); }
+  .sp-plan--featured .sp-plan__cta {
+    background-color: #FFFFFF;
+    color: var(--color-accent);
+    border-color: #FFFFFF;
+  }
+  .sp-plan--featured .sp-plan__cta:hover {
+    background-color: transparent;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+  }
+</style>

@@ -53,6 +53,25 @@ import ServicePage from '../components/ServicePage.astro';
       image: "/images/feat-primary-care-3.jpg"
     }
   ]}
+  pricing={{
+    eyebrow: 'Membership',
+    heading: 'Direct primary care, built for the way you actually use it.',
+    intro: 'A flat monthly fee covers two visits per month and direct messaging with your provider. No surprise bills, no copays, no insurance to navigate.',
+    plans: [
+      {
+        name: 'Direct Primary Care',
+        price: '$99',
+        tagline: 'Two visits per month, one consistent provider.',
+        includes: [
+          'Two telehealth visits per month, included',
+          'Same-day acute care when you are sick',
+          'Direct messaging with your provider',
+          'Chronic-condition management & monitoring',
+          'Prescription management included',
+        ],
+      },
+    ],
+  }}
   subServices={{
     heading: "What we cover under primary & urgent care",
     intro: "Common acute and chronic conditions handled via telehealth. If we can't address something safely by video, we'll tell you and help you find the right care.",

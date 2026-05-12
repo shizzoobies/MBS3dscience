@@ -6,6 +6,18 @@
  */
 
 import Layout from '../layouts/Layout.astro';
+import MembershipPricing from './MembershipPricing.astro';
+
+interface MembershipPlan {
+  name: string;
+  price: string;
+  period?: string;
+  tagline: string;
+  includes: string[];
+  cta?: { label: string; href: string };
+  featured?: boolean;
+  note?: string;
+}
 
 interface Feature {
   heading: string;
@@ -45,6 +57,13 @@ interface Props {
     surface?: string;          // section bg, defaults to bg-shell
     items: string[];
   };
+  // Optional: render a membership pricing section between values and features
+  pricing?: {
+    eyebrow?: string;
+    heading: string;
+    intro?: string;
+    plans: MembershipPlan[];
+  };
 }
 
 const {
@@ -54,6 +73,7 @@ const {
   heroImage,
   values, features, testimonials, steps, faq,
   subServices,
+  pricing,
 } = Astro.props;
 ---
 
@@ -114,6 +134,16 @@ const {
       </div>
     </div>
   </section>
+
+
+  {pricing && (
+    <MembershipPricing
+      eyebrow={pricing.eyebrow}
+      heading={pricing.heading}
+      intro={pricing.intro}
+      plans={pricing.plans}
+    />
+  )}
 
 
   <!-- ============================================================
