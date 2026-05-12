@@ -7,6 +7,7 @@
 
 import Layout from '../layouts/Layout.astro';
 import MembershipPricing from './MembershipPricing.astro';
+import HeroMembershipCard from './HeroMembershipCard.astro';
 
 interface MembershipPlan {
   name: string;
@@ -101,7 +102,9 @@ const {
           </div>
         </div>
         <div class="sp-hero__media">
-          {heroImage ? (
+          {pricing && pricing.plans.length === 1 ? (
+            <HeroMembershipCard eyebrow={pricing.eyebrow} plan={pricing.plans[0]} />
+          ) : heroImage ? (
             <div class="sp-hero__frame">
               <img src={heroImage} alt={`${title} at MBS Medical`} />
               <span class="sp-hero__badge">{chipLabel}</span>
@@ -136,7 +139,7 @@ const {
   </section>
 
 
-  {pricing && (
+  {pricing && pricing.plans.length > 1 && (
     <MembershipPricing
       eyebrow={pricing.eyebrow}
       heading={pricing.heading}
