@@ -245,10 +245,10 @@ p {
 }
 
 .section {
-  padding-block: var(--space-8);
+  padding-block: var(--space-7);
 }
 @media (min-width: 1024px) {
-  .section { padding-block: var(--space-9); }
+  .section { padding-block: var(--space-8); }
 }
 
 /* Surface variants — every section picks one */

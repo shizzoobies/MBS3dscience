@@ -154,7 +154,7 @@ const {
        FEATURES — zigzag, alternating shell/sand
        ============================================================ -->
   {features.map((f, i) => (
-    <section class={`section sp-feature ${i % 2 === 0 ? 'bg-cream' : 'bg-shell'}`}>
+    <section class={`section sp-feature ${i % 2 === 0 ? 'bg-shell' : 'bg-cream'}`}>
       <div class="container">
         <div class={`feature-row reveal ${f.flip ? 'feature-row--flip' : ''}`}>
           <div class="feature-row__media">
@@ -471,7 +471,7 @@ const {
 
   /* ---- Feature row (MBS-Test editorial split with rounded-2xl frame) ---- */
   .sp-feature {
-    padding-block: clamp(5rem, 10vw, 8rem);
+    padding-block: clamp(3rem, 6vw, 5rem);
   }
   .sp-feature-frame {
     position: relative;
