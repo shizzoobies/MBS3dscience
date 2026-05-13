@@ -518,22 +518,20 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     .sp-feature-scene { aspect-ratio: 4/3; }
   }
 
-  /* IntersectionObserver-triggered "come into focus" — same pattern as the
-     rest of the site's .reveal elements (which use the global observer in
-     Layout.astro). Once the scene enters the viewport, a smooth time-based
-     transition runs over ~1.4s, independent of scroll velocity. No more
-     snap from discrete wheel ticks. */
+  /* IntersectionObserver-triggered "come into focus." The default state
+     leaves the scene visible-but-defocused (blurred and slightly smaller)
+     so the user can actually watch it sharpen — not invisible-then-pop-in.
+     Once the scene enters the viewport, a smooth 1.6s transition runs
+     independent of scroll velocity. */
   .sp-feature-scene {
-    opacity: 0;
-    transform: scale(0.94);
-    filter: blur(6px);
+    opacity: 1;
+    transform: scale(0.95);
+    filter: blur(10px);
     transition:
-      opacity 1400ms cubic-bezier(0.22, 1, 0.36, 1),
-      transform 1400ms cubic-bezier(0.22, 1, 0.36, 1),
-      filter 1400ms cubic-bezier(0.22, 1, 0.36, 1);
+      transform 1600ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1600ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   .sp-feature-scene.is-focused {
-    opacity: 1;
     transform: scale(1);
     filter: blur(0);
   }
@@ -935,7 +933,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
         sceneObserver.unobserve(entry.target);
       }
     }),
-    { threshold: 0.18, rootMargin: '0px 0px -80px 0px' }
+    { threshold: 0.25, rootMargin: '0px 0px -120px 0px' }
   );
   document.querySelectorAll('.sp-feature-scene').forEach((el) => {
     sceneObserver.observe(el);
