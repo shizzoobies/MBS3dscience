@@ -29,9 +29,11 @@ function buildBond(a: THREE.Vector3, b: THREE.Vector3): BondTransform {
 }
 
 const PULSE_COLOR = new THREE.Color('#FFE4B5')
-const BASE_SCALE = 0.85
-const ENTRY_SCALE = 0.55
-const ENTRY_DURATION = 0.8
+const BASE_SCALE = 1.35
+const ENTRY_SCALE = 0.7
+const ENTRY_Z = -10   // group starts this far behind origin (away from camera)
+const BASE_Z = 0
+const ENTRY_DURATION = 1.0
 
 interface ClusterProps {
   focused: boolean
@@ -63,8 +65,8 @@ function Cluster({ focused }: ClusterProps) {
     const v2 = new THREE.Vector3(-1, -1, 1).multiplyScalar(tetraScale)
     const v3 = new THREE.Vector3(-1, 1, -1).multiplyScalar(tetraScale)
     const v4 = new THREE.Vector3(1, -1, -1).multiplyScalar(tetraScale)
-    const outer1 = v1.clone().normalize().multiplyScalar(2.1)
-    const outer2 = v3.clone().normalize().multiplyScalar(2.1)
+    const outer1 = v1.clone().normalize().multiplyScalar(1.65)
+    const outer2 = v3.clone().normalize().multiplyScalar(1.65)
     return { v1, v2, v3, v4, outer1, outer2 }
   }, [])
 
@@ -84,25 +86,27 @@ function Cluster({ focused }: ClusterProps) {
     if (!groupRef.current) return
     if (reducedRef.current) {
       groupRef.current.scale.setScalar(BASE_SCALE)
+      groupRef.current.position.z = BASE_Z
       return
     }
 
     const t = state.clock.elapsedTime
 
-    // Entry scale — animate from ENTRY_SCALE to BASE_SCALE once the
-    // component becomes focused. Done in 3D space so we never have to
-    // CSS-scale a live canvas (which forces compositor re-rasterization
-    // every frame and produces visible chop).
+    // Entry animation — the molecule flies in from depth. Animated entirely
+    // in 3D space via vertex transforms and a group position lerp, so the
+    // canvas layer never has to re-rasterize. Perspective handles most of
+    // the "growing" sensation, scale adds a subtle additional bloom.
     if (focused) {
       if (focusStartRef.current === null) focusStartRef.current = t
       const elapsed = t - focusStartRef.current
       const progress = Math.min(elapsed / ENTRY_DURATION, 1)
-      // ease-out cubic
+      // ease-out cubic — decelerates as the molecule settles into place
       const eased = 1 - Math.pow(1 - progress, 3)
-      const scale = THREE.MathUtils.lerp(ENTRY_SCALE, BASE_SCALE, eased)
-      groupRef.current.scale.setScalar(scale)
+      groupRef.current.scale.setScalar(THREE.MathUtils.lerp(ENTRY_SCALE, BASE_SCALE, eased))
+      groupRef.current.position.z = THREE.MathUtils.lerp(ENTRY_Z, BASE_Z, eased)
     } else {
       groupRef.current.scale.setScalar(ENTRY_SCALE)
+      groupRef.current.position.z = ENTRY_Z
     }
 
     // Museum-display tumble — three sinusoidal axes at different periods so
@@ -146,7 +150,7 @@ function Cluster({ focused }: ClusterProps) {
   })
 
   return (
-    <group ref={groupRef} scale={ENTRY_SCALE}>
+    <group ref={groupRef} scale={ENTRY_SCALE} position={[0, 0, ENTRY_Z]}>
       {/* Central atom — brushed brass with a slow breathing pulse */}
       <mesh ref={centerRef} castShadow>
         <sphereGeometry args={[0.5, 36, 36]} />
@@ -235,7 +239,7 @@ export default function Molecule() {
     <div ref={wrapperRef} style={{ width: '100%', height: '100%' }}>
       <Canvas
         dpr={[1, 2]}
-        camera={{ position: [0, 0, 8], fov: 32 }}
+        camera={{ position: [0, 0, 9], fov: 32 }}
         gl={{
           antialias: true,
           alpha: true,
@@ -250,11 +254,11 @@ export default function Molecule() {
         <directionalLight position={[-3, -1, -2]} intensity={0.55} color="#B5C5A8" />
         <Cluster focused={focused} />
         <ContactShadows
-          position={[0, -2.0, 0]}
+          position={[0, -2.4, 0]}
           opacity={0.32}
-          scale={4.8}
+          scale={5.5}
           blur={3.0}
-          far={2.4}
+          far={2.6}
           resolution={256}
           color="#3C3836"
         />
