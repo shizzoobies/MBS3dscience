@@ -12,6 +12,7 @@ import FaqOrnament from './react/FaqOrnament.tsx';
 import DnaHelix from './react/DnaHelix.tsx';
 import LabVial from './react/LabVial.tsx';
 import Molecule from './react/Molecule.tsx';
+import TrtVial from './react/TrtVial.tsx';
 
 interface MembershipPlan {
   name: string;
@@ -33,7 +34,7 @@ interface Feature {
   imgAlt?: string;
   imgSurface?: string;
   image?: string;  // optional real image path, falls back to placeholder
-  scene?: 'dna' | 'vial' | 'molecule'; // optional free-standing 3D form; replaces the framed image
+  scene?: 'dna' | 'vial' | 'molecule' | 'trt-vial'; // optional free-standing 3D form; replaces the framed image
 }
 
 interface FaqItem {
@@ -185,6 +186,10 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             ) : f.scene === 'molecule' ? (
               <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
                 <Molecule client:only="react" />
+              </div>
+            ) : f.scene === 'trt-vial' ? (
+              <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
+                <TrtVial client:only="react" />
               </div>
             ) : f.image ? (
               <div class="sp-feature-frame">
