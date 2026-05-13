@@ -78,6 +78,17 @@ const {
   subServices,
   pricing,
 } = Astro.props;
+
+// Strict bg alternation across every section after values (which is
+// bg-cream). features start at bg-shell (i=0). Each downstream section
+// continues the shell/cream pattern based on its running index, so
+// we never end up with two same-color sections butting up against
+// each other when a page has a different number of features or
+// includes/omits subServices.
+let _bgIdx = features.length + (subServices ? 1 : 0);
+const testimonialsBg = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
+const stepsBg        = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
+const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 ---
 
 <Layout title={title} description={description}>
@@ -219,9 +230,9 @@ const {
 
 
   <!-- ============================================================
-       TESTIMONIALS — cream surface, dark quote cards
+       TESTIMONIALS — bg auto-alternates with section above
        ============================================================ -->
-  <section class="section bg-cream">
+  <section class={`section ${testimonialsBg}`}>
     <div class="container">
       <div class="reveal" style="margin-bottom: 3rem; text-align: center;">
         <span class="sp-section-eyebrow">Patient stories</span>
@@ -240,9 +251,9 @@ const {
 
 
   <!-- ============================================================
-       HOW IT WORKS — cream surface
+       HOW IT WORKS — bg auto-alternates with section above
        ============================================================ -->
-  <section class="section bg-cream">
+  <section class={`section ${stepsBg}`}>
     <div class="container">
       <div class="reveal" style="text-align:center; margin-bottom:3.5rem;">
         <span class="label">how it works</span>
@@ -261,9 +272,9 @@ const {
 
 
   <!-- ============================================================
-       FAQ — shell surface
+       FAQ — bg auto-alternates with section above
        ============================================================ -->
-  <section class="section bg-shell">
+  <section class={`section ${faqBg}`}>
     <div class="container">
       <div class="reveal faq-layout">
         <div class="faq-heading">
@@ -553,7 +564,8 @@ const {
     border-top: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
     padding-block: 0.5rem;
-    max-width: 960px;
+    max-width: 880px;
+    margin-inline: auto;
   }
   .sp-sub-summary {
     list-style: none;
