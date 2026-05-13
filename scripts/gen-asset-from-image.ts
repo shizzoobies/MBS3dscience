@@ -15,7 +15,7 @@ import { existsSync } from 'node:fs'
 import { resolve, dirname, extname, isAbsolute } from 'node:path'
 import { execSync } from 'node:child_process'
 
-const BASE_V2 = 'https://api.meshy.ai/openapi/v2/image-to-3d'
+const BASE_V1 = 'https://api.meshy.ai/openapi/v1/image-to-3d'
 
 async function loadEnvLocal() {
   const envPath = resolve(process.cwd(), '.env.local')
@@ -39,7 +39,7 @@ function key(): string {
 }
 
 async function meshy(path: string, init: RequestInit = {}): Promise<any> {
-  const res = await fetch(`${BASE_V2}${path}`, {
+  const res = await fetch(`${BASE_V1}${path}`, {
     ...init,
     headers: {
       Authorization: `Bearer ${key()}`,
@@ -73,16 +73,14 @@ async function buildDataUrl(filePath: string): Promise<string> {
   return `data:${mime};base64,${b64}`
 }
 
-async function startPreview(imageDataUrl: string, artStyle: string): Promise<string> {
+async function startPreview(imageDataUrl: string, _artStyle: string): Promise<string> {
   const body = {
     image_url: imageDataUrl,
-    ai_model: 'meshy-4',
+    ai_model: 'meshy-6',
     topology: 'triangle',
     target_polycount: 30000,
     symmetry_mode: 'auto',
     should_remesh: true,
-    enable_pbr: true,
-    art_style: artStyle,
   }
   const data = await meshy('', { method: 'POST', body: JSON.stringify(body) })
   return data.result
@@ -91,7 +89,7 @@ async function startPreview(imageDataUrl: string, artStyle: string): Promise<str
 async function startRefine(previewId: string): Promise<string> {
   const data = await meshy('', {
     method: 'POST',
-    body: JSON.stringify({ mode: 'refine', preview_task_id: previewId, enable_pbr: true }),
+    body: JSON.stringify({ mode: 'refine', input_task_id: previewId }),
   })
   return data.result
 }
@@ -150,15 +148,27 @@ async function main() {
 
   const previewId = await startPreview(dataUrl, artStyle)
   console.log(`[meshy] preview task: ${previewId}`)
-  await waitFor(previewId, 'preview', 5000)
+  const previewResult = await waitFor(previewId, 'preview', 5000)
 
-  console.log(`[meshy] starting refine`)
-  const refineId = await startRefine(previewId)
-  console.log(`[meshy] refine task: ${refineId}`)
-  const refineResult = await waitFor(refineId, 'refine', 10000)
+  // meshy-6 image-to-3D is single-shot — the preview output is the final
+  // model, no refine pass available on this endpoint. Try refine anyway
+  // for forward compatibility; fall back to preview if refine isn't
+  // supported.
+  let modelResult = previewResult
+  try {
+    console.log(`[meshy] attempting refine pass`)
+    const refineId = await startRefine(previewId)
+    console.log(`[meshy] refine task: ${refineId}`)
+    modelResult = await waitFor(refineId, 'refine', 10000)
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.log(`\n[meshy] refine not available, using preview result (${msg.split('\n')[0]})`)
+  }
 
-  const glbUrl: string | undefined = refineResult.model_urls?.glb
-  if (!glbUrl) throw new Error('no GLB in refine result')
+  // v1 image-to-3D returns model_url (singular). v2 text-to-3D returns
+  // model_urls.glb (object). Support both shapes.
+  const glbUrl: string | undefined = modelResult.model_url ?? modelResult.model_urls?.glb
+  if (!glbUrl) throw new Error('no GLB in result')
 
   console.log(`[meshy] downloading GLB`)
   await download(glbUrl, rawPath)
