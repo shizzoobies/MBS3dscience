@@ -28,8 +28,14 @@ function buildBond(a: THREE.Vector3, b: THREE.Vector3): BondTransform {
   return { position: mid, quaternion, length }
 }
 
+const PULSE_COLOR = new THREE.Color('#FFE4B5')
+
 function Cluster() {
   const groupRef = useRef<THREE.Group>(null!)
+  const centerRef = useRef<THREE.Mesh>(null!)
+  const bondRefs = useRef<(THREE.Mesh | null)[]>([])
+  const v1Ref = useRef<THREE.Mesh>(null!)
+  const v3Ref = useRef<THREE.Mesh>(null!)
   const reducedRef = useRef(false)
 
   useEffect(() => {
@@ -66,17 +72,56 @@ function Cluster() {
     ]
   }, [atoms])
 
-  useFrame((_, delta) => {
+  useFrame((state) => {
     if (!groupRef.current) return
-    const speed = reducedRef.current ? 0 : 1
-    groupRef.current.rotation.y += delta * 0.3 * speed
-    groupRef.current.rotation.x = Math.sin(groupRef.current.rotation.y * 0.4) * 0.16
+    if (reducedRef.current) return
+
+    const t = state.clock.elapsedTime
+
+    // Museum-display tumble — three sinusoidal axes at different periods so
+    // the rotation feels hand-animated, not like a turntable.
+    groupRef.current.rotation.y = t * 0.28 + Math.sin(t * 0.45) * 0.18
+    groupRef.current.rotation.x = Math.sin(t * 0.36) * 0.36
+    groupRef.current.rotation.z = Math.cos(t * 0.24) * 0.14
+
+    // Central atom breathes
+    if (centerRef.current) {
+      const pulse = 1 + Math.sin(t * 1.15) * 0.045
+      centerRef.current.scale.setScalar(pulse)
+    }
+
+    // The two second-shell branches sway a touch — small angular offset
+    // on the V1 and V3 group axes, so the outer atoms hang gently rather
+    // than feeling welded in place.
+    if (v1Ref.current) {
+      v1Ref.current.position.copy(atoms.outer1)
+      v1Ref.current.position.x += Math.sin(t * 0.9) * 0.04
+      v1Ref.current.position.y += Math.cos(t * 0.82) * 0.04
+    }
+    if (v3Ref.current) {
+      v3Ref.current.position.copy(atoms.outer2)
+      v3Ref.current.position.x += Math.sin(t * 0.78 + 1.4) * 0.04
+      v3Ref.current.position.y += Math.cos(t * 0.91 + 1.4) * 0.04
+    }
+
+    // Cascading emissive pulse along the bonds — like signal flow.
+    // Each bond is offset in phase so the pulse appears to travel
+    // around the molecule.
+    bondRefs.current.forEach((bond, i) => {
+      if (!bond) return
+      const phase = (i / bonds.length) * Math.PI * 2
+      const wave = Math.sin(t * 1.6 - phase)
+      const intensity = Math.max(0, wave) * 0.65
+      const mat = bond.material as THREE.MeshStandardMaterial
+      mat.emissive.copy(PULSE_COLOR)
+      mat.emissiveIntensity = intensity
+    })
   })
 
   return (
     <group ref={groupRef} scale={0.85}>
-      {/* Central atom — brushed brass */}
-      <mesh castShadow>
+      {/* Central atom — brushed brass with a slow breathing pulse */}
+      <mesh ref={centerRef} castShadow>
         <sphereGeometry args={[0.5, 36, 36]} />
         <meshStandardMaterial color="#B8956A" roughness={0.36} metalness={0.7} />
       </mesh>
@@ -99,19 +144,28 @@ function Cluster() {
         <meshStandardMaterial color="#C27A63" roughness={0.5} metalness={0.18} />
       </mesh>
 
-      {/* Second shell — smaller, off the V1 and V3 axes */}
-      <mesh position={atoms.outer1} castShadow>
+      {/* Second shell — smaller, gently swaying off the V1 and V3 axes */}
+      <mesh ref={v1Ref} position={atoms.outer1} castShadow>
         <sphereGeometry args={[0.22, 28, 28]} />
         <meshStandardMaterial color="#A1AC9F" roughness={0.55} metalness={0.15} />
       </mesh>
-      <mesh position={atoms.outer2} castShadow>
+      <mesh ref={v3Ref} position={atoms.outer2} castShadow>
         <sphereGeometry args={[0.22, 28, 28]} />
         <meshStandardMaterial color="#D08F7A" roughness={0.55} metalness={0.15} />
       </mesh>
 
-      {/* Bonds — brushed brass cylinders */}
+      {/* Bonds — brushed brass cylinders, each carrying a phase-offset
+          emissive pulse to suggest signal flow through the molecule. */}
       {bonds.map((b, i) => (
-        <mesh key={i} position={b.position} quaternion={b.quaternion} castShadow>
+        <mesh
+          key={i}
+          ref={(el) => {
+            bondRefs.current[i] = el
+          }}
+          position={b.position}
+          quaternion={b.quaternion}
+          castShadow
+        >
           <cylinderGeometry args={[0.06, 0.06, b.length, 14]} />
           <meshStandardMaterial color="#B8956A" roughness={0.4} metalness={0.6} />
         </mesh>
