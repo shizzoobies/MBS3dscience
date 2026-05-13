@@ -29,8 +29,8 @@ function buildBond(a: THREE.Vector3, b: THREE.Vector3): BondTransform {
 }
 
 const PULSE_COLOR = new THREE.Color('#FFE4B5')
-const BASE_SCALE = 0.85
-const ENTRY_SCALE = 0.6
+const BASE_SCALE = 1.2
+const ENTRY_SCALE = 0.7
 const ENTRY_Z = -10   // group starts this far behind origin (away from camera)
 const BASE_Z = 0
 const ENTRY_DURATION = 1.0
@@ -153,35 +153,35 @@ function Cluster({ focused }: ClusterProps) {
     <group ref={groupRef} scale={ENTRY_SCALE} position={[0, 0, ENTRY_Z]}>
       {/* Central atom — brushed brass with a slow breathing pulse */}
       <mesh ref={centerRef} castShadow>
-        <sphereGeometry args={[0.5, 36, 36]} />
+        <sphereGeometry args={[0.7, 40, 40]} />
         <meshStandardMaterial color="#B8956A" roughness={0.36} metalness={0.7} />
       </mesh>
 
       {/* Inner shell — two sage, two rust at tetrahedral vertices */}
       <mesh position={atoms.v1} castShadow>
-        <sphereGeometry args={[0.32, 32, 32]} />
+        <sphereGeometry args={[0.45, 32, 32]} />
         <meshStandardMaterial color="#7D8C7B" roughness={0.5} metalness={0.18} />
       </mesh>
       <mesh position={atoms.v2} castShadow>
-        <sphereGeometry args={[0.32, 32, 32]} />
+        <sphereGeometry args={[0.45, 32, 32]} />
         <meshStandardMaterial color="#7D8C7B" roughness={0.5} metalness={0.18} />
       </mesh>
       <mesh position={atoms.v3} castShadow>
-        <sphereGeometry args={[0.32, 32, 32]} />
+        <sphereGeometry args={[0.45, 32, 32]} />
         <meshStandardMaterial color="#C27A63" roughness={0.5} metalness={0.18} />
       </mesh>
       <mesh position={atoms.v4} castShadow>
-        <sphereGeometry args={[0.32, 32, 32]} />
+        <sphereGeometry args={[0.45, 32, 32]} />
         <meshStandardMaterial color="#C27A63" roughness={0.5} metalness={0.18} />
       </mesh>
 
       {/* Second shell — smaller, gently swaying off the V1 and V3 axes */}
       <mesh ref={v1Ref} position={atoms.outer1} castShadow>
-        <sphereGeometry args={[0.22, 28, 28]} />
+        <sphereGeometry args={[0.28, 28, 28]} />
         <meshStandardMaterial color="#A1AC9F" roughness={0.55} metalness={0.15} />
       </mesh>
       <mesh ref={v3Ref} position={atoms.outer2} castShadow>
-        <sphereGeometry args={[0.22, 28, 28]} />
+        <sphereGeometry args={[0.28, 28, 28]} />
         <meshStandardMaterial color="#D08F7A" roughness={0.55} metalness={0.15} />
       </mesh>
 
@@ -197,7 +197,7 @@ function Cluster({ focused }: ClusterProps) {
           quaternion={b.quaternion}
           castShadow
         >
-          <cylinderGeometry args={[0.06, 0.06, b.length, 14]} />
+          <cylinderGeometry args={[0.09, 0.09, b.length, 16]} />
           <meshStandardMaterial color="#B8956A" roughness={0.4} metalness={0.6} />
         </mesh>
       ))}
@@ -239,7 +239,7 @@ export default function Molecule() {
     <div ref={wrapperRef} style={{ width: '100%', height: '100%' }}>
       <Canvas
         dpr={[1, 2]}
-        camera={{ position: [0, 0, 7], fov: 32 }}
+        camera={{ position: [0, 0, 8], fov: 32 }}
         gl={{
           antialias: true,
           alpha: true,
@@ -254,11 +254,11 @@ export default function Molecule() {
         <directionalLight position={[-3, -1, -2]} intensity={0.55} color="#B5C5A8" />
         <Cluster focused={focused} />
         <ContactShadows
-          position={[0, -1.85, 0]}
+          position={[0, -2.2, 0]}
           opacity={0.32}
-          scale={4.2}
+          scale={5.0}
           blur={2.8}
-          far={2.0}
+          far={2.4}
           resolution={256}
           color="#3C3836"
         />
