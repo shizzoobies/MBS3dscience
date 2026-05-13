@@ -518,37 +518,33 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     .sp-feature-scene { aspect-ratio: 4/3; }
   }
 
-  /* Scroll-tied "come into focus" — Chrome 115+ and Safari 18+. Firefox
-     and older browsers degrade to fully visible (no animation applied).
-     The scene gently opacity-and-blur fades into focus as the section
-     enters the viewport.
-
-     Animation range is intentionally wide (entry → cover 55%) so each
-     scroll tick produces a small delta — heavy filter:blur on a live
-     canvas is expensive and chops at narrow ranges. The max blur is
-     kept light (6px) for the same reason. */
-  @supports (animation-timeline: view()) {
-    .sp-feature-scene {
-      animation: sp-scene-focus linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 55%;
-    }
-    @keyframes sp-scene-focus {
-      from {
-        opacity: 0;
-        transform: scale(0.94);
-        filter: blur(6px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0);
-      }
-    }
+  /* IntersectionObserver-triggered "come into focus" — same pattern as the
+     rest of the site's .reveal elements (which use the global observer in
+     Layout.astro). Once the scene enters the viewport, a smooth time-based
+     transition runs over ~1.4s, independent of scroll velocity. No more
+     snap from discrete wheel ticks. */
+  .sp-feature-scene {
+    opacity: 0;
+    transform: scale(0.94);
+    filter: blur(6px);
+    transition:
+      opacity 1400ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 1400ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .sp-feature-scene.is-focused {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sp-feature-scene { animation: none; opacity: 1; transform: none; filter: none; }
+    .sp-feature-scene {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      transition: none;
+    }
   }
   .sp-feature-frame {
     position: relative;
@@ -820,6 +816,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     max-width: 60ch;
   }
 
+  /* (Closing CTA styles below) */
   /* ---- Closing CTA: rounded dark card ---- */
   .sp-cta-section {
     background-color: var(--color-neutral);
@@ -925,3 +922,22 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     border-color: rgba(255,255,255,0.6);
   }
 </style>
+
+
+<script>
+  // Trigger the .sp-feature-scene focus transition once each scene enters
+  // the viewport. Time-based easing (defined in the scoped CSS above) means
+  // the animation runs smoothly regardless of scroll velocity.
+  const sceneObserver = new IntersectionObserver(
+    (entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-focused');
+        sceneObserver.unobserve(entry.target);
+      }
+    }),
+    { threshold: 0.18, rootMargin: '0px 0px -80px 0px' }
+  );
+  document.querySelectorAll('.sp-feature-scene').forEach((el) => {
+    sceneObserver.observe(el);
+  });
+</script>
