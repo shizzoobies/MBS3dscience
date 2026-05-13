@@ -517,28 +517,23 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     .sp-feature-scene { aspect-ratio: 4/3; }
   }
 
-  /* IntersectionObserver-triggered grow-and-fade-in. Transform + opacity
-     only — both are compositor-only properties so the GPU animates them
-     without re-rasterizing the continuously-rendering canvas inside.
-     filter:blur was the cause of the earlier stuttering; dropping it
-     trades the "blur sharpens" beat for a silky-smooth grow. */
+  /* Wrapper handles only an opacity fade — cheap on the GPU since it
+     doesn't force the canvas layer to re-rasterize. The "grow into
+     frame" scale animation is owned by each R3F scene component
+     (Cluster in Molecule.tsx, etc.), driven by useFrame in 3D space.
+     This avoids the well-known choppiness of CSS-transforming a live
+     canvas wrapper. */
   .sp-feature-scene {
-    opacity: 0.2;
-    transform: translateY(48px) scale(0.65);
-    transition:
-      transform 1500ms cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 1500ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0.4;
+    transition: opacity 1500ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   .sp-feature-scene.is-focused {
     opacity: 1;
-    transform: translateY(0) scale(1);
   }
 
   @media (prefers-reduced-motion: reduce) {
     .sp-feature-scene {
       opacity: 1;
-      transform: none;
-      filter: none;
       transition: none;
     }
   }
