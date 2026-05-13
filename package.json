@@ -23,5 +23,8 @@
     "react-hook-form": "^7.75.0",
     "three": "^0.166.1",
     "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
   }
 }
