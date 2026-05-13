@@ -510,31 +510,28 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     background-color: transparent;
     border: 0;
     overflow: visible;
-    /* Helps the blur filter composite cleanly during the focus animation */
     transform-origin: center center;
-    will-change: transform, filter, opacity;
+    will-change: transform, opacity;
   }
   @media (max-width: 767px) {
     .sp-feature-scene { aspect-ratio: 4/3; }
   }
 
-  /* IntersectionObserver-triggered "come into focus." The default state
-     leaves the scene visible-but-defocused (blurred and slightly smaller)
-     so the user can actually watch it sharpen — not invisible-then-pop-in.
-     Once the scene enters the viewport, a smooth 1.6s transition runs
-     independent of scroll velocity. */
+  /* IntersectionObserver-triggered grow-and-fade-in. Transform + opacity
+     only — both are compositor-only properties so the GPU animates them
+     without re-rasterizing the continuously-rendering canvas inside.
+     filter:blur was the cause of the earlier stuttering; dropping it
+     trades the "blur sharpens" beat for a silky-smooth grow. */
   .sp-feature-scene {
-    opacity: 1;
-    transform: translateY(40px) scale(0.7);
-    filter: blur(5px);
-    transform-origin: center center;
+    opacity: 0.2;
+    transform: translateY(48px) scale(0.65);
     transition:
       transform 1500ms cubic-bezier(0.22, 1, 0.36, 1),
-      filter 1500ms cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 1500ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   .sp-feature-scene.is-focused {
+    opacity: 1;
     transform: translateY(0) scale(1);
-    filter: blur(0);
   }
 
   @media (prefers-reduced-motion: reduce) {
