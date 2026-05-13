@@ -520,18 +520,24 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 
   /* Scroll-tied "come into focus" — Chrome 115+ and Safari 18+. Firefox
      and older browsers degrade to fully visible (no animation applied).
-     The scene blurs in and scales up as the section enters the viewport. */
+     The scene gently opacity-and-blur fades into focus as the section
+     enters the viewport.
+
+     Animation range is intentionally wide (entry → cover 55%) so each
+     scroll tick produces a small delta — heavy filter:blur on a live
+     canvas is expensive and chops at narrow ranges. The max blur is
+     kept light (6px) for the same reason. */
   @supports (animation-timeline: view()) {
     .sp-feature-scene {
       animation: sp-scene-focus linear both;
       animation-timeline: view();
-      animation-range: entry 5% cover 35%;
+      animation-range: entry 0% cover 55%;
     }
     @keyframes sp-scene-focus {
       from {
         opacity: 0;
-        transform: scale(0.86);
-        filter: blur(14px);
+        transform: scale(0.94);
+        filter: blur(6px);
       }
       to {
         opacity: 1;
