@@ -134,7 +134,7 @@ export default function DnaHelix() {
   return (
     <Canvas
       dpr={[1, 2]}
-      camera={{ position: [0, 0.2, 7.5], fov: 32 }}
+      camera={{ position: [0, 0, 8.6], fov: 32 }}
       gl={{
         antialias: true,
         alpha: true,
@@ -149,10 +149,10 @@ export default function DnaHelix() {
       <directionalLight position={[-3, -1, -2]} intensity={0.55} color="#B5C5A8" />
       <Helix />
       <ContactShadows
-        position={[0, -2.25, 0]}
-        opacity={0.34}
+        position={[0, -2.35, 0]}
+        opacity={0.32}
         scale={5.5}
-        blur={3.0}
+        blur={3.2}
         far={2.5}
         resolution={256}
         color="#3C3836"
