@@ -9,6 +9,7 @@ import Layout from '../layouts/Layout.astro';
 import MembershipPricing from './MembershipPricing.astro';
 import HeroMembershipCard from './HeroMembershipCard.astro';
 import FaqOrnament from './react/FaqOrnament.tsx';
+import DnaHelix from './react/DnaHelix.tsx';
 
 interface MembershipPlan {
   name: string;
@@ -30,6 +31,7 @@ interface Feature {
   imgAlt?: string;
   imgSurface?: string;
   image?: string;  // optional real image path, falls back to placeholder
+  scene?: 'dna';   // optional free-standing 3D form; replaces the framed image
 }
 
 interface FaqItem {
@@ -170,7 +172,11 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
       <div class="container">
         <div class={`feature-row reveal ${f.flip ? 'feature-row--flip' : ''}`}>
           <div class="feature-row__media">
-            {f.image ? (
+            {f.scene === 'dna' ? (
+              <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
+                <DnaHelix client:only="react" />
+              </div>
+            ) : f.image ? (
               <div class="sp-feature-frame">
                 <img src={f.image} alt={f.imgAlt ?? f.heading} />
               </div>
@@ -484,6 +490,19 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   /* ---- Feature row (MBS-Test editorial split with rounded-2xl frame) ---- */
   .sp-feature {
     padding-block: clamp(2rem, 4vw, 3.5rem);
+  }
+  /* Free-standing 3D scene slot — same footprint as the image frame but no
+     visible card, transparent background, rendered by an R3F island. */
+  .sp-feature-scene {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: transparent;
+    border: 0;
+    overflow: visible;
+  }
+  @media (max-width: 767px) {
+    .sp-feature-scene { aspect-ratio: 4/3; }
   }
   .sp-feature-frame {
     position: relative;
