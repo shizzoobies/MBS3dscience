@@ -8,6 +8,7 @@
 import Layout from '../layouts/Layout.astro';
 import MembershipPricing from './MembershipPricing.astro';
 import HeroMembershipCard from './HeroMembershipCard.astro';
+import FaqOrnament from './react/FaqOrnament.tsx';
 
 interface MembershipPlan {
   name: string;
@@ -284,7 +285,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             More questions? <a href="/contact/" style="text-decoration:underline; text-underline-offset:3px;">Contact us.</a>
           </p>
           <div class="faq-decorative-frame" aria-hidden="true">
-            <img src="/images/sig-leaf.jpg" alt="" />
+            <FaqOrnament client:only="react" />
           </div>
         </div>
         <div class="faq-list">
