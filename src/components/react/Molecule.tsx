@@ -30,8 +30,8 @@ function buildBond(a: THREE.Vector3, b: THREE.Vector3): BondTransform {
 
 const PULSE_COLOR = new THREE.Color('#FFE4B5')
 const BASE_SCALE = 0.85
-const ENTRY_SCALE = 0.5
-const ENTRY_DURATION = 1.5
+const ENTRY_SCALE = 0.55
+const ENTRY_DURATION = 0.8
 
 interface ClusterProps {
   focused: boolean
