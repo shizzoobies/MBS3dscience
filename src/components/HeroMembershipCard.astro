@@ -78,9 +78,13 @@ const note = plan.note ?? DEFAULT_NOTE;
 
 <style>
   .hero-strip {
-    background-color: var(--color-surface-soft);
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
+    /* Sage-tint gives membership its own complementing accent that
+       reads cool against every warm hero surface (sand, butter,
+       coral, rust). Borders use a sage-toned hairline so the strip
+       feels like a deliberate band, not a muddy adjacent section. */
+    background-color: var(--color-accent-light);
+    border-top: 1px solid rgba(125,140,123,0.22);
+    border-bottom: 1px solid rgba(125,140,123,0.22);
     padding-block: 2rem;
   }
   /* Strip uses a wider inner max-width than other sections so the
