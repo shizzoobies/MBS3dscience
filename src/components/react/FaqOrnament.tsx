@@ -1,4 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber'
+import { ContactShadows } from '@react-three/drei'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 
@@ -80,22 +81,32 @@ export default function FaqOrnament() {
   return (
     <Canvas
       dpr={[1, 2]}
-      camera={{ position: [0, 0, 3.2], fov: 38 }}
+      camera={{ position: [0, 0.2, 3.2], fov: 38 }}
       gl={{
         antialias: true,
+        alpha: true,
         outputColorSpace: THREE.SRGBColorSpace,
         toneMapping: THREE.ACESFilmicToneMapping,
         toneMappingExposure: 1.05,
       }}
       style={{ width: '100%', height: '100%' }}
     >
-      <color attach="background" args={['#EAE7E0']} />
-      <ambientLight intensity={0.35} />
+      <ambientLight intensity={0.4} />
       {/* Warm key from upper-right gives the brass its glint */}
-      <directionalLight position={[3, 3, 4]} intensity={1.4} color="#FFE4B5" />
+      <directionalLight position={[3, 3, 4]} intensity={1.5} color="#FFE4B5" castShadow />
       {/* Cool sage rim from the back-left */}
       <directionalLight position={[-3, -1, -2]} intensity={0.55} color="#B5C5A8" />
       <Leaf />
+      {/* Soft drop to anchor the leaf without a visible card behind it */}
+      <ContactShadows
+        position={[0, -1.05, 0]}
+        opacity={0.34}
+        scale={3.2}
+        blur={2.6}
+        far={1.4}
+        resolution={256}
+        color="#3C3836"
+      />
     </Canvas>
   )
 }
