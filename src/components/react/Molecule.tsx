@@ -29,8 +29,8 @@ function buildBond(a: THREE.Vector3, b: THREE.Vector3): BondTransform {
 }
 
 const PULSE_COLOR = new THREE.Color('#FFE4B5')
-const BASE_SCALE = 1.35
-const ENTRY_SCALE = 0.7
+const BASE_SCALE = 0.85
+const ENTRY_SCALE = 0.6
 const ENTRY_Z = -10   // group starts this far behind origin (away from camera)
 const BASE_Z = 0
 const ENTRY_DURATION = 1.0
@@ -65,8 +65,8 @@ function Cluster({ focused }: ClusterProps) {
     const v2 = new THREE.Vector3(-1, -1, 1).multiplyScalar(tetraScale)
     const v3 = new THREE.Vector3(-1, 1, -1).multiplyScalar(tetraScale)
     const v4 = new THREE.Vector3(1, -1, -1).multiplyScalar(tetraScale)
-    const outer1 = v1.clone().normalize().multiplyScalar(1.65)
-    const outer2 = v3.clone().normalize().multiplyScalar(1.65)
+    const outer1 = v1.clone().normalize().multiplyScalar(2.1)
+    const outer2 = v3.clone().normalize().multiplyScalar(2.1)
     return { v1, v2, v3, v4, outer1, outer2 }
   }, [])
 
@@ -239,7 +239,7 @@ export default function Molecule() {
     <div ref={wrapperRef} style={{ width: '100%', height: '100%' }}>
       <Canvas
         dpr={[1, 2]}
-        camera={{ position: [0, 0, 9], fov: 32 }}
+        camera={{ position: [0, 0, 7], fov: 32 }}
         gl={{
           antialias: true,
           alpha: true,
@@ -254,11 +254,11 @@ export default function Molecule() {
         <directionalLight position={[-3, -1, -2]} intensity={0.55} color="#B5C5A8" />
         <Cluster focused={focused} />
         <ContactShadows
-          position={[0, -2.4, 0]}
+          position={[0, -1.85, 0]}
           opacity={0.32}
-          scale={5.5}
-          blur={3.0}
-          far={2.6}
+          scale={4.2}
+          blur={2.8}
+          far={2.0}
           resolution={256}
           color="#3C3836"
         />
