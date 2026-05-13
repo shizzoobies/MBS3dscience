@@ -81,7 +81,7 @@ export default function FaqOrnament() {
   return (
     <Canvas
       dpr={[1, 2]}
-      camera={{ position: [0, 0.2, 3.2], fov: 38 }}
+      camera={{ position: [0, 0.2, 4.6], fov: 36 }}
       gl={{
         antialias: true,
         alpha: true,
@@ -99,11 +99,11 @@ export default function FaqOrnament() {
       <Leaf />
       {/* Soft drop to anchor the leaf without a visible card behind it */}
       <ContactShadows
-        position={[0, -1.05, 0]}
-        opacity={0.34}
-        scale={3.2}
-        blur={2.6}
-        far={1.4}
+        position={[0, -1.35, 0]}
+        opacity={0.32}
+        scale={3.6}
+        blur={2.8}
+        far={1.6}
         resolution={256}
         color="#3C3836"
       />
