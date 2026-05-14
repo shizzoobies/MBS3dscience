@@ -65,11 +65,11 @@ const navLinks: Array<{ label: string; href: string; external?: boolean }> = [
 
 <style>
   .site-footer {
-    background-color: var(--color-surface);
-    color: var(--color-primary);
+    background-color: #000000;
+    color: rgba(255, 255, 255, 0.86);
     padding-top: 6rem;
     padding-bottom: 3rem;
-    border-top: 1px solid rgba(60,56,54,0.10);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   /* Editorial 2-col layout: brand wider on the left, nav anchored right */
@@ -78,7 +78,7 @@ const navLinks: Array<{ label: string; href: string; external?: boolean }> = [
     grid-template-columns: 1fr;
     gap: 3rem;
     padding-bottom: 3rem;
-    border-bottom: 1px solid rgba(60,56,54,0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
   }
   @media (min-width: 768px) {
     .footer-grid {
@@ -94,14 +94,19 @@ const navLinks: Array<{ label: string; href: string; external?: boolean }> = [
     margin-bottom: 1.25rem;
     padding: 10px 16px;
     border-radius: var(--radius-md);
-    background-color: rgba(60,56,54,0.04);
-    transition: opacity 200ms ease;
+    background-color: rgba(255, 255, 255, 0.06);
+    transition: background-color 200ms ease;
   }
-  .footer-logo-link:hover { opacity: 0.85; }
+  .footer-logo-link:hover {
+    background-color: rgba(255, 255, 255, 0.10);
+  }
   .footer-logo-img {
     display: block;
     height: 44px;
     width: auto;
+    /* Force the logo to render in white so it stays legible on black
+       regardless of the source PNG's colors. */
+    filter: brightness(0) invert(1);
   }
   .footer-tagline {
     font-family: var(--font-display);
@@ -109,7 +114,7 @@ const navLinks: Array<{ label: string; href: string; external?: boolean }> = [
     font-size: 1.25rem;
     font-weight: 300;
     line-height: 1.45;
-    color: var(--color-secondary);
+    color: rgba(255, 255, 255, 0.78);
     max-width: 36ch;
     letter-spacing: -0.005em;
   }
@@ -137,7 +142,7 @@ const navLinks: Array<{ label: string; href: string; external?: boolean }> = [
     font-weight: var(--weight-bold);
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-primary);
+    color: rgba(255, 255, 255, 0.88);
     text-decoration: none;
     transition: color 150ms ease;
   }
@@ -146,7 +151,7 @@ const navLinks: Array<{ label: string; href: string; external?: boolean }> = [
   }
   .footer-links a span {
     font-size: 0.75em;
-    opacity: 0.6;
+    opacity: 0.75;
     margin-left: 0.15em;
   }
 
@@ -158,7 +163,7 @@ const navLinks: Array<{ label: string; href: string; external?: boolean }> = [
     letter-spacing: 0.2em;
     text-transform: uppercase;
     line-height: var(--leading-relaxed);
-    color: rgba(60,56,54,0.40);
+    color: rgba(255, 255, 255, 0.45);
     max-width: 80ch;
   }
 </style>

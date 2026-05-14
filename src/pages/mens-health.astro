@@ -11,7 +11,10 @@ import ServicePage from '../components/ServicePage.astro';
   chipLabel="lab-driven"
   chipClass="chip-terracotta"
   heroSurface="rgba(194,122,99,0.10)"
-  heroImage="/images/hero-mens-health.jpg"
+  heroImage="/images/hero-mens-health-dad-son.png"
+  heroVariant="fullwidth"
+  stepsBackground="testosterone"
+  stepsAsHero={true}
   pricing={{
     plans: [
       {
@@ -71,9 +74,10 @@ import ServicePage from '../components/ServicePage.astro';
       body: "Erectile dysfunction affects tens of millions of men and increases with age. It's often connected to cardiovascular health, hormonal levels, or psychological factors. We evaluate all of it and offer treatment options including PDE-5 inhibitors, hormone optimization, and lifestyle interventions. No judgment. Just a provider who takes it seriously.",
       chipLabel: "ED treatment",
       chipClass: "chip-coral",
-      imgAlt: "Strength training at home",
-      image: "/images/feat-mens-health-2.jpg",
-      flip: true
+      imgAlt: "ED treatment at MBS Medical",
+      image: "/images/feat-mens-health-ed.png",
+      flip: true,
+      variant: "fullwidth"
     }
   ]}
   testimonials={[

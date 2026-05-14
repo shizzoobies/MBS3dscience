@@ -8,6 +8,7 @@
 import Layout from '../layouts/Layout.astro';
 import MembershipPricing from './MembershipPricing.astro';
 import HeroMembershipCard from './HeroMembershipCard.astro';
+import TestosteroneGraph from './TestosteroneGraph.astro';
 import FaqOrnament from './react/FaqOrnament.tsx';
 import DnaHelix from './react/DnaHelix.tsx';
 import LabVial from './react/LabVial.tsx';
@@ -35,6 +36,7 @@ interface Feature {
   imgSurface?: string;
   image?: string;  // optional real image path, falls back to placeholder
   scene?: 'dna' | 'vial' | 'molecule' | 'trt-vial'; // optional free-standing 3D form; replaces the framed image
+  variant?: 'editorial' | 'fullwidth'; // default editorial split; 'fullwidth' renders the image as a full-bleed section with text overlaid
 }
 
 interface FaqItem {
@@ -73,6 +75,18 @@ interface Props {
     eyebrow?: string;
     plans: MembershipPlan[];
   };
+  // Optional: render a subtle decorative graph behind the "how it works"
+  // section. 'testosterone' shows an upward-trending curve representing
+  // improving levels across the treatment timeline.
+  stepsBackground?: 'testosterone';
+  // Hero layout. Default 'editorial' is the asymmetric split with image
+  // card on the right. 'fullwidth' renders the heroImage full-bleed with
+  // a dark gradient and text overlaid in the left column.
+  heroVariant?: 'editorial' | 'fullwidth';
+  // When true, the "how it works" section gets a dark image backdrop and
+  // absorbs the closing CTA copy (eyebrow + title + sub + pill buttons)
+  // at the bottom, replacing the standalone CTA section at end of page.
+  stepsAsHero?: boolean;
 }
 
 const {
@@ -83,6 +97,9 @@ const {
   values, features, testimonials, steps, faq,
   subServices,
   pricing,
+  stepsBackground,
+  heroVariant = 'editorial',
+  stepsAsHero = false,
 } = Astro.props;
 
 // Strict bg alternation across every section after values (which is
@@ -105,39 +122,67 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        Background tint comes from the heroSurface prop so each service
        page can pick its own accent (alternating across pages).
        ============================================================ -->
-  <section class="section sp-hero" style={`background-color: ${heroSurface};`}>
-    <div class="container">
-      <div class="sp-hero__grid">
-        <div class="sp-hero__text">
-          <span class="editorial-eyebrow">{eyebrow}</span>
-          <h1 class="sp-hero__title">{heroTitle}</h1>
-          <p class="sp-hero__sub">{heroSub}</p>
+  {heroVariant === 'fullwidth' && heroImage ? (
+    <section class="section sp-hero sp-hero--fullwidth">
+      <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero__bg" />
+      <div class="sp-hero__overlay" aria-hidden="true"></div>
+      <div class="container sp-hero__fw-container">
+        <div class="sp-hero__fw-text">
+          <span class="editorial-eyebrow sp-hero__fw-eyebrow">{eyebrow}</span>
+          <h1 class="sp-hero__fw-title">{heroTitle}</h1>
+          <p class="sp-hero__fw-sub">{heroSub}</p>
           <div class="sp-hero__actions">
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-hero__cta">
+            <a
+              href="https://mbsmedical.practicebetter.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="sp-hero__cta sp-hero__fw-cta"
+            >
               <span class="sp-hero__cta-rule" aria-hidden="true"></span>
               Begin consultation
             </a>
-            <a href="/contact/" class="sp-hero__cta sp-hero__cta--ghost">
+            <a href="/contact/" class="sp-hero__cta sp-hero__fw-cta sp-hero__cta--ghost">
               Ask a question
             </a>
           </div>
         </div>
-        <div class="sp-hero__media">
-          {heroImage ? (
-            <div class="sp-hero__frame">
-              <img src={heroImage} alt={`${title} at MBS Medical`} />
-              <span class="sp-hero__badge">{chipLabel}</span>
+      </div>
+    </section>
+  ) : (
+    <section class="section sp-hero" style={`background-color: ${heroSurface};`}>
+      <div class="container">
+        <div class="sp-hero__grid">
+          <div class="sp-hero__text">
+            <span class="editorial-eyebrow">{eyebrow}</span>
+            <h1 class="sp-hero__title">{heroTitle}</h1>
+            <p class="sp-hero__sub">{heroSub}</p>
+            <div class="sp-hero__actions">
+              <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-hero__cta">
+                <span class="sp-hero__cta-rule" aria-hidden="true"></span>
+                Begin consultation
+              </a>
+              <a href="/contact/" class="sp-hero__cta sp-hero__cta--ghost">
+                Ask a question
+              </a>
             </div>
-          ) : (
-            <div class="sp-hero__frame sp-hero__frame--placeholder" role="img" aria-label={`${title} service`}>
-              <span>{title.toLowerCase()} photo</span>
-              <span class="sp-hero__badge">{chipLabel}</span>
-            </div>
-          )}
+          </div>
+          <div class="sp-hero__media">
+            {heroImage ? (
+              <div class="sp-hero__frame">
+                <img src={heroImage} alt={`${title} at MBS Medical`} />
+                <span class="sp-hero__badge">{chipLabel}</span>
+              </div>
+            ) : (
+              <div class="sp-hero__frame sp-hero__frame--placeholder" role="img" aria-label={`${title} service`}>
+                <span>{title.toLowerCase()} photo</span>
+                <span class="sp-hero__badge">{chipLabel}</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
 
   {pricing && pricing.plans.length === 1 && (
@@ -171,53 +216,75 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        FEATURES — zigzag, alternating shell/sand
        ============================================================ -->
   {features.map((f, i) => (
-    <section class={`section sp-feature ${i % 2 === 0 ? 'bg-shell' : 'bg-cream'}`}>
-      <div class="container">
-        <div class={`feature-row reveal ${f.flip ? 'feature-row--flip' : ''}`}>
-          <div class="feature-row__media">
-            {f.scene === 'dna' ? (
-              <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
-                <DnaHelix client:only="react" />
-              </div>
-            ) : f.scene === 'vial' ? (
-              <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
-                <LabVial client:only="react" />
-              </div>
-            ) : f.scene === 'molecule' ? (
-              <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
-                <Molecule client:only="react" />
-              </div>
-            ) : f.scene === 'trt-vial' ? (
-              <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
-                <TrtVial client:only="react" />
-              </div>
-            ) : f.image ? (
-              <div class="sp-feature-frame">
-                <img src={f.image} alt={f.imgAlt ?? f.heading} />
-              </div>
-            ) : (
-              <div
-                class="sp-feature-frame sp-feature-frame--placeholder"
-                style={f.imgSurface ? `background-color: ${f.imgSurface}` : ''}
-                role="img"
-                aria-label={f.imgAlt ?? f.heading}
-              >
-                <span>{(f.imgAlt ?? f.heading).toLowerCase()}</span>
-              </div>
-            )}
-          </div>
-          <div class="feature-row__text">
-            <span class="editorial-eyebrow">{f.chipLabel ?? chipLabel}</span>
-            <h2 class="sp-feature-heading">{f.heading}</h2>
-            <p class="sp-feature-body">{f.body}</p>
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-feature-cta">
-              <span class="sp-feature-cta-rule" aria-hidden="true"></span>
+    f.variant === 'fullwidth' && f.image ? (
+      <section class={`section sp-feature sp-feature--fullwidth ${f.flip ? 'sp-feature--flip' : ''}`}>
+        <img src={f.image} alt={f.imgAlt ?? f.heading} class="sp-feature__bg" />
+        <div class="sp-feature__overlay" aria-hidden="true"></div>
+        <div class="container sp-feature__fw-container">
+          <div class="sp-feature__fw-text">
+            <span class="editorial-eyebrow sp-feature__fw-eyebrow">{f.chipLabel ?? chipLabel}</span>
+            <h2 class="sp-feature__fw-heading">{f.heading}</h2>
+            <p class="sp-feature__fw-body">{f.body}</p>
+            <a
+              href="https://mbsmedical.practicebetter.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="sp-feature__fw-cta"
+            >
               Get started
             </a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    ) : (
+      <section class={`section sp-feature ${i % 2 === 0 ? 'bg-shell' : 'bg-cream'}`}>
+        <div class="container">
+          <div class={`feature-row reveal ${f.flip ? 'feature-row--flip' : ''}`}>
+            <div class="feature-row__media">
+              {f.scene === 'dna' ? (
+                <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
+                  <DnaHelix client:only="react" />
+                </div>
+              ) : f.scene === 'vial' ? (
+                <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
+                  <LabVial client:only="react" />
+                </div>
+              ) : f.scene === 'molecule' ? (
+                <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
+                  <Molecule client:only="react" />
+                </div>
+              ) : f.scene === 'trt-vial' ? (
+                <div class="sp-feature-scene" aria-label={f.imgAlt ?? f.heading}>
+                  <TrtVial client:only="react" />
+                </div>
+              ) : f.image ? (
+                <div class="sp-feature-frame">
+                  <img src={f.image} alt={f.imgAlt ?? f.heading} />
+                </div>
+              ) : (
+                <div
+                  class="sp-feature-frame sp-feature-frame--placeholder"
+                  style={f.imgSurface ? `background-color: ${f.imgSurface}` : ''}
+                  role="img"
+                  aria-label={f.imgAlt ?? f.heading}
+                >
+                  <span>{(f.imgAlt ?? f.heading).toLowerCase()}</span>
+                </div>
+              )}
+            </div>
+            <div class="feature-row__text">
+              <span class="editorial-eyebrow">{f.chipLabel ?? chipLabel}</span>
+              <h2 class="sp-feature-heading">{f.heading}</h2>
+              <p class="sp-feature-body">{f.body}</p>
+              <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-feature-cta">
+                <span class="sp-feature-cta-rule" aria-hidden="true"></span>
+                Get started
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
   ))}
 
 
@@ -274,23 +341,66 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 
   <!-- ============================================================
        HOW IT WORKS — bg auto-alternates with section above
+       (or, when stepsAsHero, becomes a dark image-backdrop hero
+       that also absorbs the closing CTA at its bottom)
        ============================================================ -->
-  <section class={`section ${stepsBg}`}>
-    <div class="container">
-      <div class="reveal" style="text-align:center; margin-bottom:3.5rem;">
-        <span class="label">how it works</span>
-        <h2 style="margin-top:0.75rem;">Your path to better health</h2>
-      </div>
-      <div class="steps-grid">
-        {steps.map((s, i) => (
-          <div class={`reveal step-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
-            <h3 style="margin-bottom:0.875rem;">{s.heading}</h3>
-            <p style="color:var(--ink-secondary); font-size:var(--text-sm);">{s.body}</p>
+  {stepsAsHero ? (
+    <section class={`section sp-steps-hero${stepsBackground ? ' has-bg-graph' : ''}`}>
+      <img src="/images/sig-cta-dark.jpg" alt="" class="sp-steps-hero__bg" aria-hidden="true" />
+      <div class="sp-steps-hero__overlay" aria-hidden="true"></div>
+      {stepsBackground === 'testosterone' && <TestosteroneGraph />}
+      <div class="container sp-steps-hero__container">
+        <div class="reveal sp-steps-hero__header">
+          <span class="label sp-steps-hero__label">how it works</span>
+          <h2 class="sp-steps-hero__title">Your path to better health</h2>
+        </div>
+        <div class="steps-grid sp-steps-hero__steps-grid">
+          {steps.map((s, i) => (
+            <div class={`reveal step-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
+              <h3 style="margin-bottom:0.875rem;">{s.heading}</h3>
+              <p style="color:var(--ink-secondary); font-size:var(--text-sm);">{s.body}</p>
+            </div>
+          ))}
+        </div>
+        <div class="reveal sp-steps-hero__cta">
+          <span class="sp-cta-eyebrow">Ready when you are</span>
+          <h2 class="sp-cta-title">Let&rsquo;s build your plan.</h2>
+          <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
+          <div class="sp-cta-actions">
+            <a
+              href="https://mbsmedical.practicebetter.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="sp-cta-btn sp-cta-btn--primary"
+            >
+              book a visit
+            </a>
+            <a href="/contact/" class="sp-cta-btn sp-cta-btn--ghost">ask a question</a>
           </div>
-        ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  ) : (
+    <section
+      class={`section ${stepsBg}${stepsBackground ? ' has-bg-graph' : ''}`}
+    >
+      {stepsBackground === 'testosterone' && <TestosteroneGraph />}
+      <div class="container" style={stepsBackground ? 'position: relative; z-index: 1;' : undefined}>
+        <div class="reveal" style="text-align:center; margin-bottom:3.5rem;">
+          <span class="label">how it works</span>
+          <h2 style="margin-top:0.75rem;">Your path to better health</h2>
+        </div>
+        <div class="steps-grid">
+          {steps.map((s, i) => (
+            <div class={`reveal step-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
+              <h3 style="margin-bottom:0.875rem;">{s.heading}</h3>
+              <p style="color:var(--ink-secondary); font-size:var(--text-sm);">{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
 
   <!-- ============================================================
@@ -324,32 +434,291 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 
   <!-- ============================================================
        CTA — rounded dark card (MBS-Test signature)
+       Skipped when stepsAsHero is true: the steps section absorbs it.
        ============================================================ -->
-  <section class="section sp-cta-section">
-    <div class="container">
-      <div class="reveal sp-cta-card">
-        <img src="/images/sig-cta-dark.jpg" alt="" class="sp-cta-bg" aria-hidden="true" />
-        <span class="sp-cta-deco sp-cta-deco--tr" aria-hidden="true"></span>
-        <span class="sp-cta-deco sp-cta-deco--bl" aria-hidden="true"></span>
-        <div class="sp-cta-inner">
-          <span class="sp-cta-eyebrow">Ready when you are</span>
-          <h2 class="sp-cta-title">Let&rsquo;s build your plan.</h2>
-          <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
-          <div class="sp-cta-actions">
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-cta-btn sp-cta-btn--primary">
-              book a visit
-            </a>
-            <a href="/contact/" class="sp-cta-btn sp-cta-btn--ghost">ask a question</a>
+  {!stepsAsHero && (
+    <section class="section sp-cta-section">
+      <div class="container">
+        <div class="reveal sp-cta-card">
+          <img src="/images/sig-cta-dark.jpg" alt="" class="sp-cta-bg" aria-hidden="true" />
+          <span class="sp-cta-deco sp-cta-deco--tr" aria-hidden="true"></span>
+          <span class="sp-cta-deco sp-cta-deco--bl" aria-hidden="true"></span>
+          <div class="sp-cta-inner">
+            <span class="sp-cta-eyebrow">Ready when you are</span>
+            <h2 class="sp-cta-title">Let&rsquo;s build your plan.</h2>
+            <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
+            <div class="sp-cta-actions">
+              <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-cta-btn sp-cta-btn--primary">
+                book a visit
+              </a>
+              <a href="/contact/" class="sp-cta-btn sp-cta-btn--ghost">ask a question</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
 </Layout>
 
 
 <style>
+  /* Section-level page-load cascade and edge-depth treatments live in
+     global.css now so the same premium layering applies to every page,
+     including the home page. The scoped overrides for has-bg-graph and
+     hero variants below still live here. */
+
+  /* Sections that host a decorative background graph need to be a
+     positioning context so the absolutely positioned graph fills them. */
+  .section.has-bg-graph {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ---- Steps as Hero (merged with closing CTA) ----
+     A single section that pairs the "how it works" content with the
+     closing CTA. Dark image backdrop sits behind a dark gradient
+     overlay, with the animated graph (when stepsBackground is set)
+     layered over the overlay but under the content. */
+  .sp-steps-hero {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-primary);
+    padding-top: clamp(4rem, 7vw, 6rem);
+    padding-bottom: clamp(4rem, 7vw, 6rem);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -60px 90px -40px rgba(0, 0, 0, 0.45),
+      inset 0 50px 90px -40px rgba(0, 0, 0, 0.30);
+  }
+  .sp-steps-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.5;
+    filter: grayscale(20%) contrast(1.02);
+    z-index: 0;
+  }
+  .sp-steps-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(60, 56, 54, 0.85) 0%,
+      rgba(60, 56, 54, 0.65) 45%,
+      rgba(60, 56, 54, 0.85) 100%
+    );
+    z-index: 1;
+  }
+  .sp-steps-hero__container {
+    position: relative;
+    z-index: 3;
+  }
+  .sp-steps-hero__header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  .sp-steps-hero__label {
+    color: rgba(255, 255, 255, 0.62);
+  }
+  .sp-steps-hero__title {
+    color: #ffffff;
+    margin-top: 0.75rem;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+  .sp-steps-hero__steps-grid {
+    /* Inherits steps-grid layout from global CSS — nothing to override */
+  }
+  /* Top-align card content so every heading starts at the same height,
+     regardless of body copy length. */
+  .sp-steps-hero .step-card {
+    justify-content: flex-start;
+    background-color: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .sp-steps-hero .step-card:nth-child(2) {
+    background-color: rgba(125, 140, 123, 0.86);
+  }
+  .sp-steps-hero .step-card:nth-child(3) {
+    background-color: rgba(60, 56, 54, 0.82);
+  }
+  .sp-steps-hero .step-card:nth-child(4) {
+    background-color: rgba(234, 231, 224, 0.86);
+  }
+  .sp-steps-hero__cta {
+    margin-top: clamp(4rem, 7vw, 6rem);
+    text-align: center;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* The TestosteroneGraph component sits between the overlay and the
+     content. `:global` because Astro scopes ServicePage's CSS to a
+     different class hash than TestosteroneGraph's. */
+  .sp-steps-hero :global(.t-graph) {
+    z-index: 2;
+    color: var(--color-neutral);
+    /* Lift the graph upward so its arc starts and ends higher in the
+       section instead of aligning to the vertical center. */
+    align-items: flex-start;
+    padding-top: clamp(1rem, 2vw, 2rem);
+    transform: translateY(-10%);
+  }
+  .sp-steps-hero :global(.t-line) {
+    opacity: 0.38;
+  }
+  .sp-steps-hero :global(.t-dots circle) {
+    fill: #A78428;
+    stroke: none;
+  }
+
+  /* ---- Service hero (full-bleed image variant) ----
+     Used when heroVariant === 'fullwidth'. The image fills the section,
+     a left-weighted gradient gives the text room to breathe, and the
+     existing text classes get overridden for white-on-dark display. */
+  .sp-hero--fullwidth {
+    padding: 0;
+    min-height: 62vh;
+    background-color: var(--color-primary);
+  }
+  .sp-hero--fullwidth::before,
+  .sp-hero--fullwidth::after {
+    display: none;
+  }
+  .sp-hero--fullwidth .sp-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+  .sp-hero--fullwidth .sp-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      rgba(60, 56, 54, 0.72) 0%,
+      rgba(60, 56, 54, 0.45) 35%,
+      rgba(60, 56, 54, 0.10) 65%,
+      rgba(60, 56, 54, 0) 100%
+    );
+    z-index: 1;
+  }
+  .sp-hero__fw-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    min-height: 62vh;
+    padding-top: 7rem;
+    padding-bottom: 4rem;
+  }
+  .sp-hero__fw-text {
+    max-width: 42rem;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  /* Rust eyebrow against a dark photo overlay fails WCAG AA at small
+     tracker sizes. Switch to a warm cream that hits ~14:1 contrast. */
+  .sp-hero__fw-eyebrow {
+    color: var(--color-neutral);
+  }
+  .sp-hero__fw-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5.4vw, 4.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0;
+  }
+  .sp-hero__fw-sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 52ch;
+    margin: 0;
+  }
+  /* Convert the editorial-tracker CTAs into proper pill buttons for the
+     full-bleed hero. Scoped under `.sp-hero--fullwidth` for specificity so
+     these win over the base `.sp-hero__cta` defined below (which sets
+     `padding: 0` and keeps the hairline rule visible). */
+  .sp-hero--fullwidth .sp-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 17px 38px;
+    border-radius: 999px;
+    border: 1.5px solid transparent;
+    text-decoration: none;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease;
+    white-space: nowrap;
+  }
+  .sp-hero--fullwidth .sp-hero__cta-rule {
+    display: none;
+  }
+  .sp-hero--fullwidth .sp-hero__cta:not(.sp-hero__cta--ghost) {
+    background-color: #ffffff;
+    color: var(--color-primary);
+    border-color: #ffffff;
+  }
+  .sp-hero--fullwidth .sp-hero__cta:not(.sp-hero__cta--ghost):hover {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    border-color: var(--color-accent);
+  }
+  .sp-hero--fullwidth .sp-hero__cta.sp-hero__cta--ghost {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.92);
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+  .sp-hero--fullwidth .sp-hero__cta.sp-hero__cta--ghost:hover {
+    background-color: rgba(255, 255, 255, 0.10);
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+  .sp-hero--fullwidth .sp-hero__cta:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+  }
+  .sp-hero--fullwidth .sp-hero__actions {
+    gap: 1rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 767px) {
+    .sp-hero--fullwidth {
+      min-height: 60vh;
+    }
+    .sp-hero__fw-container {
+      min-height: 60vh;
+      padding-top: 6rem;
+      padding-bottom: 3rem;
+    }
+  }
+
   /* ---- Service hero (MBS-Test editorial split) ---- */
   .sp-hero {
     /* background-color set inline via heroSurface prop */
@@ -362,6 +731,45 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     display: block;
     position: relative;
     overflow: hidden;
+    /* Edge depth applied to every hero variant: drop shadow under, and
+       a layered inset fade on top/bottom/sides so the section reads
+       with dimension rather than as a flat band of color. Calibrated
+       light here because the editorial hero usually sits on a tinted
+       cream background; the fullwidth override below punches harder.
+       Hairline borders top/bottom match the framed treatment used on
+       the values, testimonials, and faq sections. */
+    box-shadow:
+      0 24px 48px -26px rgba(60, 56, 54, 0.28),
+      inset 0 1px 0 rgba(60, 56, 54, 0.10),
+      inset 0 -1px 0 rgba(60, 56, 54, 0.10),
+      inset 0 -50px 80px -50px rgba(60, 56, 54, 0.14),
+      inset 0 40px 70px -50px rgba(60, 56, 54, 0.08),
+      inset 80px 0 80px -90px rgba(60, 56, 54, 0.10),
+      inset -80px 0 80px -90px rgba(60, 56, 54, 0.10);
+  }
+  .sp-hero--fullwidth {
+    /* Vignette + light hairline for the dark photo hero (white rgba so
+       the hairline reads against the dark backdrop). */
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -80px 110px -40px rgba(0, 0, 0, 0.55),
+      inset 0 60px 110px -40px rgba(0, 0, 0, 0.35),
+      inset 100px 0 120px -80px rgba(0, 0, 0, 0.4),
+      inset -100px 0 120px -80px rgba(0, 0, 0, 0.4),
+      0 24px 48px -28px rgba(0, 0, 0, 0.35);
+  }
+  .sp-feature--fullwidth {
+    /* Same vignette + light hairline treatment so feature heroes feel
+       cohesive with the main hero. */
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -70px 100px -40px rgba(0, 0, 0, 0.5),
+      inset 0 50px 100px -40px rgba(0, 0, 0, 0.3),
+      inset 90px 0 110px -80px rgba(0, 0, 0, 0.35),
+      inset -90px 0 110px -80px rgba(0, 0, 0, 0.35),
+      0 22px 42px -28px rgba(0, 0, 0, 0.32);
   }
   .sp-hero::before,
   .sp-hero::after {
@@ -500,6 +908,138 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     .sp-hero { padding-top: 5rem; padding-bottom: 0.75rem; }
     .sp-hero__frame { aspect-ratio: 16/10; }
     .sp-hero__badge { bottom: 1rem; left: 1rem; }
+  }
+
+  /* ---- Feature row (full-bleed image variant) ----
+     Used when feature.variant === 'fullwidth'. Same shape as the full-bleed
+     hero: image fills the section, dark gradient overlay anchored opposite
+     the text column, text in a max-width column with pill CTA. */
+  .sp-feature--fullwidth {
+    position: relative;
+    padding: 0;
+    min-height: 58vh;
+    overflow: hidden;
+    background-color: var(--color-primary);
+  }
+  .sp-feature--fullwidth .sp-feature__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+  .sp-feature--fullwidth .sp-feature__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      rgba(60, 56, 54, 0.72) 0%,
+      rgba(60, 56, 54, 0.45) 35%,
+      rgba(60, 56, 54, 0.10) 65%,
+      rgba(60, 56, 54, 0) 100%
+    );
+    z-index: 1;
+  }
+  .sp-feature--fullwidth.sp-feature--flip .sp-feature__overlay {
+    background: linear-gradient(
+      260deg,
+      rgba(60, 56, 54, 0.72) 0%,
+      rgba(60, 56, 54, 0.45) 35%,
+      rgba(60, 56, 54, 0.10) 65%,
+      rgba(60, 56, 54, 0) 100%
+    );
+  }
+  .sp-feature__fw-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    min-height: 58vh;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  .sp-feature--flip .sp-feature__fw-container {
+    justify-content: flex-end;
+    padding-right: clamp(2rem, 4vw, 4rem);
+  }
+  .sp-feature__fw-text {
+    max-width: 40rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  /* Flip variant: column sits to the right side of the section but with
+     enough horizontal room that the heading and body don't have to
+     squish into a narrow column. */
+  .sp-feature--flip .sp-feature__fw-text {
+    max-width: 34rem;
+    margin-right: 0;
+  }
+  .sp-feature--flip .sp-feature__fw-heading {
+    max-width: 20ch;
+  }
+  .sp-feature--flip .sp-feature__fw-body {
+    max-width: 44ch;
+  }
+  .sp-feature__fw-eyebrow {
+    color: var(--color-neutral);
+  }
+  .sp-feature__fw-heading {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.4vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.018em;
+    color: #ffffff;
+    margin: 0;
+    max-width: 22ch;
+  }
+  .sp-feature__fw-body {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 52ch;
+    margin: 0;
+  }
+  .sp-feature__fw-cta {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 16px 34px;
+    border-radius: 999px;
+    border: 1.5px solid #ffffff;
+    background-color: transparent;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+    white-space: nowrap;
+  }
+  .sp-feature__fw-cta:hover {
+    background-color: #ffffff;
+    color: var(--color-primary);
+  }
+  .sp-feature__fw-cta:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+  }
+  @media (max-width: 767px) {
+    .sp-feature--fullwidth {
+      min-height: 50vh;
+    }
+    .sp-feature__fw-container {
+      min-height: 50vh;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
   }
 
   /* ---- Feature row (MBS-Test editorial split with rounded-2xl frame) ---- */

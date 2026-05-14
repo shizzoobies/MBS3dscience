@@ -92,24 +92,34 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
-       FEATURE 1 — weight loss, shell surface, coral accent
-       image LEFT, text RIGHT
+       FEATURE 1 — medical weight loss, full-bleed image hero variant
        ============================================================ -->
-  <section class="section bg-shell">
-    <div class="container">
-      <div class="feature-row reveal">
-        <div class="feature-row__media">
-          <img src="/images/home-weight-loss.jpg" alt="Medical weight loss medication" class="feature-img" loading="lazy" decoding="async" />
-        </div>
-        <div class="feature-row__text">
-          <span class="accent-chip chip-coral">medical weight loss</span>
-          <h2>Finally, a weight loss plan that sticks</h2>
-          <p>GLP-1 receptor agonists have changed what's medically possible for weight management. We evaluate whether they're right for you, with real labs, honest conversation, and a plan built around your life.</p>
-          <p style="margin-top: 1rem; color: var(--ink-secondary);">No gimmicks. No cookie-cutter programs. Just clinically supervised care from a provider who stays with you through the whole process.</p>
-          <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="/weight-loss/" class="btn btn-primary">learn more</a>
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">book a visit</a>
-          </div>
+  <section class="section home-feature-fullwidth">
+    <img
+      src="/images/home-weight-loss-hero.png"
+      alt="Medical weight loss at MBS Medical"
+      class="home-feature-fullwidth__bg"
+    />
+    <div class="home-feature-fullwidth__overlay" aria-hidden="true"></div>
+    <div class="container home-feature-fullwidth__container">
+      <div class="home-feature-fullwidth__text">
+        <span class="editorial-eyebrow home-feature-fullwidth__eyebrow">medical weight loss</span>
+        <h2 class="home-feature-fullwidth__title">Finally, a weight loss plan that sticks.</h2>
+        <p class="home-feature-fullwidth__body">
+          GLP-1 receptor agonists have changed what's medically possible for weight management. We evaluate whether they're right for you, with real labs, honest conversation, and a plan built around your life.
+        </p>
+        <div class="home-feature-fullwidth__actions">
+          <a href="/weight-loss/" class="home-feature-fullwidth__cta">
+            learn more
+          </a>
+          <a
+            href="https://mbsmedical.practicebetter.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="home-feature-fullwidth__cta home-feature-fullwidth__cta--ghost"
+          >
+            book a visit
+          </a>
         </div>
       </div>
     </div>
@@ -327,6 +337,151 @@ import Layout from '../layouts/Layout.astro';
 
 
 <style>
+  /* ---- Full-bleed feature hero (medical weight loss section) ----
+     Same shape and depth treatment as the service-page fullwidth heroes:
+     image cover, dark gradient text overlay, hairline borders + vignette. */
+  .home-feature-fullwidth {
+    position: relative;
+    padding: 0;
+    min-height: 58vh;
+    overflow: hidden;
+    background-color: var(--color-primary);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -70px 100px -40px rgba(0, 0, 0, 0.5),
+      inset 0 50px 100px -40px rgba(0, 0, 0, 0.3),
+      inset 90px 0 110px -80px rgba(0, 0, 0, 0.35),
+      inset -90px 0 110px -80px rgba(0, 0, 0, 0.35),
+      0 22px 42px -28px rgba(0, 0, 0, 0.32);
+  }
+  .home-feature-fullwidth__bg {
+    position: absolute;
+    /* Constrain the image to the left ~60% of the section so the right
+       portion is pure dark backdrop (var(--color-primary) from the
+       section bg) sitting cleanly behind the text overlay. */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 60%;
+    height: 100%;
+    object-fit: contain;
+    object-position: 30% center;
+    z-index: 0;
+  }
+  @media (max-width: 767px) {
+    .home-feature-fullwidth__bg {
+      width: 100%;
+      object-position: center center;
+    }
+  }
+  .home-feature-fullwidth__overlay {
+    position: absolute;
+    inset: 0;
+    /* Reversed gradient: dark on the right where the text sits, fading
+       to transparent on the left so the image reads cleanly. */
+    background: linear-gradient(
+      260deg,
+      rgba(60, 56, 54, 0.72) 0%,
+      rgba(60, 56, 54, 0.45) 35%,
+      rgba(60, 56, 54, 0.10) 65%,
+      rgba(60, 56, 54, 0) 100%
+    );
+    z-index: 1;
+  }
+  .home-feature-fullwidth__container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 58vh;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  .home-feature-fullwidth__text {
+    max-width: 34rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .home-feature-fullwidth__eyebrow {
+    color: var(--color-neutral);
+  }
+  .home-feature-fullwidth__title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.4vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.018em;
+    color: #ffffff;
+    margin: 0;
+    max-width: 22ch;
+  }
+  .home-feature-fullwidth__body {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 52ch;
+    margin: 0;
+  }
+  .home-feature-fullwidth__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  .home-feature-fullwidth__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 16px 34px;
+    border-radius: 999px;
+    border: 1.5px solid #ffffff;
+    background-color: #ffffff;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease;
+    white-space: nowrap;
+  }
+  .home-feature-fullwidth__cta:hover {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    border-color: var(--color-accent);
+  }
+  .home-feature-fullwidth__cta--ghost {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.92);
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+  .home-feature-fullwidth__cta--ghost:hover {
+    background-color: rgba(255, 255, 255, 0.10);
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+  .home-feature-fullwidth__cta:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+  }
+  @media (max-width: 767px) {
+    .home-feature-fullwidth {
+      min-height: 50vh;
+    }
+    .home-feature-fullwidth__container {
+      min-height: 50vh;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+  }
+
   /* ---- Full-bleed flag hero with glass text panel on the right ---- */
   .hero-fullbleed {
     position: relative;

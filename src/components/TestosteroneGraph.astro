@@ -1,0 +1,122 @@
+---
+/**
+ * Subtle animating arc behind the "How it works" section.
+ *
+ * Sweeping dotted line representing improving testosterone levels
+ * across the treatment timeline (Week 0 / 6 / 12 / Month 6 / Quarterly).
+ * Rust data points pop in sequence as the section enters viewport,
+ * then settle into a slow continuous pulse. Visual reference: the
+ * Hims testosterone marketing arc.
+ *
+ * Pure CSS animations. IntersectionObserver flips `.is-active` on
+ * first viewport entry. Pulse pauses under prefers-reduced-motion.
+ */
+---
+
+<div class="t-graph" aria-hidden="true">
+  <svg viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid meet">
+    <!-- Sweeping dotted trend line, spans full 0..1200 of viewBox -->
+    <path
+      class="t-line"
+      d="M 0 460 C 350 470, 500 380, 700 240 S 1050 80, 1200 60"
+      stroke="currentColor"
+      stroke-width="2.4"
+      stroke-dasharray="1.5 9"
+      stroke-linecap="round"
+      fill="none"
+    />
+
+    <!-- Data points placed exactly on the curve (t = 0.22, 0.46, 0.83 of
+         segment 1; t = 0.22, 0.56 of segment 2) -->
+    <g class="t-dots">
+      <circle cx="205" cy="453" />
+      <circle cx="380" cy="415" />
+      <circle cx="601" cy="307" />
+      <circle cx="825" cy="164" />
+      <circle cx="998" cy="97"  />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .t-graph {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    color: var(--color-rust);
+    /* Center the SVG band vertically inside the section. The SVG fits to
+       container width with its native aspect, so the line always reaches
+       from the left edge to the right edge of the section. */
+    display: flex;
+    align-items: center;
+  }
+  .t-graph svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .t-line {
+    opacity: 0;
+    transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+  }
+  .t-graph.is-active .t-line {
+    opacity: 0.42;
+  }
+
+  .t-dots circle {
+    fill: var(--color-rust);
+    stroke: var(--color-neutral);
+    stroke-width: 2;
+    r: 0;
+    opacity: 0;
+  }
+
+  @keyframes t-dot-pop {
+    0%   { r: 0;  opacity: 0; }
+    100% { r: 8;  opacity: 1; }
+  }
+  @keyframes t-dot-pulse {
+    0%, 100% { r: 8;   opacity: 0.85; }
+    50%      { r: 11;  opacity: 1;    }
+  }
+
+  .t-graph.is-active .t-dots circle {
+    animation:
+      t-dot-pop 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--pop-delay, 0.6s) forwards,
+      t-dot-pulse 3.2s ease-in-out calc(var(--pop-delay, 0.6s) + 0.55s) infinite;
+  }
+  .t-graph.is-active .t-dots circle:nth-child(1) { --pop-delay: 0.60s; }
+  .t-graph.is-active .t-dots circle:nth-child(2) { --pop-delay: 1.00s; }
+  .t-graph.is-active .t-dots circle:nth-child(3) { --pop-delay: 1.40s; }
+  .t-graph.is-active .t-dots circle:nth-child(4) { --pop-delay: 1.80s; }
+  .t-graph.is-active .t-dots circle:nth-child(5) { --pop-delay: 2.20s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .t-line {
+      transition: none;
+      opacity: 0.42;
+    }
+    .t-dots circle {
+      animation: none;
+      r: 8;
+      opacity: 0.85;
+    }
+  }
+</style>
+
+<script>
+  const graphs = document.querySelectorAll('.t-graph')
+  const obs = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-active')
+          obs.unobserve(entry.target)
+        }
+      }),
+    { threshold: 0.2, rootMargin: '0px 0px -80px 0px' },
+  )
+  graphs.forEach((g) => obs.observe(g))
+</script>
