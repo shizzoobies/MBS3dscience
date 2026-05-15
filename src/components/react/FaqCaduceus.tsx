@@ -12,8 +12,8 @@ import * as THREE from 'three'
 
 const MODEL_PATH = '/models/caduceus.glb'
 
-const BASE_SCALE = 1.4
-const ENTRY_SCALE = 0.92
+const BASE_SCALE = 0.95
+const ENTRY_SCALE = 0.65
 const ENTRY_Z = -6
 const BASE_Z = 0
 const ENTRY_DURATION = 2.8
@@ -115,7 +115,7 @@ export default function FaqCaduceus() {
     <div ref={wrapperRef} style={{ width: '100%', height: '100%' }}>
       <Canvas
         dpr={[1, 2]}
-        camera={{ position: [0, 0, 4.5], fov: 32 }}
+        camera={{ position: [0, 0, 6], fov: 36 }}
         gl={{
           antialias: true,
           alpha: true,

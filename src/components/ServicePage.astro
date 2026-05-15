@@ -405,25 +405,27 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 
   <!-- ============================================================
        FAQ — bg auto-alternates with section above
-       Stacked centered layout: title block, Caduceus 3D below it,
-       then the accordion list.
+       Two-column: title block + Caduceus 3D on the left, accordion
+       list on the right. Caduceus container is overflow: visible so
+       the model can spin in without being clipped.
        ============================================================ -->
   <section class={`section ${faqBg}`}>
     <div class="container">
-      <div class="faq-stacked">
-        <div class="reveal faq-stacked__heading">
-          <span class="editorial-eyebrow">Common questions</span>
-          <h2 class="faq-stacked__title">Things people ask.</h2>
-          <p class="faq-stacked__sub">
-            More questions? <a href="/contact/" style="text-decoration:underline; text-underline-offset:3px;">Contact us.</a>
-          </p>
+      <div class="faq-grid">
+        <div class="faq-grid__left">
+          <div class="reveal faq-grid__heading">
+            <span class="editorial-eyebrow">Common questions</span>
+            <h2 class="faq-grid__title">Things people ask.</h2>
+            <p class="faq-grid__sub">
+              More questions? <a href="/contact/" style="text-decoration:underline; text-underline-offset:3px;">Contact us.</a>
+            </p>
+          </div>
+          <div class="reveal faq-grid__caduceus" aria-hidden="true">
+            <FaqCaduceus client:only="react" />
+          </div>
         </div>
 
-        <div class="reveal faq-stacked__caduceus" aria-hidden="true">
-          <FaqCaduceus client:only="react" />
-        </div>
-
-        <div class="reveal faq-list faq-stacked__list">
+        <div class="reveal faq-list faq-grid__list">
           {faq.map(item => (
             <details class="faq-item">
               <summary class="faq-summary">{item.q}</summary>
@@ -1278,18 +1280,27 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     .sp-testimonials { grid-template-columns: repeat(3, 1fr); }
   }
 
-  /* FAQ — stacked centered layout with Caduceus below the title */
-  .faq-stacked {
+  /* FAQ — 2-column with Caduceus on the left under the title */
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    overflow: visible;
+  }
+  @media (min-width: 900px) {
+    .faq-grid {
+      grid-template-columns: minmax(260px, 1fr) 1.6fr;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+  .faq-grid__left {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 1.5rem;
+    overflow: visible;
   }
-  .faq-stacked__heading {
-    text-align: center;
-    max-width: 60ch;
-  }
-  .faq-stacked__title {
+  .faq-grid__title {
     margin-top: 1rem;
     font-family: var(--font-serif);
     font-weight: 400;
@@ -1297,21 +1308,19 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     line-height: 1.1;
     letter-spacing: -0.015em;
   }
-  .faq-stacked__sub {
+  .faq-grid__sub {
     color: var(--ink-secondary);
     margin-top: 1rem;
     font-size: var(--text-sm);
   }
-  .faq-stacked__caduceus {
-    width: clamp(260px, 32vw, 400px);
+  .faq-grid__caduceus {
+    width: 100%;
+    max-width: 360px;
     aspect-ratio: 1;
-    margin: 1rem 0 2rem;
     overflow: visible;
   }
-  .faq-stacked__list {
+  .faq-grid__list {
     width: 100%;
-    max-width: 760px;
-    margin-top: 1rem;
   }
 
   /* ---- Steps (MBS-Test bento variant) ---- */
