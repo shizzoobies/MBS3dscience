@@ -140,11 +140,26 @@ import Layout from '../layouts/Layout.astro';
         </p>
       </div>
 
-      <div class="reveal home-mental__visual">
-        <span class="home-mental__ring home-mental__ring--1" aria-hidden="true"></span>
-        <span class="home-mental__ring home-mental__ring--2" aria-hidden="true"></span>
-        <span class="home-mental__ring home-mental__ring--3" aria-hidden="true"></span>
-        <img src="/images/home-mental-health-v2.png" alt="A calm, restful moment" class="home-mental__img" loading="lazy" decoding="async" />
+      <div class="reveal home-mental__visuals">
+        <figure class="home-mental__portrait">
+          <div class="home-mental__visual">
+            <span class="home-mental__ring home-mental__ring--1" aria-hidden="true"></span>
+            <span class="home-mental__ring home-mental__ring--2" aria-hidden="true"></span>
+            <span class="home-mental__ring home-mental__ring--3" aria-hidden="true"></span>
+            <img src="/images/home-mental-health-v2.png" alt="" class="home-mental__img" loading="lazy" decoding="async" />
+          </div>
+          <figcaption class="home-mental__caption">Anxiety</figcaption>
+        </figure>
+
+        <figure class="home-mental__portrait home-mental__portrait--alt">
+          <div class="home-mental__visual">
+            <span class="home-mental__ring home-mental__ring--1" aria-hidden="true"></span>
+            <span class="home-mental__ring home-mental__ring--2" aria-hidden="true"></span>
+            <span class="home-mental__ring home-mental__ring--3" aria-hidden="true"></span>
+            <img src="/images/home-mental-health.jpg" alt="" class="home-mental__img" loading="lazy" decoding="async" />
+          </div>
+          <figcaption class="home-mental__caption">Depression</figcaption>
+        </figure>
       </div>
 
       <div class="reveal home-mental__actions">
@@ -320,9 +335,23 @@ import Layout from '../layouts/Layout.astro';
     max-width: 52ch;
     margin: 0;
   }
+  .home-mental__visuals {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: clamp(2.5rem, 6vw, 5rem);
+  }
+  .home-mental__portrait {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    margin: 0;
+  }
   .home-mental__visual {
     position: relative;
-    width: clamp(280px, 36vw, 420px);
+    width: clamp(180px, 20vw, 240px);
     aspect-ratio: 1;
     display: flex;
     align-items: center;
@@ -340,10 +369,15 @@ import Layout from '../layouts/Layout.astro';
   .home-mental__ring--1 { animation-delay: 0s; }
   .home-mental__ring--2 { animation-delay: 1.6s; }
   .home-mental__ring--3 { animation-delay: 3.2s; }
+  /* Stagger the second portrait's ring cycle so the two breathing
+     loops don't pulse in lockstep — feels more natural. */
+  .home-mental__portrait--alt .home-mental__ring--1 { animation-delay: 0.8s; }
+  .home-mental__portrait--alt .home-mental__ring--2 { animation-delay: 2.4s; }
+  .home-mental__portrait--alt .home-mental__ring--3 { animation-delay: 4.0s; }
   @keyframes home-mental-ring {
     0% {
       transform: scale(0.96);
-      opacity: 0.55;
+      opacity: 0.5;
     }
     100% {
       transform: scale(1.7);
@@ -359,8 +393,16 @@ import Layout from '../layouts/Layout.astro';
     border-radius: 50%;
     border: 4px solid rgba(255, 255, 255, 0.85);
     box-shadow:
-      0 18px 36px -16px rgba(60, 56, 54, 0.28),
-      0 6px 14px -8px rgba(60, 56, 54, 0.16);
+      0 16px 28px -16px rgba(60, 56, 54, 0.28),
+      0 6px 12px -8px rgba(60, 56, 54, 0.16);
+  }
+  .home-mental__caption {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-primary);
   }
   .home-mental__actions {
     display: flex;
