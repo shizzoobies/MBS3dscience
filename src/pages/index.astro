@@ -213,8 +213,7 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
       <div class="faq-grid">
         <div class="faq-grid__left">
           <div class="reveal faq-grid__heading">
-            <span class="editorial-eyebrow">Common questions</span>
-            <h2 class="faq-grid__title">Things people usually ask.</h2>
+            <h2 class="faq-grid__title">FAQ</h2>
             <p class="faq-grid__sub">Don't see your question? <a href="/contact/" style="text-decoration: underline; text-underline-offset: 3px;">Contact us directly.</a></p>
           </div>
           <div class="reveal faq-grid__caduceus" aria-hidden="true">
@@ -1059,7 +1058,10 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
   /* Steps */
   .step-card h3 { font-size: var(--text-xl); }
 
-  /* FAQ — 2-column with Caduceus on the left under the title */
+  /* FAQ — 2-column with Caduceus on the left under the title.
+     Default `align-items: stretch` on the grid plus margin-top: auto on
+     the caduceus pushes its bottom edge down so it aligns with the
+     bottom of the accordion list on the right. */
   .faq-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1070,7 +1072,6 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
     .faq-grid {
       grid-template-columns: minmax(260px, 1fr) 1.6fr;
       gap: 4rem;
-      align-items: start;
     }
   }
   .faq-grid__left {
@@ -1080,16 +1081,16 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
     overflow: visible;
   }
   .faq-grid__title {
-    margin-top: 1rem;
     font-family: var(--font-serif);
     font-weight: 400;
-    font-size: clamp(2rem, 4.5vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
   }
   .faq-grid__sub {
     color: var(--ink-secondary);
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     font-size: var(--text-sm);
   }
   .faq-grid__caduceus {
@@ -1097,6 +1098,7 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
     max-width: 360px;
     aspect-ratio: 1;
     overflow: visible;
+    margin-top: auto;
   }
   .faq-grid__list {
     width: 100%;
