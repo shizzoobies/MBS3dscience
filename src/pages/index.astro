@@ -205,22 +205,23 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
 
 
   <!-- ============================================================
-       FAQ — shell surface, moved up into the spot the stats section
-       used to occupy (stats now sits below the merged section)
+       FAQ — shell surface. Stacked centered layout: title block,
+       Caduceus 3D below it, then the accordion list.
        ============================================================ -->
   <section class="section bg-shell">
     <div class="container">
-      <div class="reveal faq-layout">
-        <div class="faq-heading">
+      <div class="faq-stacked">
+        <div class="reveal faq-stacked__heading">
           <span class="editorial-eyebrow">Common questions</span>
-          <h2 style="margin-top: 1rem; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.1; letter-spacing: -0.015em;">Things people usually ask.</h2>
-          <p style="color: var(--ink-secondary); margin-top: 1rem; font-size: var(--text-sm);">Don't see your question? <a href="/contact/" style="text-decoration: underline; text-underline-offset: 3px;">Contact us directly.</a></p>
-          <div class="home-faq-frame" aria-hidden="true">
-            <FaqCaduceus client:only="react" />
-          </div>
+          <h2 class="faq-stacked__title">Things people usually ask.</h2>
+          <p class="faq-stacked__sub">Don't see your question? <a href="/contact/" style="text-decoration: underline; text-underline-offset: 3px;">Contact us directly.</a></p>
         </div>
 
-        <div class="faq-list">
+        <div class="reveal faq-stacked__caduceus" aria-hidden="true">
+          <FaqCaduceus client:only="react" />
+        </div>
+
+        <div class="reveal faq-list faq-stacked__list">
           <details class="faq-item">
             <summary class="faq-summary">Do I need insurance to use MBS Medical?</summary>
             <p class="faq-body">No. We are a cash-pay practice. You pay directly, which keeps things simple, transparent, and without the delays that come with insurance. We can provide a superbill for FSA/HSA reimbursement if needed.</p>
