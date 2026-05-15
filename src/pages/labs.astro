@@ -41,17 +41,16 @@ import ServicePage from '../components/ServicePage.astro';
       image: "/images/feat-labs-advanced-panels.png",
       variant: "fullwidth",
       flip: true
-    },
-    {
-      heading: "Labs as a baseline for optimization",
-      body: "Whether you are starting a new treatment, monitoring a chronic condition, or optimizing for longevity and performance, regular lab reviews are how we know what's working. We establish your baseline on day one and track changes over time. The numbers tell a story if you know how to read them.",
-      chipLabel: "ongoing monitoring",
-      chipClass: "chip-butter",
-      imgAlt: "Tracking biomarker trends over time",
-      image: "/images/feat-labs-2.jpg",
-      flip: true
     }
   ]}
+  roundImageTrio={{
+    backdrop: 'data-grid',
+    items: [
+      { label: "Baseline Testing", image: "/images/feat-labs-2.jpg" },
+      { label: "Trend Monitoring", image: "/images/hero-labs.jpg" },
+      { label: "Protocol Tuning", image: "/images/feat-labs-advanced-panels.png" },
+    ],
+  }}
   testimonials={[]}
   steps={[
     {

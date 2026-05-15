@@ -92,10 +92,12 @@ interface Props {
   // text-block values break up consecutive image-heavy feature rows.
   valuesAfterFirstFeature?: boolean;
   // Optional row of three round framed images with labels, rendered
-  // after the values block. Uses an ambient drifting-orb background
-  // (sage / rust / brass) for subtle motion.
+  // after the feature rows. `backdrop` picks the ambient animation:
+  // 'orbs' (drifting sage/rust/brass blobs) or 'data-grid' (a faint
+  // twinkling field of data points, suited to lab/optimization pages).
   roundImageTrio?: {
     items: { label: string; image: string }[];
+    backdrop?: 'orbs' | 'data-grid';
   };
 }
 
@@ -331,11 +333,21 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        ============================================================ -->
   {roundImageTrio && roundImageTrio.items.length > 0 && (
     <section class="section bg-shell sp-trio">
-      <div class="sp-trio__ambient" aria-hidden="true">
-        <span class="sp-trio__orb sp-trio__orb--1"></span>
-        <span class="sp-trio__orb sp-trio__orb--2"></span>
-        <span class="sp-trio__orb sp-trio__orb--3"></span>
-      </div>
+      {roundImageTrio.backdrop === 'data-grid' ? (
+        <div class="sp-trio__datagrid" aria-hidden="true">
+          {Array.from({ length: 72 }).map(() => {
+            const delay = (Math.random() * 6).toFixed(2);
+            const dur = (3.5 + Math.random() * 4).toFixed(2);
+            return <span class="sp-trio__dot" style={`animation-delay:${delay}s;animation-duration:${dur}s`}></span>;
+          })}
+        </div>
+      ) : (
+        <div class="sp-trio__ambient" aria-hidden="true">
+          <span class="sp-trio__orb sp-trio__orb--1"></span>
+          <span class="sp-trio__orb sp-trio__orb--2"></span>
+          <span class="sp-trio__orb sp-trio__orb--3"></span>
+        </div>
+      )}
       <div class="container sp-trio__container">
         <div class="reveal sp-trio__row">
           {roundImageTrio.items.map((item, idx) => (
@@ -727,6 +739,39 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   @keyframes sp-trio-orb-3 {
     0%, 100% { transform: translate(0, 0); }
     50%      { transform: translate(40px, -50px); }
+  }
+  /* Data-grid backdrop: a faint field of dots laid out in a 12-column
+     grid, each twinkling on its own random delay/duration. Reads as
+     biomarker data without being a literal chart. */
+  .sp-trio__datagrid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 1fr;
+    padding: clamp(2rem, 5vw, 5rem);
+  }
+  .sp-trio__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    justify-self: center;
+    align-self: center;
+    opacity: 0;
+    animation: sp-trio-twinkle 5s ease-in-out infinite;
+  }
+  @keyframes sp-trio-twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.6); }
+    50%      { opacity: 0.45; transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sp-trio__dot {
+      animation: none;
+      opacity: 0.18;
+    }
   }
   .sp-trio__container {
     position: relative;
