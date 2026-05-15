@@ -152,25 +152,34 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
-       FEATURE 3 — men's health / TRT, sand surface, terracotta
-       image RIGHT, text LEFT (flip)
+       FEATURE 3 — men's health / TRT, full-bleed cinematic
        ============================================================ -->
-  <section class="section bg-sand">
-    <div class="container">
-      <div class="feature-row feature-row--flip reveal">
-        <div class="feature-row__media home-mens-frame">
-          <span class="home-mens-frame__deco" aria-hidden="true"></span>
-          <img src="/images/home-mens-health.jpg" alt="Active man in his prime" class="feature-img home-mens-frame__img" loading="lazy" decoding="async" />
-        </div>
-        <div class="feature-row__text">
-          <span class="accent-chip chip-terracotta">men's health</span>
-          <h2>Get your edge back</h2>
-          <p>Testosterone naturally declines after 30. Less energy, slower recovery, lower drive. Most men push through it and call it aging. You don't have to.</p>
-          <p style="margin-top: 1rem; color: var(--ink-secondary);">We start with labs for a clear, honest picture. If TRT is right for you, we build a plan. If it's not, we'll tell you that too.</p>
-          <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="/mens-health/" class="btn btn-primary">learn more</a>
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">book a visit</a>
-          </div>
+  <section class="section home-feature-fullwidth home-feature-fullwidth--mens">
+    <img
+      src="/images/home-mens-health-hero.png"
+      alt="Men's health and TRT at MBS Medical"
+      class="home-feature-fullwidth__bg"
+    />
+    <div class="home-feature-fullwidth__overlay" aria-hidden="true"></div>
+    <div class="container home-feature-fullwidth__container">
+      <div class="home-feature-fullwidth__text">
+        <span class="editorial-eyebrow home-feature-fullwidth__eyebrow">men's health</span>
+        <h2 class="home-feature-fullwidth__title">Get your edge back.</h2>
+        <p class="home-feature-fullwidth__body">
+          Testosterone naturally declines after 30. Less energy, slower recovery, lower drive. We start with labs for a clear, honest picture. If TRT is right for you, we build a plan. If it isn't, we'll tell you that too.
+        </p>
+        <div class="home-feature-fullwidth__actions">
+          <a href="/mens-health/" class="home-feature-fullwidth__cta">
+            learn more
+          </a>
+          <a
+            href="https://mbsmedical.practicebetter.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="home-feature-fullwidth__cta home-feature-fullwidth__cta--ghost"
+          >
+            book a visit
+          </a>
         </div>
       </div>
     </div>
