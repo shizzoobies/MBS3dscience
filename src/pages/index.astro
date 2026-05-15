@@ -133,8 +133,9 @@ import Layout from '../layouts/Layout.astro';
   <section class="section bg-sand">
     <div class="container">
       <div class="feature-row feature-row--flip reveal">
-        <div class="feature-row__media">
-          <img src="/images/home-mens-health.jpg" alt="Active man in his prime" class="feature-img" loading="lazy" decoding="async" />
+        <div class="feature-row__media home-mens-frame">
+          <span class="home-mens-frame__deco" aria-hidden="true"></span>
+          <img src="/images/home-mens-health.jpg" alt="Active man in his prime" class="feature-img home-mens-frame__img" loading="lazy" decoding="async" />
         </div>
         <div class="feature-row__text">
           <span class="accent-chip chip-terracotta">men's health</span>
@@ -337,6 +338,63 @@ import Layout from '../layouts/Layout.astro';
 
 
 <style>
+  /* ---- "Get your edge back" framed image (men's health feature) ----
+     Asymmetric rounded image with an offset decorative outline behind
+     it. Both pieces animate in on page load: image fades up, outline
+     follows a beat later from its offset position. */
+  .home-mens-frame {
+    position: relative;
+    isolation: isolate;
+    padding: 1rem 1.5rem 1.5rem 0;
+  }
+  .home-mens-frame__deco {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1.5px solid rgba(194, 122, 99, 0.35);
+    border-radius: 180px 40px 180px 40px;
+    pointer-events: none;
+    z-index: 0;
+    animation: home-mens-deco-enter 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+  }
+  .home-mens-frame__img {
+    position: relative;
+    z-index: 1;
+    border-radius: 40px 180px 40px 180px;
+    box-shadow:
+      0 26px 44px -22px rgba(60, 56, 54, 0.28),
+      0 8px 16px -10px rgba(60, 56, 54, 0.18);
+    animation: home-mens-img-enter 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  }
+  @keyframes home-mens-img-enter {
+    0% {
+      opacity: 0;
+      transform: translateY(28px) scale(0.94);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  @keyframes home-mens-deco-enter {
+    0% {
+      opacity: 0;
+      transform: translate(-14px, 14px) scale(0.92);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .home-mens-frame__img,
+    .home-mens-frame__deco {
+      animation: none;
+    }
+  }
+
   /* ---- Full-bleed feature hero (medical weight loss section) ----
      Same shape and depth treatment as the service-page fullwidth heroes:
      image cover, dark gradient text overlay, hairline borders + vignette. */
@@ -491,6 +549,17 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     align-items: center;
     padding-top: 68px;
+    /* Edge depth treatment so the flag hero matches the framed-panel feel
+       of the rest of the page: hairline borders top/bottom + layered
+       inset vignette + drop shadow under the section. */
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -90px 130px -40px rgba(0, 0, 0, 0.55),
+      inset 0 70px 130px -40px rgba(0, 0, 0, 0.35),
+      inset 110px 0 130px -80px rgba(0, 0, 0, 0.4),
+      inset -110px 0 130px -80px rgba(0, 0, 0, 0.4),
+      0 24px 48px -28px rgba(0, 0, 0, 0.35);
   }
   .hero-fullbleed__video {
     position: absolute;
