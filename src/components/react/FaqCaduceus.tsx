@@ -30,7 +30,24 @@ function Caduceus({ focused }: CaduceusProps) {
   const focusStartRef = useRef<number | null>(null)
   const reducedRef = useRef(false)
   const { scene } = useGLTF(MODEL_PATH)
-  const clone = useMemo(() => scene.clone(true), [scene])
+  const clone = useMemo(() => {
+    const cloned = scene.clone(true)
+    // Override the Meshy-baked materials with a single amber bronze so
+    // the model reads as a unified decorative ornament rather than a
+    // photorealistic prop.
+    const amber = new THREE.MeshStandardMaterial({
+      color: '#BD8930',
+      roughness: 0.35,
+      metalness: 0.55,
+    })
+    cloned.traverse((child) => {
+      const mesh = child as THREE.Mesh
+      if (mesh.isMesh) {
+        mesh.material = amber
+      }
+    })
+    return cloned
+  }, [scene])
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
