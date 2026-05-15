@@ -218,49 +218,6 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
-       FAQ — shell surface (How It Works has been merged into the
-       closing CTA section below, on the dark sig-cta backdrop)
-       ============================================================ -->
-  <section class="section bg-shell">
-    <div class="container">
-      <div class="reveal faq-layout">
-        <div class="faq-heading">
-          <span class="editorial-eyebrow">Common questions</span>
-          <h2 style="margin-top: 1rem; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.1; letter-spacing: -0.015em;">Things people usually ask.</h2>
-          <p style="color: var(--ink-secondary); margin-top: 1rem; font-size: var(--text-sm);">Don't see your question? <a href="/contact/" style="text-decoration: underline; text-underline-offset: 3px;">Contact us directly.</a></p>
-          <div class="home-faq-frame" aria-hidden="true">
-            <img src="/images/sig-leaf.jpg" alt="" />
-          </div>
-        </div>
-
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary class="faq-summary">do i need insurance to use MBS Medical?</summary>
-            <p class="faq-body">No. We are a cash-pay practice. You pay directly, which keeps things simple, transparent, and without the delays that come with insurance. We can provide a superbill for FSA/HSA reimbursement if needed.</p>
-          </details>
-          <details class="faq-item">
-            <summary class="faq-summary">what states do you serve?</summary>
-            <p class="faq-body">We are licensed to provide telehealth services to patients located in Florida. You must be physically in Florida at the time of your visit.</p>
-          </details>
-          <details class="faq-item">
-            <summary class="faq-summary">how quickly can i get an appointment?</summary>
-            <p class="faq-body">We offer same-week appointments and often same-day or next-day availability. Evening slots are included. Book through our secure online portal anytime.</p>
-          </details>
-          <details class="faq-item">
-            <summary class="faq-summary">will i see the same provider every time?</summary>
-            <p class="faq-body">Yes. Continuity of care is one of the core values of this practice. You'll build a relationship with your provider who knows your history, your medications, and your goals.</p>
-          </details>
-          <details class="faq-item">
-            <summary class="faq-summary">can you prescribe medications?</summary>
-            <p class="faq-body">Yes. Our providers are licensed to evaluate, diagnose, and prescribe medications including controlled substances where appropriate and legal. Prescriptions are sent electronically to your preferred pharmacy.</p>
-          </details>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
        HOW IT WORKS + READY WHEN YOU ARE — merged on the sig-cta-dark
        backdrop, step cards on top, closing CTA copy at the bottom
        ============================================================ -->
@@ -301,6 +258,48 @@ import Layout from '../layouts/Layout.astro';
           <a href="/contact/" class="cta-card__btn cta-card__btn--ghost">
             ask a question
           </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FAQ — shell surface, sits after the merged steps + CTA
+       ============================================================ -->
+  <section class="section bg-shell">
+    <div class="container">
+      <div class="reveal faq-layout">
+        <div class="faq-heading">
+          <span class="editorial-eyebrow">Common questions</span>
+          <h2 style="margin-top: 1rem; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.1; letter-spacing: -0.015em;">Things people usually ask.</h2>
+          <p style="color: var(--ink-secondary); margin-top: 1rem; font-size: var(--text-sm);">Don't see your question? <a href="/contact/" style="text-decoration: underline; text-underline-offset: 3px;">Contact us directly.</a></p>
+          <div class="home-faq-frame" aria-hidden="true">
+            <img src="/images/sig-leaf.jpg" alt="" />
+          </div>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary class="faq-summary">do i need insurance to use MBS Medical?</summary>
+            <p class="faq-body">No. We are a cash-pay practice. You pay directly, which keeps things simple, transparent, and without the delays that come with insurance. We can provide a superbill for FSA/HSA reimbursement if needed.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">what states do you serve?</summary>
+            <p class="faq-body">We are licensed to provide telehealth services to patients located in Florida. You must be physically in Florida at the time of your visit.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">how quickly can i get an appointment?</summary>
+            <p class="faq-body">We offer same-week appointments and often same-day or next-day availability. Evening slots are included. Book through our secure online portal anytime.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">will i see the same provider every time?</summary>
+            <p class="faq-body">Yes. Continuity of care is one of the core values of this practice. You'll build a relationship with your provider who knows your history, your medications, and your goals.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">can you prescribe medications?</summary>
+            <p class="faq-body">Yes. Our providers are licensed to evaluate, diagnose, and prescribe medications including controlled substances where appropriate and legal. Prescriptions are sent electronically to your preferred pharmacy.</p>
+          </details>
         </div>
       </div>
     </div>
@@ -375,18 +374,19 @@ import Layout from '../layouts/Layout.astro';
     margin-left: auto;
     margin-right: auto;
   }
-  /* Translucent step cards so the backdrop image and overlay show through
-     while keeping the copy readable. */
-  .home-steps-hero .step-card {
-    background-color: rgba(255, 255, 255, 0.88);
+  /* All three step cards use the same light translucent panel so the
+     row reads uniformly against the dark backdrop. */
+  .home-steps-hero .step-card,
+  .home-steps-hero .step-card:nth-child(2),
+  .home-steps-hero .step-card:nth-child(3),
+  .home-steps-hero .step-card:nth-child(4) {
+    background-color: rgba(255, 255, 255, 0.92);
+    color: var(--color-primary);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
   }
-  .home-steps-hero .step-card:nth-child(2) {
-    background-color: rgba(125, 140, 123, 0.86);
-  }
-  .home-steps-hero .step-card:nth-child(3) {
-    background-color: rgba(60, 56, 54, 0.82);
+  .home-steps-hero .step-card p {
+    color: var(--ink-secondary) !important;
   }
 
   /* ---- "Get your edge back" framed image (men's health feature) ----
