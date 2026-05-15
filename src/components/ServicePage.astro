@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
 import MembershipPricing from './MembershipPricing.astro';
 import HeroMembershipCard from './HeroMembershipCard.astro';
 import TestosteroneGraph from './TestosteroneGraph.astro';
-import FaqOrnament from './react/FaqOrnament.tsx';
+import FaqCaduceus from './react/FaqCaduceus.tsx';
 import DnaHelix from './react/DnaHelix.tsx';
 import LabVial from './react/LabVial.tsx';
 import Molecule from './react/Molecule.tsx';
@@ -416,7 +416,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             More questions? <a href="/contact/" style="text-decoration:underline; text-underline-offset:3px;">Contact us.</a>
           </p>
           <div class="faq-decorative-frame" aria-hidden="true">
-            <FaqOrnament client:only="react" />
+            <FaqCaduceus client:only="react" />
           </div>
         </div>
         <div class="faq-list">
