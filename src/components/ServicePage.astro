@@ -227,32 +227,6 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     </section>
   )}
 
-  <!-- ============================================================
-       ROUND IMAGE TRIO — optional. Three round framed images with
-       captions, centered, drifting orb ambient like the home mental
-       health section.
-       ============================================================ -->
-  {roundImageTrio && roundImageTrio.items.length > 0 && (
-    <section class="section bg-shell sp-trio">
-      <div class="sp-trio__ambient" aria-hidden="true">
-        <span class="sp-trio__orb sp-trio__orb--1"></span>
-        <span class="sp-trio__orb sp-trio__orb--2"></span>
-        <span class="sp-trio__orb sp-trio__orb--3"></span>
-      </div>
-      <div class="container sp-trio__container">
-        <div class="reveal sp-trio__row">
-          {roundImageTrio.items.map((item, idx) => (
-            <figure class={`sp-trio__item sp-trio__item--${idx + 1}`}>
-              <div class="sp-trio__visual">
-                <img src={item.image} alt={item.label} class="sp-trio__img" loading="lazy" decoding="async" />
-              </div>
-              <figcaption class="sp-trio__label">{item.label}</figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
 
 
   <!-- ============================================================
@@ -348,6 +322,34 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     )}
     </Fragment>
   ))}
+
+
+  <!-- ============================================================
+       ROUND IMAGE TRIO — optional, rendered after the feature rows.
+       Three round framed images with captions, centered, drifting
+       orb ambient like the home mental health section.
+       ============================================================ -->
+  {roundImageTrio && roundImageTrio.items.length > 0 && (
+    <section class="section bg-shell sp-trio">
+      <div class="sp-trio__ambient" aria-hidden="true">
+        <span class="sp-trio__orb sp-trio__orb--1"></span>
+        <span class="sp-trio__orb sp-trio__orb--2"></span>
+        <span class="sp-trio__orb sp-trio__orb--3"></span>
+      </div>
+      <div class="container sp-trio__container">
+        <div class="reveal sp-trio__row">
+          {roundImageTrio.items.map((item, idx) => (
+            <figure class={`sp-trio__item sp-trio__item--${idx + 1}`}>
+              <div class="sp-trio__visual">
+                <img src={item.image} alt={item.label} class="sp-trio__img" loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="sp-trio__label">{item.label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
 
   <!-- ============================================================
