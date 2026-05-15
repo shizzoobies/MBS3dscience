@@ -127,7 +127,32 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
-       FEATURE 2 — men's health / TRT, sand surface, terracotta
+       FEATURE 2 — mental health, shell surface, sky accent
+       image RIGHT, text LEFT (flip)
+       ============================================================ -->
+  <section class="section bg-shell">
+    <div class="container">
+      <div class="feature-row feature-row--flip reveal">
+        <div class="feature-row__media">
+          <img src="/images/home-mental-health.jpg" alt="Peaceful morning bedroom" class="feature-img" loading="lazy" decoding="async" />
+        </div>
+        <div class="feature-row__text">
+          <span class="accent-chip chip-sky">mental health</span>
+          <h2>Sleep, anxiety, and what's keeping you stuck</h2>
+          <p>Restless nights. A mind that won't slow down. A fog that follows you into the day. These aren't just inconveniences. They're treatable.</p>
+          <p style="margin-top: 1rem; color: var(--ink-secondary);">We take mental health seriously as a part of whole-person care, not a referral you never follow through on.</p>
+          <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="/mental-health/" class="btn btn-primary">learn more</a>
+            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">book a visit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FEATURE 3 — men's health / TRT, sand surface, terracotta
        image RIGHT, text LEFT (flip)
        ============================================================ -->
   <section class="section bg-sand">
@@ -144,31 +169,6 @@ import Layout from '../layouts/Layout.astro';
           <p style="margin-top: 1rem; color: var(--ink-secondary);">We start with labs for a clear, honest picture. If TRT is right for you, we build a plan. If it's not, we'll tell you that too.</p>
           <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
             <a href="/mens-health/" class="btn btn-primary">learn more</a>
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">book a visit</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       FEATURE 3 — mental health, shell surface, sky accent
-       image LEFT, text RIGHT
-       ============================================================ -->
-  <section class="section bg-shell">
-    <div class="container">
-      <div class="feature-row reveal">
-        <div class="feature-row__media">
-          <img src="/images/home-mental-health.jpg" alt="Peaceful morning bedroom" class="feature-img" loading="lazy" decoding="async" />
-        </div>
-        <div class="feature-row__text">
-          <span class="accent-chip chip-sky">mental health</span>
-          <h2>Sleep, anxiety, and what's keeping you stuck</h2>
-          <p>Restless nights. A mind that won't slow down. A fog that follows you into the day. These aren't just inconveniences. They're treatable.</p>
-          <p style="margin-top: 1rem; color: var(--ink-secondary);">We take mental health seriously as a part of whole-person care, not a referral you never follow through on.</p>
-          <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="/mental-health/" class="btn btn-primary">learn more</a>
             <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">book a visit</a>
           </div>
         </div>
