@@ -347,16 +347,38 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             </figure>
           ))}
         </div>
+
+        {subServices && (
+          <details class="reveal sp-sub-details sp-trio__sub">
+            <summary class="sp-sub-summary">
+              <span class="sp-sub-summary__label">
+                <span class={`accent-chip ${chipClass}`}>{chipLabel}</span>
+                <span class="sp-sub-summary__heading">{subServices.heading ?? 'what we cover'}</span>
+              </span>
+              <span class="sp-sub-summary__toggle" aria-hidden="true">+</span>
+            </summary>
+            {subServices.intro && <p class="sp-sub-intro">{subServices.intro}</p>}
+            <ul class="sp-sub-list" role="list">
+              {subServices.items.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            {subServices.disclaimer && (
+              <p class="sp-sub-disclaimer">{subServices.disclaimer}</p>
+            )}
+          </details>
+        )}
       </div>
     </section>
   )}
 
 
   <!-- ============================================================
-       SUB-SERVICES — chip grid of conditions / treatments covered
-       (Optional, only renders when subServices is provided)
+       SUB-SERVICES — chip grid of conditions / treatments covered.
+       Only renders as its own section when there's no round image
+       trio above it; otherwise it merges into the trio section.
        ============================================================ -->
-  {subServices && (
+  {subServices && !(roundImageTrio && roundImageTrio.items.length > 0) && (
     <section class={`section ${subServices.surface ?? (features.length % 2 === 0 ? 'bg-shell' : 'bg-cream')}`}>
       <div class="container">
         <details class="reveal sp-sub-details">
@@ -751,6 +773,9 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--color-primary);
+  }
+  .sp-trio__sub {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
   }
   @media (prefers-reduced-motion: reduce) {
     .sp-trio__orb {
