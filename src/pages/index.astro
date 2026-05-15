@@ -127,25 +127,29 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
-       FEATURE 2 — mental health, shell surface, sky accent
-       image RIGHT, text LEFT (flip)
+       FEATURE 2 — mental health, centered with breathing rings
+       around the portrait image
        ============================================================ -->
-  <section class="section bg-shell">
-    <div class="container">
-      <div class="feature-row feature-row--flip reveal">
-        <div class="feature-row__media">
-          <img src="/images/home-mental-health.jpg" alt="Peaceful morning bedroom" class="feature-img" loading="lazy" decoding="async" />
-        </div>
-        <div class="feature-row__text">
-          <span class="accent-chip chip-sky">mental health</span>
-          <h2>Sleep, anxiety, and what's keeping you stuck</h2>
-          <p>Restless nights. A mind that won't slow down. A fog that follows you into the day. These aren't just inconveniences. They're treatable.</p>
-          <p style="margin-top: 1rem; color: var(--ink-secondary);">We take mental health seriously as a part of whole-person care, not a referral you never follow through on.</p>
-          <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="/mental-health/" class="btn btn-primary">learn more</a>
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">book a visit</a>
-          </div>
-        </div>
+  <section class="section bg-shell home-mental">
+    <div class="container home-mental__container">
+      <div class="reveal home-mental__header">
+        <span class="accent-chip chip-sky">mental health</span>
+        <h2 class="home-mental__title">Sleep, anxiety, and what&rsquo;s keeping you stuck</h2>
+        <p class="home-mental__body">
+          Restless nights. A mind that won&rsquo;t slow down. A fog that follows you into the day. These aren&rsquo;t just inconveniences. They&rsquo;re treatable.
+        </p>
+      </div>
+
+      <div class="reveal home-mental__visual">
+        <span class="home-mental__ring home-mental__ring--1" aria-hidden="true"></span>
+        <span class="home-mental__ring home-mental__ring--2" aria-hidden="true"></span>
+        <span class="home-mental__ring home-mental__ring--3" aria-hidden="true"></span>
+        <img src="/images/home-mental-health-v2.png" alt="A calm, restful moment" class="home-mental__img" loading="lazy" decoding="async" />
+      </div>
+
+      <div class="reveal home-mental__actions">
+        <a href="/mental-health/" class="btn btn-primary">learn more</a>
+        <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">book a visit</a>
       </div>
     </div>
   </section>
@@ -280,6 +284,98 @@ import Layout from '../layouts/Layout.astro';
 
 
 <style>
+  /* ---- Mental health centered with breathing rings ----
+     Centered portrait inside a circular crop with three sage rings
+     rippling outward on a continuous 4.5s loop, staggered so the
+     section reads as a calm breathing rhythm. */
+  .home-mental__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 3rem;
+    padding-block: 2rem;
+  }
+  .home-mental__header {
+    max-width: 38rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .home-mental__title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.4vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-primary);
+    margin: 0;
+    max-width: 22ch;
+  }
+  .home-mental__body {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--ink-secondary);
+    max-width: 52ch;
+    margin: 0;
+  }
+  .home-mental__visual {
+    position: relative;
+    width: clamp(280px, 36vw, 420px);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .home-mental__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-accent);
+    opacity: 0;
+    pointer-events: none;
+    animation: home-mental-ring 4.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .home-mental__ring--1 { animation-delay: 0s; }
+  .home-mental__ring--2 { animation-delay: 1.6s; }
+  .home-mental__ring--3 { animation-delay: 3.2s; }
+  @keyframes home-mental-ring {
+    0% {
+      transform: scale(0.96);
+      opacity: 0.55;
+    }
+    100% {
+      transform: scale(1.7);
+      opacity: 0;
+    }
+  }
+  .home-mental__img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      0 18px 36px -16px rgba(60, 56, 54, 0.28),
+      0 6px 14px -8px rgba(60, 56, 54, 0.16);
+  }
+  .home-mental__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .home-mental__ring {
+      animation: none;
+      opacity: 0.18;
+      transform: scale(1.25);
+    }
+  }
+
   /* ---- How It Works + Ready When You Are (merged on dark backdrop) ----
      Same shape as the mens-health stepsAsHero on the service page:
      sig-cta-dark image as backdrop, dark gradient overlay, step cards
