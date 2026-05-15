@@ -13,11 +13,11 @@ import * as THREE from 'three'
 const MODEL_PATH = '/models/caduceus.glb'
 
 const BASE_SCALE = 1.4
-const ENTRY_SCALE = 0.95
-const ENTRY_Z = -8
+const ENTRY_SCALE = 0.92
+const ENTRY_Z = -6
 const BASE_Z = 0
-const ENTRY_DURATION = 1.3
-const ENTRY_TURNS = 0.75
+const ENTRY_DURATION = 2.8
+const ENTRY_TURNS = 0.6
 const INITIAL_SPIN_Y = ENTRY_TURNS * Math.PI * 2
 const TILT_X = -0.05
 

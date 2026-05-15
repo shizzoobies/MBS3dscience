@@ -405,21 +405,25 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 
   <!-- ============================================================
        FAQ — bg auto-alternates with section above
+       Stacked centered layout: title block, Caduceus 3D below it,
+       then the accordion list.
        ============================================================ -->
   <section class={`section ${faqBg}`}>
     <div class="container">
-      <div class="reveal faq-layout">
-        <div class="faq-heading">
+      <div class="faq-stacked">
+        <div class="reveal faq-stacked__heading">
           <span class="editorial-eyebrow">Common questions</span>
-          <h2 style="margin-top:1rem; font-family:var(--font-serif); font-weight:400; font-size:clamp(2rem,4.5vw,3rem); line-height:1.1; letter-spacing:-0.015em;">Things people ask.</h2>
-          <p style="color:var(--ink-secondary); margin-top:1rem; font-size:var(--text-sm);">
+          <h2 class="faq-stacked__title">Things people ask.</h2>
+          <p class="faq-stacked__sub">
             More questions? <a href="/contact/" style="text-decoration:underline; text-underline-offset:3px;">Contact us.</a>
           </p>
-          <div class="faq-decorative-frame" aria-hidden="true">
-            <FaqCaduceus client:only="react" />
-          </div>
         </div>
-        <div class="faq-list">
+
+        <div class="reveal faq-stacked__caduceus" aria-hidden="true">
+          <FaqCaduceus client:only="react" />
+        </div>
+
+        <div class="reveal faq-list faq-stacked__list">
           {faq.map(item => (
             <details class="faq-item">
               <summary class="faq-summary">{item.q}</summary>
@@ -1274,33 +1278,40 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     .sp-testimonials { grid-template-columns: repeat(3, 1fr); }
   }
 
-  /* FAQ */
-  .faq-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  /* FAQ — stacked centered layout with Caduceus below the title */
+  .faq-stacked {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
   }
-  @media (min-width: 768px) {
-    .faq-layout { grid-template-columns: 1fr 2fr; gap: 5rem; align-items: center; }
+  .faq-stacked__heading {
+    text-align: center;
+    max-width: 60ch;
   }
-  .faq-heading { position: sticky; top: 6rem; }
-  .faq-decorative-frame {
-    display: none;
-    margin-top: 2.5rem;
-    width: 100%;
-    max-width: 280px;
-    aspect-ratio: 1/1;
-    background-color: transparent;
-    border: 0;
+  .faq-stacked__title {
+    margin-top: 1rem;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+  .faq-stacked__sub {
+    color: var(--ink-secondary);
+    margin-top: 1rem;
+    font-size: var(--text-sm);
+  }
+  .faq-stacked__caduceus {
+    width: clamp(260px, 32vw, 400px);
+    aspect-ratio: 1;
+    margin: 1rem 0 2rem;
     overflow: visible;
   }
-  .faq-decorative-frame img {
+  .faq-stacked__list {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  @media (min-width: 1024px) {
-    .faq-decorative-frame { display: block; }
+    max-width: 760px;
+    margin-top: 1rem;
   }
 
   /* ---- Steps (MBS-Test bento variant) ---- */
