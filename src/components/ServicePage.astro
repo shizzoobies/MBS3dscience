@@ -87,6 +87,10 @@ interface Props {
   // absorbs the closing CTA copy (eyebrow + title + sub + pill buttons)
   // at the bottom, replacing the standalone CTA section at end of page.
   stepsAsHero?: boolean;
+  // When true, the values 3-up section renders between the first and
+  // second feature instead of immediately after the hero, so the
+  // text-block values break up consecutive image-heavy feature rows.
+  valuesAfterFirstFeature?: boolean;
 }
 
 const {
@@ -100,6 +104,7 @@ const {
   stepsBackground,
   heroVariant = 'editorial',
   stepsAsHero = false,
+  valuesAfterFirstFeature = false,
 } = Astro.props;
 
 // Strict bg alternation across every section after values (which is
@@ -195,28 +200,35 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 
 
   <!-- ============================================================
-       VALUE PROPS — cream surface
+       VALUE PROPS — cream surface (skipped here when
+       valuesAfterFirstFeature is true; rendered between features
+       [0] and [1] below instead)
        ============================================================ -->
-  <section class="section bg-cream">
-    <div class="container">
-      <div class="reveal sp-values">
-        {values.map((v, i) => (
-          <div class={`reveal card sp-value-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
-            <span class="sp-value-bar" aria-hidden="true"></span>
-            <h3>{v.heading}</h3>
-            <p>{v.body}</p>
-          </div>
-        ))}
+  {!valuesAfterFirstFeature && (
+    <section class="section bg-cream">
+      <div class="container">
+        <div class="reveal sp-values">
+          {values.map((v, i) => (
+            <div class={`reveal card sp-value-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
+              <span class="sp-value-bar" aria-hidden="true"></span>
+              <h3>{v.heading}</h3>
+              <p>{v.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
 
   <!-- ============================================================
-       FEATURES — zigzag, alternating shell/sand
+       FEATURES — zigzag, alternating shell/sand. When
+       valuesAfterFirstFeature is true, the values 3-up renders
+       between features[0] and features[1].
        ============================================================ -->
   {features.map((f, i) => (
-    f.variant === 'fullwidth' && f.image ? (
+    <>
+    {f.variant === 'fullwidth' && f.image ? (
       <section class={`section sp-feature sp-feature--fullwidth ${f.flip ? 'sp-feature--flip' : ''}`}>
         <img src={f.image} alt={f.imgAlt ?? f.heading} class="sp-feature__bg" />
         <div class="sp-feature__overlay" aria-hidden="true"></div>
@@ -284,7 +296,23 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
           </div>
         </div>
       </section>
-    )
+    )}
+    {valuesAfterFirstFeature && i === 0 && (
+      <section class="section bg-cream">
+        <div class="container">
+          <div class="reveal sp-values">
+            {values.map((v, vi) => (
+              <div class={`reveal card sp-value-card ${vi > 0 ? `reveal-delay-${vi}` : ''}`}>
+                <span class="sp-value-bar" aria-hidden="true"></span>
+                <h3>{v.heading}</h3>
+                <p>{v.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+    </>
   ))}
 
 
