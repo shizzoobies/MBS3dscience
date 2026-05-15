@@ -227,7 +227,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        between features[0] and features[1].
        ============================================================ -->
   {features.map((f, i) => (
-    <>
+    <Fragment>
     {f.variant === 'fullwidth' && f.image ? (
       <section class={`section sp-feature sp-feature--fullwidth ${f.flip ? 'sp-feature--flip' : ''}`}>
         <img src={f.image} alt={f.imgAlt ?? f.heading} class="sp-feature__bg" />
@@ -312,7 +312,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
         </div>
       </section>
     )}
-    </>
+    </Fragment>
   ))}
 
 
