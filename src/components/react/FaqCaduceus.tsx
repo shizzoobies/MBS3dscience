@@ -12,8 +12,8 @@ import * as THREE from 'three'
 
 const MODEL_PATH = '/models/caduceus.glb'
 
-const BASE_SCALE = 0.95
-const ENTRY_SCALE = 0.65
+const BASE_SCALE = 1.25
+const ENTRY_SCALE = 0.85
 const ENTRY_Z = -6
 const BASE_Z = 0
 const ENTRY_DURATION = 2.8
