@@ -218,35 +218,8 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
-       HOW IT WORKS — cream surface
-       ============================================================ -->
-  <section class="section bg-cream">
-    <div class="container">
-      <div class="reveal" style="text-align: center; margin-bottom: 3.5rem;">
-        <span class="label">how it works</span>
-        <h2 style="margin-top: 0.75rem;">Three steps to better care</h2>
-      </div>
-
-      <div class="steps-grid">
-        <div class="reveal step-card">
-          <h3 style="margin-bottom: 0.875rem;">Book online</h3>
-          <p style="color: var(--ink-secondary); font-size: var(--text-sm);">Pick a time through our secure portal. Same-week availability, with evening appointments included. No waiting rooms.</p>
-        </div>
-        <div class="reveal reveal-delay-1 step-card">
-          <h3 style="margin-bottom: 0.875rem;">Meet your provider</h3>
-          <p style="color: var(--ink-secondary); font-size: var(--text-sm);">Secure video visit from anywhere in Florida. Real conversation with a provider who has time for you.</p>
-        </div>
-        <div class="reveal reveal-delay-2 step-card">
-          <h3 style="margin-bottom: 0.875rem;">Get your plan</h3>
-          <p style="color: var(--ink-secondary); font-size: var(--text-sm);">A personalized care plan with ongoing support, medication management, and follow-ups that evolve with you.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       FAQ — shell surface
+       FAQ — shell surface (How It Works has been merged into the
+       closing CTA section below, on the dark sig-cta backdrop)
        ============================================================ -->
   <section class="section bg-shell">
     <div class="container">
@@ -288,28 +261,46 @@ import Layout from '../layouts/Layout.astro';
 
 
   <!-- ============================================================
-       CLOSING CTA — rounded big-card on cream (MBS-Test signature)
+       HOW IT WORKS + READY WHEN YOU ARE — merged on the sig-cta-dark
+       backdrop, step cards on top, closing CTA copy at the bottom
        ============================================================ -->
-  <section class="section bg-cream cta-section">
-    <div class="container">
-      <div class="reveal cta-card">
-        <img src="/images/sig-cta-dark.jpg" alt="" class="cta-card__bg" aria-hidden="true" />
-        <span class="cta-card__deco cta-card__deco--tr" aria-hidden="true"></span>
-        <span class="cta-card__deco cta-card__deco--bl" aria-hidden="true"></span>
-        <div class="cta-card__inner">
-          <span class="cta-card__eyebrow">Ready when you are</span>
-          <h2 class="cta-card__title">The care you've always deserved.</h2>
-          <p class="cta-card__sub">
-            Veteran-owned. Patient-first. No insurance required. Same-week telehealth across Florida, from a provider who shows up for you.
-          </p>
-          <div class="cta-card__actions">
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="cta-card__btn cta-card__btn--primary">
-              book a free consultation
-            </a>
-            <a href="/contact/" class="cta-card__btn cta-card__btn--ghost">
-              ask a question
-            </a>
-          </div>
+  <section class="section home-steps-hero">
+    <img src="/images/sig-cta-dark.jpg" alt="" class="home-steps-hero__bg" aria-hidden="true" />
+    <div class="home-steps-hero__overlay" aria-hidden="true"></div>
+    <div class="container home-steps-hero__container">
+      <div class="reveal home-steps-hero__header">
+        <span class="label home-steps-hero__label">how it works</span>
+        <h2 class="home-steps-hero__title">Three steps to better care</h2>
+      </div>
+
+      <div class="steps-grid">
+        <div class="reveal step-card">
+          <h3 style="margin-bottom: 0.875rem;">Book online</h3>
+          <p style="color: var(--ink-secondary); font-size: var(--text-sm);">Pick a time through our secure portal. Same-week availability, with evening appointments included. No waiting rooms.</p>
+        </div>
+        <div class="reveal reveal-delay-1 step-card">
+          <h3 style="margin-bottom: 0.875rem;">Meet your provider</h3>
+          <p style="color: var(--ink-secondary); font-size: var(--text-sm);">Secure video visit from anywhere in Florida. Real conversation with a provider who has time for you.</p>
+        </div>
+        <div class="reveal reveal-delay-2 step-card">
+          <h3 style="margin-bottom: 0.875rem;">Get your plan</h3>
+          <p style="color: var(--ink-secondary); font-size: var(--text-sm);">A personalized care plan with ongoing support, medication management, and follow-ups that evolve with you.</p>
+        </div>
+      </div>
+
+      <div class="reveal home-steps-hero__cta">
+        <span class="cta-card__eyebrow">Ready when you are</span>
+        <h2 class="cta-card__title">The care you&rsquo;ve always deserved.</h2>
+        <p class="cta-card__sub">
+          Veteran-owned. Patient-first. No insurance required. Same-week telehealth across Florida, from a provider who shows up for you.
+        </p>
+        <div class="cta-card__actions">
+          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="cta-card__btn cta-card__btn--primary">
+            book a free consultation
+          </a>
+          <a href="/contact/" class="cta-card__btn cta-card__btn--ghost">
+            ask a question
+          </a>
         </div>
       </div>
     </div>
@@ -319,6 +310,85 @@ import Layout from '../layouts/Layout.astro';
 
 
 <style>
+  /* ---- How It Works + Ready When You Are (merged on dark backdrop) ----
+     Same shape as the mens-health stepsAsHero on the service page:
+     sig-cta-dark image as backdrop, dark gradient overlay, step cards
+     on top with translucent fills, closing CTA copy at the bottom. */
+  .home-steps-hero {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-primary);
+    padding-top: clamp(4rem, 7vw, 6rem);
+    padding-bottom: clamp(4rem, 7vw, 6rem);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -60px 90px -40px rgba(0, 0, 0, 0.45),
+      inset 0 50px 90px -40px rgba(0, 0, 0, 0.30);
+  }
+  .home-steps-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.5;
+    filter: grayscale(20%) contrast(1.02);
+    z-index: 0;
+  }
+  .home-steps-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(60, 56, 54, 0.85) 0%,
+      rgba(60, 56, 54, 0.65) 45%,
+      rgba(60, 56, 54, 0.85) 100%
+    );
+    z-index: 1;
+  }
+  .home-steps-hero__container {
+    position: relative;
+    z-index: 2;
+  }
+  .home-steps-hero__header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  .home-steps-hero__label {
+    color: rgba(255, 255, 255, 0.62);
+  }
+  .home-steps-hero__title {
+    color: #ffffff;
+    margin-top: 0.75rem;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+  .home-steps-hero__cta {
+    margin-top: clamp(4rem, 7vw, 6rem);
+    text-align: center;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Translucent step cards so the backdrop image and overlay show through
+     while keeping the copy readable. */
+  .home-steps-hero .step-card {
+    background-color: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .home-steps-hero .step-card:nth-child(2) {
+    background-color: rgba(125, 140, 123, 0.86);
+  }
+  .home-steps-hero .step-card:nth-child(3) {
+    background-color: rgba(60, 56, 54, 0.82);
+  }
+
   /* ---- "Get your edge back" framed image (men's health feature) ----
      Asymmetric rounded image with an offset decorative outline behind
      it. Both pieces animate in on page load: image fades up, outline
