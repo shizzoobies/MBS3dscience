@@ -775,6 +775,21 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   .sp-trio__sub {
     margin-top: clamp(2.5rem, 5vw, 4rem);
   }
+  /* Center the "what we cover" accordion within the trio section:
+     heading + toggle as one centered unit, centered intro/disclaimer. */
+  .sp-trio__sub .sp-sub-summary {
+    justify-content: center;
+    gap: 1rem;
+  }
+  .sp-trio__sub .sp-sub-summary__label {
+    align-items: center;
+  }
+  .sp-trio__sub .sp-sub-intro,
+  .sp-trio__sub .sp-sub-disclaimer {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
   @media (prefers-reduced-motion: reduce) {
     .sp-trio__orb {
       animation: none;
