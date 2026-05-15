@@ -347,24 +347,27 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 
 
   <!-- ============================================================
-       TESTIMONIALS — bg auto-alternates with section above
+       TESTIMONIALS — bg auto-alternates with section above. Skipped
+       entirely when the testimonials array is empty.
        ============================================================ -->
-  <section class={`section ${testimonialsBg}`}>
-    <div class="container">
-      <div class="reveal" style="margin-bottom: 3rem; text-align: center;">
-        <span class="sp-section-eyebrow">Patient stories</span>
-        <h2 style="margin-top: 0.75rem; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem);">What patients say.</h2>
+  {testimonials && testimonials.length > 0 && (
+    <section class={`section ${testimonialsBg}`}>
+      <div class="container">
+        <div class="reveal" style="margin-bottom: 3rem; text-align: center;">
+          <span class="sp-section-eyebrow">Patient stories</span>
+          <h2 style="margin-top: 0.75rem; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem);">What patients say.</h2>
+        </div>
+        <div class="sp-testimonials">
+          {testimonials.map((t, i) => (
+            <div class={`reveal testimonial-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
+              <p class="testimonial-quote">{t.quote}</p>
+              <p class="testimonial-attr">{t.attr}</p>
+            </div>
+          ))}
+        </div>
       </div>
-      <div class="sp-testimonials">
-        {testimonials.map((t, i) => (
-          <div class={`reveal testimonial-card ${i > 0 ? `reveal-delay-${i}` : ''}`}>
-            <p class="testimonial-quote">{t.quote}</p>
-            <p class="testimonial-attr">{t.attr}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
 
   <!-- ============================================================
