@@ -343,9 +343,10 @@ import Layout from '../layouts/Layout.astro';
   .home-feature-fullwidth {
     position: relative;
     padding: 0;
-    /* Full-screen cinematic: section fills the viewport height so the
-       image acts as a hero-scale stage rather than a banded strip. */
-    min-height: 100vh;
+    /* Cinematic stage at a measured height: tall enough to read as a
+       hero, short enough that the 2.33:1 image renders with minimal
+       crop so the figure stays fully in frame. */
+    min-height: 72vh;
     overflow: hidden;
     background-color: var(--color-primary);
     box-shadow:
@@ -394,9 +395,9 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    min-height: 100vh;
-    padding-top: 6rem;
-    padding-bottom: 5rem;
+    min-height: 72vh;
+    padding-top: 5rem;
+    padding-bottom: 4rem;
   }
   .home-feature-fullwidth__text {
     max-width: 34rem;
@@ -472,12 +473,12 @@ import Layout from '../layouts/Layout.astro';
   }
   @media (max-width: 767px) {
     .home-feature-fullwidth {
-      min-height: 85vh;
+      min-height: 70vh;
     }
     .home-feature-fullwidth__container {
-      min-height: 85vh;
-      padding-top: 5rem;
-      padding-bottom: 4rem;
+      min-height: 70vh;
+      padding-top: 4rem;
+      padding-bottom: 3rem;
     }
   }
 
