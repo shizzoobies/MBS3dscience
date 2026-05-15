@@ -521,6 +521,18 @@ import Layout from '../layouts/Layout.astro';
     }
   }
 
+  /* Men's health variant: explicitly right-anchor the text so the
+     column sits firmly on the right side of the section. */
+  .home-feature-fullwidth--mens .home-feature-fullwidth__container {
+    justify-content: flex-end;
+    padding-right: clamp(2rem, 4vw, 4rem);
+  }
+  .home-feature-fullwidth--mens .home-feature-fullwidth__text {
+    max-width: 32rem;
+    margin-left: auto;
+    margin-right: 0;
+  }
+
   /* ---- Full-bleed flag hero with glass text panel on the right ---- */
   .hero-fullbleed {
     position: relative;
