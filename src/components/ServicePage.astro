@@ -95,7 +95,11 @@ interface Props {
   // after the feature rows. `backdrop` picks the ambient animation:
   // 'orbs' (drifting sage/rust/brass blobs) or 'data-grid' (a faint
   // twinkling field of data points, suited to lab/optimization pages).
+  // Optional eyebrow/heading/body render centered above the row.
   roundImageTrio?: {
+    eyebrow?: string;
+    heading?: string;
+    body?: string;
     items: { label: string; image: string }[];
     backdrop?: 'orbs' | 'data-grid';
   };
@@ -349,6 +353,19 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
         </div>
       )}
       <div class="container sp-trio__container">
+        {(roundImageTrio.eyebrow || roundImageTrio.heading || roundImageTrio.body) && (
+          <div class="reveal sp-trio__header">
+            {roundImageTrio.eyebrow && (
+              <span class="editorial-eyebrow">{roundImageTrio.eyebrow}</span>
+            )}
+            {roundImageTrio.heading && (
+              <h2 class="sp-trio__heading">{roundImageTrio.heading}</h2>
+            )}
+            {roundImageTrio.body && (
+              <p class="sp-trio__body">{roundImageTrio.body}</p>
+            )}
+          </div>
+        )}
         <div class="reveal sp-trio__row">
           {roundImageTrio.items.map((item, idx) => (
             <figure class={`sp-trio__item sp-trio__item--${idx + 1}`}>
@@ -776,6 +793,31 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   .sp-trio__container {
     position: relative;
     z-index: 1;
+  }
+  .sp-trio__header {
+    text-align: center;
+    max-width: 56ch;
+    margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .sp-trio__heading {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-primary);
+    margin: 0;
+    max-width: 22ch;
+  }
+  .sp-trio__body {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--ink-secondary);
+    margin: 0;
   }
   .sp-trio__row {
     display: flex;
