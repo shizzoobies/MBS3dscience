@@ -91,6 +91,12 @@ interface Props {
   // second feature instead of immediately after the hero, so the
   // text-block values break up consecutive image-heavy feature rows.
   valuesAfterFirstFeature?: boolean;
+  // Optional row of three round framed images with labels, rendered
+  // after the values block. Uses an ambient drifting-orb background
+  // (sage / rust / brass) for subtle motion.
+  roundImageTrio?: {
+    items: { label: string; image: string }[];
+  };
 }
 
 const {
@@ -105,6 +111,7 @@ const {
   heroVariant = 'editorial',
   stepsAsHero = false,
   valuesAfterFirstFeature = false,
+  roundImageTrio,
 } = Astro.props;
 
 // Strict bg alternation across every section after values (which is
@@ -214,6 +221,33 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
               <h3>{v.heading}</h3>
               <p>{v.body}</p>
             </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ============================================================
+       ROUND IMAGE TRIO — optional. Three round framed images with
+       captions, centered, drifting orb ambient like the home mental
+       health section.
+       ============================================================ -->
+  {roundImageTrio && roundImageTrio.items.length > 0 && (
+    <section class="section bg-shell sp-trio">
+      <div class="sp-trio__ambient" aria-hidden="true">
+        <span class="sp-trio__orb sp-trio__orb--1"></span>
+        <span class="sp-trio__orb sp-trio__orb--2"></span>
+        <span class="sp-trio__orb sp-trio__orb--3"></span>
+      </div>
+      <div class="container sp-trio__container">
+        <div class="reveal sp-trio__row">
+          {roundImageTrio.items.map((item, idx) => (
+            <figure class={`sp-trio__item sp-trio__item--${idx + 1}`}>
+              <div class="sp-trio__visual">
+                <img src={item.image} alt={item.label} class="sp-trio__img" loading="lazy" decoding="async" />
+              </div>
+              <figcaption class="sp-trio__label">{item.label}</figcaption>
+            </figure>
           ))}
         </div>
       </div>
@@ -615,6 +649,111 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   .sp-steps-hero :global(.t-dots circle) {
     fill: #A78428;
     stroke: none;
+  }
+
+  /* ---- Round image trio with drifting orb ambient ---- */
+  .sp-trio {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .sp-trio__ambient {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .sp-trio__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.38;
+    will-change: transform;
+  }
+  .sp-trio__orb--1 {
+    width: clamp(320px, 36vw, 520px);
+    aspect-ratio: 1;
+    background: var(--color-accent);
+    top: 8%;
+    left: 4%;
+    animation: sp-trio-orb-1 16s ease-in-out infinite;
+  }
+  .sp-trio__orb--2 {
+    width: clamp(360px, 40vw, 580px);
+    aspect-ratio: 1;
+    background: var(--color-rust);
+    top: 28%;
+    right: 4%;
+    animation: sp-trio-orb-2 20s ease-in-out infinite;
+  }
+  .sp-trio__orb--3 {
+    width: clamp(280px, 30vw, 440px);
+    aspect-ratio: 1;
+    background: #B8956A;
+    bottom: 4%;
+    left: 36%;
+    animation: sp-trio-orb-3 18s ease-in-out infinite;
+  }
+  @keyframes sp-trio-orb-1 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(60px, 40px); }
+  }
+  @keyframes sp-trio-orb-2 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(-80px, 60px); }
+  }
+  @keyframes sp-trio-orb-3 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(40px, -50px); }
+  }
+  .sp-trio__container {
+    position: relative;
+    z-index: 1;
+  }
+  .sp-trio__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+  }
+  .sp-trio__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    margin: 0;
+  }
+  .sp-trio__visual {
+    position: relative;
+    width: clamp(180px, 18vw, 240px);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sp-trio__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      0 16px 28px -16px rgba(60, 56, 54, 0.28),
+      0 6px 12px -8px rgba(60, 56, 54, 0.16);
+  }
+  .sp-trio__label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sp-trio__orb {
+      animation: none;
+    }
   }
 
   /* ---- Service hero (full-bleed image variant) ----
