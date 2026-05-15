@@ -132,14 +132,6 @@ import Layout from '../layouts/Layout.astro';
        ============================================================ -->
   <section class="section bg-shell home-mental">
     <div class="container home-mental__container">
-      <div class="reveal home-mental__header">
-        <span class="accent-chip chip-sky">mental health</span>
-        <h2 class="home-mental__title">Sleep, anxiety, and what&rsquo;s keeping you stuck</h2>
-        <p class="home-mental__body">
-          Restless nights. A mind that won&rsquo;t slow down. A fog that follows you into the day. These aren&rsquo;t just inconveniences. They&rsquo;re treatable.
-        </p>
-      </div>
-
       <div class="reveal home-mental__visuals">
         <figure class="home-mental__portrait">
           <div class="home-mental__visual">
@@ -151,7 +143,7 @@ import Layout from '../layouts/Layout.astro';
           <figcaption class="home-mental__caption">Anxiety</figcaption>
         </figure>
 
-        <figure class="home-mental__portrait home-mental__portrait--alt">
+        <figure class="home-mental__portrait home-mental__portrait--b">
           <div class="home-mental__visual">
             <span class="home-mental__ring home-mental__ring--1" aria-hidden="true"></span>
             <span class="home-mental__ring home-mental__ring--2" aria-hidden="true"></span>
@@ -160,6 +152,34 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <figcaption class="home-mental__caption">Depression</figcaption>
         </figure>
+
+        <figure class="home-mental__portrait home-mental__portrait--c">
+          <div class="home-mental__visual">
+            <span class="home-mental__ring home-mental__ring--1" aria-hidden="true"></span>
+            <span class="home-mental__ring home-mental__ring--2" aria-hidden="true"></span>
+            <span class="home-mental__ring home-mental__ring--3" aria-hidden="true"></span>
+            <img src="/images/home-mental-health-v2.png" alt="" class="home-mental__img" loading="lazy" decoding="async" />
+          </div>
+          <figcaption class="home-mental__caption">Sleep</figcaption>
+        </figure>
+
+        <figure class="home-mental__portrait home-mental__portrait--d">
+          <div class="home-mental__visual">
+            <span class="home-mental__ring home-mental__ring--1" aria-hidden="true"></span>
+            <span class="home-mental__ring home-mental__ring--2" aria-hidden="true"></span>
+            <span class="home-mental__ring home-mental__ring--3" aria-hidden="true"></span>
+            <img src="/images/home-mental-health.jpg" alt="" class="home-mental__img" loading="lazy" decoding="async" />
+          </div>
+          <figcaption class="home-mental__caption">Focus</figcaption>
+        </figure>
+      </div>
+
+      <div class="reveal home-mental__header">
+        <span class="accent-chip chip-sky">mental health</span>
+        <h2 class="home-mental__title">Sleep, anxiety, and what&rsquo;s keeping you stuck</h2>
+        <p class="home-mental__body">
+          Restless nights. A mind that won&rsquo;t slow down. A fog that follows you into the day. These aren&rsquo;t just inconveniences. They&rsquo;re treatable.
+        </p>
       </div>
 
       <div class="reveal home-mental__actions">
@@ -340,18 +360,18 @@ import Layout from '../layouts/Layout.astro';
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
-    gap: clamp(2.5rem, 6vw, 5rem);
+    gap: clamp(2rem, 4.5vw, 4rem);
   }
   .home-mental__portrait {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1.1rem;
     margin: 0;
   }
   .home-mental__visual {
     position: relative;
-    width: clamp(180px, 20vw, 240px);
+    width: clamp(140px, 15vw, 200px);
     aspect-ratio: 1;
     display: flex;
     align-items: center;
@@ -364,20 +384,26 @@ import Layout from '../layouts/Layout.astro';
     border: 1.5px solid var(--color-accent);
     opacity: 0;
     pointer-events: none;
-    animation: home-mental-ring 4.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: home-mental-ring 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
   .home-mental__ring--1 { animation-delay: 0s; }
-  .home-mental__ring--2 { animation-delay: 1.6s; }
-  .home-mental__ring--3 { animation-delay: 3.2s; }
-  /* Stagger the second portrait's ring cycle so the two breathing
-     loops don't pulse in lockstep — feels more natural. */
-  .home-mental__portrait--alt .home-mental__ring--1 { animation-delay: 0.8s; }
-  .home-mental__portrait--alt .home-mental__ring--2 { animation-delay: 2.4s; }
-  .home-mental__portrait--alt .home-mental__ring--3 { animation-delay: 4.0s; }
+  .home-mental__ring--2 { animation-delay: 3s; }
+  .home-mental__ring--3 { animation-delay: 6s; }
+  /* Per-portrait offsets so the four loops drift independently instead
+     of all pulsing in sync. */
+  .home-mental__portrait--b .home-mental__ring--1 { animation-delay: 1.1s; }
+  .home-mental__portrait--b .home-mental__ring--2 { animation-delay: 4.1s; }
+  .home-mental__portrait--b .home-mental__ring--3 { animation-delay: 7.1s; }
+  .home-mental__portrait--c .home-mental__ring--1 { animation-delay: 2.3s; }
+  .home-mental__portrait--c .home-mental__ring--2 { animation-delay: 5.3s; }
+  .home-mental__portrait--c .home-mental__ring--3 { animation-delay: 8.3s; }
+  .home-mental__portrait--d .home-mental__ring--1 { animation-delay: 0.5s; }
+  .home-mental__portrait--d .home-mental__ring--2 { animation-delay: 3.5s; }
+  .home-mental__portrait--d .home-mental__ring--3 { animation-delay: 6.5s; }
   @keyframes home-mental-ring {
     0% {
       transform: scale(0.96);
-      opacity: 0.5;
+      opacity: 0.45;
     }
     100% {
       transform: scale(1.7);
