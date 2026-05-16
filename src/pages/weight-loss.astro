@@ -14,6 +14,33 @@ import ServicePage from '../components/ServicePage.astro';
   heroImage="/images/hero-weight-loss-main.png"
   heroVariant="fullwidth"
   stepsAsHero={true}
+  pricing={{
+    plans: [
+      {
+        name: 'GLP-1 Standard',
+        price: '$139.99',
+        tagline: 'Monitoring and titration. You pay for your own labs and medication.',
+        includes: [
+          'Provider visits and ongoing monitoring',
+          'Dose titration as needed',
+          'Labs ordered for you, paid at the lab',
+          'Cancel anytime',
+        ],
+      },
+      {
+        name: 'GLP-1 Premium',
+        price: '$249',
+        tagline: 'Everything in Standard plus lab costs and discounted medication.',
+        featured: true,
+        includes: [
+          'Everything in GLP-1 Standard',
+          'All lab costs included (quarterly panels)',
+          'Discounted medication pricing',
+          'Priority scheduling',
+        ],
+      },
+    ],
+  }}
   values={[
     {
       heading: "GLP-1 weight loss programs",
