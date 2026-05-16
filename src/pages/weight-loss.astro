@@ -11,7 +11,7 @@ import ServicePage from '../components/ServicePage.astro';
   chipLabel="GLP-1 available"
   chipClass="chip-coral"
   heroSurface="var(--surface-sand)"
-  heroImage="/images/hero-weight-loss.jpg"
+  heroImage="/images/hero-weight-loss-main.png"
   heroVariant="fullwidth"
   stepsAsHero={true}
   values={[
@@ -34,19 +34,23 @@ import ServicePage from '../components/ServicePage.astro';
       body: "Semaglutide and tirzepatide work on appetite regulation at the hormonal level. Clinical trials show 15 to 22% body weight reduction for the right candidates. We evaluate whether you're one of them, then prescribe with the monitoring it deserves.",
       chipLabel: "GLP-1 therapy",
       chipClass: "chip-coral",
-      imgAlt: "Active person living a healthy lifestyle",
-      image: "/images/feat-weight-loss-1.jpg"
-    },
-    {
-      heading: "The work the medication can't do alone",
-      body: "Long-term weight loss is decided by your metabolic engine. Muscle, sleep, stress, and how cleanly your body switches between burning carbs and fats. Your plan addresses all of it.",
-      chipLabel: "metabolic health",
-      chipClass: "chip-sage",
-      imgAlt: "Healthy meal prep with vegetables and protein",
-      image: "/images/feat-weight-loss-2.jpg",
+      imgAlt: "GLP-1 therapy at MBS Medical",
+      image: "/images/feat-weight-loss-glp1.png",
+      variant: "fullwidth",
       flip: true
     }
   ]}
+  roundImageTrio={{
+    backdrop: 'orbs',
+    eyebrow: 'metabolic health',
+    heading: "The work the medication can't do alone",
+    body: "Long-term weight loss is decided by your metabolic engine. Muscle, sleep, stress, and how cleanly your body switches between burning carbs and fats. Your plan addresses all of it.",
+    items: [
+      { label: "Clean Fuel", image: "/images/weightloss-circle-fuel.png" },
+      { label: "Build Muscle", image: "/images/weightloss-circle-muscle.png" },
+      { label: "Rest", image: "/images/weightloss-circle-rest.png" },
+    ],
+  }}
   subServices={{
     heading: "What we cover under weight loss",
     intro: "Specific conditions and approaches your weight-loss visit can address. Most patients touch several of these as their plan evolves.",

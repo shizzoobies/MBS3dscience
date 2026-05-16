@@ -850,6 +850,10 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     align-items: center;
     justify-content: center;
   }
+  /* Middle image of the trio is slightly larger for visual emphasis. */
+  .sp-trio__item--2 .sp-trio__visual {
+    width: clamp(215px, 22vw, 290px);
+  }
   .sp-trio__img {
     width: 100%;
     height: 100%;
