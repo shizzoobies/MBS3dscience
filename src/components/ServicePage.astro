@@ -339,10 +339,16 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     <section class="section bg-shell sp-trio">
       {roundImageTrio.backdrop === 'data-grid' ? (
         <div class="sp-trio__datagrid" aria-hidden="true">
-          {Array.from({ length: 72 }).map(() => {
-            const delay = (Math.random() * 6).toFixed(2);
-            const dur = (3.5 + Math.random() * 4).toFixed(2);
-            return <span class="sp-trio__dot" style={`animation-delay:${delay}s;animation-duration:${dur}s`}></span>;
+          {Array.from({ length: 72 }).map((_, i) => {
+            const col = i % 12;
+            const row = Math.floor(i / 12);
+            /* Delay scales with column so the twinkle sweeps left to
+               right; small jitter keeps it from looking mechanical. */
+            const delay = ((col / 12) * 4.5 + Math.random() * 0.9).toFixed(2);
+            /* Cycle sage / rust / amber on a diagonal for color variety. */
+            const colors = ['var(--color-accent)', 'var(--color-rust)', '#C8973F'];
+            const color = colors[(col + row) % 3];
+            return <span class="sp-trio__dot" style={`animation-delay:${delay}s;background:${color}`}></span>;
           })}
         </div>
       ) : (
@@ -771,18 +777,21 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     padding: clamp(2rem, 5vw, 5rem);
   }
   .sp-trio__dot {
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: var(--color-accent);
     justify-self: center;
     align-self: center;
     opacity: 0;
-    animation: sp-trio-twinkle 5s ease-in-out infinite;
+    /* Fixed duration so the column-staggered delays read as one
+       continuous left-to-right wave. */
+    animation: sp-trio-twinkle 6s ease-in-out infinite;
   }
   @keyframes sp-trio-twinkle {
-    0%, 100% { opacity: 0; transform: scale(0.6); }
-    50%      { opacity: 0.45; transform: scale(1); }
+    0%, 100% { opacity: 0; transform: scale(0.55); }
+    45%      { opacity: 0.62; transform: scale(1.05); }
+    55%      { opacity: 0.62; transform: scale(1.05); }
   }
   @media (prefers-reduced-motion: reduce) {
     .sp-trio__dot {
