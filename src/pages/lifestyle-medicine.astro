@@ -41,17 +41,19 @@ import ServicePage from '../components/ServicePage.astro';
       image: "/images/feat-lifestyle-metabolic.png",
       variant: "fullwidth",
       flip: true
-    },
-    {
-      heading: "Cardiovascular risk starts with lifestyle",
-      body: "Hypertension, high cholesterol, and cardiovascular disease are significantly influenced by diet, activity, sleep, and stress. We don't just prescribe medications. We build a real lifestyle plan that attacks risk factors at the root. Medications may still be needed, but they work better and may be reduced over time when lifestyle is addressed seriously.",
-      chipLabel: "cardiovascular health",
-      chipClass: "chip-coral",
-      imgAlt: "Running shoes on the pavement",
-      image: "/images/feat-lifestyle-2.jpg",
-      flip: true
     }
   ]}
+  roundImageTrio={{
+    backdrop: 'orbs',
+    eyebrow: 'cardiovascular health',
+    heading: 'Cardiovascular risk starts with lifestyle',
+    body: "Hypertension, high cholesterol, and cardiovascular disease are significantly influenced by diet, activity, sleep, and stress. We build a real lifestyle plan that attacks risk factors at the root, so medications work better and can often be reduced over time.",
+    items: [
+      { label: "Blood Pressure", image: "/images/lifestyle-circle-bp.png" },
+      { label: "Daily Movement", image: "/images/lifestyle-circle-bike.png" },
+      { label: "Living Well", image: "/images/lifestyle-circle-family.png" },
+    ],
+  }}
   testimonials={[]}
   steps={[
     {
