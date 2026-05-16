@@ -41,17 +41,19 @@ import ServicePage from '../components/ServicePage.astro';
       imgAlt: "Advanced biomarker testing at MBS Medical",
       image: "/images/feat-longevity-biomarkers.png",
       variant: "fullwidth"
-    },
-    {
-      heading: "Recovery, strength, and mental sharpness",
-      body: "Whether you're an athlete looking for a performance edge, a professional who needs to perform cognitively for decades, or someone who just wants to stay strong and active into their 70s and 80s, the protocols we use are evidence-informed and individualized. Peptide therapy, hormone optimization, sleep quality, and cardiovascular conditioning all have a role.",
-      chipLabel: "performance protocols",
-      chipClass: "chip-terracotta",
-      imgAlt: "Mature athlete training outdoors",
-      image: "/images/feat-longevity-2.jpg",
-      flip: true
     }
   ]}
+  roundImageTrio={{
+    backdrop: 'orbs',
+    eyebrow: 'performance protocols',
+    heading: 'Recovery, strength, and mental sharpness',
+    body: "Whether you're an athlete looking for a performance edge, a professional who needs to perform cognitively for decades, or someone who just wants to stay strong and active into their 70s and 80s, the protocols we use are evidence-informed and individualized.",
+    items: [
+      { label: "Recovery", image: "/images/longevity-circle-recovery.png" },
+      { label: "Strength", image: "/images/longevity-circle-strength.png" },
+      { label: "Sharpness", image: "/images/longevity-circle-sharp.png" },
+    ],
+  }}
   testimonials={[]}
   steps={[
     {
