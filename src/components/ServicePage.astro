@@ -87,6 +87,9 @@ interface Props {
   // Set e.g. 'center 25%' to bias the crop toward the top of the image
   // so a subject's head is not cut off.
   heroFocus?: string;
+  // When true, the fullwidth hero text column sits on the right with
+  // the dark gradient flipped to that side.
+  heroFlip?: boolean;
   // When true, the "how it works" section gets a dark image backdrop and
   // absorbs the closing CTA copy (eyebrow + title + sub + pill buttons)
   // at the bottom, replacing the standalone CTA section at end of page.
@@ -120,6 +123,7 @@ const {
   stepsBackground,
   heroVariant = 'editorial',
   heroFocus,
+  heroFlip = false,
   stepsAsHero = false,
   valuesAfterFirstFeature = false,
   roundImageTrio,
@@ -146,7 +150,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        page can pick its own accent (alternating across pages).
        ============================================================ -->
   {heroVariant === 'fullwidth' && heroImage ? (
-    <section class="section sp-hero sp-hero--fullwidth">
+    <section class={`section sp-hero sp-hero--fullwidth${heroFlip ? ' sp-hero--flip' : ''}`}>
       <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero__bg" style={heroFocus ? `object-position: ${heroFocus};` : undefined} />
       <div class="sp-hero__overlay" aria-hidden="true"></div>
       <div class="container sp-hero__fw-container">
@@ -944,6 +948,19 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     min-height: 62vh;
     padding-top: 7rem;
     padding-bottom: 4rem;
+  }
+  /* Flip variant: text column on the right, gradient dark on the right. */
+  .sp-hero--fullwidth.sp-hero--flip .sp-hero__fw-container {
+    justify-content: flex-end;
+  }
+  .sp-hero--fullwidth.sp-hero--flip .sp-hero__overlay {
+    background: linear-gradient(
+      260deg,
+      rgba(60, 56, 54, 0.72) 0%,
+      rgba(60, 56, 54, 0.45) 35%,
+      rgba(60, 56, 54, 0.10) 65%,
+      rgba(60, 56, 54, 0) 100%
+    );
   }
   .sp-hero__fw-text {
     max-width: 42rem;
