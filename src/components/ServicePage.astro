@@ -851,15 +851,16 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     position: relative;
     width: clamp(180px, 18vw, 240px);
     aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   /* Middle image of the trio is slightly larger for visual emphasis. */
   .sp-trio__item--2 .sp-trio__visual {
     width: clamp(215px, 22vw, 290px);
   }
+  /* Absolutely positioned so a portrait source image cannot push the
+     visual's min-height past the aspect-ratio:1 (which produced ovals). */
   .sp-trio__img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
