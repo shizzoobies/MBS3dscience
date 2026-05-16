@@ -83,6 +83,10 @@ interface Props {
   // card on the right. 'fullwidth' renders the heroImage full-bleed with
   // a dark gradient and text overlaid in the left column.
   heroVariant?: 'editorial' | 'fullwidth';
+  // object-position for the fullwidth hero image. Default 'center'.
+  // Set e.g. 'center 25%' to bias the crop toward the top of the image
+  // so a subject's head is not cut off.
+  heroFocus?: string;
   // When true, the "how it works" section gets a dark image backdrop and
   // absorbs the closing CTA copy (eyebrow + title + sub + pill buttons)
   // at the bottom, replacing the standalone CTA section at end of page.
@@ -115,6 +119,7 @@ const {
   pricing,
   stepsBackground,
   heroVariant = 'editorial',
+  heroFocus,
   stepsAsHero = false,
   valuesAfterFirstFeature = false,
   roundImageTrio,
@@ -142,7 +147,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        ============================================================ -->
   {heroVariant === 'fullwidth' && heroImage ? (
     <section class="section sp-hero sp-hero--fullwidth">
-      <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero__bg" />
+      <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero__bg" style={heroFocus ? `object-position: ${heroFocus};` : undefined} />
       <div class="sp-hero__overlay" aria-hidden="true"></div>
       <div class="container sp-hero__fw-container">
         <div class="sp-hero__fw-text">
