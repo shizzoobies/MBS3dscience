@@ -949,9 +949,16 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     padding-top: 7rem;
     padding-bottom: 4rem;
   }
-  /* Flip variant: text column on the right, gradient dark on the right. */
+  /* Flip variant: text column on the right, gradient dark on the right.
+     The fw-text carries margin-right:auto for the default left layout,
+     so the flip has to swap that to margin-left:auto or the column
+     stays pinned left regardless of justify-content. */
   .sp-hero--fullwidth.sp-hero--flip .sp-hero__fw-container {
     justify-content: flex-end;
+  }
+  .sp-hero--fullwidth.sp-hero--flip .sp-hero__fw-text {
+    margin-right: 0;
+    margin-left: auto;
   }
   .sp-hero--fullwidth.sp-hero--flip .sp-hero__overlay {
     background: linear-gradient(
