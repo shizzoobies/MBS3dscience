@@ -35,6 +35,7 @@ interface Feature {
   imgAlt?: string;
   imgSurface?: string;
   image?: string;  // optional real image path, falls back to placeholder
+  imgFocus?: string; // object-position for a fullwidth feature image, e.g. 'center 25%'
   scene?: 'dna' | 'vial' | 'molecule' | 'trt-vial'; // optional free-standing 3D form; replaces the framed image
   variant?: 'editorial' | 'fullwidth'; // default editorial split; 'fullwidth' renders the image as a full-bleed section with text overlaid
 }
@@ -253,7 +254,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     <Fragment>
     {f.variant === 'fullwidth' && f.image ? (
       <section class={`section sp-feature sp-feature--fullwidth ${f.flip ? 'sp-feature--flip' : ''}`}>
-        <img src={f.image} alt={f.imgAlt ?? f.heading} class="sp-feature__bg" />
+        <img src={f.image} alt={f.imgAlt ?? f.heading} class="sp-feature__bg" style={f.imgFocus ? `object-position: ${f.imgFocus};` : undefined} />
         <div class="sp-feature__overlay" aria-hidden="true"></div>
         <div class="container sp-feature__fw-container">
           <div class="sp-feature__fw-text">
