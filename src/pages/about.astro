@@ -208,17 +208,20 @@ const team: TeamMember[] = [
         <h2 class="about-closer__title">Healthcare built on trust, not transactions.</h2>
       </div>
       <div class="steps-grid about-closer__grid">
-        <div class="reveal step-card">
-          <h3 style="margin-bottom:0.875rem;">Veteran values</h3>
-          <p style="color:var(--ink-secondary); font-size:var(--text-sm);">Founded by a U.S. Army veteran with 12 years of service. Discipline, accountability, and showing up for people aren't talking points. They're how we operate.</p>
+        <div class="reveal card about-approach-card">
+          <span class="about-approach-bar" aria-hidden="true"></span>
+          <h3>Veteran values</h3>
+          <p>Founded by a U.S. Army veteran with 12 years of service. Discipline, accountability, and showing up for people aren't talking points. They're how we operate.</p>
         </div>
-        <div class="reveal reveal-delay-1 step-card">
-          <h3 style="margin-bottom:0.875rem;">Continuity of care</h3>
-          <p style="color:var(--ink-secondary); font-size:var(--text-sm);">You see the same provider every time. They know your history, your medications, and your goals. Not just what's in the chart.</p>
+        <div class="reveal reveal-delay-1 card about-approach-card">
+          <span class="about-approach-bar" aria-hidden="true"></span>
+          <h3>Continuity of care</h3>
+          <p>You see the same provider every time. They know your history, your medications, and your goals. Not just what's in the chart.</p>
         </div>
-        <div class="reveal reveal-delay-2 step-card">
-          <h3 style="margin-bottom:0.875rem;">Evolving care plans</h3>
-          <p style="color:var(--ink-secondary); font-size:var(--text-sm);">Your care plan isn't static. It grows and adapts as your health changes, your goals shift, and new information comes in.</p>
+        <div class="reveal reveal-delay-2 card about-approach-card">
+          <span class="about-approach-bar" aria-hidden="true"></span>
+          <h3>Evolving care plans</h3>
+          <p>Your care plan isn't static. It grows and adapts as your health changes, your goals shift, and new information comes in.</p>
         </div>
       </div>
       <div class="reveal about-closer__cta">
@@ -283,10 +286,6 @@ const team: TeamMember[] = [
     min-height: 62vh;
     padding-top: 7rem;
     padding-bottom: 4rem;
-    /* Break out of the centered 1280px container so the text sits
-       closer to the left viewport edge. */
-    max-width: none;
-    padding-left: clamp(2rem, 6vw, 7rem);
   }
   .about-hero-fw__text {
     max-width: 42rem;
@@ -682,22 +681,26 @@ const team: TeamMember[] = [
     line-height: 1.1;
     letter-spacing: -0.015em;
   }
-  .about-closer .step-card {
-    background-color: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+  /* Approach panels: uniform warm cards with a rust bar, matching the
+     service-page value panels (e.g. lifestyle medicine). */
+  .about-approach-card {
+    padding: 2.25rem 2rem;
   }
-  .about-closer .step-card:nth-child(2) {
-    background-color: rgba(125, 140, 123, 0.86);
+  .about-approach-card h3 {
+    font-size: var(--text-xl);
+    margin-bottom: 0.75rem;
   }
-  .about-closer .step-card:nth-child(3) {
-    background-color: rgba(60, 56, 54, 0.82);
+  .about-approach-card p {
+    font-size: var(--text-sm);
+    color: var(--ink-secondary);
   }
-  .about-closer .step-card:nth-child(3) h3 {
-    color: #ffffff;
-  }
-  .about-closer .step-card:nth-child(3) p {
-    color: rgba(255, 255, 255, 0.72) !important;
+  .about-approach-bar {
+    display: block;
+    width: 48px;
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background-color: var(--accent-terracotta);
+    margin-bottom: 1.25rem;
   }
   .about-closer__cta {
     margin-top: clamp(4rem, 7vw, 6rem);
