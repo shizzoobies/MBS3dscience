@@ -11,7 +11,8 @@ import ServicePage from '../components/ServicePage.astro';
   chipLabel="confidential care"
   chipClass="chip-terracotta"
   heroSurface="rgba(194,122,99,0.10)"
-  heroImage="/images/hero-sexual-health.jpg"
+  heroImage="/images/hero-sexual-health.png"
+  heroFocus="center 30%"
   heroVariant="fullwidth"
   stepsAsHero={true}
   values={[
@@ -37,8 +38,11 @@ import ServicePage from '../components/ServicePage.astro';
       body: "ED affects an estimated 30 million men in the United States. It becomes more common with age and is frequently connected to cardiovascular health, testosterone levels, blood sugar, and medications. We evaluate the full picture. Treatment options include sildenafil (Viagra), tadalafil (Cialis), testosterone optimization, and lifestyle interventions. We explain what works and what doesn't.",
       chipLabel: "ED treatment",
       chipClass: "chip-terracotta",
-      imgAlt: "Relaxed morning at home",
-      image: "/images/feat-sexual-health-1.jpg"
+      imgAlt: "An affectionate couple together at home",
+      image: "/images/feat-sexual-health-1.png",
+      variant: "fullwidth",
+      flip: true,
+      imgFocus: "center 25%"
     },
     {
       heading: "Low libido in men and women: worth taking seriously",
@@ -50,6 +54,13 @@ import ServicePage from '../components/ServicePage.astro';
       flip: true
     }
   ]}
+  roundImageTrio={{
+    items: [
+      { label: "A Real Concern", image: "/images/ed-concern.png" },
+      { label: "A Real Diagnosis", image: "/images/ed-diagnosis.png" },
+      { label: "A Real Solution", image: "/images/ed-solution.png" },
+    ],
+  }}
   testimonials={[]}
   steps={[
     {
