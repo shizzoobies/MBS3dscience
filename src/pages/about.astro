@@ -270,7 +270,9 @@ const team: TeamMember[] = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    /* Bias the crop down a touch so the team's heads are not clipped
+       at the top of the frame. */
+    object-position: center 32%;
     z-index: 0;
   }
   .about-hero-fw__overlay {
@@ -293,6 +295,10 @@ const team: TeamMember[] = [
     min-height: 62vh;
     padding-top: 7rem;
     padding-bottom: 4rem;
+    /* Break out of the centered 1280px container so the text sits
+       closer to the left viewport edge. */
+    max-width: none;
+    padding-left: clamp(2rem, 6vw, 7rem);
   }
   .about-hero-fw__text {
     max-width: 42rem;
