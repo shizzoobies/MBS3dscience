@@ -106,30 +106,18 @@ const team: TeamMember[] = [
   description="Meet the MBS Medical team. Veteran-owned telehealth with decades of combined clinical experience serving patients across Florida."
 >
 
-  <!-- HERO -->
-  <section class="section bg-cream about-hero">
-    <div class="container">
-      <div class="hero-split">
-        <div>
-          <span class="editorial-eyebrow">About MBS Medical</span>
-          <h1 class="about-hero-title">Mind, body, and spirit.</h1>
-          <p class="about-hero-sub">
-            MBS Medical is a veteran-owned telehealth practice founded on a simple belief: healthcare works better when your provider actually knows you. We treat the whole person, not just the symptoms.
-          </p>
-          <a href="/contact/" class="about-hero-link">
-            <span class="about-hero-link__rule" aria-hidden="true"></span>
-            Get in touch
-          </a>
-        </div>
-        <div class="hero-media about-hero-media">
-          <div class="about-hero-frame" aria-label="MBS Medical team">
-            <img src="/images/david.jpg" alt="David Hervig, founder of MBS Medical" />
-          </div>
-          <aside class="about-hero-quote">
-            <p>&ldquo;Healthcare works better when your provider actually knows you.&rdquo;</p>
-            <span>David Hervig, PA-C &mdash; Founder</span>
-          </aside>
-        </div>
+  <!-- HERO — full-bleed cinematic team image -->
+  <section class="about-hero-fw">
+    <img src="/images/about-team-hero.png" alt="The MBS Medical team" class="about-hero-fw__bg" />
+    <div class="about-hero-fw__overlay" aria-hidden="true"></div>
+    <div class="container about-hero-fw__container">
+      <div class="about-hero-fw__text">
+        <span class="editorial-eyebrow about-hero-fw__eyebrow">About MBS Medical</span>
+        <h1 class="about-hero-fw__title">Mind, body, and spirit.</h1>
+        <p class="about-hero-fw__sub">
+          MBS Medical is a veteran-owned telehealth practice founded on a simple belief: healthcare works better when your provider actually knows you. We treat the whole person, not just the symptoms.
+        </p>
+        <a href="/contact/" class="about-hero-fw__cta">Get in touch</a>
       </div>
     </div>
   </section>
@@ -261,6 +249,115 @@ const team: TeamMember[] = [
 
 
 <style>
+  /* ---- Full-bleed cinematic team hero ---- */
+  .about-hero-fw {
+    position: relative;
+    min-height: 62vh;
+    overflow: hidden;
+    background-color: var(--color-primary);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -90px 130px -40px rgba(0, 0, 0, 0.55),
+      inset 0 60px 130px -40px rgba(0, 0, 0, 0.32),
+      inset 110px 0 130px -80px rgba(0, 0, 0, 0.4),
+      inset -110px 0 130px -80px rgba(0, 0, 0, 0.4),
+      0 24px 48px -28px rgba(0, 0, 0, 0.35);
+  }
+  .about-hero-fw__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+  .about-hero-fw__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      rgba(60, 56, 54, 0.78) 0%,
+      rgba(60, 56, 54, 0.50) 35%,
+      rgba(60, 56, 54, 0.15) 65%,
+      rgba(60, 56, 54, 0) 100%
+    );
+    z-index: 1;
+  }
+  .about-hero-fw__container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    min-height: 62vh;
+    padding-top: 7rem;
+    padding-bottom: 4rem;
+  }
+  .about-hero-fw__text {
+    max-width: 42rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .about-hero-fw__eyebrow {
+    color: var(--color-neutral);
+  }
+  .about-hero-fw__title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5.4vw, 4.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0;
+  }
+  .about-hero-fw__sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 52ch;
+    margin: 0;
+  }
+  .about-hero-fw__cta {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 17px 38px;
+    border-radius: 999px;
+    border: 1.5px solid #ffffff;
+    background-color: #ffffff;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease;
+  }
+  .about-hero-fw__cta:hover {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    border-color: var(--color-accent);
+  }
+  .about-hero-fw__cta:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+  }
+  @media (max-width: 767px) {
+    .about-hero-fw { min-height: 52vh; }
+    .about-hero-fw__container {
+      min-height: 52vh;
+      padding-top: 6rem;
+      padding-bottom: 3rem;
+    }
+  }
+
   .about-hero {
     padding-top: 8rem;
     padding-bottom: 6rem;
