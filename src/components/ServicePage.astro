@@ -688,6 +688,13 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   .sp-steps-hero .step-card:nth-child(3) {
     background-color: rgba(60, 56, 54, 0.82);
   }
+  /* Dark 3rd card: flip text to light so it stays readable. */
+  .sp-steps-hero .step-card:nth-child(3) h3 {
+    color: #ffffff;
+  }
+  .sp-steps-hero .step-card:nth-child(3) p {
+    color: rgba(255, 255, 255, 0.72) !important;
+  }
   .sp-steps-hero .step-card:nth-child(4) {
     background-color: rgba(234, 231, 224, 0.86);
   }
