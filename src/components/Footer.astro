@@ -20,7 +20,7 @@ const navLinks: Array<{ label: string; href: string; external?: boolean }> = [
 
       <div class="footer-brand">
         <a href="/" class="footer-logo-link" aria-label="MBS Medical home">
-          <img src="/images/logo.png" alt="MBS Medical" width="464" height="240" class="footer-logo-img" />
+          <img src="/images/logo-dark.svg" alt="MBS Medical" width="716" height="380" class="footer-logo-img" />
         </a>
         <p class="footer-tagline">
           Veteran-owned telehealth serving patients across Florida. Cash pay, same-week appointments, one consistent provider who knows you.
@@ -104,9 +104,6 @@ const navLinks: Array<{ label: string; href: string; external?: boolean }> = [
     display: block;
     height: 44px;
     width: auto;
-    /* Force the logo to render in white so it stays legible on black
-       regardless of the source PNG's colors. */
-    filter: brightness(0) invert(1);
   }
   .footer-tagline {
     font-family: var(--font-display);

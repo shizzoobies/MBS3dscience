@@ -1,16 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <!-- Background circle in peach -->
-  <circle cx="16" cy="16" r="16" fill="#F5D6C6"/>
-  <!-- MBS monogram — clean letterform in ink -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Rust ring + warm-sepia disc, matching the MBS logo palette -->
+  <circle cx="16" cy="16" r="16" fill="#C27A63"/>
+  <circle cx="16" cy="16" r="13.5" fill="#3C3836"/>
+  <!-- MBS monogram in warm cream -->
   <text
     x="50%"
-    y="50%"
-    font-family="Georgia, serif"
-    font-size="13"
+    y="52%"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="11"
     font-weight="700"
-    fill="#1A1A1A"
+    fill="#F9F7F2"
     text-anchor="middle"
     dominant-baseline="central"
-    letter-spacing="-0.5"
-  >mbs</text>
+    letter-spacing="-0.3"
+  >MBS</text>
 </svg>
