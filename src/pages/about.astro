@@ -123,41 +123,14 @@ const team: TeamMember[] = [
   </section>
 
 
-  <!-- PHILOSOPHY -->
-  <section class="section bg-cream">
-    <div class="container">
-      <div class="reveal philosophy-banner">
-        <img src="/images/sig-coast.jpg" alt="Florida coastline at golden hour" />
-      </div>
-      <div class="reveal" style="margin-bottom: 3rem; margin-top: 3rem;">
-        <span class="editorial-eyebrow">Our approach</span>
-        <h2 style="margin-top: 1rem; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3.25rem); line-height: 1.1; letter-spacing: -0.015em;">Healthcare built on trust, not transactions.</h2>
-      </div>
-
-      <div class="philosophy-grid">
-        <div class="reveal card philosophy-card">
-          <span class="philosophy-bar" style="background-color: var(--accent-coral);" aria-hidden="true"></span>
-          <h3>Veteran values</h3>
-          <p>Founded by a U.S. Army veteran with 12 years of service. Discipline, accountability, and showing up for people aren't talking points. They're how we operate.</p>
-        </div>
-        <div class="reveal reveal-delay-1 card philosophy-card">
-          <span class="philosophy-bar" style="background-color: var(--accent-sage);" aria-hidden="true"></span>
-          <h3>Continuity of care</h3>
-          <p>You see the same provider every time. They know your history, your medications, and your goals. Not just what's in the chart.</p>
-        </div>
-        <div class="reveal reveal-delay-2 card philosophy-card">
-          <span class="philosophy-bar" style="background-color: var(--accent-sky);" aria-hidden="true"></span>
-          <h3>Evolving care plans</h3>
-          <p>Your care plan isn't static. It grows and adapts as your health changes, your goals shift, and new information comes in.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
   <!-- TEAM: Founders row + team row, modal on click -->
-  <section class="section bg-shell">
-    <div class="container">
+  <section class="section bg-shell about-team">
+    <div class="about-team__ambient" aria-hidden="true">
+      <span class="about-team__orb about-team__orb--1"></span>
+      <span class="about-team__orb about-team__orb--2"></span>
+      <span class="about-team__orb about-team__orb--3"></span>
+    </div>
+    <div class="container about-team__container">
       <div class="reveal" style="margin-bottom: 3rem; text-align: center;">
         <span class="label">the team</span>
         <h2 style="margin-top: 0.75rem;">Who's behind your care</h2>
@@ -225,21 +198,36 @@ const team: TeamMember[] = [
 
 
 
-  <!-- CTA — rounded dark card -->
-  <section class="section bg-cream" style="padding-block: 6rem;">
-    <div class="container">
-      <div class="reveal about-cta-card">
-        <img src="/images/sig-cta-dark.jpg" alt="" class="about-cta-bg" aria-hidden="true" />
-        <span class="about-cta-deco about-cta-deco--tr" aria-hidden="true"></span>
-        <span class="about-cta-deco about-cta-deco--bl" aria-hidden="true"></span>
-        <div class="about-cta-inner">
-          <span class="about-cta-eyebrow">Ready when you are</span>
-          <h2 class="about-cta-title">Ready to meet your provider?</h2>
-          <p class="about-cta-sub">Same-week telehealth across Florida. Book online in minutes.</p>
-          <div class="about-cta-actions">
-            <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="about-cta-btn about-cta-btn--primary">book a visit</a>
-            <a href="/services/" class="about-cta-btn about-cta-btn--ghost">explore services</a>
-          </div>
+  <!-- CLOSER — our approach merged into the dark "Ready when you are" section -->
+  <section class="about-closer">
+    <img src="/images/sig-cta-dark.jpg" alt="" class="about-closer__bg" aria-hidden="true" />
+    <div class="about-closer__overlay" aria-hidden="true"></div>
+    <div class="container about-closer__container">
+      <div class="reveal about-closer__header">
+        <span class="label about-closer__label">our approach</span>
+        <h2 class="about-closer__title">Healthcare built on trust, not transactions.</h2>
+      </div>
+      <div class="steps-grid about-closer__grid">
+        <div class="reveal step-card">
+          <h3 style="margin-bottom:0.875rem;">Veteran values</h3>
+          <p style="color:var(--ink-secondary); font-size:var(--text-sm);">Founded by a U.S. Army veteran with 12 years of service. Discipline, accountability, and showing up for people aren't talking points. They're how we operate.</p>
+        </div>
+        <div class="reveal reveal-delay-1 step-card">
+          <h3 style="margin-bottom:0.875rem;">Continuity of care</h3>
+          <p style="color:var(--ink-secondary); font-size:var(--text-sm);">You see the same provider every time. They know your history, your medications, and your goals. Not just what's in the chart.</p>
+        </div>
+        <div class="reveal reveal-delay-2 step-card">
+          <h3 style="margin-bottom:0.875rem;">Evolving care plans</h3>
+          <p style="color:var(--ink-secondary); font-size:var(--text-sm);">Your care plan isn't static. It grows and adapts as your health changes, your goals shift, and new information comes in.</p>
+        </div>
+      </div>
+      <div class="reveal about-closer__cta">
+        <span class="about-cta-eyebrow">Ready when you are</span>
+        <h2 class="about-cta-title">Ready to meet your provider?</h2>
+        <p class="about-cta-sub">Same-week telehealth across Florida. Book online in minutes.</p>
+        <div class="about-cta-actions">
+          <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="about-cta-btn about-cta-btn--primary">book a visit</a>
+          <a href="/services/" class="about-cta-btn about-cta-btn--ghost">explore services</a>
         </div>
       </div>
     </div>
@@ -465,55 +453,67 @@ const team: TeamMember[] = [
     color: var(--color-rust);
   }
 
-  .philosophy-banner {
-    width: 100%;
-    aspect-ratio: 32/9;
-    max-height: 240px;
-    border-radius: var(--radius-2xl);
+  /* ---- Team section: drifting orb ambient (matches the service-page trios) ---- */
+  .about-team {
+    position: relative;
     overflow: hidden;
-    background-color: var(--color-surface-warm);
-    border: 1px solid var(--color-border);
+    isolation: isolate;
   }
-  .philosophy-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 60%;
+  .about-team__container {
+    position: relative;
+    z-index: 1;
   }
-  @media (max-width: 767px) {
-    .philosophy-banner { aspect-ratio: 21/9; max-height: 180px; }
+  .about-team__ambient {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
   }
-
-  .philosophy-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .about-team__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.38;
+    will-change: transform;
   }
-  @media (min-width: 640px) { .philosophy-grid { grid-template-columns: repeat(3, 1fr); } }
-
-  .philosophy-card {
-    padding: 2.25rem 2rem;
-    transition: transform var(--dur-base), border-color var(--dur-base);
+  .about-team__orb--1 {
+    width: clamp(320px, 36vw, 520px);
+    aspect-ratio: 1;
+    background: var(--color-accent);
+    top: 8%;
+    left: 4%;
+    animation: about-team-orb-1 16s ease-in-out infinite;
   }
-  .philosophy-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--color-border-strong);
+  .about-team__orb--2 {
+    width: clamp(360px, 40vw, 580px);
+    aspect-ratio: 1;
+    background: var(--color-rust);
+    top: 28%;
+    right: 4%;
+    animation: about-team-orb-2 20s ease-in-out infinite;
   }
-  .philosophy-bar {
-    display: block;
-    width: 48px;
-    height: 4px;
-    border-radius: var(--radius-pill);
-    margin-bottom: 1.25rem;
+  .about-team__orb--3 {
+    width: clamp(280px, 30vw, 440px);
+    aspect-ratio: 1;
+    background: #B8956A;
+    bottom: 4%;
+    left: 36%;
+    animation: about-team-orb-3 18s ease-in-out infinite;
   }
-  .philosophy-card h3 {
-    font-size: var(--text-xl);
-    margin-bottom: 0.625rem;
+  @keyframes about-team-orb-1 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(60px, 40px); }
   }
-  .philosophy-card p {
-    font-size: var(--text-sm);
-    color: var(--ink-secondary);
-    line-height: var(--leading-relaxed);
+  @keyframes about-team-orb-2 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(-80px, 60px); }
+  }
+  @keyframes about-team-orb-3 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(40px, -50px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-team__orb { animation: none; }
   }
 
   /* ---- Team grid: circular avatar cards ---- */
@@ -625,39 +625,87 @@ const team: TeamMember[] = [
   /* Modal styles moved to global.css — Radix Portal renders outside this
      scoped block, so the rules need to be global to apply. */
 
-  /* ---- About closing CTA: rounded dark card ---- */
-  .about-cta-card {
+  /* ---- Closing section: our approach merged into the dark CTA ----
+     Mirrors the service-page sp-steps-hero: dark image backdrop, a
+     gradient overlay, the approach cards, then the closing CTA. */
+  .about-closer {
     position: relative;
-    background-color: var(--color-primary);
-    color: #FFFFFF;
-    border-radius: var(--radius-xl);
-    padding: 3.5rem 1.5rem;
-    text-align: center;
     overflow: hidden;
+    background-color: var(--color-primary);
+    padding-top: clamp(4rem, 7vw, 6rem);
+    padding-bottom: clamp(4rem, 7vw, 6rem);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -60px 90px -40px rgba(0, 0, 0, 0.45),
+      inset 0 50px 90px -40px rgba(0, 0, 0, 0.30);
   }
-  @media (min-width: 768px) {
-    .about-cta-card { padding: 7rem 4rem; border-radius: var(--radius-2xl); }
-  }
-  .about-cta-deco {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.08);
-    pointer-events: none;
-  }
-  .about-cta-deco--tr { width: 280px; height: 280px; top: 0; right: 0; transform: translate(40%, -40%); }
-  .about-cta-deco--bl { width: 220px; height: 220px; bottom: 0; left: 0; transform: translate(-40%, 40%); border-style: dashed; }
-  .about-cta-bg {
+  .about-closer__bg {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.22;
-    mix-blend-mode: lighten;
-    pointer-events: none;
-    filter: grayscale(40%) contrast(1.05);
+    object-position: center;
+    opacity: 0.5;
+    filter: grayscale(20%) contrast(1.02);
+    z-index: 0;
   }
-  .about-cta-inner { position: relative; z-index: 1; max-width: 720px; margin-inline: auto; }
+  .about-closer__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(60, 56, 54, 0.85) 0%,
+      rgba(60, 56, 54, 0.65) 45%,
+      rgba(60, 56, 54, 0.85) 100%
+    );
+    z-index: 1;
+  }
+  .about-closer__container {
+    position: relative;
+    z-index: 3;
+  }
+  .about-closer__header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  .about-closer__label {
+    color: rgba(255, 255, 255, 0.62);
+  }
+  .about-closer__title {
+    color: #ffffff;
+    margin-top: 0.75rem;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+  .about-closer .step-card {
+    background-color: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .about-closer .step-card:nth-child(2) {
+    background-color: rgba(125, 140, 123, 0.86);
+  }
+  .about-closer .step-card:nth-child(3) {
+    background-color: rgba(60, 56, 54, 0.82);
+  }
+  .about-closer .step-card:nth-child(3) h3 {
+    color: #ffffff;
+  }
+  .about-closer .step-card:nth-child(3) p {
+    color: rgba(255, 255, 255, 0.72) !important;
+  }
+  .about-closer__cta {
+    margin-top: clamp(4rem, 7vw, 6rem);
+    text-align: center;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .about-cta-eyebrow {
     display: inline-block;
     font-size: 11px;
