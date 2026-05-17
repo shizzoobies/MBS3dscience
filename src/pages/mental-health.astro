@@ -11,7 +11,8 @@ import ServicePage from '../components/ServicePage.astro';
   chipLabel="mind-body care"
   chipClass="chip-sky"
   heroSurface="rgba(239,207,143,0.18)"
-  heroImage="/images/hero-mental-health.jpg"
+  heroImage="/images/hero-mental-health.png"
+  heroFocus="center 35%"
   heroVariant="fullwidth"
   stepsAsHero={true}
   values={[
@@ -34,27 +35,23 @@ import ServicePage from '../components/ServicePage.astro';
       body: "Real clinical conditions with effective treatments. We evaluate them in context of your hormones, sleep, and physical health, then choose the right combination of medication, lifestyle changes, and therapy referrals.",
       chipLabel: "mood & anxiety",
       chipClass: "chip-sky",
-      imgAlt: "Peaceful meditation practice",
-      image: "/images/feat-mental-health-1.jpg"
-    },
-    {
-      heading: "Sleep, fixed at the cause",
-      body: "We look for what's actually driving the insomnia, anxiety, hormones, sleep apnea, or environment, and build a plan that addresses the root, not just the symptom.",
-      chipLabel: "sleep health",
-      chipClass: "chip-butter",
-      imgAlt: "Peaceful bedroom at dawn",
-      image: "/images/feat-mental-health-2.jpg",
-      flip: true
-    },
-    {
-      heading: "Addiction & pain, handled with care",
-      body: "Telehealth refills and ongoing buprenorphine management for opioid use disorder. New inductions in-office for safety. Pain consulting and GLP-1 protocols for alcohol use also available.",
-      chipLabel: "behavioral care",
-      chipClass: "chip-sage",
-      imgAlt: "Forest path at sunrise",
-      image: "/images/feat-mental-health-3.jpg"
+      imgAlt: "A man overwhelmed at his desk",
+      image: "/images/feat-mental-health-1.png",
+      variant: "fullwidth",
+      flip: true,
+      imgFocus: "center 25%"
     }
   ]}
+  roundImageTrio={{
+    eyebrow: "sleep & behavioral care",
+    heading: "Sleep, addiction, and pain, handled with care",
+    body: "Beyond mood and anxiety, sleep problems, addiction, and chronic pain all respond to real treatment. We find what is actually driving your insomnia and address the root, not just the symptom. We provide ongoing buprenorphine management and telehealth refills, plus pain consulting and GLP-1 protocols for alcohol use.",
+    items: [
+      { label: "Insomnia", image: "/images/mh-1.png" },
+      { label: "Addiction", image: "/images/mh-2.png" },
+      { label: "Pain", image: "/images/mh-3.png" },
+    ],
+  }}
   subServices={{
     heading: "What we cover under mental & behavioral health",
     intro: "We focus on mild-to-moderate cases for safety and continuity of care. Acute psychiatric crises are referred to emergency services or specialized inpatient care. Buprenorphine inductions require an office visit; refills can be handled by telehealth.",
