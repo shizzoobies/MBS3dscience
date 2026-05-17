@@ -948,10 +948,6 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     min-height: 62vh;
     padding-top: 7rem;
     padding-bottom: 4rem;
-    /* Break out of the centered container so the text sits closer to
-       the edge, where the image gradient is darkest for readability. */
-    max-width: none;
-    padding-inline: clamp(1.5rem, 5vw, 6rem);
   }
   /* Flip variant: text column on the right, gradient dark on the right.
      The fw-text carries margin-right:auto for the default left layout,
@@ -1308,13 +1304,17 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     min-height: 50vh;
     padding-top: 3.5rem;
     padding-bottom: 3.5rem;
-    /* Break out of the centered container so the text sits closer to
-       the edge, where the image gradient is darkest for readability. */
-    max-width: none;
-    padding-inline: clamp(1.5rem, 5vw, 6rem);
   }
   .sp-feature--flip .sp-feature__fw-container {
     justify-content: flex-end;
+    padding-right: clamp(2rem, 4vw, 4rem);
+  }
+  /* Non-flip fullwidth feature: break out of the centered 1280px
+     container so the left text column sits closer to the viewport
+     edge instead of being pushed in by the centering gap. */
+  .sp-feature--fullwidth:not(.sp-feature--flip) .sp-feature__fw-container {
+    max-width: none;
+    padding-left: clamp(2rem, 6vw, 7rem);
   }
   .sp-feature__fw-text {
     max-width: 40rem;

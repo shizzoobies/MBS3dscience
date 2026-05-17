@@ -644,10 +644,6 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
     min-height: 72vh;
     padding-top: 5rem;
     padding-bottom: 4rem;
-    /* Break out of the centered container so the text sits closer to
-       the edge, where the image gradient is darkest for readability. */
-    max-width: none;
-    padding-inline: clamp(1.5rem, 5vw, 6rem);
   }
   .home-feature-fullwidth__text {
     max-width: 34rem;
@@ -737,6 +733,7 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
      sits behind the text and the image reads cleanly on the right. */
   .home-feature-fullwidth--mens .home-feature-fullwidth__container {
     justify-content: flex-start;
+    padding-left: clamp(2rem, 4vw, 4rem);
   }
   .home-feature-fullwidth--mens .home-feature-fullwidth__text {
     max-width: 32rem;
