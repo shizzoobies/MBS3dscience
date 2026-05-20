@@ -100,10 +100,12 @@ export default function ContactForm() {
             type="text"
             placeholder="Your first name"
             aria-invalid={!!errors.firstName}
+            aria-describedby={errors.firstName ? 'first-name-error' : undefined}
+            aria-required={true}
             className="input"
             {...register('firstName')}
           />
-          {errors.firstName && <p className="cf-error">{errors.firstName.message}</p>}
+          {errors.firstName && <p id="first-name-error" className="cf-error">{errors.firstName.message}</p>}
         </div>
         <div className="form-group">
           <label htmlFor="last-name">last name</label>
@@ -112,10 +114,12 @@ export default function ContactForm() {
             type="text"
             placeholder="Your last name"
             aria-invalid={!!errors.lastName}
+            aria-describedby={errors.lastName ? 'last-name-error' : undefined}
+            aria-required={true}
             className="input"
             {...register('lastName')}
           />
-          {errors.lastName && <p className="cf-error">{errors.lastName.message}</p>}
+          {errors.lastName && <p id="last-name-error" className="cf-error">{errors.lastName.message}</p>}
         </div>
       </div>
 
@@ -126,10 +130,12 @@ export default function ContactForm() {
           type="email"
           placeholder="you@example.com"
           aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? 'email-error' : undefined}
+          aria-required={true}
           className="input"
           {...register('email')}
         />
-        {errors.email && <p className="cf-error">{errors.email.message}</p>}
+        {errors.email && <p id="email-error" className="cf-error">{errors.email.message}</p>}
       </div>
 
       <div className="form-group">
@@ -139,10 +145,11 @@ export default function ContactForm() {
           type="tel"
           placeholder="(123) 456-7890"
           aria-invalid={!!errors.phone}
+          aria-describedby={errors.phone ? 'phone-error' : undefined}
           className="input"
           {...register('phone')}
         />
-        {errors.phone && <p className="cf-error">{errors.phone.message}</p>}
+        {errors.phone && <p id="phone-error" className="cf-error">{errors.phone.message}</p>}
       </div>
 
       <div className="form-group">
@@ -151,6 +158,8 @@ export default function ContactForm() {
           id="service"
           defaultValue=""
           aria-invalid={!!errors.service}
+          aria-describedby={errors.service ? 'service-error' : undefined}
+          aria-required={true}
           className="input"
           {...register('service')}
         >
@@ -163,7 +172,7 @@ export default function ContactForm() {
             </option>
           ))}
         </select>
-        {errors.service && <p className="cf-error">{errors.service.message}</p>}
+        {errors.service && <p id="service-error" className="cf-error">{errors.service.message}</p>}
       </div>
 
       <div className="form-group">
@@ -173,10 +182,12 @@ export default function ContactForm() {
           rows={5}
           placeholder="Tell us a little about what's on your mind. No pressure to share more than you're comfortable with."
           aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? 'message-error' : undefined}
+          aria-required={true}
           className="input"
           {...register('message')}
         />
-        {errors.message && <p className="cf-error">{errors.message.message}</p>}
+        {errors.message && <p id="message-error" className="cf-error">{errors.message.message}</p>}
       </div>
 
       {submitError && (
