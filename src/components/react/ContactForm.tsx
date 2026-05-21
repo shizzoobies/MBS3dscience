@@ -94,7 +94,7 @@ export default function ContactForm() {
     return (
       <div className="cf-success" role="status" tabIndex={-1} ref={successRef}>
         <h2>Thanks — we got your message.</h2>
-        <p>We respond within one business day.</p>
+        <p>We typically respond within two business days.</p>
       </div>
     );
   }
