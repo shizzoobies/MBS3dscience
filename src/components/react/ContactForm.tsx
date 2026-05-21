@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -58,6 +58,15 @@ export default function ContactForm() {
   });
 
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const successRef = useRef<HTMLDivElement>(null);
+
+  // When the form is replaced by the success message, move focus to it so
+  // screen readers reliably announce the confirmation.
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      successRef.current?.focus();
+    }
+  }, [isSubmitSuccessful]);
 
   const onSubmit = async (data: ContactValues) => {
     setSubmitError(null);
@@ -83,7 +92,7 @@ export default function ContactForm() {
 
   if (isSubmitSuccessful) {
     return (
-      <div className="cf-success" role="status">
+      <div className="cf-success" role="status" tabIndex={-1} ref={successRef}>
         <h2>Thanks — we got your message.</h2>
         <p>We respond within one business day.</p>
       </div>
