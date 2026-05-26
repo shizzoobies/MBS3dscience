@@ -110,6 +110,15 @@ interface Props {
     body?: string;
     items: { label: string; image: string }[];
     backdrop?: 'orbs' | 'data-grid';
+    // Optional editorial callout rendered below the items row. Use for
+    // regional availability notes (e.g. an in-person treatment offered
+    // at a specific clinic) without breaking the section's centered flow.
+    note?: {
+      eyebrow?: string;
+      heading: string;
+      body: string;
+      cta?: { label: string; href: string };
+    };
   };
 }
 
@@ -392,6 +401,21 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             </figure>
           ))}
         </div>
+
+        {roundImageTrio.note && (
+          <aside class="reveal sp-trio__note">
+            {roundImageTrio.note.eyebrow && (
+              <span class="editorial-eyebrow sp-trio__note-eyebrow">{roundImageTrio.note.eyebrow}</span>
+            )}
+            <h3 class="sp-trio__note-heading">{roundImageTrio.note.heading}</h3>
+            <p class="sp-trio__note-body">{roundImageTrio.note.body}</p>
+            {roundImageTrio.note.cta && (
+              <a href={roundImageTrio.note.cta.href} class="sp-trio__note-cta">
+                {roundImageTrio.note.cta.label}
+              </a>
+            )}
+          </aside>
+        )}
 
         {subServices && (
           <details class="reveal sp-sub-details sp-trio__sub">
@@ -907,6 +931,68 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+  }
+  /* ---- Trio note: editorial regional callout ----
+     Sits below the items row, separated by a hairline rule. Centered
+     to match the trio header style so it reads as a quiet but
+     deliberate addendum rather than a separate marketing block. */
+  .sp-trio__note {
+    margin: clamp(3rem, 6vw, 4.5rem) auto 0;
+    padding-top: clamp(2rem, 4vw, 3rem);
+    max-width: 56rem;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.85rem;
+  }
+  .sp-trio__note-eyebrow {
+    margin: 0;
+  }
+  .sp-trio__note-heading {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--color-primary);
+    margin: 0;
+    max-width: 28ch;
+  }
+  .sp-trio__note-body {
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--ink-secondary);
+    max-width: 56ch;
+    margin: 0;
+  }
+  .sp-trio__note-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 30px;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-primary);
+    background-color: transparent;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+    white-space: nowrap;
+  }
+  .sp-trio__note-cta:hover {
+    background-color: var(--color-primary);
+    color: var(--color-neutral);
+  }
+  .sp-trio__note-cta:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
   }
   @media (prefers-reduced-motion: reduce) {
     .sp-trio__orb {
