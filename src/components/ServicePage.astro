@@ -99,6 +99,13 @@ interface Props {
   // second feature instead of immediately after the hero, so the
   // text-block values break up consecutive image-heavy feature rows.
   valuesAfterFirstFeature?: boolean;
+  // When true, the subServices accordion renders between feature[0]
+  // and feature[1] instead of as a standalone section after all
+  // features. Useful when a page wants the "what we cover" detail
+  // surfaced before the second feature's deeper narrative. Feature
+  // backgrounds shift by 1 from feature[1] onward to preserve
+  // shell/cream alternation around the injected section.
+  subServicesAfterFirstFeature?: boolean;
   // Optional row of three round framed images with labels, rendered
   // after the feature rows. `backdrop` picks the ambient animation:
   // 'orbs' (drifting sage/rust/brass blobs) or 'data-grid' (a faint
@@ -136,6 +143,7 @@ const {
   heroFlip = false,
   stepsAsHero = false,
   valuesAfterFirstFeature = false,
+  subServicesAfterFirstFeature = false,
   roundImageTrio,
 } = Astro.props;
 
@@ -282,7 +290,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
         </div>
       </section>
     ) : (
-      <section class={`section sp-feature ${i % 2 === 0 ? 'bg-shell' : 'bg-cream'}`}>
+      <section class={`section sp-feature ${((subServicesAfterFirstFeature && i >= 1) ? i + 1 : i) % 2 === 0 ? 'bg-shell' : 'bg-cream'}`}>
         <div class="container">
           <div class={`feature-row reveal ${f.flip ? 'feature-row--flip' : ''}`}>
             <div class="feature-row__media">
@@ -342,6 +350,29 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
               </div>
             ))}
           </div>
+        </div>
+      </section>
+    )}
+    {subServicesAfterFirstFeature && subServices && i === 0 && (
+      <section class={`section ${subServices.surface ?? 'bg-cream'}`}>
+        <div class="container">
+          <details class="reveal sp-sub-details">
+            <summary class="sp-sub-summary">
+              <span class="sp-sub-summary__label">
+                <span class="sp-sub-summary__heading">{subServices.heading ?? 'what we cover'}</span>
+              </span>
+              <span class="sp-sub-summary__toggle" aria-hidden="true">+</span>
+            </summary>
+            {subServices.intro && <p class="sp-sub-intro">{subServices.intro}</p>}
+            <ul class="sp-sub-list" role="list">
+              {subServices.items.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            {subServices.disclaimer && (
+              <p class="sp-sub-disclaimer">{subServices.disclaimer}</p>
+            )}
+          </details>
         </div>
       </section>
     )}
@@ -446,7 +477,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        Only renders as its own section when there's no round image
        trio above it; otherwise it merges into the trio section.
        ============================================================ -->
-  {subServices && !(roundImageTrio && roundImageTrio.items.length > 0) && (
+  {subServices && !subServicesAfterFirstFeature && !(roundImageTrio && roundImageTrio.items.length > 0) && (
     <section class={`section ${subServices.surface ?? (features.length % 2 === 0 ? 'bg-shell' : 'bg-cream')}`}>
       <div class="container">
         <details class="reveal sp-sub-details">
