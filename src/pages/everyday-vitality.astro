@@ -1,0 +1,111 @@
+---
+import ServicePage from '../components/ServicePage.astro';
+---
+
+<ServicePage
+  title="Everyday Vitality"
+  description="Energy optimization in Florida. We test the root causes of fatigue (thyroid, iron, B12, vitamin D, cortisol, hormones) and fix what's actually wrong instead of telling you it's just stress."
+  eyebrow="everyday vitality"
+  heroTitle="Energy is a clinical problem with a clinical answer"
+  heroSub="Tired by 2pm. Foggy mornings. Falling asleep on the couch before you wanted to. Low energy is rarely just aging or just stress. It is almost always a measurable problem with measurable fixes."
+  chipLabel="energy optimization"
+  chipClass="chip-butter"
+  heroSurface="rgba(184,149,106,0.10)"
+  values={[
+    {
+      icon: "▲",
+      heading: "Labs that name the cause",
+      body: "Full thyroid (TSH, free T3, free T4, reverse T3), ferritin and iron studies, B12 with MMA, vitamin D, AM cortisol, total and free testosterone. The panel most providers don't order is usually the one that explains it."
+    },
+    {
+      icon: "⬡",
+      heading: "Fixes that actually fix",
+      body: "Once we know what's off, we correct it directly. Iron repletion when ferritin is low. Thyroid medication when the numbers say so. Hormone optimization when it is clinically appropriate. No generic supplement stacks."
+    },
+    {
+      icon: "○",
+      heading: "Follow-through, not 'feel better soon'",
+      body: "We retest at 8 to 12 weeks. If a fix is not working we find the next lever rather than telling you to wait it out. Energy is a moving target and your plan adjusts with it."
+    }
+  ]}
+  features={[
+    {
+      heading: "The labs that explain why you're tired",
+      body: "A standard physical orders a CBC, a basic metabolic panel, and maybe a TSH. That misses ferritin, free thyroid hormones, reverse T3, B12 metabolites, vitamin D status, cortisol rhythm, and full sex hormones. Most fatigue diagnoses live in those panels, and most patients have never had them run.",
+      chipLabel: "advanced fatigue panel",
+      chipClass: "chip-butter",
+      imgAlt: "Advanced lab testing for energy and fatigue at MBS Medical"
+    },
+    {
+      heading: "What changes once we know the answer",
+      body: "Iron repletion is a different conversation than 'try a multivitamin.' Subclinical hypothyroidism is a different conversation than 'your TSH is normal.' Low free testosterone in a tired 45 year old is a different conversation than 'you're getting older.' Specific causes get specific treatment.",
+      chipLabel: "targeted treatment",
+      chipClass: "chip-coral",
+      imgAlt: "Personalized energy treatment plan at MBS Medical",
+      flip: true
+    }
+  ]}
+  subServices={{
+    heading: "What we cover under everyday vitality",
+    intro: "Specific causes and treatments your vitality visit can address. Most patients have more than one driver, and a thorough workup catches the ones that get missed in standard primary care.",
+    items: [
+      "Comprehensive Fatigue Workup",
+      "Thyroid Evaluation & Optimization",
+      "Iron Deficiency & Low Ferritin",
+      "B12 & Methylation Status",
+      "Vitamin D Repletion",
+      "AM Cortisol & Adrenal Function",
+      "Sleep Quality Optimization",
+      "Mitochondrial Support Protocols",
+      "Perimenopause-Related Fatigue",
+      "Low Testosterone Evaluation",
+      "Post-Viral & Long COVID Fatigue",
+      "Anemia Evaluation",
+      "Brain Fog & Cognitive Energy",
+      "Nutrition for Sustained Energy",
+      "Caffeine & Stimulant Rebalancing"
+    ]
+  }}
+  testimonials={[]}
+  stepsAsHero={true}
+  steps={[
+    {
+      heading: "Vitality intake",
+      body: "We start with your pattern. When the fatigue hits, what makes it better or worse, what you've already tried, what your last labs looked like. Most of the diagnostic work happens in this conversation."
+    },
+    {
+      heading: "Advanced energy panel",
+      body: "We order the labs standard physicals skip. Full thyroid with reverse T3, ferritin and iron studies, B12 with MMA, vitamin D, AM cortisol, and a hormone panel calibrated to your sex and age."
+    },
+    {
+      heading: "A specific plan, then a recheck",
+      body: "Your provider walks you through what the labs actually mean and prescribes the corrections that fit. Retest at 8 to 12 weeks. We adjust based on data, not vibes."
+    }
+  ]}
+  faq={[
+    {
+      q: "My regular doctor said my labs were normal. Why would yours be different?",
+      a: "Most standard panels do not include free T3, reverse T3, ferritin, B12 metabolites, AM cortisol, or full sex hormones. And 'normal' on a lab report is the population reference range, not the optimal range for how you should feel. We order broader panels and read them against optimal targets, not just the lab's bottom of normal."
+    },
+    {
+      q: "Is this just an excuse to prescribe testosterone?",
+      a: "No. Low testosterone is one of many possible drivers of fatigue and we only treat it when the labs and clinical picture support it. Most vitality patients end up on iron, thyroid medication, vitamin D, or sleep interventions rather than hormones. We prescribe what the workup points to, not what is trendy."
+    },
+    {
+      q: "How is this different from longevity & performance?",
+      a: "Longevity focuses on the long arc (biomarkers of aging, peptides, advanced prevention). Everyday vitality focuses on right now: why you feel tired this week and how to fix it within a few months. Patients sometimes start here and graduate into the longevity track once they feel like themselves again."
+    },
+    {
+      q: "What if my fatigue is from stress, sleep, or burnout?",
+      a: "That is real and we treat it as part of the workup. Sleep evaluation, cortisol rhythm, and lifestyle factors are part of the plan. But we still rule out the medical causes first, because telling someone with iron deficiency to meditate is not a treatment."
+    },
+    {
+      q: "Do I need to come in person?",
+      a: "No. Everything is handled via telehealth. We send your labs to a draw site near you and review the results with you at your follow-up video visit."
+    },
+    {
+      q: "How long until I feel a difference?",
+      a: "Depends on the cause. Iron and B12 repletion can shift things in 4 to 6 weeks. Thyroid changes are usually felt at 6 to 8 weeks once the dose is right. Hormone optimization is typically 8 to 12 weeks. We set expectations honestly during your intake."
+    }
+  ]}
+/>
