@@ -106,6 +106,13 @@ interface Props {
   // backgrounds shift by 1 from feature[1] onward to preserve
   // shell/cream alternation around the injected section.
   subServicesAfterFirstFeature?: boolean;
+  // Optional booking destination used by every page-level CTA on the
+  // service page (hero "Begin consultation", in-feature "Get started",
+  // closing "book a visit"). Defaults to the generic patient portal
+  // landing. Single-plan pages can set this to the specific membership
+  // booking; multi-plan pages typically leave it on the default and
+  // route each pricing card to its own membership via plan.cta.
+  bookingHref?: string;
   // Optional row of three round framed images with labels, rendered
   // after the feature rows. `backdrop` picks the ambient animation:
   // 'orbs' (drifting sage/rust/brass blobs) or 'data-grid' (a faint
@@ -144,6 +151,7 @@ const {
   stepsAsHero = false,
   valuesAfterFirstFeature = false,
   subServicesAfterFirstFeature = false,
+  bookingHref = 'https://mbsmedical.practicebetter.io',
   roundImageTrio,
 } = Astro.props;
 
@@ -178,7 +186,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
           <p class="sp-hero__fw-sub">{heroSub}</p>
           <div class="sp-hero__actions">
             <a
-              href="https://mbsmedical.practicebetter.io"
+              href={bookingHref}
               target="_blank"
               rel="noopener noreferrer"
               class="sp-hero__cta sp-hero__fw-cta"
@@ -202,7 +210,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             <h1 class="sp-hero__title">{heroTitle}</h1>
             <p class="sp-hero__sub">{heroSub}</p>
             <div class="sp-hero__actions">
-              <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-hero__cta">
+              <a href={bookingHref} target="_blank" rel="noopener noreferrer" class="sp-hero__cta">
                 <span class="sp-hero__cta-rule" aria-hidden="true"></span>
                 Begin consultation
               </a>
@@ -279,7 +287,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             <h2 class="sp-feature__fw-heading">{f.heading}</h2>
             <p class="sp-feature__fw-body">{f.body}</p>
             <a
-              href="https://mbsmedical.practicebetter.io"
+              href={bookingHref}
               target="_blank"
               rel="noopener noreferrer"
               class="sp-feature__fw-cta"
@@ -329,7 +337,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
               <span class="editorial-eyebrow">{f.chipLabel ?? chipLabel}</span>
               <h2 class="sp-feature-heading">{f.heading}</h2>
               <p class="sp-feature-body">{f.body}</p>
-              <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-feature-cta">
+              <a href={bookingHref} target="_blank" rel="noopener noreferrer" class="sp-feature-cta">
                 <span class="sp-feature-cta-rule" aria-hidden="true"></span>
                 Get started
               </a>
@@ -555,7 +563,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
           <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
           <div class="sp-cta-actions">
             <a
-              href="https://mbsmedical.practicebetter.io"
+              href={bookingHref}
               target="_blank"
               rel="noopener noreferrer"
               class="sp-cta-btn sp-cta-btn--primary"
@@ -640,7 +648,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             <h2 class="sp-cta-title">Let&rsquo;s build your plan.</h2>
             <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
             <div class="sp-cta-actions">
-              <a href="https://mbsmedical.practicebetter.io" target="_blank" rel="noopener noreferrer" class="sp-cta-btn sp-cta-btn--primary">
+              <a href={bookingHref} target="_blank" rel="noopener noreferrer" class="sp-cta-btn sp-cta-btn--primary">
                 book a visit
               </a>
               <a href="/contact/" class="sp-cta-btn sp-cta-btn--ghost">ask a question</a>
