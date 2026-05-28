@@ -155,6 +155,13 @@ const {
   roundImageTrio,
 } = Astro.props;
 
+// When the page has 2+ pricing plans, every page-level CTA (hero
+// Begin consultation, in-feature Get started, closing book a visit)
+// opens a small "pick your plan" modal instead of navigating to the
+// generic portal landing. Pricing-card CTAs keep their direct plan
+// URLs and do not trigger the modal.
+const hasMultiplePlans = !!(pricing && pricing.plans && pricing.plans.length > 1);
+
 // Strict bg alternation across every section after values (which is
 // bg-cream). features start at bg-shell (i=0). Each downstream section
 // continues the shell/cream pattern based on its running index, so
@@ -186,7 +193,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
           <p class="sp-hero__fw-sub">{heroSub}</p>
           <div class="sp-hero__actions">
             <a
-              href={bookingHref}
+              href={bookingHref} data-booking-modal={hasMultiplePlans ? 'true' : undefined}
               target="_blank"
               rel="noopener noreferrer"
               class="sp-hero__cta sp-hero__fw-cta"
@@ -210,7 +217,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             <h1 class="sp-hero__title">{heroTitle}</h1>
             <p class="sp-hero__sub">{heroSub}</p>
             <div class="sp-hero__actions">
-              <a href={bookingHref} target="_blank" rel="noopener noreferrer" class="sp-hero__cta">
+              <a href={bookingHref} data-booking-modal={hasMultiplePlans ? 'true' : undefined} target="_blank" rel="noopener noreferrer" class="sp-hero__cta">
                 <span class="sp-hero__cta-rule" aria-hidden="true"></span>
                 Begin consultation
               </a>
@@ -287,7 +294,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             <h2 class="sp-feature__fw-heading">{f.heading}</h2>
             <p class="sp-feature__fw-body">{f.body}</p>
             <a
-              href={bookingHref}
+              href={bookingHref} data-booking-modal={hasMultiplePlans ? 'true' : undefined}
               target="_blank"
               rel="noopener noreferrer"
               class="sp-feature__fw-cta"
@@ -337,7 +344,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
               <span class="editorial-eyebrow">{f.chipLabel ?? chipLabel}</span>
               <h2 class="sp-feature-heading">{f.heading}</h2>
               <p class="sp-feature-body">{f.body}</p>
-              <a href={bookingHref} target="_blank" rel="noopener noreferrer" class="sp-feature-cta">
+              <a href={bookingHref} data-booking-modal={hasMultiplePlans ? 'true' : undefined} target="_blank" rel="noopener noreferrer" class="sp-feature-cta">
                 <span class="sp-feature-cta-rule" aria-hidden="true"></span>
                 Get started
               </a>
@@ -563,7 +570,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
           <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
           <div class="sp-cta-actions">
             <a
-              href={bookingHref}
+              href={bookingHref} data-booking-modal={hasMultiplePlans ? 'true' : undefined}
               target="_blank"
               rel="noopener noreferrer"
               class="sp-cta-btn sp-cta-btn--primary"
@@ -648,7 +655,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             <h2 class="sp-cta-title">Let&rsquo;s build your plan.</h2>
             <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
             <div class="sp-cta-actions">
-              <a href={bookingHref} target="_blank" rel="noopener noreferrer" class="sp-cta-btn sp-cta-btn--primary">
+              <a href={bookingHref} data-booking-modal={hasMultiplePlans ? 'true' : undefined} target="_blank" rel="noopener noreferrer" class="sp-cta-btn sp-cta-btn--primary">
                 book a visit
               </a>
               <a href="/contact/" class="sp-cta-btn sp-cta-btn--ghost">ask a question</a>
@@ -657,6 +664,57 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
         </div>
       </div>
     </section>
+  )}
+
+
+  <!-- ============================================================
+       BOOKING MODAL — multi-plan service pages only. Every page-level
+       CTA marked data-booking-modal opens this dialog so the visitor
+       picks a tier before being sent to PracticeBetter. Pricing-card
+       CTAs route directly to their own plan URLs and skip this.
+       ============================================================ -->
+  {hasMultiplePlans && pricing && (
+    <div class="sp-bm" id="sp-booking-modal" data-state="closed" aria-hidden="true">
+      <div class="sp-bm__scrim" data-bm-close aria-hidden="true"></div>
+      <div
+        class="sp-bm__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="sp-bm-title"
+        tabindex="-1"
+      >
+        <button class="sp-bm__close" data-bm-close type="button" aria-label="Close dialog">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+          </svg>
+        </button>
+        <span class="editorial-eyebrow sp-bm__eyebrow">Begin consultation</span>
+        <h2 id="sp-bm-title" class="sp-bm__title">Pick the plan that fits</h2>
+        <div class="sp-bm__plans">
+          {pricing.plans.map((plan) => (
+            <article class={`sp-bm__plan ${plan.featured ? 'sp-bm__plan--featured' : ''}`}>
+              <header class="sp-bm__plan-head">
+                <span class="sp-bm__plan-name">{plan.name}</span>
+                <span class="sp-bm__plan-price">
+                  {plan.price}<span class="sp-bm__plan-period">/ {plan.period ?? 'month'}</span>
+                </span>
+              </header>
+              <p class="sp-bm__plan-tagline">{plan.tagline}</p>
+              <a
+                href={plan.cta?.href ?? bookingHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="sp-bm__plan-cta"
+              >
+                {plan.cta?.label ?? 'Start membership'}
+              </a>
+            </article>
+          ))}
+        </div>
+        <a href="/contact/" class="sp-bm__ask">Have questions first? Contact us &rarr;</a>
+      </div>
+    </div>
   )}
 
 </Layout>
@@ -1958,6 +2016,242 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     color: #FFFFFF;
     border-color: rgba(255,255,255,0.6);
   }
+
+  /* ---- Booking modal ----
+     Multi-plan service pages render this dialog. Page-level CTAs
+     intercept and open the modal; visitor picks a tier; each plan
+     CTA inside the modal links to its own PracticeBetter URL. */
+  .sp-bm {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease;
+  }
+  .sp-bm[data-state="open"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .sp-bm[data-state="open"] .sp-bm__panel {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  .sp-bm__scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(60, 56, 54, 0.55);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+  }
+  .sp-bm__panel {
+    position: relative;
+    background: var(--color-neutral);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.35);
+    max-width: 640px;
+    width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: clamp(2rem, 5vw, 2.75rem);
+    transform: scale(0.97) translateY(8px);
+    opacity: 0;
+    transition: transform 220ms ease, opacity 220ms ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  .sp-bm__close {
+    position: absolute;
+    top: 0.875rem;
+    right: 0.875rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  }
+  .sp-bm__close:hover {
+    background: var(--color-surface-warm);
+    border-color: var(--color-border-strong);
+    color: var(--color-rust);
+  }
+  .sp-bm__close:focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 2px;
+  }
+  .sp-bm__close svg {
+    width: 18px;
+    height: 18px;
+  }
+  .sp-bm__eyebrow {
+    align-self: center;
+  }
+  .sp-bm__title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-primary);
+    margin: 0;
+  }
+  .sp-bm__plans {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+    margin-top: 0.75rem;
+    text-align: left;
+  }
+  @media (min-width: 600px) {
+    .sp-bm__plans {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .sp-bm__plan {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 1.125rem 1.25rem 1.25rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: border-color 200ms ease, transform 200ms ease;
+  }
+  .sp-bm__plan:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+  }
+  .sp-bm__plan--featured {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #FFFFFF;
+  }
+  .sp-bm__plan--featured:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+  .sp-bm__plan-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .sp-bm__plan-name {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-rust);
+  }
+  .sp-bm__plan--featured .sp-bm__plan-name {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .sp-bm__plan-price {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--color-primary);
+    white-space: nowrap;
+  }
+  .sp-bm__plan--featured .sp-bm__plan-price {
+    color: #FFFFFF;
+  }
+  .sp-bm__plan-period {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--color-secondary);
+    font-weight: var(--weight-medium);
+    text-transform: lowercase;
+    letter-spacing: 0;
+    margin-left: 0.125rem;
+  }
+  .sp-bm__plan--featured .sp-bm__plan-period {
+    color: rgba(255, 255, 255, 0.78);
+  }
+  .sp-bm__plan-tagline {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--color-secondary);
+    margin: 0;
+    flex-grow: 1;
+  }
+  .sp-bm__plan--featured .sp-bm__plan-tagline {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .sp-bm__plan-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 0.25rem;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .sp-bm__plan-cta:hover {
+    background-color: transparent;
+    color: var(--color-primary);
+  }
+  .sp-bm__plan--featured .sp-bm__plan-cta {
+    background-color: #FFFFFF;
+    color: var(--color-accent);
+    border-color: #FFFFFF;
+  }
+  .sp-bm__plan--featured .sp-bm__plan-cta:hover {
+    background-color: transparent;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+  }
+  .sp-bm__ask {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-rust);
+    text-decoration: none;
+    margin-top: 0.5rem;
+    transition: color 150ms ease, letter-spacing 150ms ease;
+  }
+  .sp-bm__ask:hover {
+    color: var(--color-primary);
+    letter-spacing: 0.24em;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sp-bm,
+    .sp-bm__panel {
+      transition: none;
+    }
+    .sp-bm__plan {
+      transition: none;
+    }
+  }
 </style>
 
 
@@ -1977,4 +2271,70 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   document.querySelectorAll('.sp-feature-scene').forEach((el) => {
     sceneObserver.observe(el);
   });
+
+  // Booking-plan modal — opens when any page-level CTA marked
+  // data-booking-modal is clicked on a multi-plan service page.
+  // Pricing card CTAs route directly to plan-specific URLs and
+  // never trigger this dialog.
+  const bookingModal = document.getElementById('sp-booking-modal');
+  if (bookingModal) {
+    const triggers = document.querySelectorAll<HTMLAnchorElement>('[data-booking-modal="true"]');
+    const closers = bookingModal.querySelectorAll<HTMLElement>('[data-bm-close]');
+    const panel = bookingModal.querySelector<HTMLElement>('.sp-bm__panel');
+    let lastFocus: HTMLElement | null = null;
+
+    const openBookingModal = () => {
+      const active = document.activeElement;
+      lastFocus = active instanceof HTMLElement ? active : null;
+      bookingModal.setAttribute('data-state', 'open');
+      bookingModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        const firstFocusable = panel?.querySelector<HTMLElement>('button, a[href]');
+        firstFocusable?.focus();
+      });
+    };
+
+    const closeBookingModal = () => {
+      bookingModal.setAttribute('data-state', 'closed');
+      bookingModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lastFocus?.focus();
+    };
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        openBookingModal();
+      });
+    });
+
+    closers.forEach((closer) => {
+      closer.addEventListener('click', closeBookingModal);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (bookingModal.getAttribute('data-state') !== 'open') return;
+      if (e.key === 'Escape') {
+        closeBookingModal();
+        return;
+      }
+      // Focus trap on Tab so keyboard users stay inside the dialog
+      if (e.key === 'Tab' && panel) {
+        const focusables = panel.querySelectorAll<HTMLElement>(
+          'button, a[href], [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  }
 </script>
