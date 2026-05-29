@@ -136,17 +136,22 @@ interface Props {
     eyebrow?: string;
     heading: string;
     intro: string;
-    // When `image` is set, the eyebrow + heading + intro + CTA render
-    // as a full-bleed cinematic band (the same treatment as a fullwidth
-    // feature), and any accordion items render in a connected sand band
-    // directly below. Without `image`, everything renders in a single
-    // centered sand section. `flip` puts the text column on the right.
+    // Optional short price/spec line shown under the intro, e.g.
+    // "3 injections for $399".
+    priceNote?: string;
+    // When `image` is set, the content renders as a cinematic hero with
+    // a text column over the image (pushed to the side opposite the
+    // subject via `flip`); the accordion lives inside that column.
+    // Without `image`, everything renders in a centered sand section.
     image?: string;
     imageAlt?: string;
     imageFocus?: string;
     flip?: boolean;
     accordion?: { q: string; a: string }[];
+    // Primary action (filled button) and optional secondary action
+    // (ghost button) rendered side by side below the accordion.
     cta?: { label: string; href: string };
+    ctaSecondary?: { label: string; href: string };
   }[];
 }
 
@@ -534,6 +539,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             {spot.eyebrow && <span class="editorial-eyebrow sp-spotlight-hero__eyebrow">{spot.eyebrow}</span>}
             <h2 class="sp-spotlight-hero__heading">{spot.heading}</h2>
             <p class="sp-spotlight-hero__intro">{spot.intro}</p>
+            {spot.priceNote && <p class="sp-spotlight-hero__price">{spot.priceNote}</p>}
             {spot.accordion && spot.accordion.length > 0 && (
               <div class="sp-spotlight__accordion sp-spotlight-hero__accordion">
                 {spot.accordion.map((item) => (
@@ -547,14 +553,27 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
                 ))}
               </div>
             )}
-            {spot.cta && (
-              <a
-                href={spot.cta.href}
-                class="sp-spotlight-hero__cta"
-                {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
-                {spot.cta.label}
-              </a>
+            {(spot.cta || spot.ctaSecondary) && (
+              <div class="sp-spotlight-hero__actions">
+                {spot.cta && (
+                  <a
+                    href={spot.cta.href}
+                    class="sp-spotlight-hero__cta"
+                    {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
+                    {spot.cta.label}
+                  </a>
+                )}
+                {spot.ctaSecondary && (
+                  <a
+                    href={spot.ctaSecondary.href}
+                    class="sp-spotlight-hero__cta sp-spotlight-hero__cta--ghost"
+                    {...(spot.ctaSecondary.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
+                    {spot.ctaSecondary.label}
+                  </a>
+                )}
+              </div>
             )}
           </div>
         </div>
@@ -568,6 +587,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
             )}
             <h2 class="sp-spotlight__heading">{spot.heading}</h2>
             <p class="sp-spotlight__intro">{spot.intro}</p>
+            {spot.priceNote && <p class="sp-spotlight__price">{spot.priceNote}</p>}
             {spot.accordion && spot.accordion.length > 0 && (
               <div class="sp-spotlight__accordion">
                 {spot.accordion.map((item) => (
@@ -581,14 +601,27 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
                 ))}
               </div>
             )}
-            {spot.cta && (
-              <a
-                href={spot.cta.href}
-                class="sp-spotlight__cta"
-                {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
-                {spot.cta.label}
-              </a>
+            {(spot.cta || spot.ctaSecondary) && (
+              <div class="sp-spotlight__actions">
+                {spot.cta && (
+                  <a
+                    href={spot.cta.href}
+                    class="sp-spotlight__cta"
+                    {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
+                    {spot.cta.label}
+                  </a>
+                )}
+                {spot.ctaSecondary && (
+                  <a
+                    href={spot.ctaSecondary.href}
+                    class="sp-spotlight__cta sp-spotlight__cta--ghost"
+                    {...(spot.ctaSecondary.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
+                    {spot.ctaSecondary.label}
+                  </a>
+                )}
+              </div>
             )}
           </div>
         </div>
@@ -1250,9 +1283,20 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   .sp-spotlight-hero .sp-spotlight__body {
     color: rgba(255, 255, 255, 0.82);
   }
-  .sp-spotlight-hero__cta {
-    align-self: flex-start;
+  .sp-spotlight-hero__price {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: var(--weight-semibold);
+    color: #ffffff;
+    margin: 0.25rem 0 0;
+  }
+  .sp-spotlight-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
     margin-top: 0.75rem;
+  }
+  .sp-spotlight-hero__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1273,6 +1317,17 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   .sp-spotlight-hero__cta:hover {
     background-color: transparent;
     color: #ffffff;
+  }
+  /* Ghost secondary action: outline on the dark hero. */
+  .sp-spotlight-hero__cta--ghost {
+    background-color: transparent;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+  .sp-spotlight-hero__cta--ghost:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border-color: #ffffff;
   }
   .sp-spotlight-hero__cta:focus-visible {
     outline: 2px solid #ffffff;
@@ -1387,11 +1442,24 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     line-height: var(--leading-relaxed);
     color: var(--ink-secondary);
   }
+  .sp-spotlight__price {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-primary);
+    margin: 0.25rem 0 0;
+  }
+  .sp-spotlight__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.875rem;
+    margin-top: 0.75rem;
+  }
   .sp-spotlight__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-top: 0.75rem;
     font-family: var(--font-body);
     font-size: 0.875rem;
     font-weight: var(--weight-bold);
@@ -1409,6 +1477,15 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   .sp-spotlight__cta:hover {
     background-color: transparent;
     color: var(--color-primary);
+  }
+  /* Ghost secondary action: outline on the sand surface. */
+  .sp-spotlight__cta--ghost {
+    background-color: transparent;
+    color: var(--color-primary);
+  }
+  .sp-spotlight__cta--ghost:hover {
+    background-color: var(--color-primary);
+    color: var(--color-neutral);
   }
   .sp-spotlight__cta:focus-visible {
     outline: 2px solid var(--color-primary);
