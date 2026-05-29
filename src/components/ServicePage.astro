@@ -525,67 +525,50 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        were rendered.
        ============================================================ -->
   {spotlights.length > 0 && spotlights.map((spot) => (
-    <Fragment>
-      {spot.image ? (
-        <section class={`section sp-feature sp-feature--fullwidth ${spot.flip ? 'sp-feature--flip' : ''}`}>
-          <img src={spot.image} alt={spot.imageAlt ?? spot.heading} class="sp-feature__bg" style={spot.imageFocus ? `object-position: ${spot.imageFocus};` : undefined} />
-          <div class="sp-feature__overlay" aria-hidden="true"></div>
-          <div class="container sp-feature__fw-container">
-            <div class="sp-feature__fw-text">
-              {spot.eyebrow && <span class="editorial-eyebrow sp-feature__fw-eyebrow">{spot.eyebrow}</span>}
-              <h2 class="sp-feature__fw-heading">{spot.heading}</h2>
-              <p class="sp-feature__fw-body">{spot.intro}</p>
-              {spot.cta && (
-                <a
-                  href={spot.cta.href}
-                  class="sp-feature__fw-cta"
-                  {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                >
-                  {spot.cta.label}
-                </a>
-              )}
-            </div>
+    spot.image ? (
+      <section class={`section sp-spotlight-hero ${spot.flip ? 'sp-spotlight-hero--flip' : ''}`}>
+        <img src={spot.image} alt={spot.imageAlt ?? spot.heading} class="sp-spotlight-hero__bg" style={spot.imageFocus ? `object-position: ${spot.imageFocus};` : undefined} />
+        <div class="sp-spotlight-hero__overlay" aria-hidden="true"></div>
+        <div class="container sp-spotlight-hero__container">
+          <div class="reveal sp-spotlight-hero__text">
+            {spot.eyebrow && <span class="editorial-eyebrow sp-spotlight-hero__eyebrow">{spot.eyebrow}</span>}
+            <h2 class="sp-spotlight-hero__heading">{spot.heading}</h2>
+            <p class="sp-spotlight-hero__intro">{spot.intro}</p>
+            {spot.accordion && spot.accordion.length > 0 && (
+              <div class="sp-spotlight__accordion sp-spotlight-hero__accordion">
+                {spot.accordion.map((item) => (
+                  <details class="sp-spotlight__detail">
+                    <summary class="sp-spotlight__summary">
+                      <span class="sp-spotlight__summary-text">{item.q}</span>
+                      <span class="sp-spotlight__chevron" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="sp-spotlight__body">{item.a}</div>
+                  </details>
+                ))}
+              </div>
+            )}
+            {spot.cta && (
+              <a
+                href={spot.cta.href}
+                class="sp-spotlight-hero__cta"
+                {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                {spot.cta.label}
+              </a>
+            )}
           </div>
-        </section>
-      ) : (
-        <section class="section sp-spotlight">
-          <div class="container sp-spotlight__container">
-            <div class="reveal sp-spotlight__inner">
-              {spot.eyebrow && (
-                <span class="editorial-eyebrow sp-spotlight__eyebrow">{spot.eyebrow}</span>
-              )}
-              <h2 class="sp-spotlight__heading">{spot.heading}</h2>
-              <p class="sp-spotlight__intro">{spot.intro}</p>
-              {spot.accordion && spot.accordion.length > 0 && (
-                <div class="sp-spotlight__accordion">
-                  {spot.accordion.map((item) => (
-                    <details class="sp-spotlight__detail">
-                      <summary class="sp-spotlight__summary">
-                        <span class="sp-spotlight__summary-text">{item.q}</span>
-                        <span class="sp-spotlight__chevron" aria-hidden="true">+</span>
-                      </summary>
-                      <div class="sp-spotlight__body">{item.a}</div>
-                    </details>
-                  ))}
-                </div>
-              )}
-              {spot.cta && (
-                <a
-                  href={spot.cta.href}
-                  class="sp-spotlight__cta"
-                  {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                >
-                  {spot.cta.label}
-                </a>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
-      {spot.image && spot.accordion && spot.accordion.length > 0 && (
-        <section class="section sp-spotlight sp-spotlight--detail">
-          <div class="container sp-spotlight__container">
-            <div class="reveal sp-spotlight__inner">
+        </div>
+      </section>
+    ) : (
+      <section class="section sp-spotlight">
+        <div class="container sp-spotlight__container">
+          <div class="reveal sp-spotlight__inner">
+            {spot.eyebrow && (
+              <span class="editorial-eyebrow sp-spotlight__eyebrow">{spot.eyebrow}</span>
+            )}
+            <h2 class="sp-spotlight__heading">{spot.heading}</h2>
+            <p class="sp-spotlight__intro">{spot.intro}</p>
+            {spot.accordion && spot.accordion.length > 0 && (
               <div class="sp-spotlight__accordion">
                 {spot.accordion.map((item) => (
                   <details class="sp-spotlight__detail">
@@ -597,11 +580,20 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
                   </details>
                 ))}
               </div>
-            </div>
+            )}
+            {spot.cta && (
+              <a
+                href={spot.cta.href}
+                class="sp-spotlight__cta"
+                {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                {spot.cta.label}
+              </a>
+            )}
           </div>
-        </section>
-      )}
-    </Fragment>
+        </div>
+      </section>
+    )
   ))}
 
 
@@ -1131,11 +1123,178 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        continuous treatment; an inner hairline keeps them readable. */
     border-top: 1px solid var(--border-subtle);
   }
-  /* Accordion-only band that follows a cinematic image band: pull it
-     up so the detail reads as a continuation of the image above
-     rather than a detached section. */
-  .sp-spotlight--detail {
-    padding-top: clamp(2rem, 4vw, 3rem);
+  /* ---- Spotlight hero: cinematic image with content + accordion ----
+     Used when a spotlight has an image. Eyebrow + heading + intro +
+     accordion + CTA all live in a text column over a dark gradient,
+     pushed to the side opposite the photo's subject so it never sits
+     on the people in the shot. Height is driven by content so the
+     accordion can expand without clipping. */
+  .sp-spotlight-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    background-color: var(--color-primary);
+    min-height: clamp(420px, 58vh, 600px);
+    display: flex;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.10),
+      inset 0 -70px 100px -40px rgba(0, 0, 0, 0.5),
+      inset 0 50px 100px -40px rgba(0, 0, 0, 0.3);
+  }
+  .sp-spotlight-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+  .sp-spotlight-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    /* Default: dark anchored left (text-left layout). */
+    background: linear-gradient(
+      100deg,
+      rgba(46, 43, 42, 0.93) 0%,
+      rgba(46, 43, 42, 0.84) 34%,
+      rgba(60, 56, 54, 0.42) 62%,
+      rgba(60, 56, 54, 0) 100%
+    );
+  }
+  .sp-spotlight-hero--flip .sp-spotlight-hero__overlay {
+    /* Flip: dark anchored right where the text column sits. */
+    background: linear-gradient(
+      260deg,
+      rgba(46, 43, 42, 0.93) 0%,
+      rgba(46, 43, 42, 0.84) 34%,
+      rgba(60, 56, 54, 0.42) 62%,
+      rgba(60, 56, 54, 0) 100%
+    );
+  }
+  .sp-spotlight-hero__container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    width: 100%;
+    max-width: none;
+    align-items: center;
+    padding-top: clamp(3rem, 6vw, 4.5rem);
+    padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+  /* Push the text column toward the viewport edge, away from the photo
+     subject, by breaking out of the centered container. */
+  .sp-spotlight-hero--flip .sp-spotlight-hero__container {
+    justify-content: flex-end;
+    padding-right: clamp(2rem, 7vw, 8rem);
+    padding-left: 1.5rem;
+  }
+  .sp-spotlight-hero:not(.sp-spotlight-hero--flip) .sp-spotlight-hero__container {
+    justify-content: flex-start;
+    padding-left: clamp(2rem, 7vw, 8rem);
+    padding-right: 1.5rem;
+  }
+  .sp-spotlight-hero__text {
+    width: 100%;
+    max-width: 34rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .sp-spotlight-hero__eyebrow {
+    color: var(--color-neutral);
+  }
+  .sp-spotlight-hero__heading {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+    margin: 0;
+    max-width: 18ch;
+  }
+  .sp-spotlight-hero__intro {
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    max-width: 46ch;
+  }
+  /* Accordion in the dark hero context: light text and hairlines */
+  .sp-spotlight-hero__accordion {
+    margin-top: 0.5rem;
+    max-width: none;
+  }
+  .sp-spotlight-hero .sp-spotlight__detail {
+    border-top-color: rgba(255, 255, 255, 0.18);
+    padding: 0.8rem 0;
+  }
+  .sp-spotlight-hero .sp-spotlight__detail:last-child {
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+  }
+  .sp-spotlight-hero .sp-spotlight__summary-text {
+    color: #ffffff;
+  }
+  .sp-spotlight-hero .sp-spotlight__chevron {
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+  }
+  .sp-spotlight-hero .sp-spotlight__detail[open] .sp-spotlight__chevron {
+    background-color: var(--color-rust);
+    border-color: var(--color-rust);
+    color: #ffffff;
+  }
+  .sp-spotlight-hero .sp-spotlight__body {
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .sp-spotlight-hero__cta {
+    align-self: flex-start;
+    margin-top: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 30px;
+    border-radius: 999px;
+    border: 1.5px solid #ffffff;
+    background-color: #ffffff;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+    white-space: nowrap;
+  }
+  .sp-spotlight-hero__cta:hover {
+    background-color: transparent;
+    color: #ffffff;
+  }
+  .sp-spotlight-hero__cta:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+  }
+  @media (max-width: 767px) {
+    /* On narrow screens the text column is full width, so darken the
+       whole overlay uniformly for readability rather than relying on
+       the side-anchored gradient. */
+    .sp-spotlight-hero__overlay,
+    .sp-spotlight-hero--flip .sp-spotlight-hero__overlay {
+      background: linear-gradient(
+        180deg,
+        rgba(46, 43, 42, 0.72) 0%,
+        rgba(46, 43, 42, 0.90) 100%
+      );
+    }
+    .sp-spotlight-hero--flip .sp-spotlight-hero__container,
+    .sp-spotlight-hero:not(.sp-spotlight-hero--flip) .sp-spotlight-hero__container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
   }
   .sp-spotlight__container {
     position: relative;
