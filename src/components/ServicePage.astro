@@ -136,6 +136,15 @@ interface Props {
     eyebrow?: string;
     heading: string;
     intro: string;
+    // When `image` is set, the eyebrow + heading + intro + CTA render
+    // as a full-bleed cinematic band (the same treatment as a fullwidth
+    // feature), and any accordion items render in a connected sand band
+    // directly below. Without `image`, everything renders in a single
+    // centered sand section. `flip` puts the text column on the right.
+    image?: string;
+    imageAlt?: string;
+    imageFocus?: string;
+    flip?: boolean;
     accordion?: { q: string; a: string }[];
     cta?: { label: string; href: string };
   }[];
@@ -516,39 +525,83 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        were rendered.
        ============================================================ -->
   {spotlights.length > 0 && spotlights.map((spot) => (
-    <section class="section sp-spotlight">
-      <div class="container sp-spotlight__container">
-        <div class="reveal sp-spotlight__inner">
-          {spot.eyebrow && (
-            <span class="editorial-eyebrow sp-spotlight__eyebrow">{spot.eyebrow}</span>
-          )}
-          <h2 class="sp-spotlight__heading">{spot.heading}</h2>
-          <p class="sp-spotlight__intro">{spot.intro}</p>
-          {spot.accordion && spot.accordion.length > 0 && (
-            <div class="sp-spotlight__accordion">
-              {spot.accordion.map((item) => (
-                <details class="sp-spotlight__detail">
-                  <summary class="sp-spotlight__summary">
-                    <span class="sp-spotlight__summary-text">{item.q}</span>
-                    <span class="sp-spotlight__chevron" aria-hidden="true">+</span>
-                  </summary>
-                  <div class="sp-spotlight__body">{item.a}</div>
-                </details>
-              ))}
+    <Fragment>
+      {spot.image ? (
+        <section class={`section sp-feature sp-feature--fullwidth ${spot.flip ? 'sp-feature--flip' : ''}`}>
+          <img src={spot.image} alt={spot.imageAlt ?? spot.heading} class="sp-feature__bg" style={spot.imageFocus ? `object-position: ${spot.imageFocus};` : undefined} />
+          <div class="sp-feature__overlay" aria-hidden="true"></div>
+          <div class="container sp-feature__fw-container">
+            <div class="sp-feature__fw-text">
+              {spot.eyebrow && <span class="editorial-eyebrow sp-feature__fw-eyebrow">{spot.eyebrow}</span>}
+              <h2 class="sp-feature__fw-heading">{spot.heading}</h2>
+              <p class="sp-feature__fw-body">{spot.intro}</p>
+              {spot.cta && (
+                <a
+                  href={spot.cta.href}
+                  class="sp-feature__fw-cta"
+                  {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  {spot.cta.label}
+                </a>
+              )}
             </div>
-          )}
-          {spot.cta && (
-            <a
-              href={spot.cta.href}
-              class="sp-spotlight__cta"
-              {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            >
-              {spot.cta.label}
-            </a>
-          )}
-        </div>
-      </div>
-    </section>
+          </div>
+        </section>
+      ) : (
+        <section class="section sp-spotlight">
+          <div class="container sp-spotlight__container">
+            <div class="reveal sp-spotlight__inner">
+              {spot.eyebrow && (
+                <span class="editorial-eyebrow sp-spotlight__eyebrow">{spot.eyebrow}</span>
+              )}
+              <h2 class="sp-spotlight__heading">{spot.heading}</h2>
+              <p class="sp-spotlight__intro">{spot.intro}</p>
+              {spot.accordion && spot.accordion.length > 0 && (
+                <div class="sp-spotlight__accordion">
+                  {spot.accordion.map((item) => (
+                    <details class="sp-spotlight__detail">
+                      <summary class="sp-spotlight__summary">
+                        <span class="sp-spotlight__summary-text">{item.q}</span>
+                        <span class="sp-spotlight__chevron" aria-hidden="true">+</span>
+                      </summary>
+                      <div class="sp-spotlight__body">{item.a}</div>
+                    </details>
+                  ))}
+                </div>
+              )}
+              {spot.cta && (
+                <a
+                  href={spot.cta.href}
+                  class="sp-spotlight__cta"
+                  {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  {spot.cta.label}
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+      {spot.image && spot.accordion && spot.accordion.length > 0 && (
+        <section class="section sp-spotlight sp-spotlight--detail">
+          <div class="container sp-spotlight__container">
+            <div class="reveal sp-spotlight__inner">
+              <div class="sp-spotlight__accordion">
+                {spot.accordion.map((item) => (
+                  <details class="sp-spotlight__detail">
+                    <summary class="sp-spotlight__summary">
+                      <span class="sp-spotlight__summary-text">{item.q}</span>
+                      <span class="sp-spotlight__chevron" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="sp-spotlight__body">{item.a}</div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+    </Fragment>
   ))}
 
 
@@ -1077,6 +1130,12 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     /* Successive spotlights sit flush so the sand band reads as one
        continuous treatment; an inner hairline keeps them readable. */
     border-top: 1px solid var(--border-subtle);
+  }
+  /* Accordion-only band that follows a cinematic image band: pull it
+     up so the detail reads as a continuation of the image above
+     rather than a detached section. */
+  .sp-spotlight--detail {
+    padding-top: clamp(2rem, 4vw, 3rem);
   }
   .sp-spotlight__container {
     position: relative;
