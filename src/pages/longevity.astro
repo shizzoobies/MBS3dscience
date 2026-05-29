@@ -53,13 +53,39 @@ import ServicePage from '../components/ServicePage.astro';
       { label: "Strength", image: "/images/longevity-circle-strength.png" },
       { label: "Sharpness", image: "/images/longevity-circle-sharp.png" },
     ],
-    note: {
+  }}
+  spotlights={[
+    {
+      eyebrow: 'cellular optimization',
+      heading: 'NAD+ injection therapy',
+      intro: "NAD+ is the coenzyme that drives cellular energy, DNA repair, and recovery in every cell of your body. Levels naturally decline with age. Direct injection replenishes them faster than oral supplementation, supporting energy, mitochondrial function, and mental clarity.",
+      accordion: [
+        {
+          q: 'What is NAD+?',
+          a: "NAD+ (nicotinamide adenine dinucleotide) is a naturally occurring coenzyme found in every cell. It plays a vital role in hundreds of biological processes including energy production, DNA repair, immune function, and healthy aging. Levels decline naturally with age, a process linked to fatigue, slower recovery, metabolic changes, and many of the effects associated with getting older."
+        },
+        {
+          q: 'Why injections instead of oral supplements?',
+          a: "Injection delivers NAD+ directly into your bloodstream, bypassing the digestive system for more efficient absorption. Patients use NAD+ injections to support cellular energy and vitality, the body's natural repair and maintenance processes, mitochondrial function (the powerhouse of your cells) for physical recovery, and brain cell function for mental clarity."
+        },
+        {
+          q: 'What should I expect during a session?',
+          a: "NAD+ is administered via injection in a comfortable clinical setting. Some patients experience mild, temporary side effects during or shortly after treatment, including nausea, flushing, or briefly elevated heart rate. These effects typically resolve quickly on their own. Our clinical team monitors you throughout the session to ensure your comfort and safety."
+        },
+        {
+          q: 'Important information and disclosures',
+          a: "NAD+ injection therapy is offered as a wellness service and is not FDA-approved for the treatment, cure, or prevention of any disease. Results vary from person to person. A consultation is recommended before starting therapy so we can review your health history and determine whether NAD+ injections are appropriate for you. Patients with a history of cancer should discuss this therapy with their oncologist prior to treatment. The science behind NAD+ is an active and growing area of research; preclinical studies and early human trials are promising, while large-scale clinical trials evaluating injectable NAD+ for wellness outcomes are still underway."
+        }
+      ],
+      cta: { label: 'Schedule a NAD+ consultation', href: '/contact/' },
+    },
+    {
       eyebrow: 'in-person option',
       heading: 'Stem cell therapy near Bradenton and Ellenton',
-      body: "For patients in the Bradenton and Ellenton, Florida area, stem cell treatments are available in person as part of our recovery and joint health protocols. Reach out to discuss candidacy and scheduling.",
+      intro: "For patients in the Bradenton and Ellenton, Florida area, stem cell treatments are available in person as part of our recovery and joint health protocols. Reach out to discuss candidacy and scheduling.",
       cta: { label: 'Ask about stem cell therapy', href: '/contact/' },
     },
-  }}
+  ]}
   testimonials={[]}
   steps={[
     {

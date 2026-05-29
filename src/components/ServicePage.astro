@@ -124,16 +124,21 @@ interface Props {
     body?: string;
     items: { label: string; image: string }[];
     backdrop?: 'orbs' | 'data-grid';
-    // Optional editorial callout rendered below the items row. Use for
-    // regional availability notes (e.g. an in-person treatment offered
-    // at a specific clinic) without breaking the section's centered flow.
-    note?: {
-      eyebrow?: string;
-      heading: string;
-      body: string;
-      cta?: { label: string; href: string };
-    };
   };
+  // Optional editorial spotlight sections rendered after the trio
+  // (or after the standalone subServices when no trio is present).
+  // Each spotlight is its own sand-tinted fullwidth section with
+  // eyebrow + heading + intro + optional accordion items + optional
+  // CTA. Use for callouts that deserve breathing room (NAD+, in-person
+  // stem cell, regional add-ons) without piling features into the
+  // zigzag flow.
+  spotlights?: {
+    eyebrow?: string;
+    heading: string;
+    intro: string;
+    accordion?: { q: string; a: string }[];
+    cta?: { label: string; href: string };
+  }[];
 }
 
 const {
@@ -153,6 +158,7 @@ const {
   subServicesAfterFirstFeature = false,
   bookingHref = 'https://mbsmedical.practicebetter.io',
   roundImageTrio,
+  spotlights = [],
 } = Astro.props;
 
 // When the page has 2+ pricing plans, every page-level CTA (hero
@@ -448,21 +454,6 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
           ))}
         </div>
 
-        {roundImageTrio.note && (
-          <aside class="reveal sp-trio__note">
-            {roundImageTrio.note.eyebrow && (
-              <span class="editorial-eyebrow sp-trio__note-eyebrow">{roundImageTrio.note.eyebrow}</span>
-            )}
-            <h3 class="sp-trio__note-heading">{roundImageTrio.note.heading}</h3>
-            <p class="sp-trio__note-body">{roundImageTrio.note.body}</p>
-            {roundImageTrio.note.cta && (
-              <a href={roundImageTrio.note.cta.href} class="sp-trio__note-cta">
-                {roundImageTrio.note.cta.label}
-              </a>
-            )}
-          </aside>
-        )}
-
         {subServices && (
           <details class="reveal sp-sub-details sp-trio__sub">
             <summary class="sp-sub-summary">
@@ -515,6 +506,50 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
       </div>
     </section>
   )}
+
+
+  <!-- ============================================================
+       SPOTLIGHTS — standalone editorial callouts on sand surface.
+       Each spotlight is its own fullwidth section that doesn't enter
+       the shell/cream alternation, so testimonials/steps/faq below
+       continue their own rhythm independent of how many spotlights
+       were rendered.
+       ============================================================ -->
+  {spotlights.length > 0 && spotlights.map((spot) => (
+    <section class="section sp-spotlight">
+      <div class="container sp-spotlight__container">
+        <div class="reveal sp-spotlight__inner">
+          {spot.eyebrow && (
+            <span class="editorial-eyebrow sp-spotlight__eyebrow">{spot.eyebrow}</span>
+          )}
+          <h2 class="sp-spotlight__heading">{spot.heading}</h2>
+          <p class="sp-spotlight__intro">{spot.intro}</p>
+          {spot.accordion && spot.accordion.length > 0 && (
+            <div class="sp-spotlight__accordion">
+              {spot.accordion.map((item) => (
+                <details class="sp-spotlight__detail">
+                  <summary class="sp-spotlight__summary">
+                    <span class="sp-spotlight__summary-text">{item.q}</span>
+                    <span class="sp-spotlight__chevron" aria-hidden="true">+</span>
+                  </summary>
+                  <div class="sp-spotlight__body">{item.a}</div>
+                </details>
+              ))}
+            </div>
+          )}
+          {spot.cta && (
+            <a
+              href={spot.cta.href}
+              class="sp-spotlight__cta"
+              {...(spot.cta.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              {spot.cta.label}
+            </a>
+          )}
+        </div>
+      </div>
+    </section>
+  ))}
 
 
   <!-- ============================================================
@@ -1029,46 +1064,116 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     margin-left: auto;
     margin-right: auto;
   }
-  /* ---- Trio note: editorial regional callout ----
-     Sits below the items row, separated by a hairline rule. Centered
-     to match the trio header style so it reads as a quiet but
-     deliberate addendum rather than a separate marketing block. */
-  .sp-trio__note {
-    margin: clamp(3rem, 6vw, 4.5rem) auto 0;
-    padding-top: clamp(2rem, 4vw, 3rem);
-    max-width: 56rem;
+  /* ---- Spotlight section ----
+     Standalone editorial callout for a single service or treatment
+     that deserves its own moment. Sand surface distinguishes it from
+     the shell/cream feature flow without entering that alternation.
+     Optional accordion list uses a hairline-separated <details>
+     stack with a circular plus/X toggle for the open/closed state. */
+  .sp-spotlight {
+    background-color: var(--surface-sand);
+  }
+  .sp-spotlight + .sp-spotlight {
+    /* Successive spotlights sit flush so the sand band reads as one
+       continuous treatment; an inner hairline keeps them readable. */
     border-top: 1px solid var(--border-subtle);
+  }
+  .sp-spotlight__container {
+    position: relative;
+  }
+  .sp-spotlight__inner {
+    max-width: 56rem;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 0.85rem;
+    gap: 1.25rem;
   }
-  .sp-trio__note-eyebrow {
+  .sp-spotlight__eyebrow {
     margin: 0;
   }
-  .sp-trio__note-heading {
+  .sp-spotlight__heading {
     font-family: var(--font-serif);
     font-weight: 400;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    line-height: 1.15;
-    letter-spacing: -0.01em;
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
     color: var(--color-primary);
     margin: 0;
-    max-width: 28ch;
+    max-width: 22ch;
   }
-  .sp-trio__note-body {
+  .sp-spotlight__intro {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--ink-secondary);
+    margin: 0;
+    max-width: 60ch;
+  }
+  .sp-spotlight__accordion {
+    width: 100%;
+    max-width: 44rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  .sp-spotlight__detail {
+    border-top: 1px solid var(--border-subtle);
+    padding: 1rem 0;
+  }
+  .sp-spotlight__detail:last-child {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .sp-spotlight__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .sp-spotlight__summary::-webkit-details-marker {
+    display: none;
+  }
+  .sp-spotlight__summary-text {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    line-height: 1.35;
+    color: var(--color-primary);
+  }
+  .sp-spotlight__chevron {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-rust);
+    transition: transform 200ms ease, background-color 200ms ease, color 200ms ease;
+  }
+  .sp-spotlight__detail[open] .sp-spotlight__chevron {
+    transform: rotate(45deg);
+    background-color: var(--color-rust);
+    color: var(--color-neutral);
+  }
+  .sp-spotlight__body {
+    padding-top: 0.875rem;
     font-size: var(--text-base);
     line-height: var(--leading-relaxed);
     color: var(--ink-secondary);
-    max-width: 56ch;
-    margin: 0;
   }
-  .sp-trio__note-cta {
+  .sp-spotlight__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
     font-family: var(--font-body);
     font-size: 0.875rem;
     font-weight: var(--weight-bold);
@@ -1077,19 +1182,24 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     padding: 14px 30px;
     border-radius: 999px;
     border: 1.5px solid var(--color-primary);
-    background-color: transparent;
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-neutral);
     text-decoration: none;
     transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
     white-space: nowrap;
   }
-  .sp-trio__note-cta:hover {
-    background-color: var(--color-primary);
-    color: var(--color-neutral);
+  .sp-spotlight__cta:hover {
+    background-color: transparent;
+    color: var(--color-primary);
   }
-  .sp-trio__note-cta:focus-visible {
+  .sp-spotlight__cta:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sp-spotlight__chevron {
+      transition: none;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     .sp-trio__orb {
