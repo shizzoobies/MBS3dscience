@@ -1221,7 +1221,11 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
      subject, by breaking out of the centered container. */
   .sp-spotlight-hero--flip .sp-spotlight-hero__container {
     justify-content: flex-end;
-    padding-right: clamp(2rem, 7vw, 8rem);
+    /* Re-constrain to a centered max-width so the text column sits
+       inboard (just to the right of the photo subject) rather than
+       pinned against the viewport edge. */
+    max-width: 1500px;
+    padding-right: clamp(1.5rem, 3vw, 3rem);
     padding-left: 1.5rem;
   }
   .sp-spotlight-hero:not(.sp-spotlight-hero--flip) .sp-spotlight-hero__container {
