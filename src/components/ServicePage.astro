@@ -1127,6 +1127,19 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   .sp-trio__sub {
     margin-top: clamp(2.5rem, 5vw, 4rem);
   }
+  /* On phones the three circles otherwise flex-wrap into a lopsided 2 + 1
+     (the middle one is intentionally larger on desktop). Stack them into a
+     single centered column at a uniform size so the trio reads cleanly. */
+  @media (max-width: 767px) {
+    .sp-trio__row {
+      flex-direction: column;
+      gap: 2.25rem;
+    }
+    .sp-trio__visual,
+    .sp-trio__item--2 .sp-trio__visual {
+      width: clamp(150px, 44vw, 210px);
+    }
+  }
   /* Center the "what we cover" accordion within the trio section:
      heading + toggle as one centered unit, centered intro/disclaimer. */
   .sp-trio__sub .sp-sub-summary {
@@ -2613,7 +2626,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     font-weight: var(--weight-bold);
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    padding: 10px 18px;
+    padding: 15px 22px;
     border-radius: var(--radius-pill);
     border: 1px solid var(--color-primary);
     background-color: var(--color-primary);

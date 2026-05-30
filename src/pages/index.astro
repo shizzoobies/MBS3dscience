@@ -757,6 +757,10 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
   .hero-fullbleed {
     position: relative;
     min-height: 100vh;
+    /* Track the dynamic viewport on mobile so the iOS/Android address bar
+       can't push the centered hero content past the fold. Older browsers
+       fall back to the 100vh line above. */
+    min-height: 100dvh;
     overflow: hidden;
     background-color: var(--surface-ink);
     display: flex;
