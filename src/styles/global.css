@@ -1,7 +1,7 @@
 /* ============================================================
    MBS MEDICAL — DESIGN SYSTEM
    Source of truth: DESIGN.md (warm-neutral + single forest-green accent)
-   Fonts: Fraunces (display/heads) + DM Sans (body/UI)
+   Fonts: Lora (display/heads) + DM Sans (body/UI)
    ============================================================ */
 
 /* --- Google Fonts are loaded in Layout.astro head --- */
@@ -32,7 +32,7 @@
   --color-error:          #B84A3E;
 
   /* Typography family */
-  --font-display: "Fraunces", Georgia, serif;
+  --font-display: "Lora", Georgia, serif;
   --font-body:    "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* ---- Legacy aliases ----
