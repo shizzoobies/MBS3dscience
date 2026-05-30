@@ -107,16 +107,22 @@
 </style>
 
 <script>
-  const graphs = document.querySelectorAll('.t-graph')
-  const obs = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-active')
-          obs.unobserve(entry.target)
-        }
-      }),
-    { threshold: 0.2, rootMargin: '0px 0px -80px 0px' },
-  )
-  graphs.forEach((g) => obs.observe(g))
+  // Re-observed on each view-transition navigation so the graph animates in
+  // when its (freshly-swapped) section scrolls into view. Bundled scripts run
+  // only once, so without this the graph stays unanimated after a navigation.
+  function initTGraph() {
+    const graphs = document.querySelectorAll('.t-graph')
+    const obs = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-active')
+            obs.unobserve(entry.target)
+          }
+        }),
+      { threshold: 0.2, rootMargin: '0px 0px -80px 0px' },
+    )
+    graphs.forEach((g) => obs.observe(g))
+  }
+  document.addEventListener('astro:page-load', initTGraph)
 </script>

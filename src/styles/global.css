@@ -1094,3 +1094,54 @@ label {
   border-top: 1px solid var(--border-subtle);
   margin-block: var(--space-7);
 }
+
+/* ============================================================
+   15. PREMIUM POLISH — image-load reveal + scroll progress
+   ============================================================ */
+
+/* Content images fade in gracefully as they decode. Progressive
+   enhancement: without JS the `.js` class is absent and images render
+   normally. The safety animation guarantees an image becomes visible
+   after a short delay even if its load/error event is somehow missed,
+   so content is never left hidden. Once `vtr-active` is set (after the
+   first client-side navigation) the view-transition crossfade owns the
+   entrance, so images start visible and never double-animate. */
+html.js:not(.vtr-active) main img:not([data-no-reveal]) {
+  opacity: 0;
+  animation: img-reveal-safety 0.01s linear 2.4s forwards;
+}
+@keyframes img-reveal-safety {
+  to { opacity: 1; }
+}
+html.js main img.is-loaded {
+  opacity: 1;
+  animation: none;
+  transition: opacity 0.7s var(--ease-entrance);
+}
+
+/* Slim scroll-progress bar pinned to the top edge. Solid sage hairline
+   (no gradient, per DESIGN.md). Width is driven by a script-set scaleX
+   transform from 0 to 1 as the page scrolls. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 1200;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 80ms linear;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js main img:not([data-no-reveal]) {
+    opacity: 1;
+    animation: none;
+  }
+  html.js main img.is-loaded { transition: none; }
+  .scroll-progress { transition: none; }
+}
