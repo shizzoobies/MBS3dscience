@@ -108,7 +108,7 @@ const team: TeamMember[] = [
 
   <!-- HERO — full-bleed cinematic team image -->
   <section class="about-hero-fw">
-    <img src="/images/about-team-hero-younger.png" alt="The MBS Medical team" class="about-hero-fw__bg" />
+    <img src="/images/about-team-hero-younger.png" alt="The MBS Medical team" class="about-hero-fw__bg" decoding="async" fetchpriority="high" />
     <div class="about-hero-fw__overlay" aria-hidden="true"></div>
     <div class="container about-hero-fw__container">
       <div class="about-hero-fw__text">
@@ -200,7 +200,7 @@ const team: TeamMember[] = [
 
   <!-- CLOSER — our approach merged into the dark "Ready when you are" section -->
   <section class="about-closer">
-    <img src="/images/sig-cta-dark.jpg" alt="" class="about-closer__bg" aria-hidden="true" />
+    <img src="/images/sig-cta-dark.jpg" alt="" class="about-closer__bg" aria-hidden="true" loading="lazy" decoding="async" />
     <div class="about-closer__overlay" aria-hidden="true"></div>
     <div class="container about-closer__container">
       <div class="reveal about-closer__header">

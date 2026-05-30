@@ -204,7 +204,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        ============================================================ -->
   {heroVariant === 'fullwidth' && heroImage ? (
     <section class={`section sp-hero sp-hero--fullwidth${heroFlip ? ' sp-hero--flip' : ''}`}>
-      <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero__bg" style={heroFocus ? `object-position: ${heroFocus};` : undefined} />
+      <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero__bg" decoding="async" fetchpriority="high" style={heroFocus ? `object-position: ${heroFocus};` : undefined} />
       <div class="sp-hero__overlay" aria-hidden="true"></div>
       <div class="container sp-hero__fw-container">
         <div class="sp-hero__fw-text">
@@ -249,7 +249,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
           <div class="sp-hero__media">
             {heroImage ? (
               <div class="sp-hero__frame">
-                <img src={heroImage} alt={`${title} at MBS Medical`} />
+                <img src={heroImage} alt={`${title} at MBS Medical`} decoding="async" fetchpriority="high" />
                 <span class="sp-hero__badge">{chipLabel}</span>
               </div>
             ) : (
@@ -306,7 +306,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     <Fragment>
     {f.variant === 'fullwidth' && f.image ? (
       <section class={`section sp-feature sp-feature--fullwidth ${f.flip ? 'sp-feature--flip' : ''}`}>
-        <img src={f.image} alt={f.imgAlt ?? f.heading} class="sp-feature__bg" style={f.imgFocus ? `object-position: ${f.imgFocus};` : undefined} />
+        <img src={f.image} alt={f.imgAlt ?? f.heading} class="sp-feature__bg" loading="lazy" decoding="async" style={f.imgFocus ? `object-position: ${f.imgFocus};` : undefined} />
         <div class="sp-feature__overlay" aria-hidden="true"></div>
         <div class="container sp-feature__fw-container">
           <div class="sp-feature__fw-text">
@@ -347,7 +347,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
                 </div>
               ) : f.image ? (
                 <div class="sp-feature-frame">
-                  <img src={f.image} alt={f.imgAlt ?? f.heading} />
+                  <img src={f.image} alt={f.imgAlt ?? f.heading} loading="lazy" decoding="async" />
                 </div>
               ) : (
                 <div
@@ -532,7 +532,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
   {spotlights.length > 0 && spotlights.map((spot) => (
     spot.image ? (
       <section class={`section sp-spotlight-hero ${spot.flip ? 'sp-spotlight-hero--flip' : ''}`}>
-        <img src={spot.image} alt={spot.imageAlt ?? spot.heading} class="sp-spotlight-hero__bg" style={spot.imageFocus ? `object-position: ${spot.imageFocus};` : undefined} />
+        <img src={spot.image} alt={spot.imageAlt ?? spot.heading} class="sp-spotlight-hero__bg" loading="lazy" decoding="async" style={spot.imageFocus ? `object-position: ${spot.imageFocus};` : undefined} />
         <div class="sp-spotlight-hero__overlay" aria-hidden="true"></div>
         <div class="container sp-spotlight-hero__container">
           <div class="reveal sp-spotlight-hero__text">
@@ -661,7 +661,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        ============================================================ -->
   {stepsAsHero ? (
     <section class={`section sp-steps-hero${stepsBackground ? ' has-bg-graph' : ''}`}>
-      <img src="/images/sig-cta-dark.jpg" alt="" class="sp-steps-hero__bg" aria-hidden="true" />
+      <img src="/images/sig-cta-dark.jpg" alt="" class="sp-steps-hero__bg" aria-hidden="true" loading="lazy" decoding="async" />
       <div class="sp-steps-hero__overlay" aria-hidden="true"></div>
       {stepsBackground === 'testosterone' && <TestosteroneGraph />}
       <div class="container sp-steps-hero__container">
@@ -760,7 +760,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
     <section class="section sp-cta-section">
       <div class="container">
         <div class="reveal sp-cta-card">
-          <img src="/images/sig-cta-dark.jpg" alt="" class="sp-cta-bg" aria-hidden="true" />
+          <img src="/images/sig-cta-dark.jpg" alt="" class="sp-cta-bg" aria-hidden="true" loading="lazy" decoding="async" />
           <span class="sp-cta-deco sp-cta-deco--tr" aria-hidden="true"></span>
           <span class="sp-cta-deco sp-cta-deco--bl" aria-hidden="true"></span>
           <div class="sp-cta-inner">

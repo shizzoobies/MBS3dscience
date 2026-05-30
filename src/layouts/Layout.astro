@@ -20,6 +20,9 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Mark JS as available before first paint so the image-load reveal can
+         start images hidden without a flash. No-JS keeps everything visible. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <meta name="google-site-verification" content="h062DuNKwPTlS7jj6WiTdRyciMhwyJyTOxgKa9RMsns" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -34,6 +37,7 @@ const {
     />
   </head>
   <body>
+    <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
     <a href="#main-content" class="skip-link">skip to main content</a>
 
     <Header />
@@ -59,15 +63,41 @@ const {
       );
       document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-      // Nav: add .scrolled class on scroll
+      // Premium image-load reveal: content images fade in as they decode.
+      // Cached images reveal instantly; the CSS carries a safety fallback so
+      // an image is never left hidden if its load event never fires.
+      document.querySelectorAll('main img').forEach((el) => {
+        const img = el as HTMLImageElement;
+        if (img.hasAttribute('data-no-reveal')) return;
+        if (img.complete && img.naturalWidth > 0) {
+          img.classList.add('is-loaded');
+        } else {
+          img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
+          img.addEventListener('error', () => img.classList.add('is-loaded'), { once: true });
+        }
+      });
+
+      // Nav solid-on-scroll + slim scroll-progress indicator, batched into a
+      // single passive scroll listener via requestAnimationFrame.
       const header = document.querySelector('.site-header') as HTMLElement;
-      if (header) {
-        const onScroll = () => {
-          header.classList.toggle('scrolled', window.scrollY > 20);
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-      }
+      const progress = document.querySelector('[data-scroll-progress]') as HTMLElement;
+      let ticking = false;
+      const update = () => {
+        ticking = false;
+        if (header) header.classList.toggle('scrolled', window.scrollY > 20);
+        if (progress) {
+          const doc = document.documentElement;
+          const max = doc.scrollHeight - doc.clientHeight;
+          const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+          progress.style.transform = `scaleX(${pct / 100})`;
+        }
+      };
+      const onScroll = () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      update();
     </script>
   </body>
 </html>
