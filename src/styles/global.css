@@ -618,6 +618,14 @@ details[open] .faq-summary::after {
   }
 }
 
+/* After the first client-side navigation, drop the staggered section
+   cascade so navigated pages render instantly under the view-transition
+   crossfade. Removing the animation leaves sections fully visible, so no
+   content is hidden. The flag lives on <html>, which persists across swaps. */
+html.vtr-active .section {
+  animation: none;
+}
+
 /* Hairline border + soft inset fade on top/bottom of alternating content
    sections (values, features, testimonials, steps, faq) so adjacent
    sections read as stacked layers with depth. */
