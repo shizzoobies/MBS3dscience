@@ -49,15 +49,19 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
 
   <script>
     // Stop the flag animation after 10 seconds; deepen the scrim slightly so
-    // text stays readable on the frozen frame.
-    const heroVid = document.getElementById('hero-flag-video') as HTMLVideoElement | null;
-    const heroScrim = document.getElementById('hero-flag-scrim');
-    if (heroVid) {
-      setTimeout(() => {
-        try { heroVid.pause(); } catch {}
-        if (heroScrim) heroScrim.classList.add('is-paused');
-      }, 10000);
+    // text stays readable on the frozen frame. Re-armed on each view-transition
+    // navigation back to the home page.
+    function initHeroVideo() {
+      const heroVid = document.getElementById('hero-flag-video') as HTMLVideoElement | null;
+      const heroScrim = document.getElementById('hero-flag-scrim');
+      if (heroVid) {
+        setTimeout(() => {
+          try { heroVid.pause(); } catch {}
+          if (heroScrim) heroScrim.classList.add('is-paused');
+        }, 10000);
+      }
     }
+    document.addEventListener('astro:page-load', initHeroVideo);
   </script>
 
 

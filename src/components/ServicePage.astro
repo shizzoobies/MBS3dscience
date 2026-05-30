@@ -2678,85 +2678,103 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 
 
 <script>
-  // Trigger the .sp-feature-scene focus transition once each scene enters
-  // the viewport. Time-based easing (defined in the scoped CSS above) means
-  // the animation runs smoothly regardless of scroll velocity.
-  const sceneObserver = new IntersectionObserver(
-    (entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-focused');
-        sceneObserver.unobserve(entry.target);
-      }
-    }),
-    { threshold: 0.25, rootMargin: '0px 0px -120px 0px' }
-  );
-  document.querySelectorAll('.sp-feature-scene').forEach((el) => {
-    sceneObserver.observe(el);
-  });
+  // Re-runs on first load AND after every view-transition navigation so the
+  // scene observer and booking-modal triggers bind to the freshly-swapped
+  // page. The document-level keydown handler (Esc + focus trap) is bound once
+  // and re-queries the live modal, so it never stacks up across navigations.
+  let spLastFocus: HTMLElement | null = null;
+  let spKeydownBound = false;
 
-  // Booking-plan modal — opens when any page-level CTA marked
-  // data-booking-modal is clicked on a multi-plan service page.
-  // Pricing card CTAs route directly to plan-specific URLs and
-  // never trigger this dialog.
-  const bookingModal = document.getElementById('sp-booking-modal');
-  if (bookingModal) {
-    const triggers = document.querySelectorAll<HTMLAnchorElement>('[data-booking-modal="true"]');
-    const closers = bookingModal.querySelectorAll<HTMLElement>('[data-bm-close]');
-    const panel = bookingModal.querySelector<HTMLElement>('.sp-bm__panel');
-    let lastFocus: HTMLElement | null = null;
+  const closeBookingModal = () => {
+    const m = document.getElementById('sp-booking-modal');
+    if (!m) return;
+    m.setAttribute('data-state', 'closed');
+    m.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    spLastFocus?.focus();
+  };
 
-    const openBookingModal = () => {
-      const active = document.activeElement;
-      lastFocus = active instanceof HTMLElement ? active : null;
-      bookingModal.setAttribute('data-state', 'open');
-      bookingModal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      requestAnimationFrame(() => {
-        const firstFocusable = panel?.querySelector<HTMLElement>('button, a[href]');
-        firstFocusable?.focus();
-      });
-    };
-
-    const closeBookingModal = () => {
-      bookingModal.setAttribute('data-state', 'closed');
-      bookingModal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      lastFocus?.focus();
-    };
-
-    triggers.forEach((trigger) => {
-      trigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        openBookingModal();
-      });
-    });
-
-    closers.forEach((closer) => {
-      closer.addEventListener('click', closeBookingModal);
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (bookingModal.getAttribute('data-state') !== 'open') return;
-      if (e.key === 'Escape') {
-        closeBookingModal();
-        return;
-      }
-      // Focus trap on Tab so keyboard users stay inside the dialog
-      if (e.key === 'Tab' && panel) {
-        const focusables = panel.querySelectorAll<HTMLElement>(
-          'button, a[href], [tabindex]:not([tabindex="-1"])'
-        );
-        if (focusables.length === 0) return;
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
+  function initServicePage() {
+    // Trigger the .sp-feature-scene focus transition once each scene enters
+    // the viewport. Time-based easing (in the scoped CSS) keeps it smooth
+    // regardless of scroll velocity.
+    const sceneObserver = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-focused');
+          sceneObserver.unobserve(entry.target);
         }
-      }
+      }),
+      { threshold: 0.25, rootMargin: '0px 0px -120px 0px' }
+    );
+    document.querySelectorAll('.sp-feature-scene').forEach((el) => {
+      sceneObserver.observe(el);
     });
+
+    // Booking-plan modal — opens when any page-level CTA marked
+    // data-booking-modal is clicked on a multi-plan service page. Pricing
+    // card CTAs route directly to plan-specific URLs and skip this dialog.
+    const bookingModal = document.getElementById('sp-booking-modal');
+    if (bookingModal) {
+      const triggers = document.querySelectorAll<HTMLAnchorElement>('[data-booking-modal="true"]');
+      const closers = bookingModal.querySelectorAll<HTMLElement>('[data-bm-close]');
+      const panel = bookingModal.querySelector<HTMLElement>('.sp-bm__panel');
+
+      const openBookingModal = () => {
+        const active = document.activeElement;
+        spLastFocus = active instanceof HTMLElement ? active : null;
+        bookingModal.setAttribute('data-state', 'open');
+        bookingModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => {
+          const firstFocusable = panel?.querySelector<HTMLElement>('button, a[href]');
+          firstFocusable?.focus();
+        });
+      };
+
+      triggers.forEach((trigger) => {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          openBookingModal();
+        });
+      });
+
+      closers.forEach((closer) => {
+        closer.addEventListener('click', closeBookingModal);
+      });
+    }
+
+    // Bound once on the persistent document.
+    if (!spKeydownBound) {
+      spKeydownBound = true;
+      document.addEventListener('keydown', (e) => {
+        const m = document.getElementById('sp-booking-modal');
+        if (!m || m.getAttribute('data-state') !== 'open') return;
+        if (e.key === 'Escape') {
+          closeBookingModal();
+          return;
+        }
+        // Focus trap on Tab so keyboard users stay inside the dialog
+        if (e.key === 'Tab') {
+          const panel = m.querySelector<HTMLElement>('.sp-bm__panel');
+          if (!panel) return;
+          const focusables = panel.querySelectorAll<HTMLElement>(
+            'button, a[href], [tabindex]:not([tabindex="-1"])'
+          );
+          if (focusables.length === 0) return;
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      });
+    }
   }
+
+  document.addEventListener('astro:page-load', initServicePage);
 </script>

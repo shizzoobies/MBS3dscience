@@ -504,63 +504,79 @@ const currentPath = Astro.url.pathname;
 </style>
 
 <script>
-  const btn = document.getElementById('mobile-menu-btn') as HTMLButtonElement;
-  const menu = document.getElementById('mobile-menu') as HTMLElement;
-
-  btn?.addEventListener('click', () => {
-    const open = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!open));
-    menu.setAttribute('aria-hidden', String(open));
-    document.body.style.overflow = open ? '' : 'hidden';
-  });
-
-  // Close on link click
-  menu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      btn.setAttribute('aria-expanded', 'false');
-      menu.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    });
-  });
-
-  // ---- Desktop services mega-menu ----
-  const servicesDropdown = document.getElementById('services-dropdown') as HTMLElement | null;
-  const servicesTrigger = servicesDropdown?.querySelector('.nav-dropdown__trigger') as HTMLButtonElement | null;
-
-  function openServices() {
-    if (!servicesDropdown || !servicesTrigger) return;
-    servicesDropdown.classList.add('is-open');
-    servicesTrigger.setAttribute('aria-expanded', 'true');
-  }
+  // The header re-renders on each view-transition navigation (to keep the
+  // active-nav state correct), so element listeners must be re-bound every
+  // time via initHeader(). The two document-level listeners that close the
+  // mega-menu are bound once so they don't stack up across navigations; they
+  // re-query the live dropdown each time.
   function closeServices() {
-    if (!servicesDropdown || !servicesTrigger) return;
-    servicesDropdown.classList.remove('is-open');
-    servicesTrigger.setAttribute('aria-expanded', 'false');
+    const dd = document.getElementById('services-dropdown');
+    if (!dd) return;
+    dd.classList.remove('is-open');
+    dd.querySelector('.nav-dropdown__trigger')?.setAttribute('aria-expanded', 'false');
   }
 
-  if (servicesDropdown && servicesTrigger) {
-    // Open on hover (desktop); also toggle on click for keyboard/touch
-    servicesDropdown.addEventListener('mouseenter', openServices);
-    servicesDropdown.addEventListener('mouseleave', closeServices);
-    servicesTrigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      servicesDropdown.classList.contains('is-open') ? closeServices() : openServices();
+  function initHeader() {
+    // Navigating closes any open mobile drawer and restores scroll.
+    document.body.style.overflow = '';
+
+    // ---- Mobile menu toggle ----
+    const btn = document.getElementById('mobile-menu-btn') as HTMLButtonElement | null;
+    const menu = document.getElementById('mobile-menu') as HTMLElement | null;
+
+    btn?.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      menu?.setAttribute('aria-hidden', String(open));
+      document.body.style.overflow = open ? '' : 'hidden';
     });
-    // Click outside or Esc closes
-    document.addEventListener('click', (e) => {
-      if (servicesDropdown.classList.contains('is-open') && !servicesDropdown.contains(e.target as Node)) {
-        closeServices();
-      }
+
+    // Close on link click
+    menu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        btn?.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
     });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && servicesDropdown.classList.contains('is-open')) {
-        closeServices();
-        servicesTrigger.focus();
-      }
-    });
-    // Close when any menu link is activated
-    servicesDropdown.querySelectorAll('a').forEach((a) => {
-      a.addEventListener('click', () => closeServices());
-    });
+
+    // ---- Desktop services mega-menu ----
+    const servicesDropdown = document.getElementById('services-dropdown') as HTMLElement | null;
+    const servicesTrigger = servicesDropdown?.querySelector('.nav-dropdown__trigger') as HTMLButtonElement | null;
+
+    if (servicesDropdown && servicesTrigger) {
+      const openServices = () => {
+        servicesDropdown.classList.add('is-open');
+        servicesTrigger.setAttribute('aria-expanded', 'true');
+      };
+      // Open on hover (desktop); also toggle on click for keyboard/touch
+      servicesDropdown.addEventListener('mouseenter', openServices);
+      servicesDropdown.addEventListener('mouseleave', closeServices);
+      servicesTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        servicesDropdown.classList.contains('is-open') ? closeServices() : openServices();
+      });
+      // Close when any menu link is activated
+      servicesDropdown.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', () => closeServices());
+      });
+    }
   }
+
+  // Bound once on the persistent document: outside-click and Esc close.
+  document.addEventListener('click', (e) => {
+    const dd = document.getElementById('services-dropdown');
+    if (dd?.classList.contains('is-open') && !dd.contains(e.target as Node)) {
+      closeServices();
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    const dd = document.getElementById('services-dropdown');
+    if (e.key === 'Escape' && dd?.classList.contains('is-open')) {
+      closeServices();
+      (dd.querySelector('.nav-dropdown__trigger') as HTMLElement | null)?.focus();
+    }
+  });
+
+  document.addEventListener('astro:page-load', initHeader);
 </script>

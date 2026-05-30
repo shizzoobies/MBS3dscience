@@ -782,19 +782,23 @@ const team: TeamMember[] = [
 
 
 <script>
-  // Team-avatar buttons now dispatch a custom event the React TeamBioModal
-  // island listens for. Focus management, scroll lock, ESC, and per-member
-  // state isolation are handled by Radix Dialog inside the island.
-  document.querySelectorAll<HTMLButtonElement>('.team-avatar-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const raw = card.getAttribute('data-member');
-      if (!raw) return;
-      try {
-        const detail = JSON.parse(raw);
-        window.dispatchEvent(new CustomEvent('mbs-open-bio', { detail }));
-      } catch (e) {
-        console.error('Bad member data', e);
-      }
+  // Team-avatar buttons dispatch a custom event the React TeamBioModal island
+  // listens for. Focus management, scroll lock, ESC, and per-member state
+  // isolation are handled by Radix Dialog inside the island. Re-bound on each
+  // view-transition navigation back to this page.
+  function initTeamButtons() {
+    document.querySelectorAll<HTMLButtonElement>('.team-avatar-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const raw = card.getAttribute('data-member');
+        if (!raw) return;
+        try {
+          const detail = JSON.parse(raw);
+          window.dispatchEvent(new CustomEvent('mbs-open-bio', { detail }));
+        } catch (e) {
+          console.error('Bad member data', e);
+        }
+      });
     });
-  });
+  }
+  document.addEventListener('astro:page-load', initTeamButtons);
 </script>
