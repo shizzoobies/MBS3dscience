@@ -351,6 +351,15 @@ const team: TeamMember[] = [
       padding-top: 6rem;
       padding-bottom: 3rem;
     }
+    /* Full-width text column on phones, so swap the side-anchored gradient
+       for a uniform top-to-bottom darken to keep the white copy legible. */
+    .about-hero-fw__overlay {
+      background: linear-gradient(
+        180deg,
+        rgba(60, 56, 54, 0.45) 0%,
+        rgba(60, 56, 54, 0.70) 100%
+      );
+    }
   }
 
   .about-hero {

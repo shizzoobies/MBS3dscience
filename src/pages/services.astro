@@ -103,6 +103,17 @@ const categories: Category[] = [
         min-height: 60dvh;
         padding: 6.5rem 1.5rem 3.5rem;
       }
+      /* Deepen the scrim on phones: the title is centered over the brightest
+         part of the beach image, so the lighter desktop scrim left it low
+         contrast. */
+      .services-hero__scrim {
+        background: linear-gradient(
+          180deg,
+          rgba(60,56,54,0.50) 0%,
+          rgba(60,56,54,0.58) 55%,
+          rgba(60,56,54,0.72) 100%
+        );
+      }
     }
     .services-hero__bg {
       position: absolute;

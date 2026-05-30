@@ -734,6 +734,18 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
       padding-top: 4rem;
       padding-bottom: 3rem;
     }
+    /* On phones the text column is full width and the image is cropped tight
+       (no room for its dark side region), so the side-anchored gradient no
+       longer sits behind the copy. Swap to a uniform top-to-bottom darken so
+       the white text stays legible over any part of the image. */
+    .home-feature-fullwidth__overlay,
+    .home-feature-fullwidth--mens .home-feature-fullwidth__overlay {
+      background: linear-gradient(
+        180deg,
+        rgba(60, 56, 54, 0.45) 0%,
+        rgba(60, 56, 54, 0.68) 100%
+      );
+    }
   }
 
   /* Men's health variant: text column anchored to the LEFT side of
@@ -823,6 +835,20 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
         rgba(26,26,24,0.70) 70%,
         rgba(26,26,24,0.86) 100%
       );
+  }
+  /* On phones the headline sits on the LEFT (single-column), where the
+     left-to-right scrim is lightest. Darken uniformly top-to-bottom so the
+     copy reads over the flag regardless of horizontal position. Covers both
+     the playing and paused states. */
+  @media (max-width: 767px) {
+    .hero-fullbleed__scrim,
+    .hero-fullbleed__scrim.is-paused {
+      background: linear-gradient(
+        180deg,
+        rgba(26,26,24,0.50) 0%,
+        rgba(26,26,24,0.68) 100%
+      );
+    }
   }
 
   .hero-fullbleed__grid {

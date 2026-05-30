@@ -142,6 +142,17 @@ const currentPath = Astro.url.pathname;
 
   <!-- Mobile drawer -->
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <button
+      class="mobile-menu__close"
+      id="mobile-menu-close"
+      type="button"
+      aria-label="Close menu"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
     <nav aria-label="Mobile navigation">
       <!-- Services grouped in mobile drawer -->
       <div class="mobile-services">
@@ -451,6 +462,34 @@ const currentPath = Astro.url.pathname;
     width: 100%;
   }
 
+  /* Explicit close button so the drawer can be dismissed without having to
+     pick a link. Sits top-right, clear of the fixed header wordmark. */
+  .mobile-menu__close {
+    position: absolute;
+    top: calc(env(safe-area-inset-top, 0px) + 1rem);
+    right: 1.25rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    color: var(--color-primary);
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+  .mobile-menu__close:hover {
+    background-color: var(--surface-shell);
+    border-color: var(--color-border-strong);
+  }
+  .mobile-menu__close svg {
+    width: 22px;
+    height: 22px;
+  }
+
   .mobile-nav-link {
     display: block;
     font-family: var(--font-serif);
@@ -525,6 +564,14 @@ const currentPath = Astro.url.pathname;
     dd.querySelector('.nav-dropdown__trigger')?.setAttribute('aria-expanded', 'false');
   }
 
+  function closeDrawer() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn?.setAttribute('aria-expanded', 'false');
+    menu?.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
   function initHeader() {
     // Navigating closes any open mobile drawer and restores scroll.
     document.body.style.overflow = '';
@@ -532,6 +579,7 @@ const currentPath = Astro.url.pathname;
     // ---- Mobile menu toggle ----
     const btn = document.getElementById('mobile-menu-btn') as HTMLButtonElement | null;
     const menu = document.getElementById('mobile-menu') as HTMLElement | null;
+    const closeBtn = document.getElementById('mobile-menu-close');
 
     btn?.addEventListener('click', () => {
       const open = btn.getAttribute('aria-expanded') === 'true';
@@ -540,13 +588,12 @@ const currentPath = Astro.url.pathname;
       document.body.style.overflow = open ? '' : 'hidden';
     });
 
+    // Explicit close button: dismiss without selecting a link.
+    closeBtn?.addEventListener('click', closeDrawer);
+
     // Close on link click
     menu?.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        btn?.setAttribute('aria-expanded', 'false');
-        menu.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', closeDrawer);
     });
 
     // ---- Desktop services mega-menu ----
@@ -580,10 +627,17 @@ const currentPath = Astro.url.pathname;
     }
   });
   document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
     const dd = document.getElementById('services-dropdown');
-    if (e.key === 'Escape' && dd?.classList.contains('is-open')) {
+    if (dd?.classList.contains('is-open')) {
       closeServices();
       (dd.querySelector('.nav-dropdown__trigger') as HTMLElement | null)?.focus();
+    }
+    // Esc also closes the mobile drawer if it's open.
+    const menu = document.getElementById('mobile-menu');
+    if (menu?.getAttribute('aria-hidden') === 'false') {
+      closeDrawer();
+      (document.getElementById('mobile-menu-btn') as HTMLElement | null)?.focus();
     }
   });
 
