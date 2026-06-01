@@ -56,6 +56,233 @@ const {
 
     <ChatWidget />
 
+    <!-- ============================================================
+         PRE-LAUNCH BOOKING NOTICE  (TEMPORARY — remove at launch)
+         While the practice is not yet taking bookings, every booking /
+         membership / consultation action is intercepted and shown this
+         "booking opens soon" dialog instead of being sent to
+         PracticeBetter. The patient-portal sign-in link is left working.
+         TO GO LIVE: delete this markup block, the <style> block, and the
+         "PRE-LAUNCH" <script> block below. Nothing else references them.
+         ============================================================ -->
+    <div class="launch-notice" id="launch-notice" data-state="closed" aria-hidden="true">
+      <div class="launch-notice__scrim" data-ln-close aria-hidden="true"></div>
+      <div class="launch-notice__panel" role="dialog" aria-modal="true" aria-labelledby="launch-notice-title" tabindex="-1">
+        <button class="launch-notice__close" data-ln-close type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+          </svg>
+        </button>
+        <span class="launch-notice__eyebrow">Launching soon</span>
+        <h2 class="launch-notice__title" id="launch-notice-title">Booking opens soon</h2>
+        <p class="launch-notice__body">We are putting the final touches on our online booking and will be welcoming patients shortly. Thank you for your patience. Have a question in the meantime? We would love to hear from you.</p>
+        <div class="launch-notice__actions">
+          <a href="/contact/" class="launch-notice__cta">Contact us</a>
+          <button type="button" class="launch-notice__cta launch-notice__cta--ghost" data-ln-close>Close</button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      /* PRE-LAUNCH BOOKING NOTICE styles (temporary — remove at launch) */
+      .launch-notice {
+        position: fixed;
+        inset: 0;
+        z-index: 3000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 220ms ease;
+      }
+      .launch-notice[data-state="open"] {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .launch-notice[data-state="open"] .launch-notice__panel {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+      .launch-notice__scrim {
+        position: absolute;
+        inset: 0;
+        background: rgba(60, 56, 54, 0.55);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+        cursor: pointer;
+      }
+      .launch-notice__panel {
+        position: relative;
+        background: var(--color-neutral);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+        box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.35);
+        max-width: 460px;
+        width: 100%;
+        padding: clamp(2rem, 5vw, 2.75rem);
+        text-align: center;
+        transform: scale(0.97) translateY(8px);
+        opacity: 0;
+        transition: transform 220ms ease, opacity 220ms ease;
+      }
+      .launch-notice__close {
+        position: absolute;
+        top: 0.875rem;
+        right: 0.875rem;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid var(--color-border);
+        background: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-primary);
+        transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+      }
+      .launch-notice__close:hover {
+        background: var(--color-surface-warm);
+        border-color: var(--color-border-strong);
+        color: var(--color-rust);
+      }
+      .launch-notice__close svg { width: 18px; height: 18px; }
+      .launch-notice__eyebrow {
+        display: inline-block;
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: var(--weight-bold);
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--color-rust);
+        margin-bottom: 0.75rem;
+      }
+      .launch-notice__title {
+        font-family: var(--font-serif);
+        font-weight: 400;
+        font-size: clamp(1.5rem, 3.5vw, 2rem);
+        line-height: 1.1;
+        letter-spacing: -0.015em;
+        color: var(--color-primary);
+        margin: 0 0 0.75rem;
+      }
+      .launch-notice__body {
+        font-size: var(--text-base);
+        line-height: 1.6;
+        color: var(--color-secondary);
+        margin: 0 0 1.5rem;
+        max-width: 42ch;
+        margin-inline: auto;
+      }
+      .launch-notice__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+      }
+      .launch-notice__cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: var(--weight-bold);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 13px 28px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--color-primary);
+        background-color: var(--color-primary);
+        color: var(--color-neutral);
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 200ms ease, color 200ms ease;
+      }
+      .launch-notice__cta:hover {
+        background-color: transparent;
+        color: var(--color-primary);
+      }
+      .launch-notice__cta--ghost {
+        background-color: transparent;
+        color: var(--color-primary);
+      }
+      .launch-notice__cta--ghost:hover {
+        background-color: var(--color-primary);
+        color: var(--color-neutral);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .launch-notice,
+        .launch-notice__panel { transition: none; }
+      }
+    </style>
+
+    <script>
+      // ========================================================
+      // PRE-LAUNCH BOOKING NOTICE (TEMPORARY — remove at launch)
+      // Document-level capture interceptor, registered once and
+      // surviving view-transition navigations. Catches every booking
+      // action (PracticeBetter links + plan-picker modal triggers),
+      // blocks it, and opens the launch dialog. Patient-portal sign-in
+      // (href contains "signin") is intentionally left working.
+      // ========================================================
+      (function () {
+        let lastFocus: HTMLElement | null = null;
+        const getNotice = () => document.getElementById('launch-notice');
+
+        const openNotice = () => {
+          const notice = getNotice();
+          if (!notice) return;
+          const active = document.activeElement;
+          lastFocus = active instanceof HTMLElement ? active : null;
+          notice.setAttribute('data-state', 'open');
+          notice.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+          const focusable = notice.querySelector('a[href], button') as HTMLElement | null;
+          if (focusable) requestAnimationFrame(() => focusable.focus());
+        };
+
+        const closeNotice = () => {
+          const notice = getNotice();
+          if (!notice) return;
+          notice.setAttribute('data-state', 'closed');
+          notice.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          lastFocus?.focus();
+        };
+
+        document.addEventListener('click', (e) => {
+          const target = e.target instanceof Element ? e.target : null;
+          if (!target) return;
+
+          // Close controls inside the dialog.
+          if (target.closest('[data-ln-close]')) {
+            e.preventDefault();
+            closeNotice();
+            return;
+          }
+
+          // Booking triggers: PracticeBetter links + plan-picker openers.
+          const trigger = target.closest('a[href*="practicebetter.io"], [data-booking-modal="true"]');
+          if (!trigger) return;
+          const href = trigger.getAttribute('href') || '';
+          if (href.indexOf('signin') !== -1) return; // leave portal login alone
+
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          openNotice();
+        }, true);
+
+        document.addEventListener('keydown', (e) => {
+          const notice = getNotice();
+          if (!notice || notice.getAttribute('data-state') !== 'open') return;
+          if (e.key === 'Escape') closeNotice();
+        });
+      })();
+    </script>
+
     <!-- Global scroll reveal + image-load fade + scroll progress -->
     <script>
       // ---- Registered once. The window survives view-transition swaps, so
