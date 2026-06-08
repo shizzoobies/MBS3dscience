@@ -224,6 +224,20 @@ const { transparentTop = false } = Astro.props;
     -webkit-backdrop-filter: none;
     border-bottom-color: transparent;
   }
+  /* Soft top scrim so the light nav stays legible over heroes whose top-right
+     is bright (most service heroes put the photo, not the gradient, on that
+     side). Negligible over the already-dark home video. */
+  .site-header--over-hero:not(.scrolled)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 180px;
+    background: linear-gradient(to bottom, rgba(36,33,31,0.50) 0%, rgba(36,33,31,0.26) 42%, rgba(36,33,31,0) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
   /* Light contents while transparent over the dark video. */
   .site-header--over-hero:not(.scrolled) .nav-link,
   .site-header--over-hero:not(.scrolled) .nav-dropdown__trigger {
@@ -248,6 +262,8 @@ const { transparentTop = false } = Astro.props;
   }
 
   .header-inner {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;

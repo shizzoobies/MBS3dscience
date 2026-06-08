@@ -209,7 +209,7 @@ const stepsBg        = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} transparentHeader={heroVariant === 'fullwidth'}>
 
   <!-- ============================================================
        HERO — MBS-Test editorial split: rust eyebrow, big serif lowercase
@@ -219,7 +219,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
        ============================================================ -->
   {heroVariant === 'fullwidth' && heroImage ? (
     <section class={`section sp-hero sp-hero--fullwidth${heroFlip ? ' sp-hero--flip' : ''}`}>
-      <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero__bg" decoding="async" fetchpriority="high" style={heroFocus ? `object-position: ${heroFocus};` : undefined} />
+      <img src={heroImage} alt={`${title} at MBS Medical`} class="sp-hero__bg" data-no-reveal decoding="async" fetchpriority="high" style={heroFocus ? `object-position: ${heroFocus};` : undefined} />
       <div class="sp-hero__overlay" aria-hidden="true"></div>
       <div class="container sp-hero__fw-container">
         <div class="sp-hero__fw-text">
