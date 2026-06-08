@@ -1,0 +1,114 @@
+---
+import ServicePage from '../components/ServicePage.astro';
+---
+
+<ServicePage
+  title="Veterans Care"
+  description="Nexus letters and medical documentation for veterans filing VA disability claims. MBS Medical is a veteran-owned Florida practice that reviews your records and writes thorough, evidence-based opinions connecting your condition to your service."
+  eyebrow="veterans care"
+  heroTitle="Medical evidence that connects your condition to your service"
+  heroSub="A Nexus Letter is an independent medical opinion that links a current diagnosis to your time in uniform. We are a veteran-owned practice. We review your records, render an honest clinical opinion, and write a thorough, evidence-based letter to support your VA disability claim."
+  chipLabel="nexus letters"
+  chipClass="chip-butter"
+  heroImage="/images/hero-veterans-care.jpg"
+  heroVariant="fullwidth"
+  heroFlip={true}
+  heroFocus="center 40%"
+  values={[
+    {
+      heading: "Written by a licensed provider",
+      body: "Your letter is a real clinical opinion from a licensed medical provider who has read your records, not a template with your name dropped in. We write to the standard the VA looks for: whether your condition is at least as likely as not connected to your service."
+    },
+    {
+      heading: "Built on your actual evidence",
+      body: "We review your DD-214, service treatment records, and current diagnosis, then lay out the medical reasoning that ties them together, including secondary conditions caused or made worse by an already service-connected issue."
+    },
+    {
+      heading: "Flat fee, never a cut of your back pay",
+      body: "You get a flat quote after a free case review. We never take a percentage of your award, and if the evidence does not support a connection, we will tell you before you pay for a letter."
+    }
+  ]}
+  features={[
+    {
+      heading: "A medical opinion, written to the VA's standard",
+      body: "The VA looks for a clear nexus: a statement from a qualified provider that your condition is at least as likely as not the result of your service. A strong letter does not just assert that link. It walks through your service history, your diagnosis, and the medical reasoning that connects them, and points to the records that back it up. That is the letter we write: specific to your case, grounded in your evidence, and signed by a licensed provider.",
+      chipLabel: "the standard",
+      chipClass: "chip-butter",
+      imgAlt: "American flag flying, representing veteran-owned care at MBS Medical",
+      image: "/images/feat-veterans-nexus.jpg",
+      flip: true
+    }
+  ]}
+  subServices={{
+    heading: "Conditions we write Nexus Letters for",
+    intro: "If your condition started in service, was caused by an injury or exposure during service, or was made worse by an already service-connected condition, a Nexus Letter can help establish that link. Common examples:",
+    items: [
+      "PTSD & Combat-Related Trauma",
+      "Depression & Anxiety",
+      "Chronic Pain",
+      "Back, Neck & Spine Conditions",
+      "Musculoskeletal & Joint Injuries",
+      "Tinnitus & Hearing Loss",
+      "Migraines & Headaches",
+      "Sleep Apnea",
+      "Insomnia & Sleep Disturbance",
+      "Hypertension & Cardiovascular",
+      "Respiratory & Burn Pit Exposure",
+      "Gulf War Illness",
+      "Traumatic Brain Injury (TBI)",
+      "Secondary Conditions (caused or aggravated)",
+      "Increased Rating Evaluations"
+    ],
+    disclaimer: "MBS Medical is an independent, veteran-owned practice. We are not affiliated with, endorsed by, or acting on behalf of the U.S. Department of Veterans Affairs. A Nexus Letter is supporting medical evidence; the VA alone decides your claim, and we cannot promise a specific rating or outcome."
+  }}
+  testimonials={[]}
+  stepsAsHero={true}
+  steps={[
+    {
+      heading: "Free case review",
+      body: "Start with a no-cost conversation. Tell us your condition, your service history, and where your claim stands. We will tell you honestly whether a Nexus Letter is likely to help before you spend anything."
+    },
+    {
+      heading: "Send your records securely",
+      body: "Upload your DD-214, service treatment records, current diagnosis, and any supporting evidence through our secure portal. The more complete your records, the stronger the opinion we can write."
+    },
+    {
+      heading: "Your provider writes the letter",
+      body: "A licensed provider reviews everything and writes a detailed, individualized Nexus Letter, with the medical rationale connecting your condition to your service, written to the at least as likely as not standard the VA uses."
+    },
+    {
+      heading: "Review, approve, and file",
+      body: "You see the draft before anything is final. Once it reflects your case, we deliver the signed letter for you to submit with your claim or hand to your VSO or accredited representative."
+    }
+  ]}
+  faq={[
+    {
+      q: "What is a Nexus Letter?",
+      a: "It is a signed medical opinion from a licensed provider that connects a current, diagnosed condition to your military service. It states, in medical terms, whether your condition is at least as likely as not related to your service or to an already service-connected condition. It is one piece of supporting evidence for your VA disability claim."
+    },
+    {
+      q: "Do you guarantee my claim will be approved?",
+      a: "No, and you should be cautious of anyone who does. The VA alone decides your claim and your rating. What we control is the quality of the medical evidence: an honest, well-reasoned opinion grounded in your records. We only write a letter when the evidence supports a connection."
+    },
+    {
+      q: "Are you affiliated with the VA?",
+      a: "No. MBS Medical is an independent, veteran-owned medical practice. We are not part of the VA and we do not represent it. We provide the medical opinion; you or your accredited representative handle the claim itself."
+    },
+    {
+      q: "What does it cost?",
+      a: "We charge a flat fee, quoted after a free review of your case, and we never take a percentage of your back pay. If we review your records and do not believe the evidence supports a connection, we will tell you before you pay for a letter."
+    },
+    {
+      q: "What do I need to provide?",
+      a: "At minimum, your DD-214, a current diagnosis, and any service treatment records or evidence relevant to the condition. For a secondary claim, documentation of the already service-connected condition helps. We will tell you exactly what strengthens your specific case during the review."
+    },
+    {
+      q: "Can you write a letter for a secondary or increased-rating claim?",
+      a: "Yes. We write letters for secondary conditions (a new condition caused or worsened by an existing service-connected one) and to support a request for an increased rating when a condition has gotten worse. The same standard applies: an honest medical opinion backed by your records."
+    },
+    {
+      q: "How long does it take?",
+      a: "Once we have your complete records, most letters are written within a few weeks. We will give you a realistic timeline during your free review based on your documentation and the complexity of your case."
+    }
+  ]}
+/>

@@ -29,6 +29,7 @@ const serviceCategories = [
     label: 'specialty & premium',
     items: [
       { label: 'Mental Health',      href: '/mental-health/' },
+      { label: 'Veterans Care',      href: '/veterans-care/' },
       { label: 'Concierge Medicine', href: '/concierge-medicine/' }
     ]
   }
@@ -431,7 +432,7 @@ const { transparentTop = false } = Astro.props;
   }
   @media (min-width: 768px) { .hamburger { display: none; } }
 
-  /* Header CTA — bordered editorial pill, MBS-Test style */
+  /* Header CTA, bordered editorial pill, MBS-Test style */
   .header-cta-btn {
     display: inline-flex;
     align-items: center;
