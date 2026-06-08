@@ -1,0 +1,16 @@
+name = "mbs-tools"
+compatibility_date = "2025-06-01"
+pages_build_output_dir = "dist"
+
+# SPA fallback: client routes like /pricing and /admin have no static file on disk.
+# single-page-application serves index.html for any unmatched asset request so the
+# React router can take over. Pages Functions (functions/) run before this fallback,
+# so /api/* and the _middleware gate on /pricing are evaluated first and are never
+# shadowed by the SPA fallback.
+[assets]
+not_found_handling = "single-page-application"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mbs-tools"
+database_id = "REPLACE_WITH_D1_ID"
