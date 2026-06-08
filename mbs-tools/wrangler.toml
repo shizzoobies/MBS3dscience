@@ -12,5 +12,5 @@ not_found_handling = "single-page-application"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "mbs-tools"
-database_id = "REPLACE_WITH_D1_ID"
+database_name = "mbspharmacy"
+database_id = "11e3ce98-a697-48a2-961f-eab01a07c2db"
