@@ -31,8 +31,14 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const path = url.pathname;
 
-  // Admin surface is gated at the edge by Cloudflare Access. Pass through here.
+  // Admin surface. On the production custom domain it is gated at the edge by
+  // Cloudflare Access. Access cannot protect *.pages.dev (that is not our zone),
+  // so hard-block admin on any pages.dev host and let it through only on the real
+  // domain, where Access enforces.
   if (path === "/admin" || path.startsWith("/admin/") || path.startsWith("/api/admin/")) {
+    if (url.hostname.endsWith(".pages.dev")) {
+      return deny("Admin is only available on the secured domain.");
+    }
     return next();
   }
 
