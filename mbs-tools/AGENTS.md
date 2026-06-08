@@ -18,9 +18,11 @@
   without a separate compliance review.
 
 ## Routing
-- SPA fallback is configured in wrangler.toml via [assets] not_found_handling =
-  "single-page-application". Client routes like /pricing and /admin have no file on disk;
-  unmatched asset requests fall back to index.html so the React router renders them.
+- SPA fallback is configured via public/_redirects ("/*  /index.html  200"), which Vite
+  copies to dist/_redirects at build. Client routes like /pricing and /admin have no file
+  on disk; unmatched requests fall back to index.html so the React router renders them.
+  Note: a wrangler.toml [assets] block is not supported for Pages projects and breaks
+  wrangler pages deploy, so the fallback lives in _redirects, not wrangler.toml.
 - Pages Functions run before the static-asset SPA fallback, so /api/* and the
   _middleware token gate on /pricing are always evaluated first and are never shadowed.
 

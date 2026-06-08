@@ -1,0 +1,7 @@
+# SPA fallback for Cloudflare Pages. Client routes like /pricing and /admin have no
+# file on disk, so serve index.html (status 200) and let React Router take over.
+# Pages Functions run before static serving, so functions/_middleware.js (the token
+# gate) and the /api/* functions are always evaluated first and are never shadowed.
+# Existing static assets (the hashed /assets/* files) are served directly and take
+# precedence over this rewrite.
+/*    /index.html    200
