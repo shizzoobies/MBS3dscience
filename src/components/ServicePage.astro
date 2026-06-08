@@ -153,6 +153,15 @@ interface Props {
     cta?: { label: string; href: string };
     ctaSecondary?: { label: string; href: string };
   }[];
+  // Optional overrides for the "how it works" steps heading.
+  stepsEyebrow?: string;
+  stepsTitle?: string;
+  // Optional overrides for the closing CTA copy. Used by both the
+  // standalone CTA card and the stepsAsHero variant that absorbs it.
+  ctaEyebrow?: string;
+  ctaTitle?: string;
+  ctaSub?: string;
+  ctaPrimaryLabel?: string;
 }
 
 const {
@@ -173,6 +182,12 @@ const {
   bookingHref = 'https://mbsmedical.practicebetter.io',
   roundImageTrio,
   spotlights = [],
+  stepsEyebrow = 'how it works',
+  stepsTitle = 'Your path to better health',
+  ctaEyebrow = 'Ready when you are',
+  ctaTitle = 'Let’s build your plan.',
+  ctaSub = 'Same-week telehealth across Florida. Cash pay, no insurance needed.',
+  ctaPrimaryLabel = 'book a visit',
 } = Astro.props;
 
 // When the page has 2+ pricing plans, every page-level CTA (hero
@@ -666,8 +681,8 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
       {stepsBackground === 'testosterone' && <TestosteroneGraph />}
       <div class="container sp-steps-hero__container">
         <div class="reveal sp-steps-hero__header">
-          <span class="label sp-steps-hero__label">how it works</span>
-          <h2 class="sp-steps-hero__title">Your path to better health</h2>
+          <span class="label sp-steps-hero__label">{stepsEyebrow}</span>
+          <h2 class="sp-steps-hero__title">{stepsTitle}</h2>
         </div>
         <div class="steps-grid sp-steps-hero__steps-grid">
           {steps.map((s, i) => (
@@ -678,9 +693,9 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
           ))}
         </div>
         <div class="reveal sp-steps-hero__cta">
-          <span class="sp-cta-eyebrow">Ready when you are</span>
-          <h2 class="sp-cta-title">Let&rsquo;s build your plan.</h2>
-          <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
+          <span class="sp-cta-eyebrow">{ctaEyebrow}</span>
+          <h2 class="sp-cta-title">{ctaTitle}</h2>
+          <p class="sp-cta-sub">{ctaSub}</p>
           <div class="sp-cta-actions">
             <a
               href={bookingHref} data-booking-modal={hasMultiplePlans ? 'true' : undefined}
@@ -688,7 +703,7 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
               rel="noopener noreferrer"
               class="sp-cta-btn sp-cta-btn--primary"
             >
-              book a visit
+              {ctaPrimaryLabel}
             </a>
             <a href="/contact/" class="sp-cta-btn sp-cta-btn--ghost">ask a question</a>
           </div>
@@ -702,8 +717,8 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
       {stepsBackground === 'testosterone' && <TestosteroneGraph />}
       <div class="container" style={stepsBackground ? 'position: relative; z-index: 1;' : undefined}>
         <div class="reveal" style="text-align:center; margin-bottom:3.5rem;">
-          <span class="label">how it works</span>
-          <h2 style="margin-top:0.75rem;">Your path to better health</h2>
+          <span class="label">{stepsEyebrow}</span>
+          <h2 style="margin-top:0.75rem;">{stepsTitle}</h2>
         </div>
         <div class="steps-grid">
           {steps.map((s, i) => (
@@ -764,12 +779,12 @@ const faqBg          = _bgIdx++ % 2 === 0 ? 'bg-shell' : 'bg-cream';
           <span class="sp-cta-deco sp-cta-deco--tr" aria-hidden="true"></span>
           <span class="sp-cta-deco sp-cta-deco--bl" aria-hidden="true"></span>
           <div class="sp-cta-inner">
-            <span class="sp-cta-eyebrow">Ready when you are</span>
-            <h2 class="sp-cta-title">Let&rsquo;s build your plan.</h2>
-            <p class="sp-cta-sub">Same-week telehealth across Florida. Cash pay, no insurance needed.</p>
+            <span class="sp-cta-eyebrow">{ctaEyebrow}</span>
+            <h2 class="sp-cta-title">{ctaTitle}</h2>
+            <p class="sp-cta-sub">{ctaSub}</p>
             <div class="sp-cta-actions">
               <a href={bookingHref} data-booking-modal={hasMultiplePlans ? 'true' : undefined} target="_blank" rel="noopener noreferrer" class="sp-cta-btn sp-cta-btn--primary">
-                book a visit
+                {ctaPrimaryLabel}
               </a>
               <a href="/contact/" class="sp-cta-btn sp-cta-btn--ghost">ask a question</a>
             </div>
