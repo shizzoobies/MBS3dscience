@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import {
-  Pill, Power, Plus, Copy, Check, Trash2, AlertTriangle, Download, Link as LinkIcon, RefreshCw
+  Pill, Power, Plus, Copy, Check, Trash2, AlertTriangle, Download, Link as LinkIcon, RefreshCw, Upload, Search
 } from "lucide-react";
 
 /*
@@ -25,8 +25,6 @@ const SHARE_ORIGIN = "https://tools.mbsdoc.com";
 const TOOL_PATHS = {
   pricing: "/pricing",
 };
-
-const REQUIRED_FIELDS = ["product", "size", "form", "category", "pharmacy", "price"];
 
 const money = (n) => "$" + Number(n).toFixed(2);
 
@@ -410,9 +408,73 @@ function LinksSection() {
 
 /* ---------------------------- Pricing section ---------------------------- */
 
+// Minimal CSV parser. Handles quoted fields with embedded commas, quotes
+// (doubled), and newlines. Returns an array of string-cell arrays.
+function parseCsv(text) {
+  const out = [];
+  let field = "";
+  let record = [];
+  let inQuotes = false;
+  const s = String(text).replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (s[i + 1] === '"') { field += '"'; i++; }
+        else inQuotes = false;
+      } else {
+        field += c;
+      }
+    } else if (c === '"') {
+      inQuotes = true;
+    } else if (c === ",") {
+      record.push(field); field = "";
+    } else if (c === "\n") {
+      record.push(field); out.push(record); record = []; field = "";
+    } else {
+      field += c;
+    }
+  }
+  if (field !== "" || record.length > 0) { record.push(field); out.push(record); }
+  return out;
+}
+
+// Turn an uploaded CSV (same columns as the export) into validated pricing
+// rows. Maps columns by header name, so column order does not matter and
+// extra columns are ignored. Throws a friendly message on any problem.
+function csvToRows(text) {
+  const raw = parseCsv(text).filter((r) => r.some((c) => String(c).trim() !== ""));
+  if (raw.length < 2) throw new Error("needs a header row and at least one data row");
+  const header = raw[0].map((h) => h.trim().toLowerCase());
+  const required = ["product", "size", "form", "category", "pharmacy", "price"];
+  for (const f of required) {
+    if (!header.includes(f)) throw new Error('missing the "' + f + '" column');
+  }
+  const col = (name) => header.indexOf(name);
+  return raw.slice(1).map((cells, n) => {
+    const get = (name) => { const i = col(name); return i >= 0 ? String(cells[i] ?? "").trim() : ""; };
+    const priceRaw = get("price").replace(/[$,]/g, "");
+    const price = Number(priceRaw);
+    if (priceRaw === "" || Number.isNaN(price)) {
+      throw new Error("row " + (n + 1) + ': price "' + get("price") + '" is not a number');
+    }
+    return {
+      product: get("product"),
+      strength: get("strength"),
+      size: get("size"),
+      form: get("form"),
+      category: get("category"),
+      pharmacy: get("pharmacy"),
+      price,
+      notes: get("notes"),
+    };
+  });
+}
+
 function PricingSection() {
-  const [draft, setDraft] = useState("");
-  const [count, setCount] = useState(0);
+  const [rows, setRows] = useState([]);
+  const [pending, setPending] = useState(null); // rows parsed from an uploaded CSV, awaiting confirm
+  const [q, setQ] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState(null);
@@ -426,45 +488,65 @@ function PricingSection() {
     setLoading(true);
     fetch("/api/admin/pricing")
       .then((r) => r.json())
-      .then((d) => {
-        const arr = Array.isArray(d) ? d : [];
-        setDraft(JSON.stringify(arr, null, 2));
-        setCount(arr.length);
-      })
+      .then((d) => setRows(Array.isArray(d) ? d : []))
       .catch(() => flash("Could not load pricing.", false))
       .finally(() => setLoading(false));
   };
 
   useEffect(load, []);
 
-  // Validate the draft the same way the server does. Returns the parsed array or throws.
-  const validate = () => {
-    const parsed = JSON.parse(draft);
-    if (!Array.isArray(parsed)) throw new Error("Top level must be an array");
-    parsed.forEach((r, i) => {
-      REQUIRED_FIELDS.forEach((f) => {
-        if (!(f in r)) throw new Error(`Row ${i + 1} missing "${f}"`);
-      });
-      r.price = Number(r.price);
-      r.strength = r.strength ?? "";
-      r.notes = r.notes ?? "";
-    });
-    return parsed;
+  const filtered = useMemo(() => {
+    const term = q.trim().toLowerCase();
+    if (!term) return rows;
+    return rows.filter((r) =>
+      [r.product, r.category, r.form, r.strength, r.notes]
+        .some((v) => String(v ?? "").toLowerCase().includes(term))
+    );
+  }, [rows, q]);
+
+  // Download what is live right now as a CSV (edit it in a spreadsheet).
+  const downloadCsv = () => {
+    const cols = ["product", "strength", "size", "form", "category", "pharmacy", "price", "notes"];
+    const esc = (v) => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+    const csv = [cols.join(",")]
+      .concat(rows.map((r) => cols.map((c) => esc(r[c])).join(",")))
+      .join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "pharmacy-pricing.csv";
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
-  const save = () => {
-    let parsed;
-    try {
-      parsed = validate();
-    } catch (e) {
-      flash("Invalid JSON: " + e.message, false);
-      return;
-    }
+  // Read a chosen CSV file and stage it for confirmation.
+  const onPickCsv = (e) => {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = ""; // allow re-picking the same file
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = csvToRows(String(reader.result));
+        if (parsed.length === 0) throw new Error("no data rows found");
+        setPending(parsed);
+        setMsg(null);
+      } catch (err) {
+        flash("CSV problem: " + err.message, false);
+      }
+    };
+    reader.onerror = () => flash("Could not read that file.", false);
+    reader.readAsText(file);
+  };
+
+  const confirmUpload = () => {
+    if (!pending) return;
     setSaving(true);
     fetch("/api/admin/pricing", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(parsed),
+      body: JSON.stringify(pending),
     })
       .then(async (r) => {
         const text = await r.text();
@@ -472,56 +554,19 @@ function PricingSection() {
         return JSON.parse(text);
       })
       .then((d) => {
-        const n = d && typeof d.count === "number" ? d.count : parsed.length;
-        setCount(n);
-        setDraft(JSON.stringify(parsed, null, 2));
-        flash("Saved " + n + " rows.");
+        const n = d && typeof d.count === "number" ? d.count : pending.length;
+        setRows(pending);
+        setPending(null);
+        flash("Pricing updated. " + n + " rows are now live.");
       })
-      .catch((e) => flash("Save failed: " + (e.message || "error"), false))
+      .catch((e) => flash("Update failed: " + (e.message || "error"), false))
       .finally(() => setSaving(false));
-  };
-
-  const validateOnly = () => {
-    try {
-      const parsed = validate();
-      setCount(parsed.length);
-      flash("Valid. " + parsed.length + " rows.");
-    } catch (e) {
-      flash("Invalid JSON: " + e.message, false);
-    }
-  };
-
-  const download = (text, name, type) => {
-    const blob = new Blob([text], { type });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = name;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  // CSV export reused from the pricing tool. Exports the current valid draft if parseable.
-  const downloadCsv = () => {
-    let rows;
-    try {
-      rows = validate();
-    } catch (e) {
-      flash("Fix JSON before export: " + e.message, false);
-      return;
-    }
-    const cols = ["product", "strength", "size", "form", "category", "pharmacy", "price", "notes"];
-    const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
-    const csv = [cols.join(",")]
-      .concat(rows.map((r) => cols.map((c) => esc(r[c])).join(",")))
-      .join("\n");
-    download(csv, "pharmacy-pricing.csv", "text/csv");
   };
 
   return (
     <Card
-      title="Pricing editor"
-      subtitle="Source of truth for the pricing tool. Edits appear on the next tool load."
+      title="Pricing data"
+      subtitle="This is what patients see. To change it: download the CSV, edit it in a spreadsheet, and upload it back."
       right={
         <div className="flex items-center gap-2">
           <button
@@ -534,43 +579,98 @@ function PricingSection() {
             onClick={downloadCsv}
             className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg border border-slate-300 bg-white hover:bg-slate-100"
           >
-            <Download size={14} /> CSV
+            <Download size={14} /> Download CSV
           </button>
+          <label className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-teal-600 text-white hover:bg-teal-700 cursor-pointer">
+            <Upload size={14} /> Update from CSV
+            <input type="file" accept=".csv,text/csv" onChange={onPickCsv} className="hidden" />
+          </label>
         </div>
       }
     >
       {loading && <p className="text-sm text-slate-400">Loading pricing...</p>}
-      {!loading && (
-        <>
-          <p className="text-xs text-slate-500 mb-2">
-            Edit the JSON array. Required fields per row: product, size, form, category, pharmacy, price. Strength and notes default to empty. Validate before saving.
+
+      {pending && (
+        <div className="rounded-lg border border-amber-300 bg-amber-50 p-4 mb-4">
+          <div className="flex items-center gap-2 text-amber-800 text-sm font-semibold mb-1">
+            <AlertTriangle size={15} /> Review before updating
+          </div>
+          <p className="text-sm text-amber-800 mb-3">
+            Your CSV has <b>{pending.length}</b> rows. This replaces the current <b>{rows.length}</b> rows everywhere the tool is used, and it cannot be undone. Keep your old CSV if you are unsure.
           </p>
-          <textarea
-            value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            spellCheck={false}
-            className="w-full text-xs font-mono rounded-lg border border-slate-300 p-2.5 focus:outline-none focus:ring-2 focus:ring-teal-200"
-            style={{ height: "50vh", minHeight: "16rem" }}
-          />
-          <div className="flex items-center gap-3 mt-3 flex-wrap">
+          <div className="flex items-center gap-2">
             <button
-              onClick={save}
+              onClick={confirmUpload}
               disabled={saving}
               className={`px-3 py-2 text-sm font-medium rounded-lg bg-teal-600 text-white hover:bg-teal-700 ${saving ? "opacity-60" : ""}`}
             >
-              {saving ? "Saving..." : "Save to server"}
+              {saving ? "Updating..." : "Yes, replace with " + pending.length + " rows"}
             </button>
             <button
-              onClick={validateOnly}
+              onClick={() => setPending(null)}
               className="px-3 py-2 text-sm font-medium rounded-lg border border-slate-300 bg-white hover:bg-slate-100"
             >
-              Validate
+              Cancel
             </button>
-            <span className="text-sm text-slate-500">
-              <b className="text-slate-900">{count}</b> rows
-            </span>
-            {msg && <span className={`text-sm ${msg.ok ? "text-teal-700" : "text-rose-600"}`}>{msg.m}</span>}
           </div>
+        </div>
+      )}
+
+      {!loading && (
+        <>
+          <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
+            <div className="relative">
+              <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Search product, category, form..."
+                className="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-teal-200"
+                style={{ width: "20rem", maxWidth: "100%" }}
+              />
+            </div>
+            <span className="text-sm text-slate-500">
+              <b className="text-slate-900">{rows.length}</b> rows{q ? " · " + filtered.length + " shown" : ""}
+            </span>
+          </div>
+
+          <div className="overflow-auto rounded-lg border border-slate-200" style={{ maxHeight: "55vh" }}>
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr>
+                  {["Product", "Strength", "Size", "Form", "Category", "Pharmacy", "Price", "Notes"].map((h) => (
+                    <th
+                      key={h}
+                      className={`sticky top-0 bg-slate-900 text-slate-100 text-xs font-semibold uppercase tracking-wider px-3 py-2.5 ${h === "Price" ? "text-right" : "text-left"}`}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((r, i) => (
+                  <tr key={i} className="border-t border-slate-100 hover:bg-slate-50">
+                    <td className="px-3 py-2 text-slate-900 font-medium">{r.product}</td>
+                    <td className="px-3 py-2 text-slate-600">{r.strength || <span className="text-slate-300">-</span>}</td>
+                    <td className="px-3 py-2 text-slate-600">{r.size}</td>
+                    <td className="px-3 py-2 text-slate-600">{r.form}</td>
+                    <td className="px-3 py-2 text-slate-600">{r.category}</td>
+                    <td className="px-3 py-2 text-slate-600">{r.pharmacy}</td>
+                    <td className="px-3 py-2 text-right font-semibold text-slate-900 whitespace-nowrap">{money(r.price)}</td>
+                    <td className="px-3 py-2 text-slate-500">{r.notes || <span className="text-slate-300">-</span>}</td>
+                  </tr>
+                ))}
+                {filtered.length === 0 && (
+                  <tr>
+                    <td colSpan={8} className="px-3 py-6 text-center text-slate-400">No rows match your search.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {msg && <p className={`text-sm mt-3 ${msg.ok ? "text-teal-700" : "text-rose-600"}`}>{msg.m}</p>}
         </>
       )}
     </Card>
