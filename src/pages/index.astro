@@ -18,7 +18,6 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
       class="hero-fullbleed__video"
       autoplay
       muted
-      loop
       playsinline
       preload="metadata"
       poster="/videos/hero-poster.jpg"
@@ -30,7 +29,7 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
 
     <div class="hero-fullbleed__grid container">
       <div class="hero-fullbleed__text">
-        <span class="hero-fullbleed__eyebrow">Veteran-owned &mdash; Florida telehealth</span>
+        <span class="hero-fullbleed__eyebrow">Veteran-owned &middot; Florida telehealth</span>
         <h1 class="hero-fullbleed__title">
           Healthcare that treats<br />the whole person
         </h1>
@@ -58,6 +57,12 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
       const v = document.getElementById('hero-flag-video') as HTMLVideoElement | null;
       const s = document.getElementById('hero-flag-scrim');
       if (!v) return;
+      // Once the montage has played through it rests on the final
+      // particle-flag frame as a static backdrop. Never restart it.
+      if (v.ended) {
+        if (s) s.classList.add('is-paused');
+        return;
+      }
       if (window.scrollY <= 4) {
         const p = v.play();
         if (p && typeof p.catch === 'function') p.catch(() => {});
@@ -68,7 +73,14 @@ import FaqCaduceus from '../components/react/FaqCaduceus.tsx';
       }
     }
     function initHeroVideo() {
-      if (!document.getElementById('hero-flag-video')) return;
+      const v = document.getElementById('hero-flag-video') as HTMLVideoElement | null;
+      if (!v) return;
+      // Hold on the closing frame when the montage finishes instead of looping.
+      // Bound per fresh video element (it is re-created on view-transition nav).
+      if (!(v as any).__endBound) {
+        (v as any).__endBound = true;
+        v.addEventListener('ended', () => heroFreezeTick());
+      }
       // Bind the scroll listener once for the whole session; it re-queries the
       // (possibly re-rendered) hero element on each tick.
       if (!(window as any).__heroFreezeBound) {
