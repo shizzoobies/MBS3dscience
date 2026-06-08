@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS tools (
 
 CREATE TABLE IF NOT EXISTS access_links (
   id           TEXT PRIMARY KEY,
-  token_hash   TEXT NOT NULL UNIQUE,   -- sha256 hex of the raw token; raw is never stored
+  token_hash   TEXT NOT NULL UNIQUE,   -- sha256 hex of the raw token (used for the gate lookup)
+  token        TEXT,                   -- raw token, stored so the admin can re-copy and resend a link
   label        TEXT,                   -- who this link is for, free text
   tool_slug    TEXT,                   -- NULL means all tools
   expires_at   INTEGER,                -- epoch ms, NULL means no expiry

@@ -169,6 +169,7 @@ function LinksSection() {
   const [creating, setCreating] = useState(false);
   const [created, setCreated] = useState(null); // { url } shown once
   const [copied, setCopied] = useState(false);
+  const [copiedId, setCopiedId] = useState(null); // which existing row was just copied
 
   const loadLinks = () => {
     setLoading(true);
@@ -247,6 +248,23 @@ function LinksSection() {
     });
   };
 
+  // Rebuild a row's shareable URL from its stored token so it can be re-copied
+  // and resent without revoking and reissuing.
+  const linkUrl = (l) => {
+    const origin = (typeof window !== "undefined" && window.location && window.location.origin)
+      ? window.location.origin
+      : SHARE_ORIGIN;
+    const path = l.tool_slug ? (TOOL_PATHS[l.tool_slug] || "/") : "/";
+    return origin + path + "?k=" + encodeURIComponent(l.token);
+  };
+  const copyRowLink = (l) => {
+    if (!l.token) return;
+    navigator.clipboard?.writeText(linkUrl(l)).then(() => {
+      setCopiedId(l.id);
+      setTimeout(() => setCopiedId(null), 1500);
+    });
+  };
+
   const revoke = (id) => {
     setLinks((prev) => prev.map((l) => (l.id === id ? { ...l, revoked: 1 } : l)));
     fetch("/api/admin/links", {
@@ -276,7 +294,7 @@ function LinksSection() {
   return (
     <Card
       title="Access links"
-      subtitle="Issue a shareable link for a tool. The full link is shown once at creation and never again."
+      subtitle="Issue a shareable link for a tool. Copy it now, or copy it again later from the table to resend."
     >
       {/* New link form */}
       <form onSubmit={create} className="bg-slate-50 rounded-lg border border-slate-200 p-4 mb-5">
@@ -332,7 +350,7 @@ function LinksSection() {
           </div>
           <p className="text-xs text-teal-800 mb-3 flex items-start gap-1.5">
             <AlertTriangle size={14} className="mt-0.5 shrink-0" />
-            Copy this now. For security it will not be shown again. Revoke it any time from the table below.
+            Copy this now, or copy it again anytime from the table below. Revoke it there whenever you want.
           </p>
           <div className="flex items-center gap-2 flex-wrap">
             <input
@@ -386,14 +404,25 @@ function LinksSection() {
                       <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${st.cls}`}>{st.label}</span>
                     </td>
                     <td className="px-3 py-2.5 text-right">
-                      {!l.revoked && (
-                        <button
-                          onClick={() => revoke(l.id)}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg border border-slate-300 bg-white text-rose-600 hover:bg-rose-50"
-                        >
-                          <Trash2 size={14} /> Revoke
-                        </button>
-                      )}
+                      <div className="inline-flex items-center gap-2 justify-end">
+                        {l.token && !l.revoked && (
+                          <button
+                            onClick={() => copyRowLink(l)}
+                            title="Copy this link to resend it"
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-100"
+                          >
+                            {copiedId === l.id ? <Check size={14} className="text-teal-600" /> : <Copy size={14} />} {copiedId === l.id ? "Copied" : "Copy link"}
+                          </button>
+                        )}
+                        {!l.revoked && (
+                          <button
+                            onClick={() => revoke(l.id)}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg border border-slate-300 bg-white text-rose-600 hover:bg-rose-50"
+                          >
+                            <Trash2 size={14} /> Revoke
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );
