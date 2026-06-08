@@ -43,13 +43,19 @@ const simpleNavLinks: Array<{ label: string; href: string; external?: boolean }>
 ];
 
 const currentPath = Astro.url.pathname;
+
+interface Props {
+  transparentTop?: boolean;
+}
+const { transparentTop = false } = Astro.props;
 ---
 
-<header class="site-header">
+<header class:list={['site-header', { 'site-header--over-hero': transparentTop }]}>
   <div class="header-inner container">
     <!-- Wordmark / logo -->
     <a href="/" class="wordmark" aria-label="MBS Medical home">
-      <img src="/images/logo-light.svg" alt="MBS Medical" width="716" height="380" class="wordmark-img" />
+      <img src="/images/logo-light.svg" alt="MBS Medical" width="716" height="380" class="wordmark-img wordmark-img--dark" />
+      <img src="/images/logo-dark.svg" alt="" aria-hidden="true" width="716" height="380" class="wordmark-img wordmark-img--light" />
     </a>
 
     <!-- Desktop nav -->
@@ -209,6 +215,36 @@ const currentPath = Astro.url.pathname;
     background-color: var(--color-neutral);
     border-bottom-color: rgba(60,56,54,0.14);
   }
+  /* Transparent over the home hero video while at the top; reverts to the
+     cream header (the base + scrolled rules) as soon as the page scrolls. */
+  .site-header--over-hero:not(.scrolled) {
+    background-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom-color: transparent;
+  }
+  /* Light contents while transparent over the dark video. */
+  .site-header--over-hero:not(.scrolled) .nav-link,
+  .site-header--over-hero:not(.scrolled) .nav-dropdown__trigger {
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .site-header--over-hero:not(.scrolled) .nav-link:hover,
+  .site-header--over-hero:not(.scrolled) .nav-link.active,
+  .site-header--over-hero:not(.scrolled) .nav-dropdown__trigger:hover {
+    color: #ffffff;
+  }
+  .site-header--over-hero:not(.scrolled) .header-cta-btn {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+  .site-header--over-hero:not(.scrolled) .header-cta-btn:hover {
+    background-color: #ffffff;
+    color: var(--color-primary);
+    border-color: #ffffff;
+  }
+  .site-header--over-hero:not(.scrolled) .hamburger span {
+    background-color: #ffffff;
+  }
 
   .header-inner {
     display: flex;
@@ -233,6 +269,11 @@ const currentPath = Astro.url.pathname;
     display: block;
     /* Logo already has transparent background so it sits cleanly on dark header */
   }
+  /* Two logos: dark wordmark on the cream header, white wordmark while the
+     header is transparent over the hero. Only one is ever displayed. */
+  .wordmark-img--light { display: none; }
+  .site-header--over-hero:not(.scrolled) .wordmark-img--dark { display: none; }
+  .site-header--over-hero:not(.scrolled) .wordmark-img--light { display: block; }
 
   /* ---- Desktop nav ---- */
   .desktop-nav {

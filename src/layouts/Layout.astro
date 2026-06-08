@@ -8,11 +8,14 @@ import ChatWidget from '../components/ChatWidget.astro';
 interface Props {
   title: string;
   description?: string;
+  // Home page sets this to make the header transparent over the hero video until scroll.
+  transparentHeader?: boolean;
 }
 
 const {
   title,
-  description = 'MBS Medical: Veteran-owned telehealth providing primary care, weight loss, mental health, and more across Florida. Cash pay, same-week appointments.'
+  description = 'MBS Medical: Veteran-owned telehealth providing primary care, weight loss, mental health, and more across Florida. Cash pay, same-week appointments.',
+  transparentHeader = false
 } = Astro.props;
 ---
 
@@ -46,7 +49,7 @@ const {
     <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
     <a href="#main-content" class="skip-link">skip to main content</a>
 
-    <Header />
+    <Header transparentTop={transparentHeader} />
 
     <main id="main-content">
       <slot />
