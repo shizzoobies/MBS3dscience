@@ -27,6 +27,19 @@ const skuKey = (r) => [r.product, r.strength, r.size].join(" | ");
 
 const SERIF = { fontFamily: 'Georgia, "Iowan Old Style", "Times New Roman", serif' };
 
+// Each pharmacy links to its ordering portal. Clicking a catalog row (or a price
+// cell in Compare) opens that pharmacy's portal in a new tab. Matched loosely on
+// the pharmacy name so it works regardless of the exact stored label.
+const PHARMACY_PORTALS = [
+  [/sands/i, "https://portal.sandsrx.com/login"],
+  [/olympia/i, "https://olympiapharmacy.drscriptportal.com/login"],
+  [/rush/i, "https://host3d.lifefile.net:40443/application_main_zfw/login/login/vendor_name/rushpharmacy/access/doctor"],
+];
+const portalFor = (pharmacy) => {
+  const hit = PHARMACY_PORTALS.find(([re]) => re.test(pharmacy || ""));
+  return hit ? hit[1] : null;
+};
+
 export default function PharmacyPricing() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -180,7 +193,7 @@ export default function PharmacyPricing() {
             </div>
             <h1 className="text-3xl font-bold mt-1" style={SERIF}>Pharmacy Pricing Reference</h1>
             <p className="text-sm text-slate-500 mt-1">
-              {rows.length} line items across {pharmacies.length} {pharmacies.length === 1 ? "pharmacy" : "pharmacies"}. Search by medication, dose, form, or pharmacy.
+              {rows.length} line items across {pharmacies.length} {pharmacies.length === 1 ? "pharmacy" : "pharmacies"}. Search by medication, dose, form, or pharmacy. Click any row to open that pharmacy's ordering portal in a new tab.
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -262,8 +275,13 @@ export default function PharmacyPricing() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.map((r, i) => (
-                    <tr key={i} className="border-t border-slate-100 hover:bg-teal-50">
+                  {filtered.map((r, i) => {
+                    const portal = portalFor(r.pharmacy);
+                    return (
+                    <tr key={i}
+                      onClick={portal ? () => window.open(portal, "_blank", "noopener,noreferrer") : undefined}
+                      title={portal ? `Open the ${r.pharmacy} ordering portal in a new tab` : undefined}
+                      className={`border-t border-slate-100 hover:bg-teal-50 ${portal ? "cursor-pointer" : ""}`}>
                       <td className="px-3 py-2.5 align-top">
                         <div className="font-medium text-slate-900">{r.product}</div>
                         {r.notes && <div className="text-xs text-slate-400 mt-0.5">{r.notes}</div>}
@@ -277,7 +295,8 @@ export default function PharmacyPricing() {
                       <td className="px-3 py-2.5 align-top text-slate-600">{r.pharmacy}</td>
                       <td className="px-3 py-2.5 align-top text-right font-semibold text-slate-900 tabular-nums" style={{ fontVariantNumeric: "tabular-nums" }}>{money(r.price)}</td>
                     </tr>
-                  ))}
+                    );
+                  })}
                   {filtered.length === 0 && (
                     <tr><td colSpan={7} className="px-3 py-10 text-center text-slate-400">No medications match your filters.</td></tr>
                   )}
@@ -320,8 +339,12 @@ export default function PharmacyPricing() {
                         {pharmacies.map((p) => {
                           const v = row.prices[p];
                           const isLow = v != null && v === low && pharmacies.length > 1;
+                          const portal = v != null ? portalFor(p) : null;
                           return (
-                            <td key={p} className={`px-3 py-2.5 text-right font-semibold tabular-nums ${isLow ? "bg-teal-50 text-teal-700" : v != null ? "text-slate-900" : "text-slate-300"}`} style={{ fontVariantNumeric: "tabular-nums" }}>
+                            <td key={p}
+                              onClick={portal ? () => window.open(portal, "_blank", "noopener,noreferrer") : undefined}
+                              title={portal ? `Open the ${p} ordering portal in a new tab` : undefined}
+                              className={`px-3 py-2.5 text-right font-semibold tabular-nums ${portal ? "cursor-pointer" : ""} ${isLow ? "bg-teal-50 text-teal-700" : v != null ? "text-slate-900" : "text-slate-300"}`} style={{ fontVariantNumeric: "tabular-nums" }}>
                               {v != null ? money(v) : "-"}
                             </td>
                           );
