@@ -1,0 +1,6 @@
+# Unknown paths return a real 404 served from /404.html. Cloudflare Pages serves
+# real static assets and pages first, so this splat only catches paths with no
+# matching file. It replaces the soft-404 that was serving the homepage at HTTP 200
+# for missing URLs (the cause of the duplicate-canonical and discovered-not-indexed
+# issues in Search Console).
+/*    /404.html    404

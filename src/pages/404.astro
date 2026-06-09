@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page not found"
+  description="That page could not be found. Explore MBS Medical's telehealth services or head back home."
+>
+  <section class="nf">
+    <p class="nf__code">404</p>
+    <h1 class="nf__title">We couldn't find that page</h1>
+    <p class="nf__body">
+      The page may have moved or the link might be out of date. Here are some good places to pick back up.
+    </p>
+    <div class="nf__links">
+      <a class="nf__btn nf__btn--primary" href="/">Back home</a>
+      <a class="nf__btn" href="/services/">Browse services</a>
+      <a class="nf__btn" href="/contact/">Contact us</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: clamp(6rem, 16vh, 10rem) 1.5rem;
+    text-align: center;
+  }
+  .nf__code {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: #C27A63;
+    margin: 0 0 0.5rem;
+  }
+  .nf__title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin: 0 0 1rem;
+  }
+  .nf__body {
+    max-width: 32rem;
+    margin: 0 auto 2rem;
+    color: #5b5651;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .nf__links {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .nf__btn {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid #d8d2c8;
+    color: #3C3836;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .nf__btn:hover { border-color: #7D8C7B; }
+  .nf__btn--primary {
+    background: #3C3836;
+    color: #F9F7F2;
+    border-color: #3C3836;
+  }
+  .nf__btn--primary:hover { background: #2c2926; }
+</style>

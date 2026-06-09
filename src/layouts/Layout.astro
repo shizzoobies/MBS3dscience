@@ -17,6 +17,11 @@ const {
   description = 'MBS Medical: Veteran-owned telehealth providing primary care, weight loss, mental health, and more across Florida. Cash pay, same-week appointments.',
   transparentHeader = false
 } = Astro.props;
+
+// Self-referencing canonical for every page (absolute URL, trailing slash to match
+// trailingSlash: 'always'). Fixes "Duplicate without user-selected canonical" and
+// makes any soft-404 page that serves home HTML point back to its real canonical.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
@@ -29,6 +34,7 @@ const {
     <script is:inline>document.documentElement.classList.add('js');</script>
     <meta name="google-site-verification" content="h062DuNKwPTlS7jj6WiTdRyciMhwyJyTOxgKa9RMsns" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} | MBS Medical</title>
 
