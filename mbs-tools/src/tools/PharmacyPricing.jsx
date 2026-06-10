@@ -117,14 +117,25 @@ export default function PharmacyPricing() {
       .finally(() => setLoading(false));
   }, []);
 
-  const categories = useMemo(() => ["All", ...uniq(rows.map((r) => r.category))], [rows]);
+  // Quick-filter pills. The broad weight-management category is replaced in place by
+  // two targeted GLP-1 shortcuts (Tirzepatide, Semaglutide) that match by product name.
+  const categories = useMemo(() => {
+    const out = ["All"];
+    for (const c of uniq(rows.map((r) => r.category))) {
+      if (c === "Weight Management & Metabolic Support") out.push("Tirzepatide", "Semaglutide");
+      else out.push(c);
+    }
+    return out;
+  }, [rows]);
   const forms = useMemo(() => ["All", ...uniq(rows.map((r) => r.form)).sort()], [rows]);
   const pharmacies = useMemo(() => uniq(rows.map((r) => r.pharmacy)), [rows]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     let out = rows.filter((r) => {
-      if (category !== "All" && r.category !== category) return false;
+      if (category === "Tirzepatide") { if (!/tirzepatide/i.test(r.product)) return false; }
+      else if (category === "Semaglutide") { if (!/semaglutide/i.test(r.product)) return false; }
+      else if (category !== "All" && r.category !== category) return false;
       if (form !== "All" && r.form !== form) return false;
       if (pharmacy !== "All" && r.pharmacy !== pharmacy) return false;
       if (!q) return true;
