@@ -41,6 +41,59 @@ const portalFor = (pharmacy) => {
   return hit ? hit[1] : null;
 };
 
+// ---- Computed columns: total active drug and a normalized unit cost, derived from
+// each row's strength + size + price. The data is heterogeneous, so these return
+// null (rendered as a dash) when a row cannot be parsed. ----
+const _num = (s) => parseFloat(String(s).replace(/,/g, ""));
+const _fmtAmt = (v) => (v >= 1000 ? v.toLocaleString("en-US", { maximumFractionDigits: 2 }) : String(+v.toFixed(2)));
+const _fmtCost = (v) => "$" + (v >= 1 ? v.toFixed(2) : v >= 0.1 ? v.toFixed(3) : v.toFixed(4));
+
+// Primary active concentration expressed per mL, e.g. "200 mg/mL" or "2.5 mg / 10 mg per mL".
+function concPerMl(strength) {
+  if (!/(\/\s*ml|per\s*ml)/i.test(strength || "")) return null;
+  const m = String(strength).match(/([\d.,]+)\s*(mcg|mg|g|iu|units?)/i);
+  return m ? { val: _num(m[1]), unit: m[2].toLowerCase().replace(/s$/, "") } : null;
+}
+const mlOf = (size) => { const m = String(size).match(/([\d.]+)\s*ml\b/i); return m ? _num(m[1]) : null; };
+// Discrete-unit count: "30 Tablets", "16 Troches", "each".
+function countOf(size) {
+  const s = String(size).trim();
+  if (/^(each|ea)$/i.test(s)) return 1;
+  let m = s.match(/^#?\s*([\d.]+)\s*(?:capsules?|tablets?|troches?|patch(?:es)?|suppositor\w*|pearls?|lozenges?|softgels?|pens?)/i);
+  if (m) return _num(m[1]);
+  m = s.match(/([\d.]+)\s*(?:capsules?|tablets?|troches?|patch(?:es)?|suppositor\w*|pearls?|lozenges?)/i);
+  return m ? _num(m[1]) : null;
+}
+const gramsOf = (size) => { const m = String(size).match(/([\d.]+)\s*g\b/i); return (m && !/m(?:c)?g/i.test(m[0])) ? _num(m[1]) : null; };
+// A single active amount like "1 mg" (reject ranges, percentages, and multi-ingredient).
+function singleAmount(strength) {
+  const s = String(strength).trim();
+  if (!s || /[/%]/.test(s) || /\bto\b/i.test(s) || /[–—]/.test(s) || /\d\s*-\s*\d/.test(s)) return null;
+  const ms = [...s.matchAll(/([\d.,]+)\s*(mcg|mg|g|iu|units?)\b/gi)];
+  if (ms.length !== 1) return null;
+  return { val: _num(ms[0][1]), unit: ms[0][2].toLowerCase().replace(/s$/, "") };
+}
+// Total active drug in the package: concentration x volume, or per-unit dose x count.
+function totalDrug(r) {
+  const conc = concPerMl(r.strength), ml = mlOf(r.size);
+  if (conc && ml) return _fmtAmt(conc.val * ml) + " " + conc.unit;
+  const amt = singleAmount(r.strength), cnt = countOf(r.size);
+  if (amt && cnt) return _fmtAmt(amt.val * cnt) + " " + amt.unit;
+  return null;
+}
+// Normalized unit cost: $/active-unit for injectables, $/each for solids, $/g for creams.
+function unitCost(r) {
+  const price = Number(r.price);
+  if (!isFinite(price)) return null;
+  const conc = concPerMl(r.strength), ml = mlOf(r.size);
+  if (conc && ml && conc.val * ml > 0) return _fmtCost(price / (conc.val * ml)) + "/" + conc.unit;
+  const cnt = countOf(r.size);
+  if (cnt) return _fmtCost(price / cnt) + "/ea";
+  const g = gramsOf(r.size);
+  if (g) return _fmtCost(price / g) + "/g";
+  return null;
+}
+
 export default function PharmacyPricing() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -273,11 +326,14 @@ export default function PharmacyPricing() {
                     <Th k="category">Category</Th>
                     <Th k="pharmacy">Pharmacy</Th>
                     <Th k="price" right>Price</Th>
+                    <th className="sticky top-0 z-10 bg-slate-900 text-slate-100 text-xs font-semibold uppercase tracking-wider px-3 py-2.5 text-right">Total Drug</th>
+                    <th className="sticky top-0 z-10 bg-slate-900 text-slate-100 text-xs font-semibold uppercase tracking-wider px-3 py-2.5 text-right">Unit Cost</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filtered.map((r, i) => {
                     const portal = portalFor(r.pharmacy);
+                    const total = totalDrug(r), cost = unitCost(r);
                     return (
                     <tr key={i}
                       onClick={portal ? () => window.open(portal, "_blank", "noopener,noreferrer") : undefined}
@@ -295,11 +351,13 @@ export default function PharmacyPricing() {
                       <td className="px-3 py-2.5 align-top text-slate-500 text-xs">{r.category}</td>
                       <td className="px-3 py-2.5 align-top text-slate-600">{r.pharmacy}</td>
                       <td className="px-3 py-2.5 align-top text-right font-semibold text-slate-900 tabular-nums" style={{ fontVariantNumeric: "tabular-nums" }}>{money(r.price)}</td>
+                      <td className="px-3 py-2.5 align-top text-right text-slate-600 tabular-nums" style={{ fontVariantNumeric: "tabular-nums" }}>{total || <span className="text-slate-300">-</span>}</td>
+                      <td className="px-3 py-2.5 align-top text-right text-slate-600 tabular-nums" style={{ fontVariantNumeric: "tabular-nums" }}>{cost || <span className="text-slate-300">-</span>}</td>
                     </tr>
                     );
                   })}
                   {filtered.length === 0 && (
-                    <tr><td colSpan={7} className="px-3 py-10 text-center text-slate-400">No medications match your filters.</td></tr>
+                    <tr><td colSpan={9} className="px-3 py-10 text-center text-slate-400">No medications match your filters.</td></tr>
                   )}
                 </tbody>
               </table>
