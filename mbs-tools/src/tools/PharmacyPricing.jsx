@@ -34,6 +34,7 @@ const PHARMACY_PORTALS = [
   [/sands/i, "https://portal.sandsrx.com/login"],
   [/olympia/i, "https://olympiapharmacy.drscriptportal.com/login"],
   [/rush/i, "https://host3d.lifefile.net:40443/application_main_zfw/login/login/vendor_name/rushpharmacy/access/doctor"],
+  [/promise/i, "https://promise.pharmetika.com/provider_access/login"],
 ];
 const portalFor = (pharmacy) => {
   const hit = PHARMACY_PORTALS.find(([re]) => re.test(pharmacy || ""));
