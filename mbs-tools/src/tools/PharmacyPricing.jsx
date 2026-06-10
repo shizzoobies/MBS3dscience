@@ -81,17 +81,17 @@ function totalDrug(r) {
   if (amt && cnt) return _fmtAmt(amt.val * cnt) + " " + amt.unit;
   return null;
 }
-// Normalized unit cost: $/active-unit for injectables, $/each for solids, $/g for creams.
+// Normalized unit cost -> { value, label } or null. value is numeric (for sorting),
+// label is the display string. $/active-unit for injectables, $/ea for solids, $/g for creams.
 function unitCost(r) {
   const price = Number(r.price);
   if (!isFinite(price)) return null;
   const conc = concPerMl(r.strength), ml = mlOf(r.size);
-  if (conc && ml && conc.val * ml > 0) return _fmtCost(price / (conc.val * ml)) + "/" + conc.unit;
-  const cnt = countOf(r.size);
-  if (cnt) return _fmtCost(price / cnt) + "/ea";
-  const g = gramsOf(r.size);
-  if (g) return _fmtCost(price / g) + "/g";
-  return null;
+  let value = null, unit = null;
+  if (conc && ml && conc.val * ml > 0) { value = price / (conc.val * ml); unit = conc.unit; }
+  else { const cnt = countOf(r.size); if (cnt) { value = price / cnt; unit = "ea"; }
+    else { const g = gramsOf(r.size); if (g) { value = price / g; unit = "g"; } } }
+  return value == null ? null : { value, label: _fmtCost(value) + "/" + unit };
 }
 
 export default function PharmacyPricing() {
@@ -133,6 +133,16 @@ export default function PharmacyPricing() {
       return q.split(/\s+/).every((t) => hay.includes(t));
     });
     out = [...out].sort((a, b) => {
+      // Unit Cost is computed and mixes units across forms, so sort by its numeric
+      // value (most meaningful with a Form filter applied); rows without a value sort last.
+      if (sortKey === "unitcost") {
+        const ua = unitCost(a)?.value ?? null, ub = unitCost(b)?.value ?? null;
+        if (ua == null && ub == null) return a.product.toLowerCase() < b.product.toLowerCase() ? -1 : 1;
+        if (ua == null) return 1;
+        if (ub == null) return -1;
+        const c = ua === ub ? (a.product.toLowerCase() < b.product.toLowerCase() ? -1 : 1) : (ua < ub ? -1 : 1);
+        return sortDir === "asc" ? c : -c;
+      }
       let av = a[sortKey], bv = b[sortKey];
       if (sortKey === "price") { av = a.price; bv = b.price; }
       else { av = String(av).toLowerCase(); bv = String(bv).toLowerCase(); }
@@ -327,7 +337,7 @@ export default function PharmacyPricing() {
                     <Th k="pharmacy">Pharmacy</Th>
                     <Th k="price" right>Price</Th>
                     <th className="sticky top-0 z-10 bg-slate-900 text-slate-100 text-xs font-semibold uppercase tracking-wider px-3 py-2.5 text-right">Total Drug</th>
-                    <th className="sticky top-0 z-10 bg-slate-900 text-slate-100 text-xs font-semibold uppercase tracking-wider px-3 py-2.5 text-right">Unit Cost</th>
+                    <Th k="unitcost" right>Unit Cost</Th>
                   </tr>
                 </thead>
                 <tbody>
@@ -352,7 +362,7 @@ export default function PharmacyPricing() {
                       <td className="px-3 py-2.5 align-top text-slate-600">{r.pharmacy}</td>
                       <td className="px-3 py-2.5 align-top text-right font-semibold text-slate-900 tabular-nums" style={{ fontVariantNumeric: "tabular-nums" }}>{money(r.price)}</td>
                       <td className="px-3 py-2.5 align-top text-right text-slate-600 tabular-nums" style={{ fontVariantNumeric: "tabular-nums" }}>{total || <span className="text-slate-300">-</span>}</td>
-                      <td className="px-3 py-2.5 align-top text-right text-slate-600 tabular-nums" style={{ fontVariantNumeric: "tabular-nums" }}>{cost || <span className="text-slate-300">-</span>}</td>
+                      <td className="px-3 py-2.5 align-top text-right text-slate-600 tabular-nums" style={{ fontVariantNumeric: "tabular-nums" }}>{cost ? cost.label : <span className="text-slate-300">-</span>}</td>
                     </tr>
                     );
                   })}
