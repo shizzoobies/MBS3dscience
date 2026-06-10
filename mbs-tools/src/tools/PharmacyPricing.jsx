@@ -420,12 +420,18 @@ export default function PharmacyPricing() {
                           const v = row.prices[p];
                           const isLow = v != null && v === low && pharmacies.length > 1;
                           const portal = v != null ? portalFor(p) : null;
+                          const uc = v != null ? unitCost({ strength: row.strength, size: row.size, price: v }) : null;
                           return (
                             <td key={p}
                               onClick={portal ? () => window.open(portal, "_blank", "noopener,noreferrer") : undefined}
                               title={portal ? `Open the ${p} ordering portal in a new tab` : undefined}
-                              className={`px-3 py-2.5 text-right font-semibold tabular-nums ${portal ? "cursor-pointer" : ""} ${isLow ? "bg-teal-50 text-teal-700" : v != null ? "text-slate-900" : "text-slate-300"}`} style={{ fontVariantNumeric: "tabular-nums" }}>
-                              {v != null ? money(v) : "-"}
+                              className={`px-3 py-2.5 text-right align-top font-semibold tabular-nums ${portal ? "cursor-pointer" : ""} ${isLow ? "bg-teal-50 text-teal-700" : v != null ? "text-slate-900" : "text-slate-300"}`} style={{ fontVariantNumeric: "tabular-nums" }}>
+                              {v != null ? (
+                                <>
+                                  <div>{money(v)}</div>
+                                  {uc && <div className="text-xs font-normal text-slate-400">{uc.label}</div>}
+                                </>
+                              ) : "-"}
                             </td>
                           );
                         })}
